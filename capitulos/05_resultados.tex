@@ -1,0 +1,57 @@
+% Capítulo 5: Resultados y Análisis
+\chapter{Resultados y Análisis}
+
+\section{Resultados del Preprocesamiento}
+[Estadísticas descriptivas del dataset]
+
+\section{Evaluación de Modelos}
+
+\subsection{Métricas de Desempeño}
+Los resultados obtenidos se presentan en \tabref{tab:metricas_modelos}
+
+\begin{table}[H]
+    \centering
+    \caption{Métricas de desempeño de los modelos evaluados}
+    \label{tab:metricas_modelos}
+    \begin{tabular}{@{}lcccc@{}}
+        \toprule
+        Modelo & Precisión & Recall & F1-Score & AUC \\
+        \midrule
+        Random Forest & 94.2\% & 92.1\% & 93.1\% & 0.96 \\
+        XGBoost & 95.3\% & 93.5\% & 94.4\% & 0.97 \\
+        SVM & 91.8\% & 89.5\% & 90.6\% & 0.94 \\
+        Neural Network & 93.7\% & 91.8\% & 92.7\% & 0.95 \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+\subsection{Matriz de Confusión}
+[Análisis de TP, FP, TN, FN]
+
+\subsection{Curva ROC}
+[Análisis de la curva ROC]
+
+\section{Comparación con el Sistema Actual}
+El modelo propuesto supera al sistema basado en reglas...
+
+\begin{table}[H]
+    \centering
+    \caption{Comparación: Sistema actual vs. Modelo propuesto}
+    \label{tab:comparacion}
+    \begin{tabular}{@{}lcc@{}}
+        \toprule
+        Métrica & Sistema Actual & Modelo ML \\
+        \midrule
+        Precisión & 78.5\% & 95.3\% \\
+        Tasa de Falsos Positivos & 15.2\% & 4.7\% \\
+        Fraudes Detectados & 82.3\% & 93.5\% \\
+        Tiempo de Detección & Manual & Automático \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+\section{Análisis de Resultados}
+[Interpretación y discusión]
+
+\section{Validación de la Hipótesis}
+Los resultados confirman la hipótesis planteada...

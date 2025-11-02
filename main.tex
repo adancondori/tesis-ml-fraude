@@ -1,0 +1,93 @@
+% ==================================================================================
+% TESIS DE MAESTRÍA EN CIENCIAS DE LA COMPUTACIÓN
+% Universidad Autónoma Gabriel René Moreno (UAGRM)
+% ==================================================================================
+% Título: Implementación de un Modelo de Machine Learning para la detección
+%         de Anomalías y fraude en pagos transaccionales en la empresa TechSport
+% Autor: [Tu Nombre Completo]
+% Tutor: [Nombre del Tutor]
+% Año: 2024-2025
+% ==================================================================================
+
+\documentclass[12pt,a4paper,oneside]{book}
+
+% ==================== CONFIGURACIÓN Y PAQUETES ====================
+\input{config/paquetes}
+\input{config/formato}
+\input{config/comandos}
+
+% ==================== INFORMACIÓN DEL DOCUMENTO ====================
+\input{config/informacion}
+
+% ==================== INICIO DEL DOCUMENTO ====================
+\begin{document}
+
+% ==================== PÁGINAS PRELIMINARES ====================
+\frontmatter
+
+% Portada
+\input{config/portada}
+
+% Contraportada (opcional)
+% \input{config/contraportada}
+
+% Dedicatoria
+\input{config/dedicatoria}
+
+% Agradecimientos
+\input{config/agradecimientos}
+
+% Resumen
+\input{config/resumen}
+
+% Abstract
+\input{config/abstract}
+
+% Índices
+\tableofcontents
+\cleardoublepage
+
+\listoffigures
+\cleardoublepage
+
+\listoftables
+\cleardoublepage
+
+% Lista de acrónimos (opcional)
+% \printglossary[type=\acronymtype,title=Lista de Acrónimos]
+% \cleardoublepage
+
+% ==================== CUERPO DEL DOCUMENTO ====================
+\mainmatter
+
+% Introducción (1-2 páginas de contexto general)
+\input{capitulos/00_introduccion}
+
+% Secciones del Perfil (1-5): Antecedentes, Formulación, Objetivos, Justificación, Hipótesis
+\input{capitulos/00_perfil}
+
+% Capítulo 1: Referentes Teóricos
+\input{capitulos/02_marco_teorico}
+
+% Capítulo 2: Diseño Metodológico
+\input{capitulos/03_metodologia}
+
+% Capítulo 4: Desarrollo e Implementación
+% \input{capitulos/04_desarrollo} % Comentado temporalmente - problemas UTF-8 en código
+
+% Capítulo 5: Resultados y Análisis
+% \input{capitulos/05_resultados} % Comentado temporalmente - tiene contenido placeholder
+
+% Capítulo 6: Conclusiones y Recomendaciones
+% \input{capitulos/06_conclusiones} % Comentado temporalmente - tiene contenido placeholder
+
+% ==================== BIBLIOGRAFÍA ====================
+\printbibliography[heading=bibintoc,title={Referencias Bibliográficas}]
+
+% ==================== APÉNDICES ====================
+\appendix
+% \input{apendices/apendice_a} % Comentado temporalmente - problemas UTF-8 en código Python
+% \input{apendices/apendice_b} % Comentado temporalmente - tiene contenido placeholder
+% \input{apendices/apendice_c} % Comentado temporalmente - problemas UTF-8 en código Python
+
+\end{document}

@@ -1,0 +1,51 @@
+% Apéndice B: Datos Complementarios
+\chapter{Datos Complementarios}
+\label{apendice:datos}
+
+\section{Estadísticas Descriptivas del Dataset}
+
+\begin{table}[H]
+    \centering
+    \caption{Estadísticas descriptivas de variables numéricas}
+    \begin{tabular}{@{}lcccc@{}}
+        \toprule
+        Variable & Media & Desv. Est. & Mín & Máx \\
+        \midrule
+        Monto (USD) & 125.50 & 89.32 & 0.50 & 5000.00 \\
+        Hora del día & 14.25 & 6.18 & 0 & 23 \\
+        Día de la semana & 3.5 & 1.95 & 1 & 7 \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+\section{Distribución de Variables Categóricas}
+
+\begin{table}[H]
+    \centering
+    \caption{Distribución de transacciones por canal}
+    \begin{tabular}{@{}lcc@{}}
+        \toprule
+        Canal & Frecuencia & Porcentaje \\
+        \midrule
+        Web & 45,250 & 45.2\% \\
+        Móvil & 38,500 & 38.5\% \\
+        POS & 16,250 & 16.3\% \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+\section{Gráficos Adicionales}
+
+[Espacio para gráficos complementarios]
+
+\section{Documentación del Dataset}
+
+\subsection{Descripción de Variables}
+\begin{itemize}
+    \item \textbf{transaction\_id}: Identificador único de transacción
+    \item \textbf{monto}: Valor de la transacción en USD
+    \item \textbf{canal}: Canal de pago (web, móvil, POS)
+    \item \textbf{gateway}: Pasarela de pago utilizada
+    \item \textbf{pais}: País de origen de la transacción
+    \item \textbf{fraude}: Variable objetivo (0=legítimo, 1=fraude)
+\end{itemize}

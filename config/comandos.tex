@@ -1,0 +1,130 @@
+% ==================================================================================
+% COMANDOS PERSONALIZADOS PARA LA TESIS
+% ==================================================================================
+
+% ==================== COMANDOS MATEMÁTICOS ====================
+% Vectores
+\newcommand{\vect}[1]{\boldsymbol{#1}}
+
+% Matrices
+\newcommand{\mat}[1]{\mathbf{#1}}
+
+% Números reales
+\newcommand{\R}{\mathbb{R}}
+
+% Números naturales
+\newcommand{\N}{\mathbb{N}}
+
+% Probabilidad
+\newcommand{\Prob}[1]{\mathbb{P}\left(#1\right)}
+
+% Esperanza
+\newcommand{\E}[1]{\mathbb{E}\left[#1\right]}
+
+% Varianza
+\newcommand{\Var}[1]{\text{Var}\left(#1\right)}
+
+% ==================== COMANDOS PARA CÓDIGO ====================
+% Código inline
+\newcommand{\code}[1]{\texttt{#1}}
+
+% Resaltar términos importantes
+\newcommand{\term}[1]{\textbf{\textit{#1}}}
+
+% ==================== COMANDOS PARA ABREVIACIONES ====================
+\newcommand{\ml}{Machine Learning}
+\newcommand{\dl}{Deep Learning}
+\newcommand{\ai}{Artificial Intelligence}
+\newcommand{\api}{API}
+\newcommand{\http}{HTTP}
+\newcommand{\json}{JSON}
+
+% ==================== COMANDOS PARA REFERENCIAS CRUZADAS ====================
+% Referencia a figura
+\newcommand{\figref}[1]{Figura~\ref{#1}}
+
+% Referencia a tabla
+\newcommand{\tabref}[1]{Tabla~\ref{#1}}
+
+% Referencia a capítulo
+\newcommand{\chapref}[1]{Capítulo~\ref{#1}}
+
+% Referencia a sección
+\newcommand{\secref}[1]{Sección~\ref{#1}}
+
+% Referencia a ecuación (eqref ya existe en amsmath)
+\newcommand{\Eqref}[1]{Ecuación~\eqref{#1}}
+
+% Referencia a algoritmo
+\newcommand{\Algref}[1]{Algoritmo~\ref{#1}}
+
+% ==================== COMANDOS PARA ACRÓNIMOS ====================
+\makeglossaries
+
+% Definir acrónimos comunes
+\newacronym{ml}{ML}{Machine Learning}
+\newacronym{dl}{DL}{Deep Learning}
+\newacronym{ai}{AI}{Inteligencia Artificial}
+\newacronym{ann}{ANN}{Artificial Neural Network}
+\newacronym{cnn}{CNN}{Convolutional Neural Network}
+\newacronym{rnn}{RNN}{Recurrent Neural Network}
+\newacronym{lstm}{LSTM}{Long Short-Term Memory}
+\newacronym{api}{API}{Application Programming Interface}
+\newacronym{rest}{REST}{Representational State Transfer}
+\newacronym{http}{HTTP}{Hypertext Transfer Protocol}
+\newacronym{json}{JSON}{JavaScript Object Notation}
+\newacronym{sql}{SQL}{Structured Query Language}
+\newacronym{nosql}{NoSQL}{Not Only SQL}
+\newacronym{aws}{AWS}{Amazon Web Services}
+\newacronym{saas}{SaaS}{Software as a Service}
+\newacronym{roi}{ROI}{Return on Investment}
+\newacronym{kpi}{KPI}{Key Performance Indicator}
+\newacronym{pci}{PCI}{Payment Card Industry}
+\newacronym{gdpr}{GDPR}{General Data Protection Regulation}
+\newacronym{aml}{AML}{Anti-Money Laundering}
+\newacronym{kyc}{KYC}{Know Your Customer}
+\newacronym{rf}{RF}{Random Forest}
+\newacronym{svm}{SVM}{Support Vector Machine}
+\newacronym{knn}{KNN}{K-Nearest Neighbors}
+\newacronym{xgboost}{XGBoost}{Extreme Gradient Boosting}
+
+% ==================== COMANDOS PARA NOTAS Y COMENTARIOS ====================
+% Nota del autor (para borrar antes de la versión final)
+\newcommand{\nota}[1]{\textcolor{red}{\textbf{[NOTA: #1]}}}
+
+% Pendiente
+\newcommand{\pendiente}[1]{\textcolor{orange}{\textbf{[PENDIENTE: #1]}}}
+
+% Revisar
+\newcommand{\revisar}[1]{\textcolor{blue}{\textbf{[REVISAR: #1]}}}
+
+% ==================== COMANDOS PARA ELEMENTOS ESPECIALES ====================
+% Línea horizontal decorativa
+\newcommand{\HRule}{\rule{\linewidth}{0.5mm}}
+
+% Espacio vertical
+\newcommand{\vsp}{\vspace{0.5cm}}
+
+% Nueva página (solo si es necesario)
+\newcommand{\nuevapagina}{\clearpage}
+
+% ==================== COMANDOS PARA MÉTRICAS Y UNIDADES ====================
+\newcommand{\accuracy}{\text{Accuracy}}
+\newcommand{\precision}{\text{Precision}}
+\newcommand{\recall}{\text{Recall}}
+\newcommand{\fscore}{F_1\text{-score}}
+\newcommand{\auc}{\text{AUC}}
+\newcommand{\roc}{\text{ROC}}
+
+% ==================== COMANDOS PARA DATASETS Y VARIABLES ====================
+\newcommand{\dataset}{\mathcal{D}}
+\newcommand{\trainset}{\mathcal{D}_{\text{train}}}
+\newcommand{\testset}{\mathcal{D}_{\text{test}}}
+\newcommand{\valset}{\mathcal{D}_{\text{val}}}
+
+% ==================== COMANDOS ÚTILES PARA EDICIÓN ====================
+% Comentario largo (no aparece en PDF)
+\newcommand{\comentario}[1]{}
+
+% Texto en desarrollo
+\newcommand{\desarrollo}[1]{\textcolor{purple}{\textit{[En desarrollo: #1]}}}

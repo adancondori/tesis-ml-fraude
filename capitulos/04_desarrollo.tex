@@ -1,0 +1,65 @@
+% Capítulo 4: Desarrollo e Implementación
+\chapter{Desarrollo e Implementación del Modelo}
+
+\section{Arquitectura del Sistema}
+[Descripción de la arquitectura propuesta]
+
+\begin{figure}[H]
+    \centering
+    % \includegraphics[width=0.9\textwidth]{diagramas/arquitectura_sistema.png}
+    \caption{Arquitectura del sistema de detección de fraude}
+    \label{fig:arquitectura}
+\end{figure}
+
+\section{Preprocesamiento de Datos}
+
+\subsection{Limpieza de Datos}
+[Proceso de limpieza]
+
+\subsection{Transformación de Variables}
+[Encoding, normalization]
+
+\subsection{Manejo de Datos Desbalanceados}
+Técnicas utilizadas: SMOTE, undersampling...
+
+\section{Selección de Características}
+[Feature engineering y selection]
+
+\section{Entrenamiento del Modelo}
+
+\subsection{División del Dataset}
+70\% entrenamiento, 15\% validación, 15\% prueba
+
+\subsection{Algoritmos Evaluados}
+\begin{itemize}
+    \item Random Forest
+    \item XGBoost
+    \item Support Vector Machines
+    \item Neural Networks
+\end{itemize}
+
+\subsection{Optimización de Hiperparámetros}
+Grid Search y validación cruzada...
+
+\begin{lstlisting}[language=Python, caption=Código de entrenamiento]
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.model_selection import GridSearchCV
+
+# Definir parámetros
+param_grid = {
+    'n_estimators': [100, 200, 300],
+    'max_depth': [10, 20, 30],
+    'min_samples_split': [2, 5, 10]
+}
+
+# Grid Search
+rf = RandomForestClassifier(random_state=42)
+grid_search = GridSearchCV(rf, param_grid, cv=5, scoring='f1')
+grid_search.fit(X_train, y_train)
+
+# Mejor modelo
+best_model = grid_search.best_estimator_
+\end{lstlisting}
+
+\section{Validación del Modelo}
+[Proceso de validación cruzada]

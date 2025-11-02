@@ -1,0 +1,119 @@
+## Core LaTeX auxiliary files
+*.aux
+*.lof
+*.log
+*.lot
+*.fls
+*.out
+*.toc
+*.fmt
+*.fot
+*.cb
+*.cb2
+.*.lb
+
+## Intermediate documents
+*.dvi
+*.xdv
+*-converted-to.*
+
+## Bibliography auxiliary files
+*.bbl
+*.bcf
+*.blg
+*-blx.aux
+*-blx.bib
+*.run.xml
+
+## Build tool auxiliary files
+*.fdb_latexmk
+*.synctex
+*.synctex(busy)
+*.synctex.gz
+*.synctex.gz(busy)
+*.pdfsync
+
+## Glossaries
+*.acn
+*.acr
+*.glg
+*.glo
+*.gls
+*.glsdefs
+*.lzo
+*.lzs
+*.slg
+*.slo
+*.sls
+
+## Uncomment if you want to ignore PDFs (depends on your workflow)
+# *.pdf
+
+## Temporary files
+*.swp
+*.swo
+*~
+.DS_Store
+*.backup
+*.bak
+
+## Index files
+*.ist
+*.idx
+*.ilg
+*.ind
+
+## Hyperref
+*.xref
+
+## Knitr
+*-concordance.tex
+
+## Listings
+*.lol
+
+## Makeindex
+*.maf
+*.mlf
+*.mlt
+*.mtc[0-9]*
+*.slf[0-9]*
+*.slt[0-9]*
+*.stc[0-9]*
+
+## Nomenclature
+*.nlg
+*.nlo
+*.nls
+
+## Pax
+*.pax
+
+## Pythontex
+*.pytxcode
+pythontex-files-*/
+
+## TikZ & PGF
+*.dpth
+*.md5
+*.auxlock
+
+## Todonotes
+*.tdo
+
+## Xindy
+*.xdy
+
+## WinEdt
+*.bak
+*.sav
+
+## Editors
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+## OS specific
+.DS_Store
+Thumbs.db

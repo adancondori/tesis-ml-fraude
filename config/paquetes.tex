@@ -1,0 +1,123 @@
+% ==================================================================================
+% PAQUETES NECESARIOS PARA LA TESIS
+% ==================================================================================
+
+% Codificación y fuentes
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+
+% Idioma español
+\usepackage[spanish,es-tabla,es-nodecimaldot]{babel}
+
+% Sangría en el primer párrafo después de secciones
+\usepackage{indentfirst}
+
+% Geometría de la página
+\usepackage[
+    left=3cm,
+    right=2.5cm,
+    top=2.5cm,
+    bottom=2.5cm,
+    headheight=16pt
+]{geometry}
+
+% Interlineado
+\usepackage{setspace}
+\onehalfspacing  % 1.5 de interlineado
+
+% Enlaces e hipervínculos
+\usepackage[hidelinks,colorlinks=true,linkcolor=black,citecolor=blue,urlcolor=blue]{hyperref}
+\usepackage{url}
+
+% Gráficos y figuras
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{wrapfig}
+
+% Ruta de las imágenes
+\graphicspath{{imagenes/}{imagenes/figuras/}{imagenes/diagramas/}{imagenes/graficos/}{imagenes/logos/}}
+
+% Tablas
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{colortbl}
+
+% Matemáticas
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{mathtools}
+
+% Bibliografía (estilo APA 7ma edición)
+\usepackage[
+    backend=biber,
+    style=apa,
+    sorting=nyt,
+    maxbibnames=99,
+    uniquename=false,
+    uniquelist=false,
+    apamaxprtauth=99
+]{biblatex}
+\DeclareLanguageMapping{spanish}{spanish-apa}
+\addbibresource{bibliografia/referencias.bib}
+
+% Código fuente
+\usepackage{listings}
+\usepackage{xcolor}
+
+% Algoritmos
+\usepackage[ruled,vlined,linesnumbered]{algorithm2e}
+
+% Encabezados y pies de página
+\usepackage{fancyhdr}
+
+% Formato de títulos
+\usepackage{titlesec}
+
+% Índice de contenidos personalizado
+\usepackage{tocloft}
+
+% Apéndices
+\usepackage[toc,page]{appendix}
+
+% Glosarios y acrónimos
+\usepackage[acronym,toc]{glossaries}
+
+% Herramientas adicionales
+\usepackage{etoolbox}
+\usepackage{xifthen}
+\usepackage{ifmtarg}
+\usepackage{enumitem}
+
+% Formato de fechas
+\usepackage[spanish]{datetime}
+
+% Química y ecuaciones (si es necesario)
+% \usepackage{chemfig}
+% \usepackage{siunitx}
+
+% PDFs y elementos externos
+\usepackage{pdfpages}
+
+% Diagramas y gráficos (TikZ)
+\usepackage{tikz}
+\usetikzlibrary{shapes,arrows,positioning,calc}
+
+% Código de colores personalizado
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+% Quotes y citas
+\usepackage{csquotes}
+
+% Mejoras tipográficas
+\usepackage{microtype}

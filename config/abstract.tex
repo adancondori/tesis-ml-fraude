@@ -1,0 +1,28 @@
+% ==================================================================================
+% ABSTRACT
+% ==================================================================================
+
+\chapter*{Abstract}
+\addcontentsline{toc}{chapter}{Abstract}
+
+% En APA 7, el abstract NO lleva sangría en ningún párrafo
+% Usamos un grupo {} para que el cambio sea local
+{
+\setlength{\parindent}{0pt}
+
+Fraud detection in digital payments represents one of the most critical challenges in the contemporary digital economy, where electronic transactions are experiencing exponential growth and fraudulent techniques are constantly evolving. This research proposes the implementation of a supervised Machine Learning model for anomaly and fraud detection in transactional payments at TechSport company, located in Miami, Florida, during the 2024-2025 period.
+
+The study adopts a quantitative approach, of applied type and experimental-comparative design, analyzing historical transaction data processed through multiple payment gateways (Stripe, CardConnect, Kushki, among others) and various channels (web, mobile application, and point of sale). The research is framed within the area of Intelligent Systems, specifically in Cognitive Systems, contributing to the body of knowledge on the application of artificial intelligence in financial security.
+
+The methodology includes the collection and preprocessing of transactional data, the training of supervised models using classification algorithms, and validation through standard metrics such as accuracy, recall, F1-score, and false positive rate. K-fold cross-validation (k=5) is implemented to ensure model robustness, and the performance of the proposed system is compared with the current method based on static rules.
+
+The results demonstrate that the implemented Machine Learning model significantly outperforms the traditional system in terms of detection capability, false positive reduction, and adaptability to new fraud modalities. The model achieves metrics exceeding 94\% precision in identifying fraudulent transactions while maintaining a false positive rate below 5\%.
+
+This research contributes to the academic field by providing empirical evidence on the effectiveness of supervised models in real business contexts and adds practical value to the fintech sector through a scalable and replicable solution for platforms with similar architectures. It also lays the foundation for future technological improvements and more advanced integrations in fraud detection systems.
+
+\vspace{1cm}
+
+\noindent\textbf{Keywords:} \keywords
+} % Fin del grupo sin sangría
+
+\cleardoublepage

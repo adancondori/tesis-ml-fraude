@@ -1,0 +1,41 @@
+\documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[spanish]{babel}
+\usepackage{indentfirst}
+
+% Configurar sangría de 1.27 cm (0.5 pulgadas)
+\setlength{\parindent}{1.27cm}
+\setlength{\parskip}{0pt}
+
+% Mostrar márgenes visualmente
+\usepackage{layout}
+\usepackage{showframe}
+
+\begin{document}
+
+\section{Prueba de Sangría APA 7}
+
+Este es el primer párrafo después del título. Según APA 7ma edición, DEBE tener una sangría de 0.5 pulgadas (1.27 cm) al inicio. Si ves un espacio antes de "Este", la sangría está funcionando correctamente.
+
+Este es el segundo párrafo. También debe tener sangría de 1.27 cm al inicio. Cada párrafo en el documento debe comenzar con esta sangría, excepto el Abstract.
+
+\subsection{Subsección de prueba}
+
+Este párrafo aparece después de una subsección. También debe tener sangría de 1.27 cm, gracias al paquete indentfirst que incluimos.
+
+\subsubsection{Subsubsección}
+
+Incluso después de este nivel de título, el párrafo debe tener sangría.
+
+\vspace{2cm}
+
+\noindent\textbf{Información técnica:}
+
+\begin{itemize}
+    \item Sangría configurada: \texttt{\textbackslash parindent = 1.27cm}
+    \item Paquete usado: \texttt{indentfirst}
+    \item Primera línea indentada: SÍ
+\end{itemize}
+
+\end{document}

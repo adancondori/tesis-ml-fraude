@@ -1,0 +1,156 @@
+% CAPÍTULO 2: DISEÑO METODOLÓGICO
+\chapter{Diseño Metodológico}
+
+\section*{Tipo, Enfoque Y Alcance De La Investigación}
+
+El enfoque de la investigación es \textbf{cuantitativo}, dado que se basa en la recolección y análisis de datos transaccionales mediante indicadores estadísticos y métricas de desempeño de algoritmos de Machine Learning. Según \textcite{Hernandez2023}, este enfoque permite medir fenómenos a través de variables objetivas y verificables, lo cual se ajusta a la naturaleza del problema planteado.
+
+El paradigma de investigación corresponde al \textbf{empírico-analítico}, ya que se busca comprobar, mediante experimentación, si la implementación de un modelo supervisado de aprendizaje automático mejora la detección de anomalías y fraudes en pagos transaccionales.
+
+El tipo de investigación es \textbf{aplicada}, porque busca resolver un problema específico en la empresa TechSport, generando un modelo que pueda ser transferido a la práctica operativa. Asimismo, el diseño es de tipo \textbf{experimental-comparativo}, pues se introduce un tratamiento (el modelo de Machine Learning) y se compara su desempeño frente al sistema actual de detección basado en reglas estáticas.
+
+En cuanto a su alcance, la investigación es \textbf{descriptivo-correlacional} y \textbf{explicativo}. Es descriptivo porque detalla las características del sistema actual y las anomalías presentes; correlacional porque establece la relación entre las variables independiente (modelo de Machine Learning) y dependiente (detección de anomalías y fraude); y explicativo porque busca demostrar que el nuevo modelo mejora los resultados de detección en comparación con el sistema previo.
+
+\section*{Delimitación de la Investigación}
+
+\textbf{Delimitación temática.} La investigación se centra en la detección de anomalías y fraude en transacciones digitales mediante la implementación de un modelo de Machine Learning supervisado. Se consideran los fundamentos teóricos del aprendizaje automático, la detección de patrones fraudulentos y las métricas de desempeño de modelos predictivos, así como la seguridad transaccional en plataformas multicanal del sector fintech.
+
+\textbf{Delimitación espacial.} El estudio se realiza en la empresa \textbf{TechSport}, con sede en Miami, Florida (Estados Unidos), la cual opera como plataforma SaaS especializada en gestión de reservas deportivas y pagos digitales a través de múltiples pasarelas (Stripe, CardConnect, Kushki, entre otras).
+
+\textbf{Delimitación temporal.} La investigación se desarrolla durante la gestión \textbf{2024-2025}, periodo en el cual se utilizarán datos históricos de transacciones etiquetadas. El modelo será implementado y validado en un entorno experimental, sin integración inmediata en el sistema productivo.
+
+\section*{Definición Conceptual de las Variables}
+
+\textbf{Variable Independiente: Modelo de Machine Learning.} Se define como el conjunto de algoritmos computacionales supervisados capaces de aprender patrones de comportamiento a partir de datos históricos etiquetados, con el objetivo de clasificar nuevas transacciones en categorías como legítimas o fraudulentas \parencite{Geron2022,Goodfellow2016}.
+
+\textbf{Variable Dependiente: Detección de anomalías y fraude en pagos transaccionales.} Se entiende como la capacidad de un sistema para identificar de manera precisa y oportuna transacciones sospechosas que difieren del comportamiento normal, reduciendo tanto la tasa de falsos positivos como los fraudes no detectados.
+
+\textbf{Variables Intervinientes.} Factores que pueden influir en los resultados: tipo de transacción (compra, suscripción, reserva), canal de pago (web, app móvil, POS), y gateway utilizado.
+
+\section*{Definición Operacional de las Variables}
+
+La variable independiente, \textbf{Modelo de Machine Learning}, se operacionaliza como el algoritmo implementado (árboles de decisión, redes neuronales, máquinas de soporte vectorial, etc.), entrenado con un conjunto de datos históricos balanceado entre transacciones legítimas y fraudulentas. Sus dimensiones incluyen el tipo de algoritmo, la estrategia de entrenamiento y el dataset empleado. Sus indicadores abarcan el nivel de error de entrenamiento y el desempeño en pruebas de clasificación.
+
+La variable dependiente, \textbf{Detección de anomalías y fraude}, se operacionaliza como el desempeño del modelo al clasificar transacciones en fraudulentas o legítimas. Sus dimensiones incluyen la precisión de clasificación, la reducción de falsos positivos y el tiempo de detección. Sus indicadores se expresan en métricas como \textbf{precisión (\%), recall (\%), F1-score, tasa de falsos positivos (\%) y tiempo de detección (ms)}.
+
+\begin{table}[H]
+    \centering
+    \caption{Operacionalización de las Variables}
+    \label{tab:operacionalizacion}
+    \small
+    \begin{tabular}{@{}p{4.5cm}p{4.5cm}p{5cm}@{}}
+        \toprule
+        \textbf{Variable} & \textbf{Dimensiones} & \textbf{Indicadores} \\
+        \midrule
+        \textbf{Variable Independiente (VI):} Modelo de Machine Learning &
+        - Algoritmo seleccionado \newline - Estrategia de entrenamiento \newline - Dataset utilizado &
+        - Algoritmo implementado (árboles, SVM, redes neuronales) \newline - Balance del dataset (\% fraudes) \newline - Nivel de error en entrenamiento \\
+        \midrule
+        \textbf{Variable Dependiente (VD):} Detección de anomalías y fraude en pagos transaccionales &
+        - Precisión en clasificación \newline - Reducción de falsos positivos \newline - Tiempo de detección &
+        - Precisión (\%) \newline - Recall (\%) \newline - F1-score \newline - Tasa de falsos positivos (\%) \newline - Tiempo promedio de detección (ms) \\
+        \midrule
+        \textbf{Variables Intervinientes:} Canal de pago, tipo de transacción, gateway de pago &
+        - Medio utilizado para la transacción \newline - Categoría de la operación \newline - Plataforma o pasarela de procesamiento &
+        - Canal (web, app móvil, POS) \newline - Tipo de operación (compra, reserva, suscripción) \newline - Gateway empleado (Stripe, CardConnect, Kushki, etc.) \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+\textbf{Fuente}: Elaboración propia, 2025
+
+\section*{Estrategias de Validación, Confiabilidad y Reproducibilidad del Modelo}
+
+Para garantizar la validez interna y externa del estudio, se aplicará una estrategia de validación cruzada k-fold (k=5), que consiste en dividir el conjunto de datos históricos en cinco subconjuntos aleatorios del mismo tamaño. En cada iteración, uno de los subconjuntos será usado como conjunto de prueba y los cuatro restantes como conjunto de entrenamiento. Esta metodología permite evaluar el desempeño general del modelo evitando sobreajuste (overfitting) y asegurando una estimación robusta de las métricas.
+
+Además, se realizará una división inicial (split) del dataset en proporciones 70\% entrenamiento, 15\% validación y 15\% prueba. Este enfoque permitirá ajustar hiperparámetros de forma objetiva antes de la validación cruzada.
+
+Para garantizar la replicabilidad del experimento, se documentará el proceso completo de preprocesamiento, selección de características y entrenamiento, utilizando un entorno controlado con versiones especificadas de librerías y paquetes (e.g., Scikit-learn 1.5.0, Pandas 2.2.1, Python 3.10). Se generará un repositorio privado en GitHub con scripts anonimizados y documentación técnica para facilitar futuras pruebas independientes.
+
+\section*{Métodos de Investigación}
+
+La presente investigación adopta métodos del nivel teórico y empírico para abordar la detección de anomalías y fraude en pagos digitales mediante técnicas de aprendizaje automático, dentro de la empresa TechSport.
+
+\textbf{Método hipotético-deductivo:} Este método se utiliza para formular una hipótesis basada en el análisis del problema actual de detección de fraude, y posteriormente someterla a prueba mediante la implementación y evaluación de un modelo de Machine Learning supervisado. La validación empírica permitirá confirmar o refutar la hipótesis planteada.
+
+\textbf{Método inductivo-deductivo:} Se emplea para establecer relaciones entre los datos históricos de transacciones, los patrones fraudulentos detectados y la efectividad del modelo predictivo. La inducción permitirá observar tendencias, mientras que la deducción aplicará principios teóricos del aprendizaje automático para diseñar e interpretar los resultados del modelo.
+
+\textbf{Método de análisis-síntesis:} Se descompone el fenómeno del fraude en pagos digitales en sus elementos constitutivos (pasarelas, canales, tipo de transacción, etc.) para analizarlos individualmente. Posteriormente, se sintetizan los hallazgos para construir una solución integral que aborde el problema desde una perspectiva técnica y operativa.
+
+\textbf{Método experimental:} El estudio se basa en un diseño experimental controlado, donde se implementa un modelo supervisado de Machine Learning que se entrena, valida y evalúa con datos reales. Se compara el desempeño del nuevo modelo con el sistema actual basado en reglas estáticas, mediante métricas como precisión, recall y F1-score.
+
+\section*{Técnicas de Recolección de Datos de la Investigación}
+
+Las técnicas utilizadas en esta investigación son de tipo cuantitativo, dado el enfoque empírico-analítico del estudio:
+
+\textbf{Revisión documental técnica:} Se realiza una recopilación sistemática de datos históricos de transacciones registradas por la plataforma TechSport en el período 2024-2025. Estos datos contienen etiquetas de transacciones legítimas y fraudulentas, las cuales permiten el entrenamiento supervisado del modelo.
+
+\textbf{Observación técnica directa:} A través de herramientas de trazabilidad y análisis de logs, se observa el comportamiento actual del sistema en la identificación de transacciones sospechosas, permitiendo establecer una línea base comparativa con el modelo propuesto.
+
+\textbf{Revisión de logs y reportes de fraude:} Se analizan los registros históricos de fraude detectado y no detectado, para comprender los errores del sistema actual y alimentar el diseño del algoritmo predictivo.
+
+\section*{Instrumentos de Investigación}
+
+Los instrumentos utilizados permiten operacionalizar la recolección de datos cuantitativos y realizar la validación técnica del modelo propuesto:
+
+\textbf{Dataset anonimizado:} Archivo estructurado que contiene datos históricos de transacciones con variables relevantes (monto, país, canal, pasarela, timestamp, etc.) y etiquetas de clasificación (fraude/no fraude).
+
+\textbf{Guía de evaluación del modelo:} Documento que define los criterios para medir la efectividad del modelo con base en métricas como precisión, recall, F1-score, tasa de falsos positivos y tiempo de respuesta.
+
+\textbf{Scripts de procesamiento y análisis de datos:} Programas implementados en Python (usando librerías como Pandas, Scikit-learn y Matplotlib) para entrenar, validar y visualizar los resultados del modelo.
+
+\section*{Población y Muestra}
+
+\textbf{Población:} La población está compuesta por el conjunto total de transacciones procesadas por la plataforma tecnológica TechSport durante la gestión 2024-2025, abarcando todos los canales (web, app móvil, POS) y pasarelas integradas (Stripe, CardConnect, Kushki, entre otras).
+
+\textbf{Muestra:} Se utiliza una \textbf{muestra intencional no probabilística}, conformada por un subconjunto representativo de transacciones etiquetadas (fraudulentas y legítimas), proporcionadas por el equipo técnico de TechSport. La muestra fue balanceada para asegurar que el modelo de Machine Learning pueda aprender con equidad a clasificar ambos tipos de eventos. El tamaño de la muestra dependerá de la disponibilidad y calidad de los datos históricos registrados.
+
+\section*{Análisis de los Datos}
+
+El análisis de los datos se realizará a través de un enfoque cuantitativo-experimental, aplicando las siguientes etapas:
+
+\textbf{Preprocesamiento del dataset:} Limpieza, transformación y normalización de datos transaccionales, eliminación de valores atípicos o inconsistentes y codificación de variables categóricas.
+
+\textbf{Entrenamiento y validación cruzada del modelo:} Se aplica validación cruzada k-fold (k=5) para evaluar el rendimiento general del modelo y evitar sobreajuste. Se divide el dataset en conjuntos de entrenamiento, validación y prueba (70/15/15).
+
+\textbf{Evaluación con métricas de desempeño:} Se calculan métricas cuantitativas como:
+
+\begin{itemize}
+    \item Precisión (Accuracy)
+    \item Recall (Sensibilidad)
+    \item F1-score
+    \item Tasa de falsos positivos (False Positive Rate)
+    \item Tiempo promedio de detección por transacción
+\end{itemize}
+
+\textbf{Comparación con el sistema actual:} Se contrasta el desempeño del modelo con el sistema basado en reglas estáticas actualmente implementado por la empresa, para cuantificar las mejoras alcanzadas.
+
+\textbf{Visualización y documentación de resultados:} Se generarán gráficos comparativos (matriz de confusión, curvas ROC, etc.) y reportes técnicos automatizados para evidenciar los resultados y facilitar la interpretación.
+
+\section*{Cronograma de Investigación}
+
+A continuación, se presenta una planificación tentativa del desarrollo de la investigación:
+
+\begin{table}[H]
+    \centering
+    \caption{Cronograma de Investigación}
+    \label{tab:cronograma}
+    \small
+    \begin{tabular}{@{}p{7cm}cccccc@{}}
+        \toprule
+        \textbf{Actividad} & \textbf{Oct} & \textbf{Nov} & \textbf{Dic} & \textbf{Ene} & \textbf{Feb} & \textbf{Mar} \\
+        \midrule
+        Elaboración del perfil de tesis & x & x & & & & \\
+        Presentación y defensa del perfil & x & x & & & & \\
+        Revisión documental y marco teórico & & x & x & & & \\
+        Diagnóstico del sistema actual de detección & & & x & x & & \\
+        Recolección y preparación del dataset & & & & x & & \\
+        Diseño e implementación del modelo & & & & x & x & \\
+        Evaluación del modelo (validación y métricas) & & & & x & x & \\
+        Análisis de resultados y redacción de conclusiones & & & & & x & \\
+        Presentación y defensa de tesis final & & & & & & x \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+\textbf{Fuente:} Elaboración propia, 2025.

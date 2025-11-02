@@ -1,0 +1,104 @@
+% ==================================================================================
+% SECCIONES DEL PERFIL DE INVESTIGACIÓN (1-5)
+% Según plantilla UAGRM
+% ==================================================================================
+
+% ==================================================================================
+% 1. ANTECEDENTES DEL PROBLEMA
+% ==================================================================================
+
+\section*{1. Antecedentes del Problema}
+\addcontentsline{toc}{section}{1. Antecedentes del Problema}
+
+En la economía digital global, el crecimiento sostenido de los pagos electrónicos ha traído consigo un desafío importante: el aumento de fraudes financieros sofisticados. A medida que las transacciones digitales migran hacia plataformas móviles y web, también lo hacen las técnicas utilizadas por actores maliciosos. Este fenómeno ha sido impulsado por el auge de servicios fintech y soluciones SaaS, que requieren arquitecturas distribuidas y seguras para operar eficientemente. Según \textcite{HernandezAros2024}, los sistemas de detección de fraude basados en reglas estáticas y revisión posterior ya no son suficientes, dado que los ataques actuales son dinámicos y adaptativos. Por ello, diversos estudios proponen el uso de inteligencia artificial (IA) para analizar patrones transaccionales en tiempo real y detectar comportamientos anómalos con mayor eficacia.
+
+\textcite{Hafez2025} muestran que los modelos de aprendizaje automático superan en precisión a los enfoques tradicionales en la detección de fraude con tarjetas de crédito, destacando su capacidad de adaptación y eficiencia en el procesamiento de grandes volúmenes de datos. Sin embargo, su implementación efectiva requiere arquitecturas técnicas capaces de operar en tiempo real y alineadas con estándares de seguridad como PCI DSS o el Marco de Ciberseguridad del NIST \parencite{NIST2024}.
+
+En el continente americano, tanto América Latina como Estados Unidos enfrentan retos importantes. En América Latina, la rápida adopción de tecnologías digitales ha incrementado significativamente la exposición a fraudes, sin que ello haya estado acompañado por un desarrollo equivalente en mecanismos de prevención. El informe conjunto de la OEA y el BID (2020) documenta brechas críticas en capacidades de monitoreo, análisis de amenazas y respuesta operativa. Asimismo, la fragmentación del ecosistema derivada de la diversidad de medios de pago, regulaciones dispares y niveles disímiles de madurez tecnológica crea un entorno propicio para la aparición de fraudes que evolucionan más rápido que los controles existentes.
+
+En contraste, aunque Estados Unidos dispone de marcos regulatorios avanzados y tecnologías más maduras para la detección de fraudes, también enfrenta limitaciones. El volumen masivo de transacciones, la creciente sofisticación de los ataques y la dependencia de sistemas basados en reglas estáticas limitan la capacidad de respuesta frente a amenazas emergentes. Casos recientes, como los registrados por la empresa TechSport en Miami, Florida, ponen de manifiesto que incluso en contextos tecnológicos desarrollados, persisten vulnerabilidades relevantes en los sistemas actuales.
+
+En este contexto se ubica la empresa TechSport, una plataforma SaaS con presencia internacional, especializada en la gestión de clubes deportivos de raqueta. La compañía ha integrado más de diez pasarelas de pago (entre ellas Stripe, CardConnect, AzulPay, RazorPay y BAC), lo que le permite operar en múltiples monedas y canales (web, aplicación móvil y puntos de venta). No obstante, esta diversidad ha generado una arquitectura fragmentada, carente de un sistema centralizado de detección de fraude. Actualmente, TechSport no dispone de mecanismos inteligentes para identificar anomalías transaccionales en tiempo real, ni de modelos predictivos capaces de alertar sobre patrones sospechosos. Esta situación representa un riesgo operacional significativo, tanto por las potenciales pérdidas económicas como por el impacto negativo en la experiencia del usuario y el posible incumplimiento de normativas de seguridad.
+
+Un diagnóstico técnico interno ha identificado como causas fundamentales del problema: (i) la ausencia de una arquitectura unificada para la gestión del riesgo transaccional, (ii) la falta de automatización en los procesos de evaluación de fraude y (iii) la carencia de una gobernanza efectiva sobre las integraciones entre sistemas y APIs. Estas deficiencias aumentan la probabilidad de errores operativos, dificultan la escalabilidad del sistema y reducen la capacidad de adaptación ante nuevas amenazas. Las consecuencias incluyen un incremento en falsos positivos, rechazos de pagos legítimos y una disminución progresiva en la confianza del usuario, lo que afecta directamente la competitividad y sostenibilidad de la empresa.
+
+Hasta donde se ha podido verificar mediante revisión documental y análisis institucional, no existen proyectos anteriores ni en ejecución en la empresa TechSport que propongan una solución basada en técnicas de aprendizaje automático para la detección de fraude. En este contexto, se considera necesario implementar una solución técnica que permita optimizar el análisis de transacciones mediante modelos supervisados de Machine Learning, ajustados a las condiciones reales de la empresa.
+
+% ==================================================================================
+% 2. FORMULACIÓN DEL PROBLEMA
+% ==================================================================================
+
+\section*{2. Formulación del Problema}
+\addcontentsline{toc}{section}{2. Formulación del Problema}
+
+La arquitectura tecnológica de pagos multicanal implementada actualmente en la empresa TechSport presenta limitaciones estructurales y técnicas que dificultan la detección de fraude. Esta situación incrementa los riesgos operativos y compromete tanto la seguridad de las transacciones como la experiencia del usuario. \textbf{¿Cómo mejorar la detección de anomalías y fraude en pagos transaccionales en la empresa TechSport en la gestión 2024 a 2025?}
+
+\subsection*{2.1. Objeto de Estudio}
+\addcontentsline{toc}{subsection}{2.1. Objeto de Estudio}
+
+Detección de anomalías y fraude en pagos transaccionales mediante modelos de Machine Learning.
+
+\subsection*{2.2. Campo de Acción}
+\addcontentsline{toc}{subsection}{2.2. Campo de Acción}
+
+Implementación de un modelo de Machine Learning para la detección de anomalías y fraude en pagos transaccionales en la empresa TechSport durante la gestión 2024-2025.
+
+% ==================================================================================
+% 3. OBJETIVOS DE LA INVESTIGACIÓN
+% ==================================================================================
+
+\section*{3. Objetivos de la Investigación}
+\addcontentsline{toc}{section}{3. Objetivos de la Investigación}
+
+\subsection*{3.1. Objetivo General}
+\addcontentsline{toc}{subsection}{3.1. Objetivo General}
+
+Implementar un modelo de Machine Learning para la detección de anomalías y fraude en pagos transaccionales, mediante el análisis de datos históricos y patrones de comportamiento, en la empresa TechSport, gestión 2024-2025.
+
+\subsection*{3.2. Objetivos Específicos}
+\addcontentsline{toc}{subsection}{3.2. Objetivos Específicos}
+
+\begin{enumerate}
+    \item Fundamentar teóricamente las principales concepciones sobre detección de anomalías y fraude en sistemas de pago, así como los modelos de Machine Learning aplicados a la seguridad transaccional, para sustentar la base conceptual de la investigación.
+
+    \item Determinar la situación actual del sistema de detección de fraude de TechSport, identificando sus limitaciones técnicas y operativas basadas en reglas estáticas.
+
+    \item Desarrollar un modelo de Machine Learning para la detección de anomalías y fraude en los pagos transaccionales procesados por TechSport.
+
+    \item Evaluar la efectividad del modelo de Machine Learning en términos de precisión, recall, F1-score, tasa de falsos positivos y reducción del fraude no detectado, comparando sus resultados con el sistema actual de reglas estáticas.
+\end{enumerate}
+
+% ==================================================================================
+% 4. JUSTIFICACIÓN
+% ==================================================================================
+
+\section*{4. Justificación de la Investigación}
+\addcontentsline{toc}{section}{4. Justificación de la Investigación}
+
+\textbf{Justificación teórica.} La presente investigación se enmarca en los fundamentos del aprendizaje automático supervisado y su aplicación en entornos transaccionales digitales. La literatura científica ha demostrado que los modelos de Machine Learning ofrecen ventajas significativas frente a los enfoques tradicionales de detección de fraude, principalmente por su capacidad para identificar patrones complejos, adaptarse a nuevos comportamientos y reducir la tasa de errores en la clasificación de eventos anómalos \parencite{Hafez2025}. Esta investigación pretende contribuir al cuerpo de conocimientos en el campo de la inteligencia artificial aplicada a la seguridad digital, generando evidencia empírica sobre la efectividad de modelos supervisados en escenarios reales de pagos electrónicos. Al aplicar estos enfoques en una empresa tipo SaaS, se amplía la aplicabilidad de estos modelos más allá del ámbito teórico, promoviendo su validación en contextos empresariales concretos.
+
+\textbf{Justificación práctica.} El estudio responde a una necesidad operativa concreta de la empresa TechSport, que enfrenta dificultades para identificar transacciones fraudulentas con los sistemas actuales basados en reglas. La ausencia de herramientas inteligentes de análisis y clasificación de comportamiento transaccional limita la capacidad de respuesta ante fraudes y eleva el número de falsos positivos, lo que a su vez impacta negativamente en la experiencia del usuario. La propuesta de implementar un modelo de aprendizaje automático supervisado busca mejorar la precisión en la detección de anomalías, reducir errores operativos y fortalecer los mecanismos internos de control, con un enfoque realista y contextualizado. Además, el modelo desarrollado podría adaptarse a otras plataformas tecnológicas con arquitecturas similares, lo cual le otorga un valor replicable en el sector fintech.
+
+\textbf{Justificación económica.} Esta investigación se justifica en la medida en que los sistemas de detección de fraude no solo buscan mitigar pérdidas por actividades ilícitas, sino también prevenir costos asociados a la gestión reactiva, sanciones regulatorias y pérdida de confianza de los usuarios. La empresa TechSport, al operar en múltiples mercados y manejar altos volúmenes de transacciones, se encuentra expuesta a riesgos que pueden traducirse en impactos financieros significativos. Implementar un sistema predictivo basado en datos contribuirá a optimizar recursos, reducir costos operativos y proteger la estabilidad financiera de la organización, a través de decisiones más informadas y automatizadas.
+
+\textbf{Justificación metodológica.} El estudio adopta un enfoque cuantitativo, aplicado y de tipo descriptivo-correlacional. Se desarrollará un modelo de aprendizaje automático supervisado entrenado con datos históricos de la empresa, y se evaluará su desempeño mediante métricas técnicas como precisión, recall y F1-score. Esta aproximación metodológica permitirá validar la viabilidad del modelo en un entorno controlado y bajo condiciones reales del negocio, sin necesidad de modificar inicialmente el sistema productivo. Asimismo, se garantiza la reproducibilidad de los resultados y la coherencia con estándares técnicos y académicos reconocidos, asegurando que las conclusiones derivadas del estudio sean sustentadas en evidencia empírica sólida.
+
+% ==================================================================================
+% 5. FORMULACIÓN DE LA CONSTRUCCIÓN TEÓRICA. HIPÓTESIS PARA DEFENDER
+% ==================================================================================
+
+\section*{5. Formulación de la Construcción Teórica. Hipótesis para Defender}
+\addcontentsline{toc}{section}{5. Formulación de la Construcción Teórica. Hipótesis para Defender}
+
+La implementación de un modelo de Machine Learning mejora la detección de anomalías y fraudes en pagos transaccionales en la empresa TechSport durante la gestión 2024-2025.
+
+\subsection*{5.1. Identificación de las Variables}
+\addcontentsline{toc}{subsection}{5.1. Identificación de las Variables}
+
+\textbf{Variable Independiente (VI):} Modelo de Machine Learning.
+
+\textbf{Variable Dependiente (VD):} Detección de anomalías y fraude en pagos transaccionales.
+
+\textbf{Variables Intervinientes:} Tipo de transacciones, Canal de pago, Gateway de pago.
+
+\cleardoublepage

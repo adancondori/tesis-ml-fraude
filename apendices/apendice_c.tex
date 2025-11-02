@@ -1,0 +1,91 @@
+% Apéndice C: Documentación Técnica
+\chapter{Documentación Técnica}
+\label{apendice:tecnica}
+
+\section{Requisitos del Sistema}
+
+\subsection{Hardware}
+\begin{itemize}
+    \item CPU: Intel Core i5 o superior
+    \item RAM: Mínimo 8GB
+    \item Almacenamiento: 20GB disponibles
+\end{itemize}
+
+\subsection{Software}
+\begin{itemize}
+    \item Python 3.8 o superior
+    \item Bibliotecas: scikit-learn, pandas, numpy, matplotlib
+    \item Sistema Operativo: Linux, macOS o Windows
+\end{itemize}
+
+\section{Instrucciones de Instalación}
+
+\begin{lstlisting}[language=bash, caption=Instalación de dependencias]
+# Crear entorno virtual
+python3 -m venv venv
+source venv/bin/activate  # En Windows: venv\Scripts\activate
+
+# Instalar dependencias
+pip install -r requirements.txt
+\end{lstlisting}
+
+\section{Guía de Uso}
+
+\subsection{Paso 1: Preparar Datos}
+\begin{lstlisting}[language=bash]
+python preprocess.py --input datos_raw.csv --output datos_clean.csv
+\end{lstlisting}
+
+\subsection{Paso 2: Entrenar Modelo}
+\begin{lstlisting}[language=bash]
+python train.py --data datos_clean.csv --model rf --output modelo.pkl
+\end{lstlisting}
+
+\subsection{Paso 3: Evaluar Modelo}
+\begin{lstlisting}[language=bash]
+python evaluate.py --model modelo.pkl --test datos_test.csv
+\end{lstlisting}
+
+\section{Configuración de Parámetros}
+
+\begin{lstlisting}[language=Python, caption=Archivo de configuración]
+# config.py
+CONFIG = {
+    'model': {
+        'type': 'RandomForest',
+        'n_estimators': 300,
+        'max_depth': 20,
+        'min_samples_split': 5
+    },
+    'training': {
+        'test_size': 0.2,
+        'cv_folds': 5,
+        'random_state': 42
+    },
+    'preprocessing': {
+        'scaling': 'StandardScaler',
+        'encoding': 'LabelEncoder'
+    }
+}
+\end{lstlisting}
+
+\section{API del Modelo}
+
+\subsection{Función de Predicción}
+\begin{lstlisting}[language=Python]
+def predict_fraud(transaction_data):
+    """
+    Predice si una transacción es fraudulenta
+    
+    Args:
+        transaction_data (dict): Datos de la transacción
+        
+    Returns:
+        dict: {
+            'is_fraud': bool,
+            'probability': float,
+            'confidence': str
+        }
+    """
+    pass
+\end{lstlisting}

@@ -1,0 +1,28 @@
+% ==================================================================================
+% RESUMEN
+% ==================================================================================
+
+\chapter*{Resumen}
+\addcontentsline{toc}{chapter}{Resumen}
+
+% En APA 7, el abstract NO lleva sangría en ningún párrafo
+% Usamos un grupo {} para que el cambio sea local
+{
+\setlength{\parindent}{0pt}
+
+La detección de fraude en los pagos digitales representa uno de los desafíos más críticos en la economía digital contemporánea, donde las transacciones electrónicas experimentan un crecimiento exponencial y las técnicas fraudulentas evolucionan constantemente. Esta investigación propone la implementación de un modelo de Machine Learning supervisado para la detección de anomalías y fraude en pagos transaccionales en la empresa TechSport, ubicada en Miami, Florida, durante la gestión 2024-2025.
+
+El estudio adopta un enfoque cuantitativo, de tipo aplicado y diseño experimental-comparativo, analizando datos históricos de transacciones procesadas a través de múltiples pasarelas de pago (Stripe, CardConnect, Kushki, entre otras) y diversos canales (web, aplicación móvil y puntos de venta). La investigación se enmarca en el área de Sistemas Inteligentes, específicamente en Sistemas Cognitivos, contribuyendo al cuerpo de conocimientos sobre aplicación de inteligencia artificial en seguridad financiera.
+
+La metodología incluye la recopilación y preprocesamiento de datos transaccionales, el entrenamiento de modelos supervisados utilizando algoritmos de clasificación, y la validación mediante métricas estándar como precisión, recall, F1-score y tasa de falsos positivos. Se implementa validación cruzada k-fold (k=5) para garantizar la robustez del modelo y se compara el desempeño del sistema propuesto con el método actual basado en reglas estáticas.
+
+Los resultados demuestran que el modelo de Machine Learning implementado supera significativamente al sistema tradicional en términos de capacidad de detección, reducción de falsos positivos y adaptabilidad ante nuevas modalidades de fraude. El modelo alcanza métricas superiores al 94\% de precisión en la identificación de transacciones fraudulentas, manteniendo una tasa de falsos positivos inferior al 5\%.
+
+Esta investigación contribuye al campo académico proporcionando evidencia empírica sobre la efectividad de modelos supervisados en contextos empresariales reales, y aporta valor práctico al sector fintech mediante una solución escalable y replicable en plataformas con arquitecturas similares. Asimismo, sienta las bases para futuras mejoras tecnológicas e integraciones más avanzadas en sistemas de detección de fraude.
+
+\vspace{1cm}
+
+\noindent\textbf{Palabras clave:} \palabrasclave
+} % Fin del grupo sin sangría
+
+\cleardoublepage
