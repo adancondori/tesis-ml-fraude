@@ -1,0 +1,251 @@
+% ==================================================================================
+% TAREA 2: SELECCIÓN DE MÉTODOS DEL NIVEL TEÓRICO E ÍNDICE TENTATIVO
+% ==================================================================================
+
+\documentclass[12pt,a4paper]{article}
+
+% Paquetes básicos
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[spanish]{babel}
+\usepackage{geometry}
+\geometry{left=2.5cm,right=2.5cm,top=2.5cm,bottom=2.5cm}
+\usepackage{setspace}
+\onehalfspacing
+
+% Tablas
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{tabularx}
+
+% Listas
+\usepackage{enumitem}
+
+% Otros
+\usepackage{indentfirst}
+
+\begin{document}
+
+\begin{center}
+\textbf{\Large SELECCIÓN DE MÉTODOS DEL NIVEL TEÓRICO E ÍNDICE TENTATIVO DE LOS FUNDAMENTOS TEÓRICOS REFERENCIALES}
+\end{center}
+
+\vspace{1em}
+
+\section*{Introducción}
+
+El presente documento tiene como propósito identificar y justificar los métodos del nivel teórico que proporcionan el sustento científico al proyecto de investigación \textit{``Implementación de un Modelo de Machine Learning para la detección de Anomalías y fraude en pagos transaccionales en la empresa TechSport, gestión 2024--2025''}. Adicionalmente, se presenta la estructura preliminar del marco teórico referencial que orientará el análisis conceptual de la investigación.
+
+Este trabajo contribuye al fortalecimiento del diseño metodológico del estudio, estableciendo vínculos coherentes entre el aparato teórico, los objetivos planteados y las variables definidas. Asimismo, asegura la solidez epistemológica y la relevancia operativa de la propuesta en el ámbito de la seguridad transaccional mediante algoritmos de aprendizaje automático.
+
+\vspace{1em}
+
+\section*{1. Selección y fundamentación de los métodos del nivel teórico}
+
+El desarrollo de una investigación científica requiere la aplicación de métodos teóricos que organicen el razonamiento lógico y orienten la construcción del conocimiento. Para este estudio se han identificado cuatro métodos del nivel teórico que, de manera complementaria, facilitan el análisis crítico de las fuentes, la síntesis conceptual, el diseño del modelo computacional y la comprobación empírica de la hipótesis planteada en el contexto de la detección inteligente de fraude transaccional.
+
+\vspace{1em}
+
+\begin{longtable}{|>{\raggedright\arraybackslash}p{3.5cm}|>{\raggedright\arraybackslash}p{5cm}|>{\raggedright\arraybackslash}p{6cm}|}
+\hline
+\textbf{Método teórico} & \textbf{Descripción} & \textbf{Fundamentación y pertinencia} \\
+\hline
+\endfirsthead
+
+\hline
+\textbf{Método teórico} & \textbf{Descripción} & \textbf{Fundamentación y pertinencia} \\
+\hline
+\endhead
+
+\hline
+\endfoot
+
+Analítico--Sintético &
+Posibilita la desagregación de los marcos conceptuales del aprendizaje automático, las metodologías de identificación de fraude y los estándares de protección transaccional (NIST CSF 2.0, PCI DSS) en sus componentes fundamentales, para posteriormente articular una propuesta coherente aplicable al entorno operativo de TechSport. &
+Se alinea con el \textbf{Objetivo Específico 1}, orientado a construir la base teórica sobre detección de anomalías y fraude en medios de pago digitales. Facilita la descomposición de conceptos complejos del Machine Learning y su posterior integración en un enfoque aplicado a la seguridad de transacciones. \\
+\hline
+
+Inductivo--Deductivo &
+Articula la observación de situaciones específicas en el contexto de TechSport (sistema vigente basado en reglas predefinidas) con teorías generales del aprendizaje supervisado y taxonomías de fraude respaldadas por evidencia científica, permitiendo transitar desde lo particular hacia lo universal y viceversa. &
+Respalda el \textbf{Objetivo Específico 2}, dirigido a caracterizar la situación actual de los mecanismos de detección de fraude en la empresa, revelando debilidades técnicas y funcionales, y derivando principios transferibles desde los fundamentos teóricos del Machine Learning hacia el caso concreto. \\
+\hline
+
+Modelación &
+Facilita la construcción de una abstracción formal y ejecutable del sistema inteligente de detección, incorporando algoritmos supervisados, atributos predictivos, indicadores de rendimiento y flujos de aprendizaje y prueba que representen la realidad operativa de manera simplificada pero rigurosa. &
+Da soporte al \textbf{Objetivo Específico 3}, enfocado en desarrollar el modelo de Machine Learning para detección de fraude. Permite diseñar una arquitectura conceptual sólida, con fundamento algorítmico y ajustada a las necesidades específicas del ecosistema transaccional de TechSport. \\
+\hline
+
+Hipotético--Deductivo &
+Permite someter a prueba la hipótesis formulada mediante diseño experimental, comparando el rendimiento del modelo inteligente propuesto versus el sistema tradicional mediante indicadores cuantitativos objetivos (precisión, exhaustividad, F1-score, ratio de falsos positivos). &
+Respalda el \textbf{Objetivo Específico 4}, centrado en evaluar la efectividad del modelo de Machine Learning. Garantiza la validación científica mediante contrastación empírica de los resultados obtenidos por ambos sistemas, aportando evidencia para confirmar o rechazar la hipótesis de superioridad del enfoque inteligente. \\
+\hline
+
+\end{longtable}
+
+\vspace{1em}
+
+La selección conjunta de estos cuatro métodos responde a una estrategia metodológica integral que articula el trabajo teórico-conceptual con la validación experimental y el desarrollo aplicado. Su aplicación combinada fortalece la rigurosidad científica del estudio y asegura que el modelo de Machine Learning propuesto posea fundamento epistemológico sólido, relevancia práctica demostrable y capacidad de transferencia hacia otros contextos similares en el sector fintech.
+
+\newpage
+
+\section*{2. Índice tentativo de los fundamentos teóricos referenciales}
+
+La construcción del marco teórico referencial se organiza mediante cinco ejes conceptuales que proporcionan los fundamentos epistemológicos, teóricos y metodológicos necesarios para el diseño, desarrollo y validación del modelo inteligente de detección de anomalías y fraude en transacciones digitales.
+
+\subsection*{2.1. Estado del arte sobre la detección de fraude en pagos electrónicos}
+
+\begin{enumerate}[label=\arabic*., leftmargin=2cm]
+    \item Panorama global del fraude financiero digital
+    \begin{enumerate}[label=\alph*), leftmargin=1cm]
+        \item Evolución histórica del fraude en sistemas de pago
+        \item Estadísticas recientes y tendencias globales
+        \item Impacto económico del fraude en plataformas fintech
+    \end{enumerate}
+
+    \item Estudios previos sobre fraude en entornos SaaS y multicanal
+    \begin{enumerate}[label=\alph*), leftmargin=1cm]
+        \item Casos relevantes en plataformas de pago digital
+        \item Vulnerabilidades en arquitecturas distribuidas
+        \item Patrones de fraude en transacciones electrónicas
+    \end{enumerate}
+
+    \item Marcos normativos y estándares de seguridad transaccional
+    \begin{enumerate}[label=\alph*), leftmargin=1cm]
+        \item NIST Cybersecurity Framework (CSF) 2.0
+        \item Payment Card Industry Data Security Standard (PCI DSS)
+        \item Regulaciones AML/KYC y protección de datos (GDPR)
+    \end{enumerate}
+\end{enumerate}
+
+\subsection*{2.2. Fundamentos teóricos del aprendizaje automático}
+
+\begin{enumerate}[label=\arabic*., leftmargin=2cm]
+    \item Definición y evolución del aprendizaje automático
+    \begin{enumerate}[label=\alph*), leftmargin=1cm]
+        \item Conceptos fundamentales de Machine Learning
+        \item Relación con la inteligencia artificial y ciencia de datos
+        \item Desarrollo histórico y estado actual
+    \end{enumerate}
+
+    \item Tipos de aprendizaje automático
+    \begin{enumerate}[label=\alph*), leftmargin=1cm]
+        \item Aprendizaje supervisado
+        \item Aprendizaje no supervisado
+        \item Aprendizaje por refuerzo
+        \item Aprendizaje semi-supervisado
+    \end{enumerate}
+
+    \item Modelos supervisados aplicables a detección de fraude
+    \begin{enumerate}[label=\alph*), leftmargin=1cm]
+        \item Regresión logística
+        \item Árboles de decisión y Random Forest
+        \item Máquinas de vectores de soporte (SVM)
+        \item Redes neuronales artificiales
+        \item Gradient Boosting (XGBoost, LightGBM)
+    \end{enumerate}
+
+    \item Métricas de evaluación en modelos de clasificación
+    \begin{enumerate}[label=\alph*), leftmargin=1cm]
+        \item Precisión (Precision), exhaustividad (Recall) y exactitud (Accuracy)
+        \item F1-score y curva ROC-AUC
+        \item Matriz de confusión
+        \item Manejo de clases desbalanceadas
+    \end{enumerate}
+\end{enumerate}
+
+\subsection*{2.3. Teorías y enfoques en la detección de anomalías y fraude}
+
+\begin{enumerate}[label=\arabic*., leftmargin=2cm]
+    \item Concepto de anomalía en datos transaccionales
+    \begin{enumerate}[label=\alph*), leftmargin=1cm]
+        \item Definiciones y tipologías de anomalías
+        \item Diferencia entre anomalía, outlier y fraude
+        \item Características de transacciones fraudulentas
+    \end{enumerate}
+
+    \item Técnicas estadísticas vs. técnicas basadas en IA
+    \begin{enumerate}[label=\alph*), leftmargin=1cm]
+        \item Métodos estadísticos tradicionales
+        \item Ventajas de los modelos de Machine Learning
+        \item Comparación de desempeño y escalabilidad
+    \end{enumerate}
+
+    \item Enfoques híbridos en la detección de fraude
+    \begin{enumerate}[label=\alph*), leftmargin=1cm]
+        \item Combinación de reglas estáticas y modelos adaptativos
+        \item Sistemas de detección en tiempo real vs. batch
+        \item Análisis de comportamiento y perfiles de usuario
+    \end{enumerate}
+
+    \item Limitaciones de los sistemas basados en reglas estáticas
+    \begin{enumerate}[label=\alph*), leftmargin=1cm]
+        \item Rigidez ante nuevos patrones de fraude
+        \item Altas tasas de falsos positivos
+        \item Dificultad de mantenimiento y escalabilidad
+    \end{enumerate}
+\end{enumerate}
+
+\subsection*{2.4. Seguridad digital y gestión de riesgo en pagos electrónicos}
+
+\begin{enumerate}[label=\arabic*., leftmargin=2cm]
+    \item Principios de seguridad en sistemas de pago
+    \begin{enumerate}[label=\alph*), leftmargin=1cm]
+        \item Triada CIA: Confidencialidad, Integridad y Disponibilidad
+        \item Autenticación y autorización
+        \item No repudio y trazabilidad
+    \end{enumerate}
+
+    \item Gestión del riesgo operativo y transaccional
+    \begin{enumerate}[label=\alph*), leftmargin=1cm]
+        \item Identificación y evaluación de riesgos
+        \item Estrategias de mitigación
+        \item Monitoreo continuo y respuesta a incidentes
+    \end{enumerate}
+
+    \item Arquitecturas de seguridad en plataformas multicanal
+    \begin{enumerate}[label=\alph*), leftmargin=1cm]
+        \item Integración segura de múltiples pasarelas de pago
+        \item Tokenización y cifrado de datos sensibles
+        \item Auditoría y logging de transacciones
+    \end{enumerate}
+\end{enumerate}
+
+\subsection*{2.5. Aplicación del aprendizaje automático en entornos fintech}
+
+\begin{enumerate}[label=\arabic*., leftmargin=2cm]
+    \item Uso de Machine Learning en sistemas de pago y comercio electrónico
+    \begin{enumerate}[label=\alph*), leftmargin=1cm]
+        \item Casos de éxito en la industria
+        \item Modelos implementados por PayPal, Stripe y otras plataformas
+        \item Beneficios operativos y económicos
+    \end{enumerate}
+
+    \item Plataformas SaaS y su exposición al fraude
+    \begin{enumerate}[label=\alph*), leftmargin=1cm]
+        \item Características de las plataformas SaaS multicanal
+        \item Vectores de ataque específicos
+        \item Estrategias de protección basadas en ML
+    \end{enumerate}
+
+    \item Estudios de caso: modelos aplicados a detección de fraude
+    \begin{enumerate}[label=\alph*), leftmargin=1cm]
+        \item Fraude con tarjetas de crédito
+        \item Fraude en wallets digitales
+        \item Fraude en transacciones móviles
+    \end{enumerate}
+
+    \item Herramientas y tecnologías para el desarrollo del modelo
+    \begin{enumerate}[label=\alph*), leftmargin=1cm]
+        \item Librerías de Python: Scikit-learn, TensorFlow, Keras
+        \item Frameworks para análisis de datos: Pandas, NumPy
+        \item Plataformas de visualización: Matplotlib, Seaborn
+        \item Entornos de experimentación: Jupyter Notebooks
+    \end{enumerate}
+\end{enumerate}
+
+\vspace{1em}
+
+La estructura presentada constituye la arquitectura conceptual preliminar del marco teórico, organizando de manera sistemática los principales ámbitos de conocimiento que sustentan la investigación: fundamentos del aprendizaje automático supervisado, teorías sobre detección de comportamientos anómalos, seguridad en medios de pago digitales y aplicaciones prácticas de inteligencia artificial en el sector fintech. Este ordenamiento facilita la construcción progresiva de un corpus teórico sólido, coherente y pertinente al objeto de estudio.
+
+\end{document}
