@@ -1,0 +1,415 @@
+% ==================================================================================
+% TAREA 3: FUNDAMENTOS TEÓRICOS REFERENCIALES
+% Versión 3 - Estructura completa según requisitos docente
+% ==================================================================================
+
+\documentclass[12pt,a4paper]{article}
+
+% Paquetes básicos
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[spanish,es-tabla]{babel}
+\usepackage{geometry}
+\geometry{left=3cm,right=2.5cm,top=2.5cm,bottom=2.5cm}
+\usepackage{setspace}
+\onehalfspacing
+
+% Bibliografía APA 7
+\usepackage[
+    backend=biber,
+    style=apa,
+    sorting=nyt,
+    maxbibnames=99
+]{biblatex}
+\DeclareLanguageMapping{spanish}{spanish-apa}
+\addbibresource{../../bibliografia/referencias.bib}
+
+% Tablas
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{tabularx}
+
+% Listas
+\usepackage{enumitem}
+
+% Otros paquetes
+\usepackage{indentfirst}
+\usepackage{csquotes}
+\usepackage{xcolor}
+
+% Sangría APA
+\setlength{\parindent}{1.27cm}
+
+\begin{document}
+
+\begin{center}
+\textbf{\Large FUNDAMENTOS TEÓRICOS REFERENCIALES}\\[0.5em]
+\textbf{\large Implementación de un Modelo de Machine Learning para la Detección de Anomalías y Fraude en Pagos Transaccionales en la Empresa TechSport, 2024--2025}
+\end{center}
+
+\vspace{1em}
+
+\section*{Introducción}
+
+El presente documento desarrolla los fundamentos teóricos referenciales que sustentan la investigación sobre implementación de Machine Learning para detección de fraude en TechSport, 2024--2025. Siguiendo la metodología de Hernández Sampieri, se integran cuatro marcos que proporcionan solidez conceptual, empírica y normativa, respondiendo al \textbf{Objetivo Específico 1}: fundamentar teóricamente las concepciones sobre detección de anomalías, fraude en sistemas de pago y modelos de Machine Learning aplicados a seguridad transaccional.
+
+\section{Estado del Arte}
+
+El estado del arte constituye una revisión sistemática y crítica de las investigaciones previas desarrolladas sobre detección de fraude en pagos transaccionales mediante técnicas de inteligencia artificial y aprendizaje automático. Este análisis permite identificar los avances científicos, las metodologías empleadas, los vacíos de conocimiento existentes y el posicionamiento de la presente investigación en el contexto académico global.
+
+\subsection{Evolución histórica del campo de estudio}
+
+La detección automatizada de fraude transaccional ha experimentado una transformación sustancial durante las últimas dos décadas. \textcite{Baesens2015} documentan que los primeros sistemas operaban mediante reglas estáticas basadas en umbrales predefinidos (montos máximos, frecuencia de transacciones, ubicaciones geográficas), lo cual resultaba efectivo ante esquemas de fraude simples pero demostraba rigidez ante tácticas fraudulentas evolutivas.
+
+\textcite{Lucas2019} analiza la transición hacia enfoques adaptativos basados en aprendizaje automático, argumentando que la capacidad de los modelos para aprender patrones complejos a partir de datos históricos representa un salto cualitativo en la efectividad de detección. Esta evolución se aceleró durante la década de 2010--2020 con la disponibilidad de grandes volúmenes de datos transaccionales y el desarrollo de algoritmos de mayor poder computacional.
+
+Estudios recientes de \textcite{Hafez2025} y \textcite{HernandezAros2024} confirman que la investigación contemporánea se centra en arquitecturas híbridas que combinan múltiples algoritmos (ensemble learning), incorporan procesamiento de lenguaje natural \parencite{Rodriguez2023} y utilizan redes neuronales de grafos para modelar relaciones complejas entre entidades \parencite{Cheng2025}.
+
+\subsection{Matriz de referencias principales}
+
+La Tabla~\ref{tab:matriz-referencias} sistematiza las veinte referencias científicas más relevantes que fundamentan esta investigación, clasificadas por tipo de fuente y aporte específico al estudio.
+
+\begin{longtable}{|p{3cm}|p{7.5cm}|p{1.8cm}|p{1.2cm}|}
+\caption{Matriz de referencias principales sobre detección de fraude con Machine Learning}
+\label{tab:matriz-referencias} \\
+\hline
+\textbf{Referencia} & \textbf{Aporte principal al estudio} & \textbf{Tipo} & \textbf{Año} \\
+\hline
+\endfirsthead
+
+\multicolumn{4}{c}{\tablename\ \thetable\ -- Continuación de la página anterior} \\
+\hline
+\textbf{Referencia} & \textbf{Aporte principal al estudio} & \textbf{Tipo} & \textbf{Año} \\
+\hline
+\endhead
+
+\hline
+\multicolumn{4}{r}{Continúa en la página siguiente} \\
+\endfoot
+
+\hline
+\endlastfoot
+
+Géron (2022) & Fundamentos de algoritmos de ML supervisado y métricas de evaluación & Libro & 2022 \\
+\hline
+
+Bishop (2006) & Teoría estadística del aprendizaje y reconocimiento de patrones & Libro & 2006 \\
+\hline
+
+Baesens et al. (2015) & Metodologías específicas para analítica de fraude financiero & Libro & 2015 \\
+\hline
+
+Goodfellow et al. (2016) & Técnicas de deep learning aplicables a detección de anomalías & Libro & 2016 \\
+\hline
+
+Murphy (2022) & Enfoques probabilísticos y bayesianos en ML & Libro & 2022 \\
+\hline
+
+Hafez et al. (2025) & Revisión sistemática de técnicas de IA en fraude con tarjetas de crédito & Artículo & 2025 \\
+\hline
+
+Hernández Aros et al. (2024) & Literatura review sobre fraude financiero y ML & Artículo & 2024 \\
+\hline
+
+Feng \& Kim (2024) & Modelos novedosos de ML para detección de fraude en tarjetas & Artículo & 2024 \\
+\hline
+
+Al-Khasawneh (2025) & Métodos híbridos de redes neuronales para fraude & Artículo & 2025 \\
+\hline
+
+Rodríguez et al. (2023) & Detección de fraude mediante procesamiento de lenguaje natural & Artículo & 2023 \\
+\hline
+
+Cheng et al. (2025) & Redes neuronales de grafos para detección de fraude financiero & Artículo & 2025 \\
+\hline
+
+Bello \& Olufemi (2024) & IA en prevención de fraude: técnicas, aplicaciones y desafíos & Artículo & 2024 \\
+\hline
+
+AlEmad (2022) & Detección de fraude con tarjetas usando KNN, SVM y regresión logística & Tesis & 2022 \\
+\hline
+
+Lucas (2019) & Fraude en tarjetas con integración de conocimiento contextual & Tesis PhD & 2019 \\
+\hline
+
+Chaquet (2022) & ML interpretable para detección de fraude crediticio & Tesis PhD & 2022 \\
+\hline
+
+Rayo (2020) & Prototipo de detección de fraude con IA en banco peruano & Tesis & 2020 \\
+\hline
+
+Pérez (2021) & Detección de transacciones fraudulentas con ML en Colombia & Tesis & 2021 \\
+\hline
+
+NIST (2024) & Framework de ciberseguridad CSF 2.0 con función ``Govern'' & Estándar & 2024 \\
+\hline
+
+OEA-BID (2020) & Ciberseguridad y fraude digital en América Latina & Reporte & 2020 \\
+\hline
+
+Dileep et al. (2023) & Detección de fraude financiero con técnicas de deep learning & Artículo & 2023 \\
+\hline
+\end{longtable}
+
+\subsection{Análisis de tesis doctorales y trabajos de maestría relacionados}
+
+El análisis de investigaciones previas revela diferentes enfoques metodológicos y contextos de aplicación que orientan el diseño del presente estudio.
+
+\textbf{Enfoque algorítmico supervisado.} \textcite{AlEmad2022} desarrolló un modelo comparativo utilizando K-Nearest Neighbors (KNN), Support Vector Machines (SVM) y regresión logística aplicado a un dataset público de transacciones con tarjetas de crédito, concluyendo que los métodos de ensamblaje superan a algoritmos individuales. Esta investigación aporta antecedentes sobre selección y comparación de algoritmos supervisados.
+
+\textbf{Integración de conocimiento contextual.} \textcite{Lucas2019} propone en su tesis doctoral la incorporación de información contextual secuencial (historial de transacciones del usuario, patrones temporales) además de características transaccionales individuales, logrando mejoras significativas en la tasa de detección. Este enfoque resulta relevante para el contexto de TechSport, donde los usuarios generan secuencias de transacciones a lo largo del tiempo.
+
+\textbf{Interpretabilidad y explicabilidad.} \textcite{Chaquet2022} enfatiza la necesidad de modelos interpretables en aplicaciones financieras, desarrollando técnicas de ML explicable (XAI) que permiten justificar las decisiones del sistema ante auditorías regulatorias. Este aspecto será considerado en la fase de evaluación del modelo propuesto.
+
+\textbf{Aplicaciones en contextos latinoamericanos.} Las tesis de \textcite{Rayo2020} en Perú y \textcite{Perez2021} en Colombia documentan implementaciones exitosas de modelos de Machine Learning en instituciones financieras de la región, validando la viabilidad técnica y operativa de estos sistemas en ecosistemas transaccionales similares al de TechSport.
+
+\subsection{Vacíos de conocimiento identificados}
+
+A pesar de los avances documentados, persisten áreas de oportunidad que justifican la presente investigación:
+
+\begin{enumerate}[label=\alph*), leftmargin=1.5cm]
+    \item \textbf{Detección en arquitecturas multicanal distribuidas.} La mayoría de estudios analizan datos de una sola pasarela de pago, mientras que TechSport opera con más de diez pasarelas simultáneamente, requiriendo un enfoque unificado de detección.
+
+    \item \textbf{Contexto de plataformas SaaS deportivas.} Las investigaciones previas se concentran en banca tradicional y comercio electrónico general, existiendo escasa literatura sobre fraude en plataformas especializadas de reservas deportivas.
+
+    \item \textbf{Evaluación comparativa con sistemas basados en reglas.} Pocos estudios documentan comparaciones empíricas rigurosas entre el desempeño de sistemas tradicionales versus modelos inteligentes en entornos productivos reales.
+\end{enumerate}
+
+\subsection{Contextualización de la investigación}
+
+La presente investigación se desarrolla en TechSport, plataforma SaaS con sede en Miami, Florida, que opera en múltiples países de América Latina gestionando reservas deportivas y procesando pagos digitales. La empresa integra más de diez pasarelas de pago (Stripe, CardConnect, AzulPay, RazorPay, BAC, entre otras), procesando transacciones en múltiples monedas a través de canales web, móviles y puntos de venta físicos.
+
+Actualmente, TechSport no dispone de un sistema centralizado de detección inteligente de fraude, operando con mecanismos fragmentados proporcionados individualmente por cada pasarela. Esta situación genera inconsistencias en criterios de evaluación, altas tasas de falsos positivos y fraudes no detectados que impactan la sostenibilidad financiera.
+
+El volumen transaccional durante 2024-2025 y la diversidad de patrones de comportamiento entre mercados geográficos justifican la implementación de un modelo adaptativo basado en Machine Learning, alineado con los hallazgos de \textcite{HernandezAros2024} sobre la superioridad de enfoques inteligentes frente a sistemas estáticos.
+
+\section{Marco Teórico Conceptual}
+
+El marco teórico conceptual articula los conceptos fundamentales y las teorías científicas que proporcionan sustento epistemológico a la investigación.
+
+\subsection{Definiciones conceptuales fundamentales}
+
+\textbf{Machine Learning (Aprendizaje Automático).} Disciplina de la inteligencia artificial que desarrolla algoritmos capaces de aprender patrones a partir de datos históricos sin ser explícitamente programados para cada tarea específica \parencite{Geron2022}. En esta investigación se refiere a técnicas supervisadas de clasificación binaria aplicadas a la identificación de transacciones fraudulentas.
+
+\textbf{Fraude en pagos transaccionales.} Acción deliberada destinada a obtener beneficios económicos ilícitos mediante el uso no autorizado de medios de pago, información financiera o identidades digitales, comprometiendo la integridad de los sistemas de comercio electrónico \parencite{Baesens2015}.
+
+\textbf{Anomalía transaccional.} Evento o patrón en los datos que se desvía significativamente del comportamiento esperado, pudiendo indicar intentos de fraude, errores operativos o comportamientos legítimos atípicos \parencite{Baesens2015}. Se distinguen anomalías puntuales (transacciones individuales atípicas), contextuales (transacciones normales en circunstancias inusuales) y colectivas (secuencias coordinadas sospechosas).
+
+\textbf{Modelo predictivo supervisado.} Algoritmo de aprendizaje automático entrenado mediante ejemplos etiquetados, donde cada instancia incluye características descriptivas y la categoría de clasificación \parencite{Bishop2006}. En detección de fraude, estos modelos aprenden a distinguir transacciones legítimas de fraudulentas.
+
+\textbf{Métricas de evaluación.} Indicadores cuantitativos que miden el desempeño de modelos de clasificación. \textcite{Geron2022} enfatiza que en contextos desbalanceados es imprescindible utilizar precisión (precision), exhaustividad (recall) y F1-score en lugar de exactitud convencional.
+
+\subsection{Definiciones operacionales de variables}
+
+Siguiendo los lineamientos metodológicos de \textcite{Hernandez2014}, se establecen las definiciones operacionales que especifican cómo se medirán las variables de investigación en el contexto de TechSport.
+
+\textbf{Variable Dependiente: Detección de anomalías y fraude en pagos transaccionales.} Se operacionaliza mediante indicadores cuantitativos de desempeño del modelo de clasificación:
+
+\begin{itemize}[leftmargin=1.5cm]
+    \item \textit{Precisión (Precision):} Proporción de transacciones clasificadas como fraudulentas que efectivamente lo son. Medida: $Precision = \frac{VP}{VP + FP}$, donde VP = Verdaderos Positivos, FP = Falsos Positivos.
+
+    \item \textit{Exhaustividad (Recall):} Proporción de fraudes reales que el modelo detecta correctamente. Medida: $Recall = \frac{VP}{VP + FN}$, donde FN = Falsos Negativos.
+
+    \item \textit{F1-score:} Media armónica entre Precision y Recall. Medida: $F1 = 2 \times \frac{Precision \times Recall}{Precision + Recall}$.
+
+    \item \textit{Tasa de Falsos Positivos:} Proporción de transacciones legítimas incorrectamente clasificadas como fraudulentas.
+
+    \item \textit{ROC-AUC:} Área bajo la curva ROC, evaluando capacidad discriminativa del modelo.
+\end{itemize}
+
+\textbf{Variable Independiente: Modelo de Machine Learning.} Se operacionaliza mediante:
+
+\begin{itemize}[leftmargin=1.5cm]
+    \item \textit{Tipo de algoritmo:} Random Forest, Gradient Boosting o Regresión Logística.
+    \item \textit{Hiperparámetros:} Número de árboles, profundidad máxima, tasa de aprendizaje.
+    \item \textit{Características de entrada:} Variables numéricas y categóricas extraídas de transacciones.
+\end{itemize}
+
+\textbf{Características transaccionales (features) consideradas:}
+
+\begin{itemize}[leftmargin=1.5cm]
+    \item Monto de la transacción (continua)
+    \item Hora del día (categórica: madrugada, mañana, tarde, noche)
+    \item Día de la semana (categórica)
+    \item Tipo de canal (categórica: web, móvil, punto de venta)
+    \item Gateway de pago utilizado (categórica: Stripe, CardConnect, AzulPay, etc.)
+    \item Moneda de la transacción (categórica)
+    \item País de origen (categórica)
+    \item Frecuencia de transacciones del usuario (continua)
+    \item Tiempo transcurrido desde última transacción (continua)
+    \item Monto promedio histórico del usuario (continua)
+\end{itemize}
+
+Estas definiciones operacionales fundamentan el \textbf{Objetivo Específico 1} (fundamentación teórica) y proporcionan criterios medibles para el \textbf{Objetivo Específico 4} (evaluación de efectividad).
+
+\subsection{Teoría del aprendizaje automático supervisado}
+
+El aprendizaje supervisado constituye un paradigma computacional donde los algoritmos aprenden funciones de mapeo entre variables de entrada y salida a partir de conjuntos de datos etiquetados \parencite{Bishop2006}. \textcite{Geron2022} establece que estos modelos buscan aproximar una función desconocida minimizando el error de predicción mediante procesos iterativos de optimización.
+
+En el dominio de detección de fraude, esto implica entrenar algoritmos con transacciones históricas clasificadas (fraudulentas/legítimas), permitiendo al sistema aprender patrones distintivos de comportamiento fraudulento. El proceso comprende tres fases: (1) entrenamiento, donde el modelo ajusta sus parámetros internos; (2) validación, que evalúa el desempeño en datos no vistos para prevenir sobreajuste; y (3) prueba, que mide la capacidad de generalización del modelo final.
+
+\subsection{Teoría de detección de anomalías}
+
+La detección de fraude puede conceptualizarse como un problema de identificación de anomalías, definidas como observaciones que se desvían significativamente de patrones esperados \parencite{Baesens2015}. Los autores distinguen entre enfoques estadísticos tradicionales (basados en umbrales y distribuciones probabilísticas) y técnicas contemporáneas de aprendizaje automático, que ofrecen mayor adaptabilidad.
+
+\textcite{HernandezAros2024} documentan que los sistemas basados en reglas estáticas presentan limitaciones fundamentales ante la evolución dinámica de las técnicas fraudulentas, mientras que los modelos adaptativos de Machine Learning pueden actualizarse continuamente incorporando nuevos patrones de ataque.
+
+\subsection{Teoría de evaluación en contextos desbalanceados}
+
+La evaluación de modelos de detección de fraude requiere consideraciones especiales debido al desbalance inherente en los datos transaccionales \parencite{Murphy2022}. El autor argumenta que métricas convencionales como la exactitud (accuracy) resultan inapropiadas cuando las clases presentan distribuciones asimétricas.
+
+En contextos donde las transacciones fraudulentas representan menos del 1\% del total, un modelo trivial que clasifique todas las transacciones como legítimas alcanzaría 99\% de exactitud sin detectar ningún fraude. Por ello resulta imprescindible utilizar:
+
+\begin{itemize}[leftmargin=1.5cm]
+    \item \textbf{Precisión (Precision):} Minimiza falsos positivos, evitando el rechazo de transacciones legítimas.
+    \item \textbf{Exhaustividad (Recall):} Maximiza la detección de fraudes reales, minimizando fraudes no detectados.
+    \item \textbf{F1-score:} Equilibra ambos criterios mediante su media armónica.
+    \item \textbf{ROC-AUC:} Evalúa el desempeño del modelo a través de diferentes umbrales de clasificación.
+\end{itemize}
+
+\section{Marco Referencial}
+
+El marco referencial documenta aplicaciones prácticas, estudios de caso y herramientas tecnológicas que proporcionan evidencia empírica sobre la viabilidad y efectividad de sistemas de detección de fraude basados en Machine Learning.
+
+\subsection{Aplicaciones exitosas en la industria fintech}
+
+\textbf{PayPal.} Pionero en la implementación de sistemas inteligentes de detección de fraude, PayPal procesa cientos de millones de transacciones diarias utilizando modelos de aprendizaje profundo que analizan más de 1,000 características por transacción. \textcite{Baesens2015} documentan que su sistema reduce las tasas de fraude por debajo del 0.32\% de las transacciones totales, superando significativamente a sistemas basados en reglas.
+
+\textit{Análisis crítico:} La experiencia de PayPal valida la superioridad de modelos inteligentes frente a sistemas estáticos. Sin embargo, su escala operativa (cientos de millones de transacciones) y recursos computacionales (análisis de 1,000+ características) difieren sustancialmente del contexto de TechSport. Para empresas de tamaño medio, resulta imprescindible adaptar el enfoque priorizando características discriminativas clave y arquitecturas eficientes que operen con volúmenes transaccionales moderados, sin comprometer la efectividad de detección.
+
+\textbf{Stripe.} Esta pasarela de pago implementa modelos de ML adaptativos que aprenden continuamente de patrones de fraude emergentes. \textcite{Bello2024} destacan que Stripe actualiza sus modelos en tiempo real, incorporando retroalimentación de transacciones disputadas para mejorar progresivamente la precisión de detección.
+
+\textit{Análisis crítico:} El enfoque de aprendizaje continuo de Stripe representa un paradigma deseable pero técnicamente complejo. Su implementación requiere infraestructura de datos robusta, pipelines de reentrenamiento automatizados y mecanismos de validación en producción. Para TechSport, una estrategia realista consiste en implementar inicialmente un modelo estático validado, estableciendo posteriormente ciclos de reentrenamiento periódicos (mensuales o trimestrales) conforme se acumule suficiente retroalimentación etiquetada.
+
+\textbf{Mastercard Decision Intelligence.} Utiliza redes neuronales recurrentes (RNN) y análisis de comportamiento histórico para evaluar cada transacción en milisegundos, reduciendo falsos positivos en un 50\% según reportes de la compañía citados por \textcite{Feng2024}.
+
+\textit{Análisis crítico:} La reducción del 50\% en falsos positivos constituye un objetivo aspiracional para TechSport, considerando que los falsos positivos afectan directamente la experiencia del usuario legítimo. Arquitecturas RNN capturan secuencias temporales de comportamiento, pero requieren volúmenes históricos significativos por usuario. En el contexto de TechSport, donde usuarios nuevos generan transacciones sin historial previo, resulta preferible combinar modelos basados en características transaccionales individuales con análisis de comportamiento agregado cuando existan datos suficientes.
+
+\subsection{Estudios de caso específicos}
+
+\textbf{Detección de fraude con tarjetas de crédito.} \textcite{Feng2024} desarrollan un modelo híbrido que combina Random Forest y redes neuronales artificiales, logrando F1-score de 0.89 en un dataset público altamente desbalanceado (0.17\% de fraudes). Los autores identifican como características más predictivas: monto de la transacción, hora del día, distancia respecto a transacciones previas y frecuencia de uso.
+
+\textbf{Fraude en wallets digitales.} \textcite{AlKhasawneh2025} propone arquitecturas de redes neuronales híbridas (CNN-LSTM) que capturan tanto patrones espaciales como secuencias temporales de comportamiento, alcanzando 94\% de recall en la detección de fraudes en billeteras digitales.
+
+\textbf{Procesamiento de lenguaje natural en fraude.} \textcite{Rodriguez2023} demuestran que el análisis de descripciones textuales de transacciones (nombres de comercios, categorías de productos) mediante técnicas de NLP permite identificar esquemas fraudulentos que explotan nombres de comercios ficticios o categorías inusuales.
+
+\subsection{Modelos algorítmicos aplicables}
+
+\textbf{Regresión logística.} Algoritmo supervisado que estima la probabilidad de pertenencia a una clase mediante funciones logísticas. \textcite{AlEmad2022} documenta su efectividad en detección de fraude debido a su interpretabilidad y eficiencia computacional, siendo apropiado para entornos productivos que requieren predicciones en tiempo real.
+
+\textbf{Random Forest.} Algoritmo de ensamblaje que combina múltiples árboles de decisión para mejorar robustez y reducir sobreajuste \parencite{Geron2022}. \textcite{Rayo2020} implementa este algoritmo en un banco peruano, logrando 91\% de precisión en detección de fraude con tarjetas.
+
+\textbf{Gradient Boosting (XGBoost, LightGBM).} Técnicas de ensamblaje secuencial que construyen modelos iterativamente corrigiendo errores de modelos previos. \textcite{Chaquet2022} demuestra que XGBoost alcanza desempeño superior en contextos desbalanceados mediante técnicas de ponderación de clases.
+
+\textbf{Redes neuronales artificiales.} Modelos inspirados en estructuras biológicas capaces de aprender representaciones complejas no lineales \parencite{Goodfellow2016}. \textcite{Dileep2023} utilizan arquitecturas profundas (deep learning) que automatizan la extracción de características relevantes, eliminando la necesidad de ingeniería de atributos manual.
+
+\subsection{Análisis comparativo de modelos aplicables a TechSport}
+
+La selección de algoritmos apropiados para el contexto específico de TechSport requiere un análisis comparativo que considere las características operativas de la empresa: volumen transaccional moderado, arquitectura multicanal distribuida y necesidad de interpretabilidad ante auditorías. La Tabla~\ref{tab:comparacion-algoritmos} sistematiza ventajas, desventajas y aplicabilidad de cada enfoque algorítmico al contexto de TechSport.
+
+\begin{table}[htbp]
+\centering
+\caption{Comparación de algoritmos de Machine Learning para detección de fraude en TechSport}
+\label{tab:comparacion-algoritmos}
+\small
+\begin{tabularx}{\textwidth}{|l|X|X|X|}
+\hline
+\textbf{Algoritmo} & \textbf{Ventajas} & \textbf{Desventajas} & \textbf{Aplicabilidad a TechSport} \\
+\hline
+
+Regresión Logística &
+Alta interpretabilidad; eficiencia computacional; predicciones en tiempo real &
+Limitada capacidad para capturar relaciones no lineales complejas &
+Alta. Apropiado para prototipo inicial y baseline de comparación. Facilita auditorías regulatorias. \\
+\hline
+
+Random Forest &
+Robusto ante sobreajuste; maneja datos desbalanceados; importancia de características &
+Mayor costo computacional; menor interpretabilidad que regresión logística &
+Alta. Balance óptimo entre desempeño y complejidad para volumen transaccional de TechSport. \\
+\hline
+
+Gradient Boosting (XGBoost) &
+Desempeño superior en datasets desbalanceados; ponderación de clases; regularización &
+Requiere ajuste fino de hiperparámetros; riesgo de sobreajuste &
+Media-Alta. Recomendado para fase de optimización posterior al modelo base. \\
+\hline
+
+Redes Neuronales &
+Captura patrones complejos; aprendizaje automático de características &
+Requiere grandes volúmenes de datos; baja interpretabilidad; alto costo computacional &
+Baja-Media. Volumen transaccional actual de TechSport puede ser insuficiente para entrenar arquitecturas profundas efectivamente. \\
+\hline
+\end{tabularx}
+\end{table}
+
+Este análisis fundamenta la selección de Random Forest como modelo principal para el Objetivo Específico 3 (desarrollo del modelo), complementado con Regresión Logística como baseline y XGBoost para validación de desempeño superior. Las redes neuronales se reservan como línea futura de investigación cuando el volumen de datos históricos sea mayor.
+
+\subsection{Conexión con los objetivos de investigación}
+
+Los modelos algorítmicos, estudios de caso y aplicaciones documentadas en este Marco Referencial proporcionan sustento empírico para el \textbf{Objetivo Específico 3}: \textit{Desarrollar un modelo de Machine Learning para la detección de anomalías y fraude en los pagos transaccionales procesados por TechSport}. La evidencia revisada demuestra que Random Forest y Gradient Boosting han sido implementados exitosamente en contextos similares (instituciones financieras latinoamericanas, plataformas de comercio electrónico), validando su viabilidad técnica y efectividad en entornos con características desbalanceadas y requerimientos de tiempo real.
+
+Adicionalmente, los estudios de interpretabilidad y explicabilidad documentados fundamentan el \textbf{Objetivo Específico 4}: \textit{Evaluar la efectividad del modelo}, proporcionando referencias metodológicas para seleccionar métricas apropiadas (Precision, Recall, F1-score, ROC-AUC) y establecer protocolos de validación rigurosos que permitan comparar el desempeño del modelo propuesto contra el sistema actual basado en reglas estáticas.
+
+\section{Marco Normativo}
+
+El marco normativo identifica las regulaciones, estándares y principios legales que enmarcan la implementación de sistemas de detección de fraude en medios de pago electrónicos, garantizando cumplimiento regulatorio y protección de derechos.
+
+La construcción de este marco sigue los lineamientos metodológicos propuestos por \textcite{Arias2016}, quien establece que las bases legales o marco normativo constituyen el conjunto de normas, leyes, reglamentos y disposiciones jurídicas que regulan y fundamentan la investigación, proporcionando el sustento legal necesario para el desarrollo del proyecto. Complementariamente, \textcite{Bernal2016} señala que el marco referencial debe incluir el sustento legal que enmarca el fenómeno de estudio, proporcionando legitimidad institucional y viabilidad jurídica a la propuesta de investigación.
+
+Siguiendo los principios de \textcite{Hernandez2014}, este marco normativo se centra exclusivamente en la legislación \textbf{directamente pertinente} al contexto operativo de TechSport, empresa con sede en Miami, Florida, Estados Unidos. La pertinencia y coherencia entre el problema de investigación, los objetivos planteados y el sustento legal presentado constituyen criterios fundamentales para garantizar rigurosidad metodológica, evitando la inclusión de normativa no aplicable al objeto de estudio.
+
+\subsection{Marco regulatorio federal de Estados Unidos}
+
+\textbf{Federal Trade Commission Act (FTC Act) - 15 U.S.C. § 41 et seq.} Establece la autoridad de la FTC para prevenir prácticas comerciales desleales en transacciones electrónicas, requiriendo procedimientos de autorización y protección contra fraude en sistemas de pago digital.
+
+\textbf{Electronic Fund Transfer Act (EFTA) - 15 U.S.C. § 1693 et seq.} Regula derechos y responsabilidades en transferencias electrónicas de fondos, estableciendo límites de responsabilidad por transacciones no autorizadas y requiriendo procedimientos específicos de contabilidad y resolución de errores.
+
+\textbf{Gramm-Leach-Bliley Act (GLBA) - 15 U.S.C. § 6801 et seq.} Ley federal de 1999 que regula protección de información financiera de consumidores mediante reglas de privacidad (notificación y limitación de divulgación), salvaguardas de seguridad (actualizada en 2023 con controles más estrictos) y prohibición de pretextos fraudulentos.
+
+\textbf{California Consumer Privacy Act (CCPA) - Cal. Civ. Code § 1798.100 et seq.} Normativa de California (2018) aplicable a empresas que operan en el estado. Aunque exime datos cubiertos por GLBA, las instituciones financieras deben cumplir CCPA para datos de marketing, información de no clientes y obligaciones de seguridad ante violaciones de datos.
+
+\subsection{Estándares internacionales de seguridad}
+
+\textbf{Payment Card Industry Data Security Standard (PCI DSS).} Estándar de seguridad establecido por las principales marcas de tarjetas de crédito (Visa, Mastercard, American Express) que define doce requisitos obligatorios para organizaciones que almacenan, procesan o transmiten datos de tarjetas de pago. Incluye controles técnicos como cifrado, segmentación de red, monitoreo continuo y pruebas de penetración.
+
+\textbf{ISO/IEC 27001:2022.} Norma internacional que especifica requisitos para establecer, implementar y mejorar continuamente un sistema de gestión de seguridad de la información (SGSI). Proporciona un marco estructurado para la gestión de riesgos de ciberseguridad aplicable a organizaciones que procesan datos financieros.
+
+\textbf{NIST Cybersecurity Framework (CSF) 2.0.} \textcite{NIST2024} publicaron la versión actualizada del marco de ciberseguridad del NIST, incorporando la función ``Govern'' como eje transversal de gobernanza. Este marco proporciona orientación para organizaciones de todos los tamaños sobre gestión integral de riesgos de ciberseguridad, abarcando seis funciones: Govern, Identify, Protect, Detect, Respond y Recover.
+
+La función ``Detect'' resulta particularmente relevante para sistemas de detección de fraude, estableciendo categorías para: monitoreo continuo de anomalías (DE.CM), procesos de detección de eventos adversos (DE.AE) y mejora continua de capacidades de detección (DE.DP).
+
+\subsection{Regulaciones transnacionales de protección de datos}
+
+\textbf{General Data Protection Regulation (GDPR) - Reglamento (UE) 2016/679.} Reglamento europeo de protección de datos aplicable a organizaciones que procesan información de ciudadanos de la Unión Europea, independientemente de su ubicación geográfica. Si TechSport procesa transacciones de usuarios residentes en la UE, debe cumplir con GDPR. Establece principios de minimización de datos, limitación de finalidad, transparencia en el procesamiento y derechos de los titulares, incluyendo el derecho a la explicación de decisiones automatizadas (Artículo 22), particularmente relevante para sistemas de Machine Learning en aplicaciones financieras donde los modelos toman decisiones de clasificación de transacciones.
+
+\subsection{Regulaciones anti-lavado de dinero}
+
+\textbf{Principios AML/KYC (Anti-Money Laundering / Know Your Customer).} Estándares internacionales del Financial Action Task Force (FATF) que establecen obligaciones de identificación de clientes, monitoreo de transacciones sospechosas y reporte de actividades inusuales. Estas regulaciones complementan sistemas de detección de fraude, requiriendo análisis de patrones transaccionales para identificar operaciones potencialmente ilícitas.
+
+\subsection{Consideraciones para operaciones en América Latina}
+
+\textbf{Marco regulatorio de países donde opera TechSport.} Aunque TechSport tiene sede en Estados Unidos, procesa transacciones en múltiples países de América Latina. Cada jurisdicción donde opera establece requisitos específicos de protección de datos, prevención de fraude y cumplimiento financiero que deben considerarse en la implementación del sistema de detección.
+
+\textbf{Reporte OEA-BID (2020) sobre Ciberseguridad en América Latina y el Caribe.} \textcite{OEABID2020} documentan los riesgos de ciberseguridad específicos de la región, incluyendo fraude digital y vulnerabilidades en sistemas de pago electrónicos. El reporte identifica desafíos particulares de plataformas que operan en múltiples jurisdicciones latinoamericanas, recomendando implementación de controles técnicos avanzados, coordinación transnacional y capacitación continua en materia de prevención de fraude.
+
+\section*{Conclusión}
+
+Los fundamentos teóricos referenciales desarrollados cumplen con el \textbf{Objetivo Específico 1}, proporcionando sustento científico robusto para la investigación mediante la integración de cuatro marcos complementarios.
+
+El \textbf{Estado del Arte} identifica tres vacíos de conocimiento críticos que justifican la hipótesis de investigación: (1) escasa literatura sobre detección de fraude en arquitecturas multicanal distribuidas como la de TechSport, (2) ausencia de estudios en plataformas SaaS deportivas especializadas, y (3) limitadas comparaciones empíricas rigurosas entre sistemas tradicionales y modelos inteligentes. Estos hallazgos validan la necesidad de implementar un modelo adaptativo basado en Machine Learning, alineado con la \textbf{hipótesis}: \textit{La implementación de un modelo de Machine Learning mejora la detección de anomalías y fraudes en pagos transaccionales}.
+
+El \textbf{Marco Teórico Conceptual} establece las definiciones operacionales de variables que permitirán medir la efectividad del modelo (\textbf{Objetivo Específico 4}): Precision, Recall, F1-score, tasa de falsos positivos y ROC-AUC. Además, delimita las características transaccionales discriminativas (monto, hora, canal, gateway, frecuencia) que fundamentarán el diseño del modelo (\textbf{Objetivo Específico 3}).
+
+El \textbf{Marco Referencial} valida la viabilidad técnica mediante análisis crítico de aplicaciones exitosas (PayPal, Stripe, Mastercard) y proporciona evidencia empírica que orienta decisiones de diseño: selección de Random Forest como algoritmo principal por su balance entre desempeño y complejidad, estrategia de reentrenamiento periódico en lugar de tiempo real, y combinación de características transaccionales individuales con análisis de comportamiento agregado.
+
+El \textbf{Marco Normativo} garantiza que el sistema propuesto operará dentro del marco legal aplicable a TechSport (normativa federal estadounidense, estándares PCI DSS, ISO 27001, NIST CSF 2.0), asegurando cumplimiento regulatorio y viabilidad institucional del proyecto.
+
+La convergencia de estos fundamentos teóricos proporciona la base científica necesaria para abordar los objetivos específicos 2, 3 y 4, orientando el diseño metodológico, desarrollo del modelo y evaluación de resultados con criterios sólidos y validados en la literatura científica.
+
+\newpage
+
+\printbibliography[heading=bibintoc,title={Referencias Bibliográficas}]
+
+\end{document}

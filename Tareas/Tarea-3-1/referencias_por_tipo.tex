@@ -1,0 +1,242 @@
+% ==================================================================================
+% TAREA 3.1: REFERENCIAS BIBLIOGRÁFICAS CLASIFICADAS POR TIPO
+% Formato APA 7ª Edición - Basado en Tarea 3
+% ==================================================================================
+
+\documentclass[12pt,a4paper]{article}
+
+% Paquetes básicos
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[spanish,es-tabla]{babel}
+\usepackage{geometry}
+\geometry{left=3cm,right=2.5cm,top=2.5cm,bottom=2.5cm}
+\usepackage{setspace}
+\onehalfspacing
+
+% Bibliografía APA 7
+\usepackage[
+    backend=biber,
+    style=apa,
+    sorting=nyt,
+    maxbibnames=99
+]{biblatex}
+\DeclareLanguageMapping{spanish}{spanish-apa}
+\addbibresource{../../bibliografia/referencias.bib}
+
+% Otros paquetes
+\usepackage{indentfirst}
+\usepackage{csquotes}
+\usepackage{xcolor}
+
+% Sangría APA
+\setlength{\parindent}{1.27cm}
+
+% Comandos para marcar tipos de referencias
+\newcommand{\tipolibro}{\textcolor{blue}{\textbf{[LIBRO]}}}
+\newcommand{\tipoarticulo}{\textcolor{red}{\textbf{[ARTÍCULO DE REVISTA]}}}
+\newcommand{\tipotesis}{\textcolor{green!60!black}{\textbf{[TESIS]}}}
+\newcommand{\tiporeporte}{\textcolor{orange!80!black}{\textbf{[DOCUMENTO TÉCNICO]}}}
+\newcommand{\tipoconferencia}{\textcolor{purple}{\textbf{[CONFERENCIA]}}}
+
+\begin{document}
+
+\begin{center}
+\textbf{\Large REFERENCIAS BIBLIOGRÁFICAS POR TIPO DE FUENTE}\\[0.5em]
+\textbf{\large Formato APA 7ª Edición}\\[0.3em]
+\textbf{Tarea 3.1}
+\end{center}
+
+\vspace{1em}
+
+\section*{Introducción}
+
+Este documento presenta las referencias bibliográficas utilizadas en el trabajo de Fundamentos Teóricos (Tarea 3), clasificadas visualmente por tipo de fuente según el formato APA 7ª edición.
+
+\vspace{0.5em}
+
+\section*{Referencias Completas Ordenadas Alfabéticamente}
+
+A continuación se presentan todas las referencias en orden alfabético, con marcas de color indicando el tipo de fuente:
+
+\begin{itemize}
+    \item \tipolibro{} = Libro
+    \item \tipoarticulo{} = Artículo de revista científica
+    \item \tipotesis{} = Tesis (maestría o doctorado)
+    \item \tiporeporte{} = Documento técnico o reporte institucional
+    \item \tipoconferencia{} = Artículo de conferencia
+\end{itemize}
+
+\vspace{1em}
+
+% ============================================================================
+% LIBROS
+% ============================================================================
+
+\noindent\tipolibro
+
+\noindent\fullcite{Arias2016}
+
+\vspace{1em}
+
+\noindent\tipolibro
+
+\noindent\fullcite{Baesens2015}
+
+\vspace{1em}
+
+\noindent\tipolibro
+
+\noindent\fullcite{Bernal2016}
+
+\vspace{1em}
+
+\noindent\tipolibro
+
+\noindent\fullcite{Bishop2006}
+
+\vspace{1em}
+
+\noindent\tipolibro
+
+\noindent\fullcite{Geron2022}
+
+\vspace{1em}
+
+\noindent\tipolibro
+
+\noindent\fullcite{Goodfellow2016}
+
+\vspace{1em}
+
+\noindent\tipolibro
+
+\noindent\fullcite{Hernandez2014}
+
+\vspace{1em}
+
+\noindent\tipolibro
+
+\noindent\fullcite{Murphy2022}
+
+\vspace{1em}
+
+% ============================================================================
+% ARTÍCULOS DE REVISTA
+% ============================================================================
+
+\noindent\tipoarticulo
+
+\noindent\fullcite{AlKhasawneh2025}
+
+\vspace{1em}
+
+\noindent\tipoarticulo
+
+\noindent\fullcite{Bello2024}
+
+\vspace{1em}
+
+\noindent\tipoarticulo
+
+\noindent\fullcite{Cheng2025}
+
+\vspace{1em}
+
+\noindent\tipoarticulo
+
+\noindent\fullcite{Feng2024}
+
+\vspace{1em}
+
+\noindent\tipoarticulo
+
+\noindent\fullcite{Hafez2025}
+
+\vspace{1em}
+
+\noindent\tipoarticulo
+
+\noindent\fullcite{HernandezAros2024}
+
+\vspace{1em}
+
+\noindent\tipoarticulo
+
+\noindent\fullcite{Rodriguez2023}
+
+\vspace{1em}
+
+% ============================================================================
+% TESIS
+% ============================================================================
+
+\noindent\tipotesis
+
+\noindent\fullcite{AlEmad2022}
+
+\vspace{1em}
+
+\noindent\tipotesis
+
+\noindent\fullcite{Chaquet2022}
+
+\vspace{1em}
+
+\noindent\tipotesis
+
+\noindent\fullcite{Lucas2019}
+
+\vspace{1em}
+
+\noindent\tipotesis
+
+\noindent\fullcite{Perez2021}
+
+\vspace{1em}
+
+\noindent\tipotesis
+
+\noindent\fullcite{Rayo2020}
+
+\vspace{1em}
+
+% ============================================================================
+% DOCUMENTOS TÉCNICOS/REPORTES
+% ============================================================================
+
+\noindent\tiporeporte
+
+\noindent\fullcite{NIST2024}
+
+\vspace{1em}
+
+\noindent\tiporeporte
+
+\noindent\fullcite{OEABID2020}
+
+\vspace{1em}
+
+% ============================================================================
+% ARTÍCULOS DE CONFERENCIA
+% ============================================================================
+
+\noindent\tipoconferencia
+
+\noindent\fullcite{Dileep2023}
+
+\vspace{2em}
+
+% ============================================================================
+% LISTA DE REFERENCIAS ESTÁNDAR APA
+% ============================================================================
+
+\newpage
+
+\section*{Lista de Referencias (Formato APA Estándar)}
+
+A continuación, la misma bibliografía en formato estándar APA 7ª edición, tal como debe aparecer al final de un documento académico:
+
+\printbibliography[heading=none]
+
+\end{document}
