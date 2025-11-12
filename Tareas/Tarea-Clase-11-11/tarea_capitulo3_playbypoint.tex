@@ -1,0 +1,66 @@
+% ==================================================================================
+% TAREA: FUNDAMENTACIÓN DE INSTRUMENTOS Y PROCEDIMIENTO DIAGNÓSTICO
+% ==================================================================================
+\documentclass[12pt,a4paper]{article}
+
+% Paquetes básicos
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[spanish,es-tabla]{babel}
+\usepackage{geometry}
+\geometry{left=3cm,right=2.5cm,top=2.5cm,bottom=2.5cm}
+\usepackage{setspace}
+\onehalfspacing
+\usepackage{hyperref}
+\usepackage{enumitem}
+
+\begin{document}
+
+\begin{center}
+    \textbf{\Large Fundamentación de los instrumentos y procedimiento diagnóstico}\\[0.5em]
+    \textbf{Tema: Implementación de un modelo de Machine Learning para la detección de anomalías y fraude en pagos transaccionales en PlaybyPoint (2024--2025)}
+\end{center}
+
+\section*{Introducción}
+El presente documento responde al encargo académico de fundamentar la selección de instrumentos y el procedimiento diagnóstico para la tesis de maestría orientada a fortalecer la detección de fraude en la empresa PlaybyPoint. De acuerdo con Hernández Sampieri, Mendoza Torres y Baptista Lucio (2021), el rigor metodológico en estudios cuantitativos exige justificar la pertinencia, validez y confiabilidad de los instrumentos, además de detallar la secuencia operativa que permitirá transformar los datos en evidencia científica. El enfoque empírico-analítico adoptado en esta investigación demanda instrumentos que capturen el comportamiento transaccional real y un procedimiento que garantice la trazabilidad de cada decisión técnica antes de entrenar el modelo de Machine Learning.
+
+\section*{Fundamentación de los instrumentos de investigación}
+\subsection*{Bases de datos transaccionales anonimizadas}
+Las bases de datos históricas de pagos constituyen el insumo principal para operacionalizar la variable dependiente (detección de fraude). Su anonimización protege la confidencialidad de los usuarios y, al mismo tiempo, preserva los atributos cuantitativos necesarios para el análisis (monto, canal, pasarela, geolocalización, etiqueta fraude/no fraude). Según Géron (2022), los repositorios estructurados y balanceados favorecen la estabilidad de los algoritmos supervisados, incrementando la validez interna de los experimentos comparativos.
+
+\subsection*{Logs de aplicación y reportes de fraude}
+Los registros de eventos de la plataforma y los reportes operativos de fraude complementan la base de datos al proporcionar un relato secuencial de incidencias, latencias y respuestas del sistema actual. Estos instrumentos permiten establecer una línea base contra la cual se contrastará el modelo propuesto, asegurando validez externa y contextualización del diagnóstico. En términos metodológicos, la triangulación entre bases tabulares y logs mejora la confiabilidad de los hallazgos al reducir el sesgo de medición (Hernández Sampieri et al., 2021).
+
+\subsection*{Scripts analíticos reproducibles}
+Se emplearán cuadernos en Python con librerías como Pandas, Scikit-learn y Matplotlib para documentar la limpieza, transformación, partición y modelado de los datos. La automatización y versionado del código constituyen instrumentos que garantizan trazabilidad y replicabilidad, requisitos centrales para la confiabilidad técnica de un estudio aplicado (Géron, 2022). Además, su integración con prácticas de evaluación cruzada fortalece la consistencia del diagnóstico previo al despliegue del modelo.
+
+\subsection*{Guía de evaluación y control}
+Se elaborará una guía que consolide las métricas cuantitativas (precisión, \textit{recall}, F1-score, tasa de falsos positivos, tiempo de respuesta) junto con umbrales operativos alineados a los marcos de gestión de riesgo digital, tales como el NIST AI RMF (National Institute of Standards and Technology [NIST], 2023). Este instrumento normativo controla la interpretación de resultados, reduce la subjetividad del analista y aporta evidencia documentada para la toma de decisiones estratégicas dentro de PlaybyPoint.
+
+\section*{Procedimiento para elaborar el diagnóstico de la investigación}
+\subsection*{1. Planeación y delimitación}
+Se revisarán los objetivos específicos y las hipótesis de la tesis para definir criterios de inclusión de datos, periodos de análisis y pasarelas de pago relevantes. Esta etapa asegura la coherencia entre el aparato conceptual y los instrumentos seleccionados, en concordancia con las recomendaciones de Hernández Sampieri et al. (2021).
+
+\subsection*{2. Recolección estructurada de información}
+El equipo técnico exportará las bases de datos anonimizadas y los logs de la plataforma, mientras que el área de compliance proveerá los reportes de fraude confirmados y los falsos positivos. Todo el material se almacenará en un repositorio controlado con metadatos que registren fuente, fecha y nivel de limpieza inicial.
+
+\subsection*{3. Preparación y limpieza}
+Mediante los scripts reproducibles se ejecutarán procesos de depuración (eliminación de duplicados, imputación de valores faltantes, estandarización de variables categóricas), balanceo de clases y partición en conjuntos de entrenamiento, validación y prueba (70/15/15). Esta fase incluye la documentación de cada transformación para sostener la auditabilidad del estudio.
+
+\subsection*{4. Análisis descriptivo y diagnóstico preliminar}
+Se aplicarán estadísticas descriptivas y visualizaciones exploratorias (matrices de correlación, histogramas de montos, mapas de calor por pasarela) con el fin de identificar patrones de comportamiento normal y anomalías recurrentes. Los hallazgos se integrarán con la revisión de logs para detectar cuellos de botella operativos y episodios críticos que alimenten las decisiones de modelado.
+
+\subsection*{5. Integración para el entrenamiento y validación}
+Los conjuntos depurados y el conocimiento derivado del análisis preliminar servirán como base para entrenar el modelo de Machine Learning. La guía de evaluación controlará las pruebas de validación cruzada y permitirá comparar el modelo inteligente con las reglas actuales. El diagnóstico resultante sintetizará brechas, oportunidades de mejora y recomendaciones para la implementación piloto en PlaybyPoint.
+
+\section*{Conclusión}
+La combinación de instrumentos descritos y el procedimiento secuencial propuesto responden a los estándares metodológicos para investigaciones cuantitativas aplicadas. Las bases transaccionales y los logs otorgan evidencia empírica consistente, mientras que los scripts reproducibles y la guía de evaluación aseguran validez y confiabilidad en la interpretación de resultados. En conjunto, estos elementos habilitan un diagnóstico robusto que reduce la incertidumbre antes de entrenar y validar el modelo de Machine Learning, fortaleciendo la toma de decisiones estratégicas de PlaybyPoint.
+
+\section*{Referencias}
+\begin{enumerate}[leftmargin=*]
+    \item Hernández Sampieri, R., Mendoza Torres, C., \& Baptista Lucio, P. (2021). \textit{Metodología de la investigación} (7.a ed.). McGraw Hill.
+    \item Géron, A. (2022). \textit{Hands-on machine learning with Scikit-Learn, Keras, and TensorFlow} (3rd ed.). O'Reilly Media.
+    \item National Institute of Standards and Technology. (2023). \textit{Artificial Intelligence Risk Management Framework (AI RMF 1.0)}. U.S. Department of Commerce. 
+\end{enumerate}
+
+\end{document}
