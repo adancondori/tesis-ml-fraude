@@ -1,0 +1,721 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage[left=3cm,right=2.5cm,top=2.5cm,bottom=2.5cm]{geometry}
+\usepackage{setspace}
+\onehalfspacing
+\usepackage{parskip}
+\setlength{\parindent}{1.27cm}
+
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{xcolor}
+
+% Formato de secciones principales
+\titleformat{\section}
+  {\normalfont\Large\bfseries\color{blue!70!black}}{\thesection}{1em}{}
+
+\title{\textbf{Verificación Metodológica del Proyecto de Investigación}\\[0.5em]
+\large Detección de Fraude en Pagos Transaccionales usando Machine Learning\\[0.3em]
+\normalsize Según Metodología de Sampieri}
+\author{Eidan Tarea Clase}
+\date{17 de noviembre de 2025}
+
+\begin{document}
+
+\maketitle
+\thispagestyle{empty}
+\newpage
+
+\tableofcontents
+\newpage
+
+\section*{Introducción}
+\addcontentsline{toc}{section}{Introducción}
+
+El presente documento desarrolla la verificación metodológica del proyecto de investigación titulado \textit{``Detección de Fraude en Pagos Transaccionales usando Machine Learning''}, siguiendo los lineamientos establecidos por Sampieri en su metodología de investigación científica.
+
+El trabajo se estructura en dos grandes apartados: (1) el \textbf{Aporte Teórico}, que aborda la conceptualización y representación hipotética del objeto de estudio, y (2) el \textbf{Aporte de la Significación Práctica}, que vincula la teoría con la realidad empírica del contexto de aplicación en la empresa TechSport.
+
+\newpage
+
+% ==================================================================================
+% PARTE 1: APORTE TEÓRICO
+% ==================================================================================
+
+\section{PARTE 1: APORTE TEÓRICO}
+
+Esta sección desarrolla la representación teórica del objeto de estudio, verificando su correcta definición y estableciendo las bases conceptuales que sustentan la investigación.
+
+\subsection{1.1. Verificación del Objeto de Estudio}
+
+\subsubsection{1.1.1. Definición del Objeto de Estudio}
+
+El objeto de estudio de esta investigación es:
+
+\begin{quote}
+\textbf{``La detección de anomalías y fraude en pagos transaccionales mediante modelos de Machine Learning''}
+\end{quote}
+
+Este objeto corresponde al campo científico de la inteligencia artificial aplicada a la seguridad financiera digital, específicamente en el dominio de sistemas de pago electrónico y prevención del fraude.
+
+\subsubsection{1.1.2. ¿Qué Estamos Investigando Realmente?}
+
+Investigamos el \textbf{proceso de identificación automatizada de transacciones fraudulentas} en entornos de pago digital multicanal, utilizando técnicas de aprendizaje automático supervisado que permiten aprender patrones de comportamiento a partir de datos históricos.
+
+Específicamente, nos enfocamos en:
+
+\begin{itemize}
+    \item El análisis de datos transaccionales (montos, frecuencias, ubicaciones, dispositivos, pasarelas)
+    \item La construcción de modelos predictivos capaces de clasificar transacciones como fraudulentas o legítimas
+    \item La evaluación comparativa entre enfoques basados en reglas estáticas versus modelos de Machine Learning
+    \item La integración de estos modelos en arquitecturas tecnológicas reales de plataformas SaaS
+\end{itemize}
+
+\subsubsection{1.1.3. Parte Específica del Objeto}
+
+La investigación se concentra en la \textbf{fase de autorización y evaluación de riesgo de transacciones} dentro del flujo de procesamiento de pagos. Específicamente, el momento en que una transacción es enviada para aprobación y debe decidirse si proceder con ella o marcarla como sospechosa.
+
+El área específica es: \textbf{el procesamiento de datos transaccionales y la aplicación de reglas/modelos ML para detección de fraude en tiempo real}.
+
+\subsubsection{1.1.4. Área donde se Manifiesta el Problema}
+
+El problema se manifiesta en las siguientes dimensiones del objeto de estudio:
+
+\begin{enumerate}[label=\alph*)]
+    \item \textbf{Dimensión tecnológica}: Arquitectura fragmentada de pagos multicanal sin sistema centralizado de detección de fraude basado en IA. Los sistemas actuales dependen de reglas estáticas que no se adaptan a patrones emergentes.
+
+    \item \textbf{Dimensión analítica}: Incapacidad para identificar patrones complejos y comportamientos anómalos en tiempo real a partir de datos históricos procesados por más de 10 pasarelas de pago en múltiples monedas y canales.
+
+    \item \textbf{Dimensión operativa}: Ausencia de automatización en procesos de evaluación de riesgo transaccional, generando altas tasas de falsos positivos, rechazos de pagos legítimos y tiempos de respuesta ineficientes.
+
+    \item \textbf{Dimensión de gestión del riesgo}: Deficiencias en gobernanza sobre integraciones entre sistemas y APIs, incrementando exposición al fraude y dificultando cumplimiento de normativas (PCI DSS, NIST).
+\end{enumerate}
+
+\textbf{Síntesis del problema}: No existe un modelo/proceso efectivo basado en Machine Learning para identificar anomalías y fraudes en el contexto específico de TechSport, lo que resulta en pérdidas económicas, deterioro de la experiencia del usuario e ineficiencia operativa.
+
+\subsection{1.2. Pregunta de Investigación, Justificación Teórica y Práctica}
+
+\subsubsection{1.2.1. Pregunta de Investigación}
+
+\textbf{Pregunta principal:}
+
+¿Cómo mejorar la detección de anomalías y fraude en pagos transaccionales en la empresa TechSport durante la gestión 2024-2025?
+
+\textbf{Preguntas derivadas:}
+
+\begin{enumerate}
+    \item ¿Qué características transaccionales (features) son más relevantes para identificar patrones fraudulentos en pagos multicanal?
+
+    \item ¿Qué algoritmos de aprendizaje automático supervisado presentan mejor desempeño en la clasificación de transacciones fraudulentas versus legítimas en este contexto?
+
+    \item ¿Cómo se compara el rendimiento del modelo ML propuesto frente al sistema actual basado en reglas estáticas en términos de precisión, recall y F1-score?
+
+    \item ¿Qué arquitectura técnica es necesaria para integrar el modelo en el flujo operativo sin comprometer rendimiento del sistema?
+\end{enumerate}
+
+\subsubsection{1.2.2. Justificación Teórica}
+
+La investigación se fundamenta en tres cuerpos teóricos principales:
+
+\textbf{a) Teoría del aprendizaje automático supervisado}
+
+Los estudios de Hafez (2025) demuestran que los modelos de Machine Learning superan significativamente a enfoques tradicionales basados en reglas en la detección de fraude con tarjetas de crédito, principalmente por su capacidad de:
+
+\begin{itemize}
+    \item Identificar patrones no lineales y relaciones complejas entre variables
+    \item Adaptarse dinámicamente mediante reentrenamiento
+    \item Reducir errores de clasificación (falsos positivos/negativos)
+    \item Procesar grandes volúmenes de datos en tiempo real
+\end{itemize}
+
+\textbf{b) Teoría de detección de anomalías}
+
+Los enfoques de detección de anomalías en datos transaccionales establecen que las desviaciones significativas respecto a patrones normales pueden indicar fraude, errores técnicos o cambios legítimos de comportamiento. Los modelos supervisados aprenden a distinguir estas situaciones mediante entrenamiento con casos etiquetados.
+
+\textbf{c) Teoría de seguridad en sistemas de pago}
+
+Los marcos normativos (PCI DSS, NIST Cybersecurity Framework) establecen que los sistemas de pago deben implementar mecanismos de prevención de fraude basados en múltiples capas de control, incluyendo análisis de comportamiento y detección de patrones.
+
+\textbf{Contribución teórica de esta investigación:}
+
+\begin{enumerate}
+    \item \textbf{Validación empírica}: Genera evidencia sobre aplicabilidad de modelos supervisados en arquitecturas multicanal con múltiples pasarelas, escenario poco explorado en literatura actual.
+
+    \item \textbf{Extensión conceptual}: Amplía marcos teóricos existentes al integrar variables específicas de plataformas SaaS deportivas (membresías, patrones de reserva).
+
+    \item \textbf{Metodología replicable}: Establece protocolo metodológico para implementación en empresas fintech con características similares.
+\end{enumerate}
+
+\subsubsection{1.2.3. Justificación Práctica}
+
+La necesidad práctica surge de problemas operacionales concretos en TechSport:
+
+\begin{enumerate}
+    \item \textbf{Pérdidas económicas directas}: Transacciones fraudulentas no detectadas generan pérdidas y costos de devoluciones (chargebacks).
+
+    \item \textbf{Deterioro de experiencia del usuario}: Altas tasas de falsos positivos provocan rechazos de pagos legítimos, afectando satisfacción y conversión.
+
+    \item \textbf{Riesgos regulatorios}: Incumplimiento potencial de PCI DSS y estándares de seguridad, con consecuencias legales y reputacionales.
+
+    \item \textbf{Ineficiencia operativa}: Revisión manual de transacciones sospechosas consume recursos y retrasa confirmaciones.
+\end{enumerate}
+
+\textbf{Beneficios esperados de la implementación:}
+
+\begin{itemize}
+    \item Automatizar evaluación de riesgo en tiempo real
+    \item Reducir costos operativos (menos revisión manual)
+    \item Mejorar tasa de aprobación de pagos legítimos
+    \item Fortalecer posición competitiva en mercado fintech
+    \item Establecer bases para escalabilidad futura
+\end{itemize}
+
+\textbf{Coherencia entre pregunta, justificación teórica y práctica:}
+
+La pregunta de investigación (¿cómo mejorar detección?) se responde mediante justificación teórica (estudios previos demuestran efectividad de ML) y se materializa en justificación práctica (reduce pérdidas económicas, mejora experiencia de usuario, optimiza operaciones).
+
+\subsection{1.3. Aportes Teóricos}
+
+Según Sampieri, los aportes teóricos incluyen la elaboración de una nueva representación del objeto, identificación de alternativas de implementación, diseño de la nueva representación y expresión de concepciones teóricas.
+
+\subsubsection{1.3.1. Elaboración de la Nueva Representación del Objeto (Representación Hipotética)}
+
+La investigación propone una \textbf{nueva concepción teórica} del objeto de estudio:
+
+\begin{quote}
+\textit{``Un sistema de detección de fraude basado en Machine Learning supervisado constituye un mecanismo adaptativo, inteligente y escalable que procesa datos transaccionales multicanal en tiempo real, identificando patrones fraudulentos mediante aprendizaje continuo a partir de ejemplos históricos, superando las limitaciones de sistemas basados en reglas estáticas al integrar capacidades de generalización, optimización automática y evolución ante nuevas amenazas.''}
+\end{quote}
+
+\textbf{Características de la representación hipotética ideal:}
+
+\begin{enumerate}
+    \item \textbf{Procesamiento en tiempo real}: El sistema debe evaluar cada transacción en milisegundos durante el flujo de autorización, sin generar latencia perceptible.
+
+    \item \textbf{Aprendizaje continuo}: El modelo debe actualizarse periódicamente incorporando nuevos patrones de fraude, sin requerir reprogramación manual.
+
+    \item \textbf{Análisis multidimensional}: Debe considerar simultáneamente variables técnicas (pasarela, canal, dispositivo), de negocio (membresía, historial) y contextuales (ubicación, hora, frecuencia).
+
+    \item \textbf{Equilibrio precision-recall}: Debe optimizar la detección de fraudes (recall alto) minimizando falsos positivos (precision alta), según umbrales definidos por el negocio.
+
+    \item \textbf{Explicabilidad}: Debe justificar cada clasificación identificando características más influyentes, facilitando auditoría y cumplimiento regulatorio.
+\end{enumerate}
+
+\textbf{Cómo debería funcionar idealmente según la teoría:}
+
+\begin{itemize}
+    \item Recibir datos de transacción en tiempo real vía API
+    \item Extraer y transformar características relevantes (feature engineering)
+    \item Aplicar modelo entrenado para calcular probabilidad de fraude
+    \item Clasificar transacción según umbral óptimo definido
+    \item Generar explicación de la decisión (feature importance)
+    \item Registrar resultado para reentrenamiento futuro
+    \item Activar flujo de aprobación/rechazo según clasificación
+\end{itemize}
+
+\subsubsection{1.3.2. Búsqueda de Alternativas y Medios para la Implementación}
+
+Para implementar la representación hipotética, la literatura identifica las siguientes alternativas:
+
+\textbf{a) Alternativas de Modelado (qué herramientas/enfoques propone la literatura):}
+
+\begin{enumerate}
+    \item \textbf{ML Supervisado - Modelos de Ensamble}:
+    \begin{itemize}
+        \item Random Forest: Robusto ante datos desbalanceados, permite interpretar importancia de características
+        \item Gradient Boosting (XGBoost, LightGBM): Alta precisión, optimización de métricas específicas
+        \item Ventaja: Mejor rendimiento documentado en literatura de fraude financiero
+    \end{itemize}
+
+    \item \textbf{ML Supervisado - Redes Neuronales}:
+    \begin{itemize}
+        \item Perceptrón Multicapa (MLP): Capacidad para patrones no lineales complejos
+        \item Redes Profundas: Requieren mayor volumen de datos
+        \item Limitación: Mayor costo computacional, menor explicabilidad
+    \end{itemize}
+
+    \item \textbf{Sistemas Híbridos}:
+    \begin{itemize}
+        \item Combinación de ML supervisado + detección de anomalías no supervisada
+        \item Reglas de negocio + modelos ML para casos complejos
+        \item Ventaja: Captura fraudes conocidos (reglas) y emergentes (ML)
+    \end{itemize}
+
+    \item \textbf{Modelos Lineales}:
+    \begin{itemize}
+        \item Regresión Logística: Baseline simple, altamente explicable
+        \item Limitación: Menor capacidad para patrones complejos
+    \end{itemize}
+\end{enumerate}
+
+\textbf{b) Medios Técnicos de Implementación:}
+
+\begin{itemize}
+    \item \textbf{Ingeniería de características}: Creación de features derivadas (agregaciones temporales, ratios, desviaciones respecto a comportamiento histórico del usuario)
+
+    \item \textbf{Balanceo de clases}: Técnicas SMOTE, ajuste de pesos de clase para manejar desbalanceo transacciones legítimas vs. fraudulentas
+
+    \item \textbf{Validación temporal}: División de datos respetando secuencia temporal para evitar data leakage
+
+    \item \textbf{Optimización de hiperparámetros}: GridSearch, búsqueda bayesiana para configuraciones óptimas
+
+    \item \textbf{Arquitectura de despliegue}: API REST integrada con flujo de autorización de pagos
+
+    \item \textbf{Monitoreo de concept drift}: Detección de degradación del modelo en producción
+\end{itemize}
+
+\textbf{c) Proceso de Implementación (Evaluación):}
+
+\begin{enumerate}
+    \item \textbf{Exploración y preparación de datos}: Análisis de calidad, tratamiento de valores faltantes, detección de outliers, codificación de variables categóricas
+
+    \item \textbf{Selección y entrenamiento de modelos}: Comparación empírica de algoritmos candidatos mediante validación cruzada temporal
+
+    \item \textbf{Optimización de hiperparámetros}: Búsqueda sistemática de configuraciones óptimas
+
+    \item \textbf{Evaluación comparativa}: Medición de desempeño frente al sistema actual usando precision, recall, F1-score, AUC-ROC
+
+    \item \textbf{Despliegue controlado}: Implementación inicial en modo observación (shadow mode) antes de activar decisiones automáticas
+
+    \item \textbf{Monitoreo y reentrenamiento}: Seguimiento de desempeño en producción y actualización periódica del modelo
+\end{enumerate}
+
+\subsubsection{1.3.3. Diseño de la Nueva Representación y Expresión de Concepciones Teóricas}
+
+Esta sección desarrolla la estructura teórica del objeto: definiciones, propiedades, clasificaciones y regularidades.
+
+\textbf{a) Definiciones Fundamentales}
+
+\begin{itemize}
+    \item \textbf{Fraude transaccional}: Uso no autorizado o manipulación intencional de información de pago con objetivo de obtener beneficios económicos ilícitos, caracterizado por patrones de comportamiento que se desvían significativamente de la normalidad estadística del usuario o del sistema.
+
+    \item \textbf{Anomalía transaccional}: Transacción que presenta características atípicas respecto al perfil de comportamiento del usuario o patrones globales del sistema, pudiendo indicar fraude, error técnico o cambios legítimos en comportamiento.
+
+    \item \textbf{Modelo supervisado de detección}: Sistema algorítmico que aprende a clasificar transacciones como fraudulentas o legítimas a partir de ejemplos históricos etiquetados, generalizando patrones para predecir el estado de nuevas observaciones.
+
+    \item \textbf{Feature (característica)}: Variable o atributo derivado de datos transaccionales utilizado como entrada del modelo (ej: monto, hora, ubicación geográfica, tiempo desde última transacción).
+
+    \item \textbf{Falso positivo}: Transacción legítima incorrectamente clasificada como fraudulenta, genera fricción al usuario.
+
+    \item \textbf{Falso negativo}: Transacción fraudulenta incorrectamente clasificada como legítima, genera pérdida económica.
+
+    \item \textbf{Precision-Recall Trade-off}: Tensión entre maximizar detección de fraudes (recall) y minimizar rechazos incorrectos (precision).
+
+    \item \textbf{Concept Drift}: Degradación temporal del modelo debido a cambios en patrones de fraude no reflejados en datos de entrenamiento.
+\end{itemize}
+
+\textbf{b) Propiedades del Objeto de Estudio}
+
+Las propiedades fundamentales del sistema de detección de fraude mediante Machine Learning son:
+
+\begin{enumerate}
+    \item \textbf{Adaptabilidad}: Capacidad del modelo para ajustar sus parámetros internos ante cambios en patrones de fraude mediante reentrenamiento periódico.
+
+    \item \textbf{Escalabilidad}: Habilidad para procesar volúmenes crecientes de transacciones sin degradación significativa del rendimiento temporal.
+
+    \item \textbf{Explicabilidad}: Posibilidad de interpretar decisiones del modelo identificando qué características contribuyen a clasificación como sospechosa.
+
+    \item \textbf{Robustez}: Resistencia ante datos ruidosos, valores atípicos o intentos de evasión mediante manipulación intencional de características.
+
+    \item \textbf{Generalización}: Capacidad de identificar fraudes con características similares pero no idénticas a ejemplos de entrenamiento.
+
+    \item \textbf{Eficiencia computacional}: Tiempo de inferencia compatible con requisitos de latencia del flujo de pagos (típicamente < 100ms).
+\end{enumerate}
+
+\textbf{c) Clasificación de Modelos Aplicables}
+
+Los modelos de Machine Learning para detección de fraude se clasifican según:
+
+\begin{itemize}
+    \item \textbf{Tipo de aprendizaje}:
+    \begin{itemize}
+        \item Supervisados: Requieren etiquetas (fraudulento/legítimo)
+        \item No supervisados: Detectan anomalías sin etiquetas previas
+        \item Semisupervisados: Combinan ambos enfoques
+    \end{itemize}
+
+    \item \textbf{Complejidad algorítmica}:
+    \begin{itemize}
+        \item Lineales: Regresión logística
+        \item Basados en árboles: Random Forest, XGBoost
+        \item Neuronales: Perceptrón multicapa, autoencoders
+    \end{itemize}
+
+    \item \textbf{Momento de evaluación}:
+    \begin{itemize}
+        \item Tiempo real: Decisión inmediata durante autorización
+        \item Batch: Revisión posterior de transacciones
+    \end{itemize}
+
+    \item \textbf{Enfoque de detección}:
+    \begin{itemize}
+        \item Basado en reglas: Umbrales fijos predefinidos
+        \item Basado en ML: Aprendizaje de patrones de datos
+        \item Híbrido: Combinación de reglas y ML
+    \end{itemize}
+\end{itemize}
+
+\textbf{d) Regularidades Identificadas en la Literatura}
+
+El análisis teórico y empírico de detección de fraude revela las siguientes regularidades (patrones consistentes):
+
+\begin{enumerate}
+    \item \textbf{Superioridad de ensambles}: Los modelos de ensamble basados en árboles (Random Forest, Gradient Boosting) consistentemente superan a modelos lineales en contextos de fraude financiero por su capacidad de capturar interacciones complejas entre variables.
+
+    \item \textbf{Desbalanceo de clases}: El desbalanceo inherente (pocas transacciones fraudulentas vs. muchas legítimas, típicamente 1:99 o menor) requiere técnicas específicas de balanceo o métricas alternativas a accuracy (precision, recall, F1-score).
+
+    \item \textbf{Importancia de feature engineering}: La ingeniería de características tiene mayor impacto en rendimiento que la selección del algoritmo, especialmente al incorporar conocimiento del dominio (ej: velocidad de transacciones, desviación respecto a comportamiento histórico).
+
+    \item \textbf{Degradación temporal}: Los modelos entrenados exclusivamente con datos históricos sufren degradación temporal (concept drift) debido a evolución de patrones de fraude, requiriendo actualización periódica (típicamente mensual o trimestral).
+
+    \item \textbf{Trade-off precision-recall}: No existe configuración óptima universal; el umbral de clasificación debe ajustarse según costos relativos de falsos positivos (fricción) vs. falsos negativos (pérdida económica).
+
+    \item \textbf{Necesidad de explicabilidad}: En contextos regulados, la capacidad de explicar decisiones del modelo (mediante SHAP values, feature importance) es tan importante como el rendimiento predictivo.
+\end{enumerate}
+
+\textbf{Síntesis del Aporte Teórico:}
+
+Se ha establecido una representación teórica completa del objeto de estudio, definiendo sus conceptos fundamentales, propiedades esenciales, clasificaciones relevantes y regularidades empíricas. Esta base conceptual, derivada de la literatura científica y alineada con Sampieri, fundamenta el diseño e implementación del modelo propuesto.
+
+\newpage
+
+% ==================================================================================
+% PARTE 2: APORTE DE LA SIGNIFICACIÓN PRÁCTICA
+% ==================================================================================
+
+\section{PARTE 2: APORTE DE LA SIGNIFICACIÓN PRÁCTICA}
+
+Esta sección vincula la teoría con la realidad empírica del objeto de estudio en el contexto específico de TechSport, siguiendo los tres componentes solicitados por Sampieri.
+
+\subsection{2.1. Estado Actual del Objeto (Diagnóstico Empírico)}
+
+Descripción de lo que está pasando HOY con el objeto de estudio en TechSport, basada en datos empíricos recolectados.
+
+\subsubsection{2.1.1. Datos Empíricos Cuantitativos}
+
+\begin{itemize}
+    \item \textbf{Volumen transaccional}: La plataforma procesa transacciones a través de más de 10 pasarelas de pago diferentes (Stripe, CardConnect, AzulPay, RazorPay, BAC, entre otras) en múltiples monedas (USD, DOP, INR, CRC) y países.
+
+    \item \textbf{Canales operativos}: Tres canales activos con comportamientos diferenciados:
+    \begin{itemize}
+        \item Aplicación web
+        \item Aplicación móvil (iOS y Android)
+        \item Puntos de venta físicos (terminales)
+    \end{itemize}
+
+    \item \textbf{Problema de fraude no detectado}: Actualmente existe fraude que pasa desapercibido porque no hay modelo ML que identifique patrones complejos.
+
+    \item \textbf{Tasa de falsos positivos elevada}: El sistema actual basado en reglas genera rechazos injustificados que afectan experiencia del usuario y reducen tasa de conversión.
+
+    \item \textbf{Tiempo de revisión manual}: Las transacciones marcadas como sospechosas requieren intervención humana, generando retrasos operativos y costos de personal.
+
+    \item \textbf{Ausencia de registro formal}: No existe base de datos estructurada de transacciones marcadas como fraudulentas con etiquetas validadas que permita entrenamiento supervisado.
+\end{itemize}
+
+\subsubsection{2.1.2. Datos Empíricos Cualitativos}
+
+\begin{itemize}
+    \item \textbf{Ausencia total de ML}: No existe ningún modelo de aprendizaje automático implementado en el flujo de evaluación de transacciones.
+
+    \item \textbf{Dependencia de reglas estáticas}: El sistema actual opera exclusivamente con reglas predefinidas basadas en umbrales fijos (ej: "rechazar si monto > X", "bloquear si más de Y transacciones en Z minutos").
+
+    \item \textbf{No hay aprendizaje del sistema}: Las reglas no evolucionan automáticamente; cualquier ajuste requiere modificación manual del código.
+
+    \item \textbf{Fragmentación arquitectónica}: Cada pasarela de pago opera con sus propios mecanismos de control antifraude, sin consolidación ni análisis integrado de riesgo a nivel de plataforma TechSport.
+
+    \item \textbf{Falta de gobernanza}: No existe proceso formal de gestión de integraciones, documentación de reglas de fraude ni responsables claros de la estrategia antifraude.
+
+    \item \textbf{Pérdidas económicas por "pagos fantasma"}: Se han identificado casos de pagos procesados que luego resultan ser fraudulentos (chargebacks), generando pérdidas directas más comisiones de devolución.
+
+    \item \textbf{Fricción en experiencia de usuario}: Clientes legítimos ocasionalmente ven rechazados sus pagos por falsos positivos, lo que genera frustración, abandono de compra y tickets de soporte.
+\end{itemize}
+
+\subsubsection{2.1.3. Diagnóstico del Estado Actual}
+
+\textbf{Resumen: ¿Qué está pasando HOY con el objeto de estudio en TechSport?}
+
+El sistema de detección de fraude en TechSport se encuentra en un \textbf{estado primitivo y reactivo}, caracterizado por:
+
+\begin{enumerate}
+    \item \textbf{Arquitectura reactiva sin inteligencia}: El sistema solo responde a fraudes conocidos mediante reglas predefinidas, sin capacidad de anticipación, aprendizaje o identificación de nuevos patrones.
+
+    \item \textbf{Evaluación binaria simplista}: Las transacciones se evalúan mediante umbrales fijos (cantidad, frecuencia, ubicación geográfica) sin considerar contexto del usuario, historial de comportamiento ni relaciones complejas entre variables.
+
+    \item \textbf{Ausencia de capacidades predictivas}: No existe procesamiento de datos históricos para entrenar modelos, ni retroalimentación que permita mejorar el sistema con el tiempo.
+
+    \item \textbf{Gestión descentralizada y fragmentada}: Cada pasarela opera independientemente sin visión unificada del riesgo a nivel de usuario o transacción global.
+
+    \item \textbf{Ineficiencia operativa}: Alta carga de trabajo manual para revisión de alertas, tiempos de respuesta prolongados, imposibilidad de escalar proporcionalmente al crecimiento del negocio.
+
+    \item \textbf{Deficiencias en datos}: No hay registro sistemático de transacciones fraudulentas validadas (etiquetas de calidad) que permita entrenamiento supervisado futuro.
+\end{enumerate}
+
+\textbf{Consecuencias observables del estado actual:}
+
+\begin{itemize}
+    \item Pérdidas económicas por fraudes no detectados
+    \item Pérdidas de conversión por falsos positivos
+    \item Costos operativos elevados (revisión manual)
+    \item Riesgos de incumplimiento regulatorio
+    \item Limitada capacidad de crecimiento escalable
+\end{itemize}
+
+\subsection{2.2. Estado Ideal del Objeto (Cómo Debería Ser)}
+
+Descripción del "deber ser" del objeto de estudio según el marco teórico revisado y en correspondencia con la situación problemática planteada.
+
+\subsubsection{2.2.1. Características del Estado Ideal}
+
+En correspondencia con la teoría de ML aplicado a detección de fraude y las necesidades de TechSport, el estado ideal debe alcanzar las siguientes características:
+
+\begin{enumerate}
+    \item \textbf{Sistema con inteligencia predictiva en tiempo real}:
+    \begin{itemize}
+        \item Identifica transacciones potencialmente fraudulentas ANTES de autorización
+        \item Evalúa probabilidad de fraude mediante modelo entrenado con patrones históricos
+        \item Tiempo de respuesta < 100ms compatible con flujo de pagos
+    \end{itemize}
+
+    \item \textbf{Capacidad de aprendizaje y adaptación continua}:
+    \begin{itemize}
+        \item El modelo se actualiza periódicamente (mensual/trimestral) incorporando nuevos datos
+        \item Se adapta automáticamente a cambios en patrones de fraude sin reprogramación manual
+        \item Detecta concept drift y activa procesos de reentrenamiento
+    \end{itemize}
+
+    \item \textbf{Equilibrio óptimo precision-recall}:
+    \begin{itemize}
+        \item Baja tasa de falsos positivos (< 1-2\% de transacciones legítimas rechazadas)
+        \item Alta tasa de detección de fraudes (recall > 80-90\% de fraudes identificados)
+        \item Umbral de clasificación ajustable según preferencias del negocio
+    \end{itemize}
+
+    \item \textbf{Pipeline claro de entrenamiento y despliegue de ML}:
+    \begin{itemize}
+        \item Proceso documentado de extracción de datos, feature engineering, entrenamiento, evaluación
+        \item Infraestructura automatizada (MLOps) para versionado de modelos y despliegue controlado
+        \item Monitoreo continuo de desempeño en producción
+    \end{itemize}
+
+    \item \textbf{Arquitectura centralizada e integrada}:
+    \begin{itemize}
+        \item Consolidación de datos de todas las pasarelas en sistema único de evaluación de riesgo
+        \item Visión unificada del comportamiento transaccional del usuario across canales
+        \item Integración mediante API REST con flujo de autorización de pagos
+    \end{itemize}
+
+    \item \textbf{Automatización operativa con supervisión estratégica}:
+    \begin{itemize}
+        \item Reducción drástica de intervención manual (automatización > 95\% de casos)
+        \item Revisión humana limitada a casos de alta complejidad o ambigüedad predictiva
+        \item Flujos de escalación claros para casos edge
+    \end{itemize}
+
+    \item \textbf{Explicabilidad y cumplimiento regulatorio}:
+    \begin{itemize}
+        \item Capacidad de justificar cada clasificación (feature importance, SHAP values)
+        \item Trazabilidad completa de decisiones para auditoría
+        \item Cumplimiento de PCI DSS, protección de datos personales
+    \end{itemize}
+
+    \item \textbf{Registro sistemático de datos de calidad}:
+    \begin{itemize}
+        \item Base de datos estructurada de transacciones con etiquetas validadas (fraudulento/legítimo)
+        \item Proceso de validación y corrección de etiquetas
+        \item Disponibilidad de datos para reentrenamiento continuo
+    \end{itemize}
+\end{enumerate}
+
+\subsubsection{2.2.2. Correspondencia con Marco Teórico}
+
+Este estado ideal se fundamenta en:
+
+\begin{itemize}
+    \item \textbf{Teoría de ML supervisado}: Sistemas que aprenden de ejemplos etiquetados y generalizan a nuevos casos
+
+    \item \textbf{Estudios empíricos} (Hafez 2025): Modelos ML superan reglas estáticas en precisión y adaptabilidad
+
+    \item \textbf{Principios de seguridad en pagos}: Controles multicapa, monitoreo continuo, mejora iterativa
+
+    \item \textbf{Buenas prácticas MLOps}: Automatización de pipeline, versionado de modelos, monitoreo de concept drift
+\end{itemize}
+
+\subsection{2.3. Interpretación Teórica de las Funciones del Objeto}
+
+Esta sección conecta el estado ideal con el estado actual, explicitando qué debe hacer el objeto según la teoría, qué funciones cumple, qué parte causa el problema y qué funciones deben mejorarse.
+
+\subsubsection{2.3.1. ¿Qué Debe Hacer Exactamente el Objeto de Estudio?}
+
+Según el marco teórico de detección de fraude mediante ML, el objeto (sistema de detección) debe cumplir las siguientes funciones:
+
+\textbf{Función 1: Clasificación de Transacciones en Riesgo}
+
+\begin{itemize}
+    \item \textbf{Qué debe hacer}: Evaluar cada transacción en tiempo real y asignarle probabilidad de fraude
+    \item \textbf{Cómo lo hace según teoría}: Aplicando modelo entrenado que procesa características transaccionales y genera score de riesgo
+    \item \textbf{Estado actual}: NO LO HACE - solo aplica reglas binarias fijas
+    \item \textbf{Qué debe mejorarse}: Implementar modelo ML supervisado que genere probabilidades continuas en lugar de decisiones binarias de reglas
+\end{itemize}
+
+\textbf{Función 2: Identificación de Patrones Complejos}
+
+\begin{itemize}
+    \item \textbf{Qué debe hacer}: Detectar combinaciones no obvias de características que indican fraude (ej: monto bajo + velocidad alta + dispositivo nuevo + ubicación inusual)
+    \item \textbf{Cómo lo hace según teoría}: Mediante algoritmos capaces de capturar interacciones entre variables (Random Forest, XGBoost)
+    \item \textbf{Estado actual}: NO LO HACE - reglas estáticas solo evalúan variables individualmente
+    \item \textbf{Qué debe mejorarse}: Desarrollar feature engineering que capture interacciones y entrenar modelos no lineales
+\end{itemize}
+
+\textbf{Función 3: Filtrado de Anomalías}
+
+\begin{itemize}
+    \item \textbf{Qué debe hacer}: Distinguir entre anomalías fraudulentas, errores técnicos y cambios legítimos de comportamiento
+    \item \textbf{Cómo lo hace según teoría}: Aprendiendo patrones de cada categoría a partir de datos históricos etiquetados
+    \item \textbf{Estado actual}: NO LO HACE - toda anomalía se trata igual, generando falsos positivos
+    \item \textbf{Qué debe mejorarse}: Crear dataset con etiquetas de calidad y entrenar modelo que discrimine tipos de anomalías
+\end{itemize}
+
+\textbf{Función 4: Escalación de Alertas}
+
+\begin{itemize}
+    \item \textbf{Qué debe hacer}: Generar alertas priorizadas para revisión humana solo en casos de alta incertidumbre
+    \item \textbf{Cómo lo hace según teoría}: Mediante umbrales de confianza que separan decisiones automáticas de casos que requieren supervisión
+    \item \textbf{Estado actual}: PARCIALMENTE - genera alertas pero sin priorización inteligente
+    \item \textbf{Qué debe mejorarse}: Calibrar umbrales de confianza y diseñar flujos de escalación basados en scores de riesgo
+\end{itemize}
+
+\textbf{Función 5: Aprendizaje Continuo}
+
+\begin{itemize}
+    \item \textbf{Qué debe hacer}: Mejorar su desempeño con el tiempo incorporando nuevos ejemplos de fraude
+    \item \textbf{Cómo lo hace según teoría}: Mediante reentrenamiento periódico con datos actualizados
+    \item \textbf{Estado actual}: NO LO HACE - las reglas permanecen estáticas
+    \item \textbf{Qué debe mejorarse}: Establecer pipeline de reentrenamiento automatizado con nuevos datos validados
+\end{itemize}
+
+\textbf{Función 6: Optimización del Trade-off Negocio}
+
+\begin{itemize}
+    \item \textbf{Qué debe hacer}: Balancear costos de falsos positivos (fricción) vs. falsos negativos (pérdida económica) según preferencias del negocio
+    \item \textbf{Cómo lo hace según teoría}: Ajustando umbral de clasificación para maximizar métrica de negocio (ej: costo total esperado)
+    \item \textbf{Estado actual}: NO LO HACE - umbrales de reglas son arbitrarios, no optimizados
+    \item \textbf{Qué debe mejorarse}: Cuantificar costos de cada tipo de error y optimizar umbral mediante análisis de curva precision-recall
+\end{itemize}
+
+\subsubsection{2.3.2. ¿Qué Parte del Objeto Causa el Problema?}
+
+El problema no reside en una única parte, sino en \textbf{deficiencias estructurales del sistema actual}:
+
+\begin{enumerate}
+    \item \textbf{Ausencia del componente de aprendizaje automático}: Es la deficiencia central. Sin modelo ML, el sistema carece de capacidad predictiva, adaptativa y de identificación de patrones complejos.
+
+    \item \textbf{Arquitectura de evaluación basada en reglas estáticas}: Este enfoque es inherentemente limitado para contextos dinámicos y complejos como el fraude financiero.
+
+    \item \textbf{Falta de datos estructurados de calidad}: Sin dataset de entrenamiento con etiquetas validadas, es imposible entrenar modelos supervisados efectivos.
+
+    \item \textbf{Fragmentación de pasarelas}: La desintegración impide análisis holístico del comportamiento del usuario y reduce capacidad de detección.
+
+    \item \textbf{Ausencia de gobernanza y procesos formales}: Sin responsables claros ni procesos documentados, el sistema no puede evolucionar sistemáticamente.
+\end{enumerate}
+
+\subsubsection{2.3.3. Relaciones Funcionales del Sistema Ideal}
+
+En el estado ideal, las funciones del objeto se relacionan sistémicamente:
+
+\begin{itemize}
+    \item \textbf{Clasificación en tiempo real} (Función 1) $\rightarrow$ alimenta $\rightarrow$ \textbf{Escalación de alertas} (Función 4): Los scores de riesgo determinan qué casos requieren revisión humana.
+
+    \item \textbf{Identificación de patrones} (Función 2) $\rightarrow$ mejora $\rightarrow$ \textbf{Clasificación} (Función 1): Feature engineering más sofisticado incrementa precisión predictiva.
+
+    \item \textbf{Aprendizaje continuo} (Función 5) $\rightarrow$ mantiene $\rightarrow$ todas las funciones: Reentrenamiento periódico preserva efectividad ante evolución de fraudes.
+
+    \item \textbf{Optimización del trade-off} (Función 6) $\rightarrow$ balancea $\rightarrow$ \textbf{Filtrado de anomalías} (Función 3): Ajuste de umbrales equilibra seguridad vs. fricción según objetivos de negocio.
+\end{itemize}
+
+\subsubsection{2.3.4. Síntesis de la Interpretación Funcional}
+
+\textbf{Diagnóstico funcional:}
+
+El sistema actual NO cumple adecuadamente las funciones primarias del objeto de estudio según la teoría:
+
+\begin{itemize}
+    \item NO clasifica transacciones con probabilidades de riesgo
+    \item NO identifica patrones complejos
+    \item NO distingue tipos de anomalías
+    \item NO aprende continuamente
+    \item NO optimiza métricas de negocio
+\end{itemize}
+
+\textbf{Intervención necesaria:}
+
+Para transitar del estado actual al estado ideal, es necesario:
+
+\begin{enumerate}
+    \item \textbf{Implementar componente de ML supervisado}: Núcleo de la solución, habilita funciones 1, 2, 3.
+
+    \item \textbf{Desarrollar dataset de calidad}: Prerequisito para entrenar modelos efectivos.
+
+    \item \textbf{Diseñar pipeline de reentrenamiento}: Habilita función 5 (aprendizaje continuo).
+
+    \item \textbf{Integrar arquitectura centralizada}: Consolida datos de todas las pasarelas.
+
+    \item \textbf{Calibrar umbrales de negocio}: Optimiza función 6 (trade-off).
+
+    \item \textbf{Establecer gobernanza formal}: Asegura sostenibilidad y evolución del sistema.
+\end{enumerate}
+
+\textbf{Vínculo con hipótesis de investigación:}
+
+La hipótesis planteada ("La implementación de un modelo de Machine Learning mejora la detección de anomalías y fraudes...") se fundamenta precisamente en que el modelo ML habilitará las funciones actualmente ausentes o deficientes, permitiendo transitar del estado actual (primitivo, reactivo, estático) al estado ideal (inteligente, predictivo, adaptativo).
+
+\newpage
+
+\section*{Conclusiones}
+\addcontentsline{toc}{section}{Conclusiones}
+
+La verificación metodológica realizada confirma la solidez del proyecto de investigación en sus dimensiones teórica y práctica:
+
+\subsection*{Sobre el Aporte Teórico}
+
+\begin{enumerate}
+    \item El objeto de estudio está \textbf{correctamente definido}: "Detección de anomalías y fraude en pagos transaccionales mediante modelos de Machine Learning", con área específica claramente delimitada (procesamiento de datos transaccionales y aplicación de modelos ML).
+
+    \item El problema se manifiesta en \textbf{cuatro dimensiones identificables}: tecnológica, analítica, operativa y de gestión del riesgo.
+
+    \item Existe \textbf{coherencia entre pregunta de investigación, justificación teórica y práctica}: la pregunta (¿cómo mejorar detección?) se responde mediante teoría (estudios demuestran efectividad de ML) y se justifica prácticamente (reduce pérdidas, mejora experiencia).
+
+    \item Se ha desarrollado una \textbf{representación hipotética completa} del objeto de estudio, con alternativas de implementación (Random Forest, XGBoost, redes neuronales), medios técnicos (feature engineering, balanceo, validación temporal) y proceso de evaluación estructurado.
+
+    \item Se han establecido \textbf{concepciones teóricas fundamentales}: 8 definiciones clave, 6 propiedades del objeto, 4 clasificaciones y 6 regularidades empíricas derivadas de la literatura.
+\end{enumerate}
+
+\subsection*{Sobre la Significación Práctica}
+
+\begin{enumerate}
+    \item El diagnóstico empírico revela un \textbf{estado actual primitivo}: sistema reactivo basado en reglas estáticas, sin ML, sin aprendizaje, fragmentado, con pérdidas económicas por fraude no detectado y falsos positivos.
+
+    \item El \textbf{estado ideal está claramente definido} según marco teórico: sistema con inteligencia predictiva en tiempo real, aprendizaje continuo, equilibrio precision-recall optimizado, pipeline ML estructurado, arquitectura centralizada, alta automatización y explicabilidad.
+
+    \item La interpretación funcional identifica \textbf{6 funciones que el objeto debe cumplir}: clasificación de riesgo, identificación de patrones, filtrado de anomalías, escalación de alertas, aprendizaje continuo, optimización de trade-off negocio.
+
+    \item Se ha establecido claramente \textbf{qué parte del objeto causa el problema}: ausencia del componente ML (deficiencia central), arquitectura de reglas estáticas, falta de datos estructurados, fragmentación de pasarelas, ausencia de gobernanza.
+
+    \item La \textbf{brecha entre estado actual e ideal} justifica la intervención propuesta: implementar modelo ML supervisado que habilite las funciones actualmente ausentes o deficientes.
+\end{enumerate}
+
+\subsection*{Validación Metodológica General}
+
+El proyecto cumple los criterios de Sampieri para investigación científica aplicada:
+
+\begin{itemize}
+    \item \textbf{Claridad del objeto}: Definición precisa y delimitada
+    \item \textbf{Fundamentación teórica}: Sustentada en literatura científica relevante
+    \item \textbf{Relevancia práctica}: Responde a necesidad operacional concreta
+    \item \textbf{Coherencia metodológica}: Alineación entre problema, objetivos, teoría y solución propuesta
+    \item \textbf{Viabilidad}: Condiciones técnicas, organizacionales y de datos permiten implementación
+    \item \textbf{Aporte dual}: Contribución teórica (validación empírica de ML en contexto SaaS multicanal) y práctica (mejora operativa en TechSport)
+\end{itemize}
+
+La investigación está metodológicamente sólida y lista para proceder a las fases de desarrollo e implementación del modelo propuesto.
+
+\end{document}

@@ -1,7 +1,9 @@
 {
   "permissions": {
     "allow": [
-      "WebSearch"
+      "WebSearch",
+      "Bash(pdflatex:*)",
+      "Bash(pandoc:*)"
     ],
     "deny": [],
     "ask": []

@@ -1,0 +1,6 @@
+[17/11/25, 8:10:46 PM] Dr. Mgs. Odalys SOE UAGRM: erificar: Verificar si el objeto de estudio de la investigación está correctamente definido y precisar en qué área, aspecto o dimensión de éste, se manifiesta el problema planteado; pregunta de investigación; justificación teórica y práctica; aportes teóricos (Elaboración de la nueva representación del objeto (representación hipotética; búsqueda de alternativas y medios para la implementación de  la representación hipotética en la práctica, implementación. Evaluación, diseño de la nueva representación  y la expresión de las concepciones teóricas: definiciones, propiedades del objeto, clasificaciones, regularidades, entre otros.
+[17/11/25, 8:11:13 PM] Dr. Mgs. Odalys SOE UAGRM: Aporte de la significación práctica: a) Análisis de los datos empíricos obtenidos sobre el objeto. Representación o descripción del estado actual del objeto. Consideración de las condiciones.
+
+b) Representación o descripción del estado ideal de los rasgos cualidades o características que el objeto debe alcanzar en correspondencia con el marco teórico asumido y la situación problemática planteada.
+
+c) Interpretación teórica de las funciones del objeto.
