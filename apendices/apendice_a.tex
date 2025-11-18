@@ -4,7 +4,7 @@
 
 \section{Script de Preprocesamiento}
 
-\begin{lstlisting}[language=Python, caption=Preprocesamiento de datos]
+\begin{lstlisting}[style=python, caption=Preprocesamiento de datos]
 import pandas as pd
 import numpy as np
 from sklearn.preprocessing import StandardScaler, LabelEncoder
@@ -33,7 +33,7 @@ def preprocess_data(df):
 
 \section{Script de Entrenamiento}
 
-\begin{lstlisting}[language=Python, caption=Entrenamiento del modelo]
+\begin{lstlisting}[style=python, caption=Entrenamiento del modelo]
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import train_test_split, cross_val_score
 import joblib
@@ -68,7 +68,7 @@ joblib.dump(model, 'modelo_fraude.pkl')
 
 \section{Script de Evaluación}
 
-\begin{lstlisting}[language=Python, caption=Evaluación del modelo]
+\begin{lstlisting}[style=python, caption=Evaluación del modelo]
 from sklearn.metrics import classification_report, confusion_matrix
 from sklearn.metrics import roc_auc_score, roc_curve
 import matplotlib.pyplot as plt
