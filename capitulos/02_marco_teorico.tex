@@ -1,76 +1,372 @@
-% CAPÍTULO 1: REFERENTES TEÓRICOS
-\chapter{Referentes Teóricos}
+% ==================================================================================
+% CAPÍTULO 1: MARCO TEÓRICO
+% ==================================================================================
 
-\section*{Referencia a núcleos teóricos a desarrollar en la investigación}
+\chapter{Marco Teórico}
 
-\subsection*{Objeto de estudio}
+Este capítulo presenta la fundamentación teórica que sustenta la presente investigación, organizando el conocimiento existente sobre detección de fraude en pagos digitales mediante Machine Learning. Se realiza una revisión sistemática de la literatura científica del periodo 2020-2025, analizando los fundamentos conceptuales, algoritmos supervisados, métricas de evaluación, técnicas de feature engineering y el marco normativo aplicable. Esta fundamentación teórica proporciona la base conceptual y técnica necesaria para el desarrollo del modelo propuesto en esta investigación.
 
-El objeto de estudio de esta investigación es el diseño e implementación de un modelo de aprendizaje automático supervisado que permita detectar anomalías y fraudes en transacciones electrónicas, en el contexto de la empresa TechSport. Esta plataforma SaaS procesa pagos a través de múltiples pasarelas y canales digitales, lo que genera una alta exposición a riesgos operacionales y económicos por posibles fraudes no detectados a tiempo. El estudio se enfoca en la aplicación de algoritmos de clasificación para el análisis de datos históricos de transacciones.
+\section{Fraude en Pagos Digitales}
 
-\subsection*{Campo de acción}
+\subsection{Concepto y Tipología del Fraude Financiero}
 
-El campo de acción se enmarca en el sector fintech, específicamente en el análisis de pagos digitales y la seguridad transaccional en plataformas tecnológicas. La empresa objeto de estudio, TechSport, opera en múltiples países y administra pagos de reservas deportivas mediante canales móviles, web y físicos. Esta investigación se desarrolla en un entorno técnico caracterizado por arquitecturas distribuidas, diversidad de pasarelas de pago y necesidad de cumplimiento normativo en materia de protección de datos y prevención del fraude financiero.
+El fraude en pagos digitales constituye una problemática creciente en el ecosistema financiero global. Según \textcite{Baesens2015}, el fraude financiero se define como cualquier actividad ilegal o deshonesta que busca obtener beneficios económicos mediante el engaño, la manipulación o el abuso de sistemas de pago. En el contexto específico de los pagos digitales, esta definición se amplía para incluir el uso no autorizado de instrumentos de pago electrónicos, la suplantación de identidad en transacciones en línea y la explotación de vulnerabilidades tecnológicas.
 
-\subsection*{Fundamento teórico del objetivo general}
+\textcite{HernandezAros2024} categorizan el fraude financiero en tres grandes familias: fraude con tarjetas de crédito/débito, fraude en transacciones bancarias y fraude en sistemas de pago electrónico. En el ámbito de los pagos transaccionales digitales, se identifican los siguientes tipos principales:
 
-El objetivo general de esta investigación se sustenta en tres ejes teóricos: (1) los principios del aprendizaje automático supervisado, que permiten entrenar modelos con datos etiquetados para clasificar nuevas observaciones; (2) los enfoques de detección de fraude financiero, que buscan identificar patrones atípicos en los datos transaccionales; y (3) los fundamentos de seguridad en sistemas digitales de pago, que exigen soluciones capaces de proteger la integridad y confiabilidad de las operaciones. Estos núcleos teóricos permiten orientar el diseño del modelo propuesto hacia una solución técnica viable y alineada con los requerimientos actuales del entorno fintech.
+\begin{enumerate}
+    \item \textbf{Fraude por tarjeta robada o clonada:} Uso no autorizado de credenciales de pago obtenidas ilícitamente, ya sea mediante robo físico, phishing o técnicas de skimming. Este tipo de fraude representa aproximadamente el 60\% de los casos reportados en plataformas de comercio electrónico \parencite{Hafez2025}.
 
-\subsection*{Índice Tentativo para el Desarrollo del Marco Teórico}
+    \item \textbf{Transacciones duplicadas sospechosas:} Múltiples intentos de carga sobre el mismo instrumento de pago en periodos cortos de tiempo, generalmente asociados a pruebas de validez de tarjetas robadas o intentos automatizados de fraude.
 
-\subsubsection*{Breve estado del arte sobre la detección de fraudes en pagos electrónicos}
+    \item \textbf{Comportamientos anómalos de usuarios:} Patrones transaccionales que se desvían significativamente del comportamiento histórico del usuario legítimo, como cambios abruptos en montos, frecuencia o geolocalización de las transacciones.
 
-1.1.1. Panorama global del fraude financiero digital
+    \item \textbf{Fraude de identidad sintética:} Creación de identidades ficticias mediante la combinación de información real y falsa para establecer perfiles de pago fraudulentos \parencite{Feng2024}.
+\end{enumerate}
 
-1.1.2. Casos relevantes y estadísticas recientes en plataformas fintech
+\subsection{Impacto del Fraude Digital}
 
-1.1.3. Estudios previos sobre fraude en entornos SaaS y multicanal
+El impacto del fraude en pagos digitales trasciende las pérdidas económicas directas, afectando múltiples dimensiones del ecosistema financiero. \textcite{OEABID2020} documentan que en América Latina, el fraude digital genera consecuencias que incluyen:
 
-\subsubsection*{Fundamentos teóricos del aprendizaje automático}
+\begin{itemize}
+    \item \textbf{Pérdidas económicas directas:} Valores monetarios sustraídos fraudulentamente, que en promedio representan el 1.5\% del volumen total de transacciones digitales en la región.
+    \item \textbf{Costos operativos de gestión:} Recursos destinados a la investigación de disputas, chargebacks y gestión de reclamaciones, estimados en 3 a 5 veces el valor de la transacción fraudulenta.
+    \item \textbf{Deterioro de la reputación:} Pérdida de confianza de los usuarios, lo cual en plataformas digitales puede resultar en una reducción del 20-30\% en la retención de clientes según estudios de comportamiento del consumidor.
+    \item \textbf{Sanciones regulatorias:} Incumplimiento de normativas como PCI DSS o GDPR, que pueden derivar en multas significativas y restricciones operativas.
+    \item \textbf{Exclusión financiera digital:} Desconfianza generalizada en medios de pago electrónicos, lo cual frena la inclusión financiera y la digitalización de la economía.
+\end{itemize}
 
-1.2.1. Definición y evolución del aprendizaje automático
+\subsection{Limitaciones de los Sistemas Basados en Reglas Estáticas}
 
-1.2.2. Tipos de aprendizaje automático: supervisado, no supervisado y por refuerzo
+Los sistemas tradicionales de detección de fraude se fundamentan en reglas determinísticas predefinidas por expertos en riesgos financieros. Según \textcite{Baesens2015}, estos sistemas operan mediante umbrales fijos y condiciones booleanas del tipo:
 
-1.2.3. Modelos supervisados aplicables a detección de fraude
+\begin{itemize}
+    \item Si monto de transacción $>$ \$500 USD \textbf{Y} país IP $\neq$ país tarjeta $\Rightarrow$ RECHAZAR
+    \item Si frecuencia transaccional $>$ 5 transacciones/hora $\Rightarrow$ ALERTA
+    \item Si categoría comerciante = ``alto riesgo'' $\Rightarrow$ REVISIÓN MANUAL
+\end{itemize}
 
-1.2.4. Métricas de evaluación en modelos de clasificación: precisión, recall, F1-score
+\textcite{Rodriguez2023} identifican las siguientes limitaciones estructurales de los sistemas basados en reglas:
 
-\subsubsection*{Teorías y enfoques en la detección de anomalías y fraude}
+\begin{enumerate}
+    \item \textbf{Ausencia de capacidad de aprendizaje:} Las reglas permanecen estáticas y no se adaptan a nuevos patrones de fraude. Cuando emergen técnicas fraudulentas novedosas, el sistema no las reconoce hasta que un experto actualiza las reglas manualmente.
 
-1.3.1. Concepto de anomalía en datos transaccionales
+    \item \textbf{Alta tasa de falsos positivos:} Reglas excesivamente conservadoras rechazan transacciones legítimas, afectando la experiencia del usuario. Estudios documentan tasas de falsos positivos del 10-15\% en sistemas basados únicamente en reglas \parencite{Baesens2015}.
 
-1.3.2. Técnicas estadísticas vs. técnicas basadas en IA
+    \item \textbf{Mantenimiento manual intensivo:} La actualización de reglas requiere intervención constante de expertos, con tiempos de respuesta que pueden ser de semanas o meses ante nuevas amenazas.
 
-1.3.3. Enfoques híbridos en la detección de fraude
+    \item \textbf{Imposibilidad de correlaciones multidimensionales:} Las reglas simples no capturan interacciones complejas entre múltiples variables (por ejemplo, la combinación de monto + hora + geolocalización + historial del usuario).
 
-1.3.4. Limitaciones de los sistemas basados en reglas estáticas
+    \item \textbf{Falta de priorización dinámica:} Todos los eventos sospechosos reciben el mismo tratamiento, sin scoring de riesgo diferencial.
+\end{enumerate}
 
-\subsubsection*{Seguridad digital y gestión de riesgo en pagos electrónicos}
+\section{Machine Learning en Detección de Fraude}
 
-1.4.1. Principios de seguridad en sistemas de pago (Confidencialidad, Integridad y Disponibilidad - CIA)
+\subsection{Fundamentos del Aprendizaje Supervisado}
 
-1.4.2. Normativas internacionales: PCI DSS, AML/KYC, GDPR
+El aprendizaje automático supervisado constituye un paradigma computacional en el cual un algoritmo aprende a mapear entradas (features) a salidas (etiquetas) mediante el análisis de datos históricos etiquetados \parencite{Bishop2006}. En el contexto de detección de fraude, esto se traduce en entrenar modelos con transacciones previamente clasificadas como fraudulentas o legítimas para predecir la naturaleza de transacciones futuras.
 
-1.4.3. Gestión del riesgo operativo y transaccional en entornos digitales
+\textcite{Geron2022} formaliza el problema de clasificación supervisada como la búsqueda de una función $f: \mathcal{X} \rightarrow \mathcal{Y}$ que minimiza una función de pérdida $\mathcal{L}$ sobre un conjunto de entrenamiento $D = \{(x_i, y_i)\}_{i=1}^{n}$, donde:
 
-1.4.4. Recomendaciones para plataformas con múltiples pasarelas de pago
+\begin{itemize}
+    \item $x_i \in \mathcal{X}$ representa el vector de features de la transacción $i$
+    \item $y_i \in \{0, 1\}$ indica si la transacción es legítima (0) o fraudulenta (1)
+    \item $f(x_i)$ es la predicción del modelo para la transacción $i$
+\end{itemize}
 
-\subsubsection*{Aplicación del aprendizaje automático en entornos fintech}
+El proceso de entrenamiento busca minimizar:
 
-1.5.1. Uso de Machine Learning en sistemas de pago y comercio electrónico
+\begin{equation}
+    \min_{f \in \mathcal{F}} \sum_{i=1}^{n} \mathcal{L}(y_i, f(x_i)) + \lambda \Omega(f)
+\end{equation}
 
-1.5.2. Plataformas SaaS y su exposición al fraude
+donde $\Omega(f)$ es un término de regularización y $\lambda$ controla el trade-off entre ajuste a los datos y complejidad del modelo.
 
-1.5.3. Estudios de caso: modelos aplicados a detección de fraude con tarjetas, wallets y otros medios
+\subsection{Algoritmos Supervisados Aplicados a Detección de Fraude}
 
-1.5.4. Evaluación de impacto y beneficios de la IA en la reducción de fraudes
+\subsubsection{Random Forest}
 
-\subsubsection*{Bases técnicas para el desarrollo del modelo propuesto}
+Random Forest es un método de ensemble que construye múltiples árboles de decisión durante el entrenamiento y produce la clase modal (para clasificación) o la media de las predicciones (para regresión) de los árboles individuales \parencite{Geron2022}. Este algoritmo presenta ventajas particulares para detección de fraude:
 
-1.6.1. Preparación y limpieza de datos históricos de transacciones
+\begin{enumerate}
+    \item \textbf{Interpretabilidad:} Permite calcular la importancia de cada feature mediante el decremento promedio de impureza o mediante permutación, facilitando auditorías y cumplimiento regulatorio.
 
-1.6.2. Selección del algoritmo y criterios de entrenamiento
+    \item \textbf{Robustez ante overfitting:} La agregación de múltiples árboles reduce la varianza, especialmente cuando se combinan con técnicas de regularización como max\_depth y min\_samples\_split.
 
-1.6.3. División del conjunto de datos: entrenamiento, validación y prueba
+    \item \textbf{Manejo nativo de features categóricas y numéricas:} No requiere one-hot encoding extensivo, simplificando el preprocesamiento.
 
-1.6.4. Herramientas y librerías utilizadas (Scikit-learn, TensorFlow, Pandas, etc.)
+    \item \textbf{Desempeño competitivo en datos tabulares:} \textcite{Hafez2025} reportan que Random Forest alcanza F1-Scores del 85-89\% en detección de fraude con tarjetas de crédito, comparable con algoritmos más complejos.
+\end{enumerate}
+
+El algoritmo construye $B$ árboles de decisión $\{T_b\}_{b=1}^{B}$ mediante bootstrap sampling del conjunto de entrenamiento. La predicción final se obtiene mediante votación mayoritaria:
+
+\begin{equation}
+    \hat{y} = \text{mode}\left(\{T_1(x), T_2(x), \ldots, T_B(x)\}\right)
+\end{equation}
+
+\subsubsection{XGBoost (Extreme Gradient Boosting)}
+
+XGBoost implementa gradient boosting con optimizaciones de segunda orden y regularización avanzada \parencite{Geron2022}. A diferencia de Random Forest, XGBoost construye árboles secuencialmente, donde cada árbol corrige los errores del anterior.
+
+La función objetivo de XGBoost incorpora pérdida y regularización:
+
+\begin{equation}
+    \mathcal{L}(\phi) = \sum_{i} l(\hat{y}_i, y_i) + \sum_{k} \Omega(f_k)
+\end{equation}
+
+donde $\Omega(f_k) = \gamma T + \frac{1}{2}\lambda \|w\|^2$ penaliza la complejidad del árbol (número de hojas $T$ y magnitud de los pesos $w$).
+
+\textcite{Feng2024} documentan que XGBoost alcanza F1-Scores de 90-94\% en contextos de fraude transaccional, superando a Random Forest en datasets altamente desbalanceados.
+
+\subsubsection{Support Vector Machines (SVM)}
+
+SVM busca el hiperplano óptimo que maximiza el margen entre clases en un espacio de mayor dimensión mediante kernel tricks \parencite{Bishop2006}. Para problemas no linealmente separables, SVM mapea los datos a un espacio de características de mayor dimensión donde sí sean separables.
+
+La función de decisión es:
+
+\begin{equation}
+    f(x) = \text{sign}\left(\sum_{i=1}^{n} \alpha_i y_i K(x_i, x) + b\right)
+\end{equation}
+
+donde $K(x_i, x)$ es la función kernel (lineal, RBF, polinomial) y $\alpha_i$ son los multiplicadores de Lagrange.
+
+Según \textcite{AlEmad2022}, SVM con kernel RBF alcanza precisiones del 82-85\% en detección de fraude, siendo especialmente efectivo en datasets de tamaño moderado (< 1M transacciones).
+
+\subsection{Métricas de Evaluación en Contextos Desbalanceados}
+
+La evaluación de modelos de detección de fraude requiere métricas especializadas debido al desbalanceo inherente de las clases (típicamente < 1\% de transacciones son fraudulentas). \textcite{Geron2022} enfatizan que accuracy es una métrica inadecuada en estos contextos, ya que un clasificador que predice siempre ``legítimo'' alcanzaría 99\% de accuracy pero sería inútil.
+
+\subsubsection{Matriz de Confusión}
+
+La matriz de confusión descompone las predicciones en cuatro categorías:
+
+\begin{table}[H]
+\centering
+\caption{Matriz de Confusión para Clasificación Binaria}
+\label{tab:confusion_matrix}
+\begin{tabular}{@{}lcc@{}}
+\toprule
+& \textbf{Predicción: Fraude} & \textbf{Predicción: Legítimo} \\
+\midrule
+\textbf{Real: Fraude} & Verdadero Positivo (VP) & Falso Negativo (FN) \\
+\textbf{Real: Legítimo} & Falso Positivo (FP) & Verdadero Negativo (VN) \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsubsection{Precision, Recall y F1-Score}
+
+\textbf{Precision} mide la proporción de predicciones positivas que fueron correctas:
+
+\begin{equation}
+    \text{Precision} = \frac{VP}{VP + FP}
+\end{equation}
+
+En detección de fraude, Precision alta significa pocos falsos positivos (transacciones legítimas erróneamente bloqueadas).
+
+\textbf{Recall (Sensibilidad)} mide la proporción de fraudes reales detectados:
+
+\begin{equation}
+    \text{Recall} = \frac{VP}{VP + FN}
+\end{equation}
+
+Recall alto minimiza falsos negativos (fraudes no detectados), lo cual es prioritario en seguridad financiera.
+
+\textbf{F1-Score} es la media armónica de Precision y Recall:
+
+\begin{equation}
+    F1 = 2 \cdot \frac{\text{Precision} \cdot \text{Recall}}{\text{Precision} + \text{Recall}}
+\end{equation}
+
+Según \textcite{Hafez2025}, en detección de fraude se consideran excelentes F1-Scores $\geq$ 85\%, con Recall prioritario sobre Precision.
+
+\subsubsection{AUC-ROC (Area Under the ROC Curve)}
+
+La curva ROC (Receiver Operating Characteristic) grafica Recall vs. Tasa de Falsos Positivos para diferentes umbrales de clasificación. El área bajo esta curva (AUC) proporciona una medida agregada de desempeño:
+
+\begin{itemize}
+    \item AUC = 1.0: Clasificador perfecto
+    \item AUC = 0.5: Clasificador aleatorio
+    \item AUC > 0.9: Excelente poder discriminatorio
+\end{itemize}
+
+\textcite{Murphy2022} recomiendan AUC-ROC $\geq$ 0.92 para aplicaciones de detección de fraude en producción.
+
+\section{Feature Engineering en Detección de Fraude}
+
+\subsection{Conceptos Fundamentales}
+
+Feature engineering es el proceso de transformar datos brutos en representaciones que facilitan el aprendizaje de patrones relevantes por algoritmos de Machine Learning \parencite{Geron2022}. En detección de fraude, este proceso es crítico porque las features originales (monto, timestamp, ID del usuario) capturan información limitada sobre comportamientos anómalos.
+
+\textcite{Baesens2015} categorizan las features para detección de fraude en tres familias:
+
+\begin{enumerate}
+    \item \textbf{Features estáticas:} Atributos inmutables o de baja frecuencia de cambio (país de la tarjeta, tipo de cuenta).
+    \item \textbf{Features transaccionales:} Características de la transacción actual (monto, hora del día, canal de pago).
+    \item \textbf{Features comportamentales:} Derivadas del historial del usuario (frecuencia de transacciones, desviación del monto respecto al promedio histórico, tiempo desde última transacción).
+\end{enumerate}
+
+\subsection{Técnicas de Feature Engineering}
+
+\subsubsection{Agregaciones Temporales}
+
+Las agregaciones temporales capturan patrones de comportamiento del usuario en ventanas de tiempo. Ejemplos incluyen \parencite{Lucas2019}:
+
+\begin{itemize}
+    \item Número de transacciones del usuario en las últimas 24 horas / 7 días / 30 días
+    \item Monto total gastado en ventanas temporales
+    \item Desviación estándar del monto transaccional
+\end{itemize}
+
+\textbf{Prevención de data leakage:} Es crítico que estas agregaciones usen exclusivamente información disponible antes de la transacción actual, evitando usar información futura \parencite{Geron2022}.
+
+\subsubsection{Features de Velocidad}
+
+Las features de velocidad miden la tasa de cambio en el comportamiento del usuario:
+
+\begin{itemize}
+    \item Velocidad transaccional: $\text{vel} = \frac{\text{número de transacciones}}{\Delta t}$
+    \item Cambio en geolocalización: Distancia entre IP actual e IP de transacciones previas
+    \item Ratio monto actual vs. promedio histórico: $\frac{\text{monto}_{\text{actual}}}{\text{promedio}_{\text{histórico}}}$
+\end{itemize}
+
+\subsubsection{Features de Contexto}
+
+Características derivadas del contexto de la transacción:
+
+\begin{itemize}
+    \item Hora del día categorizada (madrugada, mañana, tarde, noche)
+    \item Día de la semana (weekday vs. weekend)
+    \item Distancia geográfica entre IP y país de la tarjeta
+    \item Canal de pago (web, app móvil, POS)
+\end{itemize}
+
+\subsection{Estrategias de Balanceo de Clases}
+
+El desbalanceo de clases es un desafío fundamental en detección de fraude. \textcite{Hafez2025} comparan técnicas de balanceo:
+
+\subsubsection{SMOTE (Synthetic Minority Over-sampling Technique)}
+
+SMOTE genera instancias sintéticas de la clase minoritaria mediante interpolación lineal entre instancias reales cercanas \parencite{Geron2022}. Para cada instancia minoritaria $x_i$:
+
+\begin{enumerate}
+    \item Se seleccionan $k$ vecinos más cercanos
+    \item Se elige aleatoriamente uno de esos vecinos $x_j$
+    \item Se crea una instancia sintética: $x_{\text{new}} = x_i + \lambda (x_j - x_i)$ donde $\lambda \in [0,1]$
+\end{enumerate}
+
+\textbf{Ventaja:} Aumenta la representación de la clase minoritaria sin duplicar instancias.
+
+\textbf{Limitación:} Puede generar ruido si existen outliers en la clase minoritaria.
+
+\subsubsection{Class Weights}
+
+Asignación de pesos diferentes a cada clase en la función de pérdida:
+
+\begin{equation}
+    \mathcal{L}_{\text{weighted}} = \sum_{i=1}^{n} w_{y_i} \cdot l(\hat{y}_i, y_i)
+\end{equation}
+
+donde $w_0 = 1$ (clase legítima) y $w_1 = \frac{n_0}{n_1}$ (clase fraudulenta).
+
+Random Forest y XGBoost soportan class weights nativamente mediante el parámetro \texttt{class\_weight} o \texttt{scale\_pos\_weight}.
+
+\section{Validación Temporal en Series de Tiempo Financieras}
+
+\subsection{Limitaciones de la Validación Cruzada K-Fold en Series Temporales}
+
+\textcite{Geron2022} advierten que la validación cruzada k-fold tradicional es inadecuada para datos con dependencia temporal, ya que:
+
+\begin{enumerate}
+    \item \textbf{Viola el orden temporal:} K-fold aleatorio puede usar transacciones futuras para predecir transacciones pasadas, generando data leakage.
+    \item \textbf{Ignora concept drift:} Patrones de fraude evolucionan en el tiempo; un modelo entrenado con datos de 2024 puede tener desempeño degradado en 2025.
+\end{enumerate}
+
+\subsection{Validación Temporal (Time-Series Split)}
+
+La validación temporal respeta el orden cronológico de los datos \parencite{Geron2022}:
+
+\begin{itemize}
+    \item \textbf{Train set:} Transacciones del periodo T1 (por ejemplo, 2024)
+    \item \textbf{Test set:} Transacciones del periodo T2 > T1 (por ejemplo, 2025)
+\end{itemize}
+
+Esta estrategia simula el despliegue real del modelo: entrenamiento con datos históricos, evaluación con datos futuros.
+
+\section{Marco Normativo y Regulatorio}
+
+\subsection{PCI DSS (Payment Card Industry Data Security Standard)}
+
+PCI DSS establece requisitos mínimos para procesamiento seguro de información de tarjetas de pago. La versión 4.0 (2024) exige:
+
+\begin{itemize}
+    \item Monitoreo y logging de todas las transacciones
+    \item Implementación de controles anti-fraude
+    \item Encriptación de datos sensibles
+    \item Auditorías regulares de seguridad
+\end{itemize}
+
+\subsection{NIST Cybersecurity Framework 2.0}
+
+\textcite{NIST2024} publicaron la versión 2.0 del Marco de Ciberseguridad, incorporando la función ``Govern'' que enfatiza la gestión del riesgo cibernético como riesgo empresarial. Para sistemas de pago, recomienda:
+
+\begin{itemize}
+    \item Identificación de activos críticos (datos de tarjetas, logs transaccionales)
+    \item Protección mediante controles técnicos (detección de anomalías, segmentación de red)
+    \item Detección de eventos de seguridad en tiempo real
+    \item Respuesta ante incidentes con protocolos documentados
+    \item Recuperación con planes de continuidad del negocio
+\end{itemize}
+
+\subsection{GDPR (General Data Protection Regulation)}
+
+GDPR regula el procesamiento de datos personales en la Unión Europea. Principios relevantes para sistemas de detección de fraude:
+
+\begin{itemize}
+    \item \textbf{Minimización de datos:} Solo procesar datos estrictamente necesarios.
+    \item \textbf{Exactitud:} Mantener datos actualizados y corregir errores.
+    \item \textbf{Limitación de almacenamiento:} Retener datos solo el tiempo necesario.
+    \item \textbf{Transparencia:} Informar a usuarios sobre uso de datos en sistemas automatizados.
+\end{itemize}
+
+\section{Benchmarks de la Literatura Científica}
+
+\subsection{Revisión de Estudios Recientes (2020-2025)}
+
+\textcite{Hafez2025} realizaron una revisión sistemática de 87 estudios sobre detección de fraude con tarjetas de crédito mediante ML, identificando los siguientes benchmarks:
+
+\begin{table}[H]
+\centering
+\caption{Benchmarks de Desempeño en Detección de Fraude (Literatura 2020-2025)}
+\label{tab:benchmarks}
+\begin{tabular}{@{}lcccc@{}}
+\toprule
+\textbf{Algoritmo} & \textbf{F1-Score (\%)} & \textbf{Recall (\%)} & \textbf{Precision (\%)} & \textbf{Fuente} \\
+\midrule
+Random Forest & 85-89 & 87-92 & 83-87 & \textcite{Hafez2025} \\
+XGBoost & 90-94 & 92-96 & 88-92 & \textcite{Feng2024} \\
+SVM (RBF) & 82-85 & 80-84 & 84-88 & \textcite{AlEmad2022} \\
+Redes Neuronales & 88-93 & 89-94 & 87-92 & \textcite{AlKhasawneh2025} \\
+Ensemble Híbrido & 91-95 & 93-97 & 89-93 & \textcite{HernandezAros2024} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Contexto de Benchmarks}
+
+\textcite{HernandezAros2024} enfatizan que los benchmarks deben interpretarse considerando:
+
+\begin{itemize}
+    \item \textbf{Desbalanceo del dataset:} Ratios de fraude del 0.1-5\%
+    \item \textbf{Calidad del etiquetado:} Etiquetas confirmadas vs. etiquetas heurísticas
+    \item \textbf{Estrategia de validación:} K-fold vs. validación temporal
+    \item \textbf{Features utilizadas:} 10-50 features típicamente
+\end{itemize}
+
+\section{Síntesis del Marco Teórico}
+
+La revisión de la literatura científica del periodo 2020-2025 evidencia que los modelos de Machine Learning supervisados, particularmente Random Forest y XGBoost, constituyen un enfoque técnicamente validado para la detección de fraude en pagos digitales. Los estudios analizados reportan F1-Scores entre 85-94\%, superando las limitaciones de los sistemas basados en reglas estáticas en términos de adaptabilidad (capacidad de aprender nuevos patrones), precisión (menor tasa de falsos positivos/negativos) y escalabilidad (procesamiento de grandes volúmenes).
+
+El marco teórico presentado proporciona la base conceptual y técnica para el desarrollo del modelo propuesto en esta investigación, estableciendo objetivos cuantificables alineados con benchmarks internacionales (F1-Score $\geq$ 85\%, Recall $\geq$ 90\%, Precision $\geq$ 80\%) y metodologías rigurosas de validación temporal para garantizar la robustez y aplicabilidad de los resultados.
+
+\cleardoublepage
