@@ -1,0 +1,971 @@
+% ==================================================================================
+% MATRIZ DE OPERACIONALIZACIÓN DE VARIABLES - TESIS DE MAESTRÍA
+% Detección de Transacciones Fraudulentas y Anómalas mediante Machine Learning
+% Autor: Ing. Ada Condori Callisaya
+% Basado en metodología AQP/CCA de Dra. Rosario Martínez
+% ==================================================================================
+
+\documentclass[12pt,a4paper]{article}
+
+% Paquetes necesarios
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[spanish,es-tabla]{babel}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{geometry}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{xcolor}
+\usepackage{colortbl}
+\usepackage{fancyhdr}
+\usepackage{titling}
+\usepackage{lmodern}
+\usepackage{pdflscape}
+\usepackage{enumitem}
+
+% Configuración de página
+\geometry{
+    a4paper,
+    left=2cm,
+    right=2cm,
+    top=2.5cm,
+    bottom=2.5cm
+}
+
+% Configuración de encabezado y pie de página
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small Matriz de Operacionalización - Tesis de Maestría}
+\fancyhead[R]{\small UAGRM - 2025}
+\fancyfoot[C]{\thepage}
+
+% Colores personalizados
+\definecolor{headerblue}{RGB}{41,128,185}
+\definecolor{headergreen}{RGB}{39,174,96}
+\definecolor{headerpurple}{RGB}{142,68,173}
+\definecolor{lightgray}{RGB}{245,245,245}
+\definecolor{lightblue}{RGB}{230,240,250}
+
+% Configuración del título
+\title{%
+    \textbf{MATRIZ DE OPERACIONALIZACIÓN DE VARIABLES}\\[0.5em]
+    \large Implementación de un Modelo de Machine Learning\\
+    para la Detección de Transacciones Fraudulentas y Anómalas\\
+    en Pagos Digitales de la Empresa TechSport\\[0.3em]
+    \normalsize Gestión 2025
+}
+\author{Ing. Ada Condori Callisaya}
+\date{Noviembre 2025}
+
+\begin{document}
+
+\maketitle
+
+\section*{Introducción}
+
+La \textbf{Matriz de Operacionalización de Variables} es un instrumento metodológico que permite traducir conceptos abstractos (variables) en elementos medibles y observables. Para cada variable se definen:
+
+\begin{itemize}[leftmargin=2cm]
+    \item \textbf{Definición conceptual:} Marco teórico que sustenta la variable
+    \item \textbf{Definición operacional:} Cómo se medirá en la práctica
+    \item \textbf{Dimensiones:} Componentes o aspectos de la variable
+    \item \textbf{Indicadores:} Métricas cuantificables
+    \item \textbf{Instrumento de medición:} Herramientas/métodos para recolectar datos
+    \item \textbf{Escala de medición:} Tipo de dato (nominal, ordinal, intervalo, razón)
+\end{itemize}
+
+\vspace{1em}
+
+\section*{Datos Generales de la Investigación}
+
+\begin{tabular}{p{4cm}p{11cm}}
+\toprule
+\textbf{Programa} & Maestría en Dirección Estratégica en Ingeniería de Software \\
+\textbf{Universidad} & UAGRM - Facultad de Ingeniería en Ciencias de la Computación y Telecomunicaciones \\
+\textbf{Autor} & Ing. Ada Condori Callisaya \\
+\textbf{Periodo} & Gestión 2025 (Noviembre 2025 - Enero 2026) \\
+\textbf{Tipo} & Investigación Aplicada-Tecnológica \\
+\textbf{Enfoque} & Cuantitativo \\
+\textbf{Diseño} & Cuasiexperimental Retrospectivo con Grupo de Comparación \\
+\textbf{Población} & 15,492,846 transacciones de pago digitales (Gestión 2025) \\
+\bottomrule
+\end{tabular}
+
+\newpage
+
+% =================================================================================
+% VARIABLE DEPENDIENTE (VD)
+% =================================================================================
+
+\section*{VARIABLE DEPENDIENTE (VD)}
+
+\subsection*{Transacciones Fraudulentas y Anómalas en Pagos Digitales}
+
+\begin{tabular}{p{4.5cm}p{10.5cm}}
+\toprule
+\rowcolor{headerblue}
+\textcolor{white}{\textbf{Aspecto}} & \textcolor{white}{\textbf{Descripción}} \\
+\midrule
+
+\textbf{Tipo de Variable} &
+Dependiente (Variable Madre según método AQP/CCA) \\
+\midrule
+
+\textbf{Definición Conceptual} &
+Conjunto de transacciones de pago procesadas por TechSport que presentan comportamientos sospechosos, patrones atípicos o características asociadas a actividad fraudulenta, que pueden resultar en pérdidas económicas, chargebacks o afectación de la seguridad financiera de la plataforma. \\
+\midrule
+
+\textbf{Definición Operacional} &
+Transacciones clasificadas mediante etiquetado binario (Fraude / No Fraude) según el proceso de revisión del equipo de contabilidad de TechSport, basado en:
+\begin{itemize}[leftmargin=0.5cm, topsep=2pt, itemsep=2pt]
+    \item Chargebacks confirmados por instituciones financieras
+    \item Disputas resueltas como fraude
+    \item Reportes de usuarios afectados verificados
+    \item Revisión manual de transacciones sospechosas
+\end{itemize}
+\textbf{Tiempo de etiquetado:} 0 días (detección inmediata) hasta 5 meses (chargebacks tardíos) \\
+\midrule
+
+\textbf{Justificación Metodológica} &
+El etiquetado retrospectivo (hasta 5 meses) refleja la naturaleza real del fraude financiero, donde los chargebacks aparecen semanas o meses después. Esto NO constituye data leakage, ya que las features del modelo utilizan únicamente información disponible al momento de la transacción. \\
+
+\bottomrule
+\end{tabular}
+
+\vspace{1em}
+
+\subsection*{Dimensiones e Indicadores de la Variable Dependiente}
+
+\begin{landscape}
+
+\begin{longtable}{|p{3cm}|p{3.5cm}|p{4cm}|p{3cm}|p{2.5cm}|p{3cm}|}
+\caption{Operacionalización de la Variable Dependiente: Transacciones Fraudulentas y Anómalas} \\
+\hline
+\rowcolor{headerblue}
+\textcolor{white}{\textbf{Dimensión}} &
+\textcolor{white}{\textbf{Indicador}} &
+\textcolor{white}{\textbf{Definición Operacional}} &
+\textcolor{white}{\textbf{Fórmula / Cálculo}} &
+\textcolor{white}{\textbf{Escala}} &
+\textcolor{white}{\textbf{Instrumento}} \\
+\hline
+\endfirsthead
+
+\multicolumn{6}{c}%
+{\tablename\ \thetable\ -- \textit{Continuación de la página anterior}} \\
+\hline
+\rowcolor{headerblue}
+\textcolor{white}{\textbf{Dimensión}} &
+\textcolor{white}{\textbf{Indicador}} &
+\textcolor{white}{\textbf{Definición Operacional}} &
+\textcolor{white}{\textbf{Fórmula / Cálculo}} &
+\textcolor{white}{\textbf{Escala}} &
+\textcolor{white}{\textbf{Instrumento}} \\
+\hline
+\endhead
+
+\hline \multicolumn{6}{r}{\textit{Continúa en la siguiente página}} \\
+\endfoot
+
+\hline
+\endlastfoot
+
+% ==================== DIMENSIÓN 1: PREVALENCIA DEL FRAUDE ====================
+\rowcolor{lightblue}
+\multicolumn{6}{|l|}{\textbf{DIMENSIÓN 1: PREVALENCIA Y DISTRIBUCIÓN DEL FRAUDE}} \\
+\hline
+
+Frecuencia de fraude &
+Tasa de fraude detectado (\%) &
+Porcentaje de transacciones identificadas como fraudulentas respecto al total de transacciones procesadas &
+$\frac{\text{Fraudes detectados}}{\text{Total transacciones}} \times 100$ &
+Razón (continua) &
+Dataset histórico de TechSport \\
+\hline
+
+Impacto económico &
+Pérdidas económicas por fraude (USD) &
+Suma monetaria total de transacciones fraudulentas confirmadas &
+$\sum_{i=1}^{n} \text{Monto}_{\text{fraude}_i}$ &
+Razón (continua) &
+Sistema de pagos + registros contables \\
+\hline
+
+Distribución temporal &
+Transacciones fraudulentas por período temporal &
+Cantidad de fraudes agrupados por hora del día, día de la semana, mes &
+Histograma de frecuencias por período &
+Razón (discreta) &
+Metadata transaccional (timestamp) \\
+\hline
+
+Distribución por canal &
+Tasa de fraude por canal (\%) &
+Porcentaje de fraude en cada canal de pago (Web / App / POS) &
+$\frac{\text{Fraudes}_{\text{canal}}}{\text{Total}_{\text{canal}}} \times 100$ &
+Razón (continua) &
+Metadata transaccional (campo \texttt{channel}) \\
+\hline
+
+Distribución por gateway &
+Tasa de fraude por pasarela (\%) &
+Porcentaje de fraude en cada gateway de pago &
+$\frac{\text{Fraudes}_{\text{gateway}}}{\text{Total}_{\text{gateway}}} \times 100$ &
+Razón (continua) &
+Metadata transaccional (campo \texttt{gateway\_id}) \\
+\hline
+
+% ==================== DIMENSIÓN 2: DESEMPEÑO DEL SISTEMA DE DETECCIÓN ====================
+\rowcolor{lightblue}
+\multicolumn{6}{|l|}{\textbf{DIMENSIÓN 2: DESEMPEÑO DEL SISTEMA DE DETECCIÓN}} \\
+\hline
+
+Exactitud global &
+Accuracy (Precisión global) (\%) &
+Proporción de transacciones correctamente clasificadas (VP + VN) respecto al total &
+$\frac{VP + VN}{VP + VN + FP + FN} \times 100$ &
+Razón (continua) &
+Matriz de confusión (scikit-learn) \\
+\hline
+
+Capacidad de detección &
+Recall / Sensibilidad (\%) &
+Proporción de fraudes detectados correctamente respecto al total de fraudes reales &
+$\frac{VP}{VP + FN} \times 100$ &
+Razón (continua) &
+Matriz de confusión \\
+\hline
+
+Precisión de alertas &
+Precision (Valor predictivo positivo) (\%) &
+Proporción de alertas de fraude que son correctas respecto al total de alertas generadas &
+$\frac{VP}{VP + FP} \times 100$ &
+Razón (continua) &
+Matriz de confusión \\
+\hline
+
+Balance precision-recall &
+F1-Score &
+Media armónica entre Precision y Recall, indicador principal de desempeño &
+$2 \times \frac{\text{Precision} \times \text{Recall}}{\text{Precision} + \text{Recall}}$ &
+Razón (continua, 0-1) &
+Métricas de clasificación (scikit-learn) \\
+\hline
+
+Discriminación global &
+AUC-ROC (Área bajo curva ROC) &
+Capacidad del modelo de discriminar entre fraude y no fraude en todos los umbrales posibles &
+Integral de curva ROC (TPR vs FPR) &
+Razón (continua, 0-1) &
+Curva ROC (scikit-learn) \\
+\hline
+
+% ==================== DIMENSIÓN 3: TIPOS DE ERROR ====================
+\rowcolor{lightblue}
+\multicolumn{6}{|l|}{\textbf{DIMENSIÓN 3: ANÁLISIS DE ERRORES DEL SISTEMA}} \\
+\hline
+
+Falsos positivos &
+Tasa de falsos positivos (FPR) (\%) &
+Proporción de transacciones legítimas incorrectamente clasificadas como fraude &
+$\frac{FP}{FP + VN} \times 100$ &
+Razón (continua) &
+Matriz de confusión \\
+\hline
+
+Falsos negativos &
+Tasa de falsos negativos (FNR) (\%) &
+Proporción de fraudes no detectados (clasificados como legítimos) &
+$\frac{FN}{FN + VP} \times 100$ &
+Razón (continua) &
+Matriz de confusión \\
+\hline
+
+Fraudes no detectados &
+Cantidad absoluta de FN &
+Número de transacciones fraudulentas que el modelo no detectó &
+Conteo directo de falsos negativos &
+Razón (discreta) &
+Matriz de confusión \\
+\hline
+
+Rechazos incorrectos &
+Cantidad absoluta de FP &
+Número de transacciones legítimas rechazadas incorrectamente &
+Conteo directo de falsos positivos &
+Razón (discreta) &
+Matriz de confusión \\
+\hline
+
+% ==================== DIMENSIÓN 4: DESEMPEÑO OPERATIVO ====================
+\rowcolor{lightblue}
+\multicolumn{6}{|l|}{\textbf{DIMENSIÓN 4: VIABILIDAD OPERATIVA DEL MODELO}} \\
+\hline
+
+Velocidad de clasificación &
+Tiempo de inferencia (ms) &
+Tiempo promedio que toma el modelo en clasificar una transacción &
+Promedio de tiempo de predicción por transacción &
+Razón (continua) &
+Logs de ejecución del modelo (Python \texttt{time}) \\
+\hline
+
+Complejidad computacional &
+Tamaño del modelo (MB) &
+Espacio en disco del modelo serializado &
+Tamaño del archivo .pkl o .joblib &
+Razón (continua) &
+Sistema operativo (\texttt{ls -lh}) \\
+\hline
+
+\end{longtable}
+
+\end{landscape}
+
+\subsection*{Leyenda de Abreviaturas}
+
+\begin{itemize}[leftmargin=2cm]
+    \item \textbf{VP:} Verdaderos Positivos (fraudes correctamente detectados)
+    \item \textbf{VN:} Verdaderos Negativos (transacciones legítimas correctamente clasificadas)
+    \item \textbf{FP:} Falsos Positivos (transacciones legítimas clasificadas como fraude)
+    \item \textbf{FN:} Falsos Negativos (fraudes no detectados)
+    \item \textbf{FPR:} False Positive Rate (tasa de falsos positivos)
+    \item \textbf{FNR:} False Negative Rate (tasa de falsos negativos)
+    \item \textbf{TPR:} True Positive Rate (tasa de verdaderos positivos = Recall)
+\end{itemize}
+
+\newpage
+
+% =================================================================================
+% VARIABLE INDEPENDIENTE (VI)
+% =================================================================================
+
+\section*{VARIABLE INDEPENDIENTE (VI)}
+
+\subsection*{Modelo de Machine Learning Implementado}
+
+\begin{tabular}{p{4.5cm}p{10.5cm}}
+\toprule
+\rowcolor{headergreen}
+\textcolor{white}{\textbf{Aspecto}} & \textcolor{white}{\textbf{Descripción}} \\
+\midrule
+
+\textbf{Tipo de Variable} &
+Independiente (Solución propuesta según método CCA - "A" de Aporte) \\
+\midrule
+
+\textbf{Definición Conceptual} &
+Algoritmo computacional basado en aprendizaje automático supervisado, capaz de analizar datos históricos de transacciones etiquetadas para identificar patrones asociados a fraude y predecir la probabilidad de que nuevas transacciones sean fraudulentas o legítimas. \\
+\midrule
+
+\textbf{Definición Operacional} &
+Modelo de clasificación binaria (Fraude / No Fraude) entrenado con dataset histórico de TechSport (gestión 2025), que genera:
+\begin{itemize}[leftmargin=0.5cm, topsep=2pt, itemsep=2pt]
+    \item \textbf{Score de riesgo:} Probabilidad continua [0,1] de que una transacción sea fraude
+    \item \textbf{Clasificación binaria:} Etiqueta final basada en umbral optimizado (típicamente 0.5)
+    \item \textbf{Explicabilidad:} Feature importance para auditoría y cumplimiento regulatorio
+\end{itemize}
+\\
+\midrule
+
+\textbf{Justificación Técnica} &
+Se selecciona \textbf{Random Forest} como algoritmo principal por:
+\begin{itemize}[leftmargin=0.5cm, topsep=2pt, itemsep=2pt]
+    \item Alta interpretabilidad (importante para auditorías PCI DSS / GDPR)
+    \item Manejo natural de features categóricas y numéricas
+    \item Resistencia a overfitting mediante ensemble learning
+    \item Balance entre desempeño y tiempo de desarrollo (2 meses)
+\end{itemize}
+\\
+
+\bottomrule
+\end{tabular}
+
+\vspace{1em}
+
+\subsection*{Dimensiones e Indicadores de la Variable Independiente}
+
+\begin{landscape}
+
+\begin{longtable}{|p{3.5cm}|p{3.5cm}|p{4cm}|p{3cm}|p{2cm}|p{3cm}|}
+\caption{Operacionalización de la Variable Independiente: Modelo de Machine Learning} \\
+\hline
+\rowcolor{headergreen}
+\textcolor{white}{\textbf{Dimensión}} &
+\textcolor{white}{\textbf{Indicador}} &
+\textcolor{white}{\textbf{Definición Operacional}} &
+\textcolor{white}{\textbf{Valores / Rango}} &
+\textcolor{white}{\textbf{Escala}} &
+\textcolor{white}{\textbf{Instrumento}} \\
+\hline
+\endfirsthead
+
+\multicolumn{6}{c}%
+{\tablename\ \thetable\ -- \textit{Continuación}} \\
+\hline
+\rowcolor{headergreen}
+\textcolor{white}{\textbf{Dimensión}} &
+\textcolor{white}{\textbf{Indicador}} &
+\textcolor{white}{\textbf{Definición Operacional}} &
+\textcolor{white}{\textbf{Valores / Rango}} &
+\textcolor{white}{\textbf{Escala}} &
+\textcolor{white}{\textbf{Instrumento}} \\
+\hline
+\endhead
+
+\hline
+\endfoot
+
+\hline
+\endlastfoot
+
+% ==================== DIMENSIÓN 1: TIPO DE ALGORITMO ====================
+\rowcolor{lightgray}
+\multicolumn{6}{|l|}{\textbf{DIMENSIÓN 1: ARQUITECTURA DEL MODELO}} \\
+\hline
+
+Algoritmo seleccionado &
+Tipo de modelo ML &
+Algoritmo de clasificación implementado como modelo principal &
+Random Forest (principal) &
+Nominal &
+Código Python (scikit-learn) \\
+\hline
+
+Algoritmos alternativos &
+Modelos de referencia &
+Algoritmos implementados para comparación &
+SVM (baseline) &
+Nominal &
+Código Python \\
+\hline
+
+Tipo de aprendizaje &
+Paradigma de ML &
+Modalidad de entrenamiento del modelo &
+Supervisado (con etiquetas) &
+Nominal &
+Documentación técnica \\
+\hline
+
+Tipo de tarea &
+Naturaleza del problema &
+Categoría de problema de ML &
+Clasificación binaria &
+Nominal &
+Documentación técnica \\
+\hline
+
+% ==================== DIMENSIÓN 2: HIPERPARÁMETROS ====================
+\rowcolor{lightgray}
+\multicolumn{6}{|l|}{\textbf{DIMENSIÓN 2: CONFIGURACIÓN DE HIPERPARÁMETROS}} \\
+\hline
+
+Número de estimadores &
+\texttt{n\_estimators} &
+Cantidad de árboles de decisión en el ensemble de Random Forest &
+100 - 500 (optimizado por Grid Search) &
+Razón (discreta) &
+Logs de Grid Search (scikit-learn) \\
+\hline
+
+Profundidad máxima &
+\texttt{max\_depth} &
+Profundidad máxima de cada árbol individual (control de overfitting) &
+10 - 20 (optimizado) &
+Razón (discreta) &
+Logs de Grid Search \\
+\hline
+
+Muestras mínimas split &
+\texttt{min\_samples\_split} &
+Número mínimo de muestras requeridas para dividir un nodo interno &
+2 - 10 (optimizado) &
+Razón (discreta) &
+Logs de Grid Search \\
+\hline
+
+Muestras mínimas hoja &
+\texttt{min\_samples\_leaf} &
+Número mínimo de muestras requeridas en un nodo hoja &
+1 - 5 (optimizado) &
+Razón (discreta) &
+Logs de Grid Search \\
+\hline
+
+% ==================== DIMENSIÓN 3: ESTRATEGIA DE ENTRENAMIENTO ====================
+\rowcolor{lightgray}
+\multicolumn{6}{|l|}{\textbf{DIMENSIÓN 3: METODOLOGÍA DE ENTRENAMIENTO}} \\
+\hline
+
+División del dataset &
+Train/Validation/Test split &
+Proporción de datos asignados a cada conjunto &
+70\% / 15\% / 15\% (estratificado) &
+Razón (continua) &
+Código Python (train\_test\_split) \\
+\hline
+
+Balanceo de clases &
+Técnica de balanceo &
+Método para equilibrar clases desbalanceadas &
+SMOTE o class\_weight (adaptativo) &
+Nominal &
+Código Python (imblearn o scikit-learn) \\
+\hline
+
+Estrategia de validación &
+Método de validación &
+Técnica para evaluar generalización del modelo &
+Validación estratificada (70/15/15) &
+Nominal &
+Código Python \\
+\hline
+
+Justificación validación &
+Razón metodológica &
+Por qué se usa validación estratificada en vez de temporal &
+Dataset homogéneo de 2025 evita temporal drift (Carcillo et al., 2018) &
+Cualitativo &
+Documentación metodológica \\
+\hline
+
+% ==================== DIMENSIÓN 4: FEATURES UTILIZADAS ====================
+\rowcolor{lightgray}
+\multicolumn{6}{|l|}{\textbf{DIMENSIÓN 4: INGENIERÍA DE CARACTERÍSTICAS (FEATURE ENGINEERING)}} \\
+\hline
+
+Cantidad de features &
+Número total de features &
+Cantidad de características utilizadas para entrenar el modelo &
+Mínimo: 15 features &
+Razón (discreta) &
+Código Python (feature engineering) \\
+\hline
+
+Features básicas &
+Características originales &
+Variables directamente extraídas del dataset sin transformación &
+Monto, canal, gateway, tipo transacción, hora, día &
+Mixta (nominal + razón) &
+Dataset histórico \\
+\hline
+
+Features derivadas &
+Características calculadas &
+Variables generadas mediante feature engineering &
+Frecuencia\_24h, ratio\_monto, tiempo\_desde\_última, velocidad\_trans, etc. &
+Razón (continua) &
+Scripts de feature engineering \\
+\hline
+
+Prevención data leakage &
+Verificación temporal &
+Todas las features usan solo información disponible al momento de la transacción &
+Sí (validado) &
+Binaria (Sí/No) &
+Revisión de código + documentación \\
+\hline
+
+Feature importance &
+Importancia relativa &
+Ranking de features según contribución al modelo &
+Top 10 features documentadas &
+Ordinal &
+Atributo \texttt{feature\_importances\_} de Random Forest \\
+\hline
+
+% ==================== DIMENSIÓN 5: DESEMPEÑO DEL ENTRENAMIENTO ====================
+\rowcolor{lightgray}
+\multicolumn{6}{|l|}{\textbf{DIMENSIÓN 5: MÉTRICAS DE ENTRENAMIENTO}} \\
+\hline
+
+Error de entrenamiento &
+Train accuracy &
+Exactitud del modelo en el conjunto de entrenamiento &
+Meta: $\geq$ 95\% (para evitar underfitting) &
+Razón (continua) &
+Logs de entrenamiento \\
+\hline
+
+Error de validación &
+Validation accuracy &
+Exactitud del modelo en el conjunto de validación &
+Meta: $\geq$ 90\% (evitar overfitting) &
+Razón (continua) &
+Logs de entrenamiento \\
+\hline
+
+Gap train-validation &
+Overfitting metric &
+Diferencia entre train accuracy y validation accuracy &
+Meta: $<$ 5\% (indicador de generalización) &
+Razón (continua) &
+Logs de entrenamiento \\
+\hline
+
+Tiempo de entrenamiento &
+Training time (minutos) &
+Duración del proceso de entrenamiento completo &
+Meta: $<$ 120 minutos &
+Razón (continua) &
+Logs de ejecución (Python \texttt{time}) \\
+\hline
+
+% ==================== DIMENSIÓN 6: EFICIENCIA OPERATIVA ====================
+\rowcolor{lightgray}
+\multicolumn{6}{|l|}{\textbf{DIMENSIÓN 6: VIABILIDAD DE IMPLEMENTACIÓN}} \\
+\hline
+
+Tiempo de inferencia &
+Prediction time (ms) &
+Tiempo promedio para clasificar una transacción &
+Meta: $<$ 200ms &
+Razón (continua) &
+Logs de predicción \\
+\hline
+
+Tamaño del modelo &
+Model size (MB) &
+Espacio en disco del modelo serializado &
+Meta: $<$ 500 MB &
+Razón (continua) &
+Sistema operativo (\texttt{ls -lh}) \\
+\hline
+
+Escalabilidad &
+Throughput (trans./seg) &
+Cantidad de transacciones que el modelo puede procesar por segundo &
+Medido en pruebas de carga &
+Razón (continua) &
+Script de benchmark \\
+\hline
+
+\end{longtable}
+
+\end{landscape}
+
+\newpage
+
+% =================================================================================
+% VARIABLES INTERVINIENTES
+% =================================================================================
+
+\section*{VARIABLES INTERVINIENTES}
+
+\subsection*{Factores que pueden influir en la relación VI $\rightarrow$ VD}
+
+\begin{longtable}{|p{3cm}|p{3cm}|p{4cm}|p{2.5cm}|p{2cm}|}
+\caption{Operacionalización de Variables Intervinientes} \\
+\hline
+\rowcolor{headerpurple}
+\textcolor{white}{\textbf{Variable}} &
+\textcolor{white}{\textbf{Indicador}} &
+\textcolor{white}{\textbf{Descripción}} &
+\textcolor{white}{\textbf{Valores}} &
+\textcolor{white}{\textbf{Escala}} \\
+\hline
+\endfirsthead
+
+\multicolumn{5}{c}%
+{\tablename\ \thetable\ -- \textit{Continuación}} \\
+\hline
+\rowcolor{headerpurple}
+\textcolor{white}{\textbf{Variable}} &
+\textcolor{white}{\textbf{Indicador}} &
+\textcolor{white}{\textbf{Descripción}} &
+\textcolor{white}{\textbf{Valores}} &
+\textcolor{white}{\textbf{Escala}} \\
+\hline
+\endhead
+
+\hline
+\endfoot
+
+\hline
+\endlastfoot
+
+Canal de pago &
+\texttt{payment\_channel} &
+Medio utilizado por el usuario para realizar el pago &
+Web / App Móvil / POS &
+Nominal \\
+\hline
+
+Tipo de transacción &
+\texttt{transaction\_type} &
+Categoría de la operación de pago &
+Reserva / Membresía / Clínica / Cargo recurrente / One-time &
+Nominal \\
+\hline
+
+Gateway de pago &
+\texttt{gateway\_id} &
+Pasarela de procesamiento utilizada &
+Stripe / CardConnect / Kushki / AzulPay / RazorPay / BAC / Otros &
+Nominal \\
+\hline
+
+Volumen transaccional &
+Transacciones/día &
+Cantidad promedio de transacciones procesadas por día &
+Variable (conteo diario) &
+Razón (discreta) \\
+\hline
+
+País de origen &
+\texttt{country\_code} &
+País del usuario según geolocalización IP &
+Códigos ISO (US, BR, AR, etc.) &
+Nominal \\
+\hline
+
+Horario de transacción &
+\texttt{hour\_of\_day} &
+Hora del día en que se realiza la transacción &
+0 - 23 &
+Intervalo \\
+\hline
+
+Día de la semana &
+\texttt{day\_of\_week} &
+Día de la semana de la transacción &
+Lunes - Domingo (0-6) &
+Ordinal \\
+\hline
+
+\end{longtable}
+
+\subsection*{Justificación de Variables Intervinientes}
+
+Estas variables NO son manipuladas directamente por el investigador, pero pueden influir en la relación entre el modelo de ML (VI) y la detección de fraude (VD). Por ejemplo:
+
+\begin{itemize}[leftmargin=2cm]
+    \item \textbf{Canal de pago:} Las transacciones en POS pueden tener patrones de fraude diferentes a las de App Móvil
+    \item \textbf{Gateway:} Cada pasarela tiene controles de fraude propios que afectan la tasa base de fraude
+    \item \textbf{Tipo de transacción:} Las membresías recurrentes pueden tener menor riesgo que pagos one-time de alto monto
+    \item \textbf{Volumen transaccional:} En días de alta carga, algunos fraudes pueden pasar desapercibidos en el sistema actual
+\end{itemize}
+
+El modelo de ML debe aprender a identificar patrones de fraude \textbf{condicionados} por estas variables intervinientes.
+
+\newpage
+
+% =================================================================================
+% RESUMEN CONSOLIDADO
+% =================================================================================
+
+\section*{Resumen Consolidado de Operacionalización}
+
+\begin{table}[h!]
+\centering
+\caption{Resumen de Variables, Dimensiones e Indicadores}
+\begin{tabular}{|p{3.5cm}|p{1.5cm}|p{1.8cm}|p{4cm}|p{3.5cm}|}
+\hline
+\rowcolor{headerblue}
+\textcolor{white}{\textbf{Variable}} &
+\textcolor{white}{\textbf{Tipo}} &
+\textcolor{white}{\textbf{Dimensiones}} &
+\textcolor{white}{\textbf{Indicadores Clave}} &
+\textcolor{white}{\textbf{Instrumentos Principales}} \\
+\hline
+
+\textbf{Transacciones Fraudulentas y Anómalas} (VD) &
+Dependiente &
+4 dimensiones &
+\begin{itemize}[leftmargin=0.3cm, topsep=2pt, itemsep=1pt]
+    \item Tasa de fraude (\%)
+    \item F1-Score
+    \item Recall (\%)
+    \item Precision (\%)
+    \item AUC-ROC
+\end{itemize} &
+\begin{itemize}[leftmargin=0.3cm, topsep=2pt, itemsep=1pt]
+    \item Dataset histórico
+    \item Matriz de confusión
+    \item Métricas scikit-learn
+\end{itemize} \\
+\hline
+
+\textbf{Modelo de Machine Learning} (VI) &
+Independiente &
+6 dimensiones &
+\begin{itemize}[leftmargin=0.3cm, topsep=2pt, itemsep=1pt]
+    \item Algoritmo: Random Forest
+    \item Features: $\geq$ 15
+    \item Tiempo inferencia: < 200ms
+    \item Hiperparámetros optimizados
+\end{itemize} &
+\begin{itemize}[leftmargin=0.3cm, topsep=2pt, itemsep=1pt]
+    \item Scripts Python
+    \item Logs de entrenamiento
+    \item Modelo serializado
+    \item GitHub repository
+\end{itemize} \\
+\hline
+
+\textbf{Factores Contextuales} (Intervinientes) &
+Interviniente &
+7 variables &
+\begin{itemize}[leftmargin=0.3cm, topsep=2pt, itemsep=1pt]
+    \item Canal de pago
+    \item Tipo de transacción
+    \item Gateway
+    \item Volumen diario
+\end{itemize} &
+\begin{itemize}[leftmargin=0.3cm, topsep=2pt, itemsep=1pt]
+    \item Metadata transaccional
+    \item Sistema de pagos
+\end{itemize} \\
+\hline
+
+\end{tabular}
+\end{table}
+
+\section*{Metas Cuantificables de la Investigación}
+
+\subsection*{Objetivos Mínimos (Hipótesis a Validar)}
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{|l|c|c|}
+\hline
+\rowcolor{headergreen}
+\textcolor{white}{\textbf{Métrica}} &
+\textcolor{white}{\textbf{Objetivo Mínimo}} &
+\textcolor{white}{\textbf{Objetivo Óptimo}} \\
+\hline
+F1-Score & $\geq$ 85\% & $\geq$ 90\% \\
+\hline
+Recall (Sensibilidad) & $\geq$ 90\% & $\geq$ 95\% \\
+\hline
+Precision & $\geq$ 80\% & $\geq$ 85\% \\
+\hline
+AUC-ROC & $\geq$ 0.92 & $\geq$ 0.95 \\
+\hline
+Tiempo de inferencia & < 200ms & < 100ms \\
+\hline
+Número de features & $\geq$ 15 & $\geq$ 20 \\
+\hline
+\end{tabular}
+\caption{Metas Cuantificables del Modelo de Machine Learning}
+\end{table}
+
+\subsection*{Comparación con Benchmarks de Literatura}
+
+El modelo será evaluado comparando sus métricas con benchmarks reportados en literatura científica del periodo 2020-2025:
+
+\begin{itemize}[leftmargin=2cm]
+    \item \textbf{Hafez et al. (2025):} F1-Score = 85-94\% (Random Forest en fraude de tarjetas)
+    \item \textbf{Hernández Aros et al. (2024):} Precision = 85-92\% (ML en pagos digitales)
+\end{itemize}
+
+\textbf{Criterio de éxito:} El modelo alcanza desempeño comparable o superior a estos benchmarks, demostrando su efectividad en el contexto específico de pagos deportivos multicanal.
+
+\newpage
+
+\section*{Instrumentos de Medición}
+
+\subsection*{Instrumentos Técnicos}
+
+\begin{enumerate}[leftmargin=2cm]
+    \item \textbf{Dataset Histórico de TechSport}
+    \begin{itemize}
+        \item \textbf{Descripción:} Base de datos de transacciones de pago con etiquetado de fraude
+        \item \textbf{Periodo:} Gestión 2025 (12 meses)
+        \item \textbf{Tamaño:} 15,492,846 transacciones
+        \item \textbf{Formato:} CSV o base de datos relacional
+        \item \textbf{Variables incluidas:} Monto, canal, gateway, timestamp, etiqueta de fraude, etc.
+    \end{itemize}
+
+    \item \textbf{Scripts de Python para Machine Learning}
+    \begin{itemize}
+        \item \textbf{Librerías:} scikit-learn, pandas, numpy, matplotlib, seaborn
+        \item \textbf{Funciones clave:}
+        \begin{itemize}
+            \item \texttt{train\_test\_split()}: División de datos
+            \item \texttt{RandomForestClassifier()}: Modelo principal
+            \item \texttt{GridSearchCV()}: Optimización de hiperparámetros
+            \item \texttt{confusion\_matrix()}: Matriz de confusión
+            \item \texttt{classification\_report()}: Métricas de desempeño
+        \end{itemize}
+    \end{itemize}
+
+    \item \textbf{Matriz de Confusión}
+    \begin{itemize}
+        \item \textbf{Propósito:} Visualizar VP, VN, FP, FN
+        \item \textbf{Herramienta:} scikit-learn + seaborn
+        \item \textbf{Output:} Heatmap con conteos y porcentajes
+    \end{itemize}
+
+    \item \textbf{Curva ROC}
+    \begin{itemize}
+        \item \textbf{Propósito:} Evaluar capacidad de discriminación del modelo en todos los umbrales
+        \item \textbf{Eje X:} False Positive Rate (FPR)
+        \item \textbf{Eje Y:} True Positive Rate (TPR = Recall)
+        \item \textbf{Métrica:} AUC-ROC (área bajo la curva)
+    \end{itemize}
+
+    \item \textbf{Intervalos de Confianza mediante Bootstrap}
+    \begin{itemize}
+        \item \textbf{Propósito:} Evaluar robustez estadística de las métricas
+        \item \textbf{Método:} Bootstrap con 1000 muestras
+        \item \textbf{Output:} IC del 95\% para F1-Score, Precision, Recall
+    \end{itemize}
+
+    \item \textbf{Repositorio GitHub}
+    \begin{itemize}
+        \item \textbf{Propósito:} Versionado de código y reproducibilidad
+        \item \textbf{Contenido:} Scripts, notebooks, documentación, modelos serializados
+        \item \textbf{Licencia:} MIT (código abierto)
+    \end{itemize}
+\end{enumerate}
+
+\subsection*{Validación de Instrumentos}
+
+\begin{itemize}[leftmargin=2cm]
+    \item \textbf{Validez del dataset:} Etiquetado realizado por equipo especializado de TechSport con criterios documentados (chargebacks, disputas, reportes)
+    \item \textbf{Fiabilidad de métricas:} Uso de librería scikit-learn (ampliamente validada en la comunidad científica)
+    \item \textbf{Reproducibilidad:} Código versionado en GitHub con requirements.txt y documentación técnica completa
+\end{itemize}
+
+\vspace{2em}
+
+\hrule
+\vspace{0.5em}
+\begin{center}
+\textbf{Firma del Investigador}
+
+\vspace{2em}
+
+\rule{6cm}{0.4pt}
+
+Ing. Ada Condori Callisaya
+
+Maestrante - UAGRM
+
+Fecha: \rule{3cm}{0.4pt}
+\end{center}
+
+\vspace{1em}
+
+\hrule
+\vspace{0.5em}
+\begin{center}
+\textbf{Firma del Tutor}
+
+\vspace{2em}
+
+\rule{6cm}{0.4pt}
+
+[Nombre del Tutor]
+
+Tutor de Tesis - UAGRM
+
+Fecha: \rule{3cm}{0.4pt}
+\end{center}
+
+\end{document}

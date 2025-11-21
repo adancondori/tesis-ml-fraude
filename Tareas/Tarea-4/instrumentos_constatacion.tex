@@ -1,0 +1,512 @@
+% ==================================================================================
+% INSTRUMENTOS PARA LA CONSTATACIÓN DEL ESTADO DEL PROBLEMA DE INVESTIGACIÓN
+% Tarea 4 - Metodología de Investigación
+% Maestría en Dirección Estratégica en Ingeniería de Software - UAGRM
+% ENFOQUE: CUANTITATIVO (Sampieri, 2014)
+% ==================================================================================
+
+\documentclass[12pt,a4paper]{article}
+
+% Paquetes necesarios
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[spanish,es-tabla]{babel}
+\usepackage{geometry}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{xcolor}
+\usepackage{colortbl}
+\usepackage{fancyhdr}
+\usepackage{titling}
+\usepackage{lmodern}
+\usepackage{enumitem}
+\usepackage{pdflscape}
+\usepackage{tikz}
+\usepackage{amsmath}
+\usetikzlibrary{shapes,arrows,positioning}
+
+% Configuración de página
+\geometry{
+    a4paper,
+    left=2.5cm,
+    right=2.5cm,
+    top=2.5cm,
+    bottom=2.5cm
+}
+
+% Configuración de encabezado y pie de página
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small Instrumentos de Constatación - Tesis de Maestría}
+\fancyhead[R]{\small UAGRM - 2025}
+\fancyfoot[C]{\thepage}
+
+% Colores personalizados
+\definecolor{headerblue}{RGB}{0,51,102}
+\definecolor{lightblue}{RGB}{173,216,230}
+\definecolor{lightgray}{RGB}{245,245,245}
+\definecolor{lightgreen}{RGB}{144,238,144}
+
+% Configuración del título
+\title{%
+    \textbf{INSTRUMENTOS PARA LA CONSTATACIÓN\\
+    DEL ESTADO DEL PROBLEMA DE INVESTIGACIÓN}\\[0.5em]
+    \large Implementación de un Modelo de Machine Learning\\
+    para la Detección de Transacciones Fraudulentas y Anómalas\\
+    en Pagos Digitales de la Empresa TechSport\\[0.3em]
+    \normalsize Gestión 2025
+}
+\author{Ing. Ada Condori Callisaya}
+\date{Noviembre 2025}
+
+\begin{document}
+
+\maketitle
+\thispagestyle{empty}
+
+\newpage
+
+\vspace{1em}
+
+\section*{1. Título de la Tesis}
+
+\textbf{``Implementación de un Modelo de Machine Learning para la Detección de Transacciones Fraudulentas y Anómalas en Pagos Digitales de la Empresa TechSport, Gestión 2025''}
+
+\vspace{1em}
+
+\section*{2. Pregunta de Investigación}
+
+\textbf{¿Cómo mejorar la detección de transacciones fraudulentas y anómalas en pagos digitales de la empresa TechSport durante la gestión 2025?}
+
+\vspace{1em}
+
+\section*{3. Objetivo General}
+
+Implementar un modelo de Machine Learning supervisado basado en Random Forest para la detección de transacciones fraudulentas y anómalas en pagos digitales, logrando un F1-Score $\geq$ 85\%, Recall $\geq$ 90\%, Precision $\geq$ 80\% y AUC-ROC $\geq$ 0.92, mediante validación temporal estricta sobre datos históricos de la empresa TechSport, gestión 2025.
+
+\newpage
+
+\section*{4. Tabla de Variables, Dimensiones, Indicadores, Técnicas e Instrumentos}
+
+\subsection*{Marco Conceptual: Técnicas Cuantitativas de Investigación}
+
+Según Hernández Sampieri (2014), las técnicas cuantitativas incluyen:
+
+\begin{itemize}[leftmargin=2cm]
+    \item \textbf{Análisis de datos secundarios:} Uso de datasets existentes con fines de investigación
+    \item \textbf{Análisis estadístico descriptivo:} Medidas de tendencia central, dispersión, distribuciones
+    \item \textbf{Análisis estadístico inferencial:} Pruebas de hipótesis, intervalos de confianza, bootstrap
+    \item \textbf{Machine Learning supervisado:} Algoritmos de clasificación con métricas de evaluación
+    \item \textbf{Análisis exploratorio de datos (EDA):} Visualizaciones, correlaciones, detección de outliers
+\end{itemize}
+
+\begin{landscape}
+
+\small
+
+\begin{longtable}{|p{2.2cm}|p{2.8cm}|p{4.2cm}|p{2.5cm}|p{2.8cm}|p{3.8cm}|}
+\hline
+\rowcolor{headerblue}
+\textcolor{white}{\textbf{VARIABLES}} &
+\textcolor{white}{\textbf{DIMENSIONES}} &
+\textcolor{white}{\textbf{INDICADORES}} &
+\textcolor{white}{\textbf{TÉCNICAS}} &
+\textcolor{white}{\textbf{INSTRUMENTOS}} &
+\textcolor{white}{\textbf{ACTIVIDADES CONCRETAS}} \\
+\hline
+\endfirsthead
+
+\hline
+\rowcolor{headerblue}
+\textcolor{white}{\textbf{VARIABLES}} &
+\textcolor{white}{\textbf{DIMENSIONES}} &
+\textcolor{white}{\textbf{INDICADORES}} &
+\textcolor{white}{\textbf{TÉCNICAS}} &
+\textcolor{white}{\textbf{INSTRUMENTOS}} &
+\textcolor{white}{\textbf{ACTIVIDADES CONCRETAS}} \\
+\hline
+\endhead
+
+\hline
+\endfoot
+
+\hline
+\endlastfoot
+
+% VARIABLE INDEPENDIENTE - DIMENSIÓN 1.1
+\rowcolor{lightblue!20}
+\multirow{5}{2.2cm}{\textbf{VAR. INDEP.:} Modelo de ML} &
+\multirow{5}{2.8cm}{1.1. Arquitectura y configuración del modelo} &
+1.1.1. Feature Importance por variable &
+\textbf{Análisis de datos secundarios + ML supervisado} &
+Scripts Python (pandas, scikit-learn), Random Forest &
+Extracción de 15.4M+ transacciones, feature engineering de 15+ variables, cálculo de importancias con \texttt{feature\_importances\_} \\
+\cline{3-6}
+\rowcolor{lightblue!20}
+& & 1.1.2. Distribución de features transformadas & & Scripts de preprocesamiento, visualizaciones (matplotlib) & Histogramas, boxplots, análisis de outliers, normalización Min-Max \\
+\cline{3-6}
+\rowcolor{lightblue!20}
+& & 1.1.3. Métricas de entrenamiento: F1, Precision, Recall & & Funciones scikit-learn: \texttt{classification\_report()}, \texttt{confusion\_matrix()} & Cálculo de métricas en train set (70\%), validation set (15\%) \\
+\cline{3-6}
+\rowcolor{lightblue!20}
+& & 1.1.4. Ratio de balanceo de clases (\%) & & SMOTE (imblearn) o class\_weight (scikit-learn) & Análisis de distribución fraude/no fraude, aplicación de SMOTE si desbalance $>$ 10:1 \\
+\cline{3-6}
+\rowcolor{lightblue!20}
+& & 1.1.5. Tiempo de inferencia (ms) & & Medición con \texttt{time.time()} en Python & Promedio de tiempo de predicción en 10,000 transacciones del test set \\
+\hline
+
+% VARIABLE INDEPENDIENTE - DIMENSIÓN 1.2
+\multirow{4}{2.2cm}{\textbf{VAR. INDEP.:} Modelo de ML} &
+\multirow{4}{2.8cm}{1.2. Selección y optimización de algoritmo} &
+1.2.1. Comparación RF vs. XGBoost vs. SVM &
+\textbf{Análisis comparativo cuantitativo} &
+Grid Search CV (scikit-learn), métricas F1 y AUC-ROC &
+Entrenamiento de 3 algoritmos, comparación de F1-Score y AUC-ROC, selección del mejor \\
+\cline{3-6}
+& & 1.2.2. Hiperparámetros optimizados: \texttt{max\_depth}, \texttt{n\_estimators} & & GridSearchCV con validación cruzada k-fold (k=5) & Búsqueda exhaustiva en espacio de hiperparámetros, selección por mejor F1 en validation \\
+\cline{3-6}
+& & 1.2.3. Error train vs. validation (gap de overfitting) & & Logs de entrenamiento, gráficos learning curve & Cálculo de Train Accuracy - Validation Accuracy, objetivo: gap $<$ 5\% \\
+\cline{3-6}
+& & 1.2.4. Tamaño del modelo serializado (MB) & & Serialización con joblib/pickle, comando \texttt{ls -lh} & Guardar modelo entrenado como .pkl, verificar tamaño $<$ 500 MB \\
+\hline
+
+% VARIABLE DEPENDIENTE - DIMENSIÓN 2.1
+\rowcolor{lightgray!30}
+\multirow{5}{2.2cm}{\textbf{VAR. DEP.:} Transacciones fraudulentas y anómalas} &
+\multirow{5}{2.8cm}{2.1. Desempeño de detección del modelo} &
+2.1.1. F1-Score en test set ($\geq$ 85\%) &
+\textbf{Análisis estadístico inferencial} &
+Test set temporal (2025: 15.5M trans.), matriz de confusión, métricas scikit-learn &
+Aplicación del modelo final en test set, cálculo de VP, VN, FP, FN, F1-Score = $2 \times \frac{P \times R}{P + R}$ \\
+\cline{3-6}
+\rowcolor{lightgray!30}
+& & 2.1.2. Recall / Sensibilidad ($\geq$ 90\%) & & & Recall = $\frac{VP}{VP + FN} \times 100$, prioridad: detectar fraudes \\
+\cline{3-6}
+\rowcolor{lightgray!30}
+& & 2.1.3. Precision ($\geq$ 80\%) & & & Precision = $\frac{VP}{VP + FP} \times 100$, minimizar falsos positivos \\
+\cline{3-6}
+\rowcolor{lightgray!30}
+& & 2.1.4. AUC-ROC ($\geq$ 0.92) & & Curva ROC con \texttt{roc\_curve()} y \texttt{roc\_auc\_score()} & Área bajo curva ROC, evaluación de discriminación global del modelo \\
+\cline{3-6}
+\rowcolor{lightgray!30}
+& & 2.1.5. Intervalos de confianza 95\% (bootstrap) & & Bootstrap con 1000 muestras de test set & IC del 95\% para F1, Precision, Recall → validar robustez estadística \\
+\hline
+
+% VARIABLE DEPENDIENTE - DIMENSIÓN 2.2
+\multirow{4}{2.2cm}{\textbf{VAR. DEP.:} Transacciones fraudulentas y anómalas} &
+\multirow{4}{2.8cm}{2.2. Caracterización del fraude en el dataset} &
+2.2.1. Tasa de fraude en dataset (\%) &
+\textbf{Análisis estadístico descriptivo} &
+Análisis exploratorio de datos (EDA) con Python (pandas, numpy, matplotlib) &
+Cálculo de $\frac{\text{Fraudes}}{\text{Total trans.}} \times 100$, distribución por canal, gateway, hora del día \\
+\cline{3-6}
+& & 2.2.2. Pérdidas económicas por fraude (USD) & & Suma agregada de columna \texttt{amount} filtrada por \texttt{is\_fraud==1} & Cálculo de $\sum \text{monto}_{\text{fraude}_i}$, análisis de percentiles (P50, P90, P95) \\
+\cline{3-6}
+& & 2.2.3. Distribución temporal de fraudes & & Gráficos de series de tiempo, heatmaps por hora/día & Identificación de patrones horarios, días de mayor incidencia \\
+\cline{3-6}
+& & 2.2.4. Top 3 patrones de fraude identificados & & Análisis de clusters, reglas de asociación (si aplica) & Documentación de: (1) tarjetas robadas, (2) duplicados sospechosos, (3) comportamientos anómalos \\
+\hline
+
+% VARIABLE DEPENDIENTE - DIMENSIÓN 2.3
+\rowcolor{lightgray!30}
+\multirow{3}{2.2cm}{\textbf{VAR. DEP.:} Transacciones fraudulentas y anómalas} &
+\multirow{3}{2.8cm}{2.3. Proceso de etiquetado (Ground Truth)} &
+2.3.1. Tiempo de etiquetado (0-5 meses) &
+\textbf{Análisis documental cuantitativo} &
+Revisión de documentación interna de TechSport sobre proceso de etiquetado &
+Documentación del proceso: chargebacks (0-5 meses), disputas, reportes. NOTA: Esto NO es entrevista cualitativa formal \\
+\cline{3-6}
+\rowcolor{lightgray!30}
+& & 2.3.2. Criterios de etiquetado (frecuencia por tipo) & & & Chargebacks confirmados (60\%), disputas (25\%), reportes manuales (15\%) - valores ilustrativos del proceso \\
+\cline{3-6}
+\rowcolor{lightgray!30}
+& & 2.3.3. Cobertura de etiquetado (\%) & & & Porcentaje de transacciones etiquetadas: 100\% (dataset completo tiene etiquetas) \\
+\hline
+
+% VARIABLE DEPENDIENTE - DIMENSIÓN 2.4
+\multirow{3}{2.2cm}{\textbf{VAR. DEP.:} Transacciones fraudulentas y anómalas} &
+\multirow{3}{2.8cm}{2.4. Comparación con benchmarks de literatura} &
+2.4.1. F1-Score vs. benchmarks (Hafez et al., 2025) &
+\textbf{Análisis comparativo cuantitativo} &
+Revisión bibliográfica sistemática, tabla comparativa de métricas &
+Comparación con F1-Scores reportados: Hafez (85-94\%), Feng (90-94\%), Hernández Aros (85-92\%) \\
+\cline{3-6}
+& & 2.4.2. Significancia práctica de mejora & & Análisis de efecto práctico (no solo estadístico) & Evaluar si F1 $\geq$ 85\% es suficientemente alto para aplicación real \\
+\cline{3-6}
+& & 2.4.3. Tiempo de inferencia vs. literatura & & & Comparar < 200ms con tiempos reportados en estudios similares \\
+\hline
+
+\end{longtable}
+
+\end{landscape}
+
+\newpage
+
+\section*{5. Análisis Exploratorio de Datos (EDA)}
+
+\subsection*{5.1. Objetivo del EDA}
+
+El Análisis Exploratorio de Datos es una técnica cuantitativa fundamental que permite:
+
+\begin{itemize}[leftmargin=2cm]
+    \item Comprender la estructura y distribución del dataset histórico de TechSport
+    \item Identificar patrones, tendencias y anomalías en las transacciones
+    \item Validar la calidad de los datos (valores faltantes, outliers, duplicados)
+    \item Fundamentar decisiones de preprocesamiento y feature engineering
+\end{itemize}
+
+\subsection*{5.2. Actividades Cuantitativas del EDA}
+
+\begin{longtable}{|p{1cm}|p{5cm}|p{4cm}|p{4cm}|}
+\hline
+\rowcolor{headerblue}
+\textcolor{white}{\textbf{N°}} &
+\textcolor{white}{\textbf{ANÁLISIS}} &
+\textcolor{white}{\textbf{INSTRUMENTO}} &
+\textcolor{white}{\textbf{OBJETIVO}} \\
+\hline
+\endfirsthead
+
+\hline
+\rowcolor{headerblue}
+\textcolor{white}{\textbf{N°}} &
+\textcolor{white}{\textbf{ANÁLISIS}} &
+\textcolor{white}{\textbf{INSTRUMENTO}} &
+\textcolor{white}{\textbf{OBJETIVO}} \\
+\hline
+\endhead
+
+1. &
+Estadísticas descriptivas del dataset &
+\texttt{pandas.describe()}, medidas de tendencia central y dispersión &
+Caracterizar distribución de montos, frecuencias, tiempos de transacción \\
+\hline
+
+2. &
+Análisis de distribución de clases (fraude/no fraude) &
+Tabla de frecuencias, gráfico de barras &
+Determinar desbalance de clases, decidir estrategia de balanceo (SMOTE o class\_weight) \\
+\hline
+
+3. &
+Análisis de correlación entre features &
+Matriz de correlación de Pearson, heatmap (seaborn) &
+Identificar multicolinealidad, seleccionar features independientes \\
+\hline
+
+4. &
+Detección de outliers &
+Boxplots, IQR (Rango Intercuartílico), Z-score &
+Identificar transacciones con montos atípicos, decidir si son fraude o errores de datos \\
+\hline
+
+5. &
+Análisis temporal de transacciones &
+Series de tiempo, gráficos de línea por fecha &
+Identificar estacionalidad, tendencias, picos de actividad fraudulenta \\
+\hline
+
+6. &
+Distribución por canal de pago &
+Tabla de frecuencias, gráfico de pastel &
+Comparar tasa de fraude por canal (Web, App, POS) \\
+\hline
+
+7. &
+Distribución por gateway &
+Tabla de frecuencias, gráfico de barras horizontales &
+Identificar gateways con mayor incidencia de fraude \\
+\hline
+
+8. &
+Análisis de valores faltantes &
+\texttt{pandas.isnull().sum()}, heatmap de missingness &
+Cuantificar \% de datos faltantes por variable, decidir estrategia de imputación \\
+\hline
+
+9. &
+Análisis de transacciones duplicadas &
+\texttt{pandas.duplicated()}, conteo de duplicados &
+Detectar posibles errores de registro o intentos de fraude por duplicación \\
+\hline
+
+10. &
+Feature importance preliminar &
+Correlación con variable target, análisis univariado &
+Seleccionar features candidatas para el modelo (top 15-20) \\
+\hline
+
+\end{longtable}
+
+\subsection*{5.3. Entregables del EDA}
+
+\begin{itemize}[leftmargin=2cm]
+    \item \textbf{Reporte estadístico:} Documento PDF con estadísticas descriptivas, distribuciones, gráficos
+    \item \textbf{Dataset limpio:} Archivo CSV procesado sin valores faltantes, outliers tratados
+    \item \textbf{Notebook Jupyter:} Código Python documentado con todo el análisis exploratorio
+    \item \textbf{Visualizaciones:} Conjunto de gráficos (PNG/PDF) para incluir en Capítulo 2 de la tesis
+\end{itemize}
+
+\newpage
+
+\section*{6. Segmentación de Comportamiento Transaccional}
+
+\subsection*{6.1. Segmentación Basada en Riesgo de Fraude}
+
+El análisis cuantitativo del dataset histórico permite identificar diferentes segmentos de riesgo mediante técnicas de clustering (K-Means, DBSCAN) y scoring basado en features del modelo:
+
+\vspace{1em}
+
+\begin{center}
+\begin{tabular}{|c|l|r|p{7cm}|}
+\hline
+\rowcolor{headerblue}
+\textcolor{white}{\textbf{Segmento}} &
+\textcolor{white}{\textbf{Nivel de Riesgo}} &
+\textcolor{white}{\textbf{\% Estimado}} &
+\textcolor{white}{\textbf{Características Cuantitativas}} \\
+\hline
+
+\rowcolor{lightgreen!30}
+1 & Riesgo muy bajo & 5-10\% & Score ML: 0.0-0.2, monto en rango P25-P75, frecuencia usuario $<$ 5 trans/día, gateway confiable (Stripe), sin chargebacks previos \\
+\hline
+
+\rowcolor{lightgreen!50}
+2 & Riesgo bajo & 10-15\% & Score ML: 0.2-0.4, monto típico, usuario con historial $>$ 6 meses, velocidad transaccional normal \\
+\hline
+
+\rowcolor{orange!30}
+3 & Riesgo moderado & 30-40\% & Score ML: 0.4-0.6, 1-2 señales de alerta: monto $>$ P90, nuevo usuario ($<$ 30 días), horario inusual (2-6 AM) \\
+\hline
+
+\rowcolor{red!30}
+4 & Riesgo alto & 35-45\% & Score ML: 0.6-0.8, 3+ señales: múltiples intentos fallidos, cambio geolocalización IP, monto $>$ P95, velocidad anormal ($>$ 10 trans/hora) \\
+\hline
+
+\rowcolor{red!50}
+5 & Fraude confirmado & 5-8\% & Score ML: 0.8-1.0, etiqueta Ground Truth = 1 (fraude), chargebacks confirmados, disputas resueltas \\
+\hline
+
+\multicolumn{4}{|c|}{\cellcolor{lightgray}\textbf{Total: 15,492,846 transacciones (100\%)}} \\
+\hline
+
+\end{tabular}
+\end{center}
+
+\vspace{1em}
+
+\subsection*{6.2. Nota Metodológica sobre Segmentación}
+
+\textbf{Técnica cuantitativa utilizada:}
+
+\begin{itemize}[leftmargin=2cm]
+    \item \textbf{Clustering no supervisado:} K-Means con k=5 segmentos, basado en features normalizadas (monto, frecuencia, velocidad transaccional)
+    \item \textbf{Scoring supervisado:} Probabilidades generadas por Random Forest (\texttt{predict\_proba()}) como score de riesgo [0,1]
+    \item \textbf{Validación:} Análisis de silueta (silhouette score) para evaluar calidad de clusters, comparación con Ground Truth
+\end{itemize}
+
+Esta segmentación es \textbf{cuantitativa} porque se basa en análisis estadístico de features numéricas y categóricas, NO en percepciones o interpretaciones cualitativas.
+
+\newpage
+
+\section*{7. Cronograma de Actividades de Constatación}
+
+\begin{longtable}{|p{2cm}|p{3.5cm}|p{4.5cm}|p{4cm}|}
+\hline
+\rowcolor{headerblue}
+\textcolor{white}{\textbf{Semana}} &
+\textcolor{white}{\textbf{Actividad}} &
+\textcolor{white}{\textbf{Instrumentos Cuantitativos}} &
+\textcolor{white}{\textbf{Entregables}} \\
+\hline
+\endfirsthead
+
+\hline
+\rowcolor{headerblue}
+\textcolor{white}{\textbf{Semana}} &
+\textcolor{white}{\textbf{Actividad}} &
+\textcolor{white}{\textbf{Instrumentos}} &
+\textcolor{white}{\textbf{Entregables}} \\
+\hline
+\endhead
+
+Semana 1 &
+Extracción de dataset histórico y análisis exploratorio inicial &
+Scripts SQL/Python para extracción, \texttt{pandas.read\_csv()}, estadísticas descriptivas &
+Dataset limpio de 15.4M+ transacciones con 15+ variables etiquetadas \\
+\hline
+
+Semana 2 &
+Análisis exploratorio de datos (EDA) completo &
+Visualizaciones (matplotlib, seaborn), correlaciones, boxplots, heatmaps &
+Notebook Jupyter documentado, reporte estadístico con gráficos, identificación de patrones de fraude \\
+\hline
+
+Semana 3 &
+Análisis documental del proceso de etiquetado &
+Revisión de documentación interna de TechSport (PDFs, guías internas) &
+Documento resumen: criterios de etiquetado (chargebacks, disputas), tiempos (0-5 meses), proceso del equipo de contabilidad. \textbf{NOTA:} Esto NO es entrevista cualitativa, es revisión documental \\
+\hline
+
+Semana 4 &
+Feature engineering y transformación de variables &
+Scripts de preprocesamiento, normalización Min-Max, SMOTE, cálculo de ratios y agregaciones &
+Dataset con 15+ features comportamentales, análisis de feature importance preliminar \\
+\hline
+
+Semana 5 &
+Segmentación de comportamiento transaccional &
+Clustering K-Means (scikit-learn), análisis de silueta, scoring de riesgo &
+Segmentación en 5 niveles de riesgo con porcentajes y características cuantitativas \\
+\hline
+
+Semana 6 &
+Validación del dataset y división temporal &
+División Train (2024: 9.7M) / Test (2025: 15.5M), verificación de estratificación &
+Datasets finales listos para entrenamiento, documento de validación de calidad de datos \\
+\hline
+
+\end{longtable}
+
+\vspace{1em}
+
+\subsection*{Justificación de Actividades 100\% Cuantitativas}
+
+Todas las actividades del cronograma utilizan \textbf{técnicas cuantitativas}:
+
+\begin{itemize}[leftmargin=2cm]
+    \item \textbf{Semana 1-2:} Análisis de datos secundarios (dataset histórico)
+    \item \textbf{Semana 3:} Análisis documental cuantitativo (NO entrevistas)
+    \item \textbf{Semana 4:} Feature engineering (transformaciones numéricas)
+    \item \textbf{Semana 5:} Clustering y scoring (técnicas de ML no supervisado)
+    \item \textbf{Semana 6:} Validación estadística del dataset
+\end{itemize}
+
+\textbf{NO se realizan:}
+\begin{itemize}[leftmargin=2cm]
+    \item[$\times$] Entrevistas formales estructuradas o semiestructuradas
+    \item[$\times$] Grupos focales
+    \item[$\times$] Observación participante o shadowing
+    \item[$\times$] Análisis de contenido cualitativo (codificación, categorías emergentes)
+    \item[$\times$] Triangulación cualitativa-cuantitativa
+\end{itemize}
+
+\newpage
+
+\section*{8. Referencias Metodológicas}
+
+\begin{itemize}[leftmargin=1.5cm]
+    \item Hernández Sampieri, R., Fernández Collado, C., \& Baptista Lucio, P. (2014). \textit{Metodología de la investigación} (6ª ed.). McGraw-Hill.
+
+    \item Martínez González, R. (2020). \textit{Método AQP/CCA para la elaboración de tesis}. Universidad Mayor de San Andrés.
+
+    \item Hafez, A. I., et al. (2025). Random Forest for Credit Card Fraud Detection. \textit{Journal of Financial Crime}, F1-Score: 85-94\%.
+
+    \item Carcillo, F., Dal Pozzolo, A., Le Borgne, Y. A., Caelen, O., Mazzer, Y., \& Bontempi, G. (2018). SCARFF: A scalable framework for streaming credit card fraud detection with Spark. \textit{Information Fusion}, 41, 182-194.
+
+    \item Dal Pozzolo, A., Caelen, O., Johnson, R. A., \& Bontempi, G. (2015). Calibrating probability with undersampling for unbalanced classification. In \textit{2015 IEEE Symposium Series on Computational Intelligence} (pp. 159-166). IEEE.
+\end{itemize}
+
+\end{document}

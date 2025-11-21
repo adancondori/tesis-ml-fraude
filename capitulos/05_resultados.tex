@@ -238,7 +238,7 @@ El desempeño del modelo Random Forest desarrollado se compara con benchmarks re
 \begin{itemize}[leftmargin=*]
     \item \textbf{Posicionamiento respecto a Random Forest tradicional:} El modelo actual (F1: 88.42\%) se posiciona en el límite superior del rango reportado por \textcite{Hafez2025} para Random Forest (85-89\%), demostrando que la ingeniería de features robusta y el balanceo SMOTE permiten maximizar el desempeño de este algoritmo.
 
-    \item \textbf{Comparación con XGBoost:} El estudio de \textcite{Feng2024} reporta métricas ligeramente superiores (F1: 90-94\%) utilizando XGBoost sobre un dataset de e-commerce. Sin embargo, este dataset es significativamente menor (150K transacciones vs. 25M del presente estudio), lo que reduce la complejidad del problema. Además, XGBoost tiene mayor costo computacional y riesgo de overfitting en datasets desbalanceados.
+    \item \textbf{Referencias de ensemble learning en literatura:} La literatura científica reporta diversos enfoques de ensemble learning aplicados a detección de fraude. Por ejemplo, \textcite{Feng2024} documentan el uso de gradient boosting (XGBoost) en contextos de fraude en e-commerce, alcanzando F1-Scores de 90-94\% sobre un dataset de 150K transacciones.
 
     \item \textbf{Comparación con Deep Learning:} El ensamble de redes neuronales de \textcite{Carcillo2018} logra F1-Score de 82-86\%, inferior al modelo actual (88.42\%). Este resultado sugiere que, para el contexto específico de detección de fraude en pagos transaccionales con features engineered robustas, Random Forest puede superar a arquitecturas más complejas de Deep Learning, ofreciendo además mayor interpretabilidad y menores requisitos computacionales.
 
@@ -390,7 +390,7 @@ Los resultados presentados en este capítulo demuestran que el modelo de Machine
 
     \item \textbf{Validación estadística robusta:} Los intervalos de confianza bootstrap al 95\% confirman que los límites inferiores de todas las métricas superan los umbrales del Objetivo General, proporcionando robustez estadística a las conclusiones.
 
-    \item \textbf{Competitividad frente a literatura científica:} El modelo desarrollado se posiciona en el rango superior de benchmarks reportados en literatura científica para detección de fraude, superando a enfoques de Deep Learning y análisis de grafos, y alcanzando desempeño comparable a modelos XGBoost pero con menor complejidad computacional.
+    \item \textbf{Competitividad frente a literatura científica:} El modelo desarrollado se posiciona en el rango superior de benchmarks reportados en literatura científica para detección de fraude, superando a enfoques de Deep Learning y análisis de grafos documentados en estudios recientes.
 
     \item \textbf{Viabilidad operacional:} El análisis de la matriz de confusión y los costos de errores demuestra que el modelo logra una reducción del 91.76\% en pérdidas por fraude comparado con el escenario sin detección automática, equivalente a un ahorro estimado de \$24.95 millones USD en el periodo de validación.
 

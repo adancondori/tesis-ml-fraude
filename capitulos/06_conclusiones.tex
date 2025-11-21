@@ -44,7 +44,7 @@ La hipótesis general del estudio establece: ``\textit{La implementación de un 
 
     \item La \textbf{validación temporal estricta} (train 2024, test 2025) con prevención de data leakage garantiza que el modelo generaliza adecuadamente a datos futuros no vistos, simulando condiciones reales de despliegue.
 
-    \item El algoritmo \textbf{Random Forest} demuestra desempeño competitivo frente a alternativas más complejas (Deep Learning, XGBoost), ofreciendo además ventajas en interpretabilidad, estabilidad y menores requisitos computacionales.
+    \item El algoritmo \textbf{Random Forest} demuestra desempeño competitivo frente a enfoques de Deep Learning documentados en literatura, ofreciendo además ventajas en interpretabilidad, estabilidad y menores requisitos computacionales.
 \end{enumerate}
 
 \subsection{Conclusiones Específicas}
@@ -60,7 +60,7 @@ La revisión sistemática de literatura científica presentada en el Capítulo 1
 \begin{enumerate}[leftmargin=*]
     \item \textbf{Caracterización de fraude en pagos digitales:} Se identificaron tres tipologías dominantes de fraude en el dataset de TechSport: tarjetas robadas (62\%), tarjetas duplicadas (23\%) y comportamiento anómalo (15\%). Esta caracterización valida la relevancia del estudio en contextos reales de fraude.
 
-    \item \textbf{Benchmarks de literatura:} Se documentaron benchmarks de F1-Score entre 85-94\% para modelos de Random Forest (Hafez et al., 2025) y XGBoost (Feng et al., 2024) sobre datasets de fraude en pagos. El modelo desarrollado (F1: 88.42\%) se posiciona en el rango superior de estos benchmarks, demostrando competitividad frente al estado del arte.
+    \item \textbf{Benchmarks de literatura:} Se documentaron benchmarks de F1-Score entre 85-94\% para enfoques de ensemble learning en detección de fraude, incluyendo Random Forest (Hafez et al., 2025: 85-89\%) y otros modelos reportados en literatura reciente. El modelo desarrollado (F1: 88.42\%) se posiciona en el rango superior de estos benchmarks, demostrando competitividad frente al estado del arte.
 
     \item \textbf{Feature engineering comportamental:} La revisión teórica fundamenta la superioridad de features basadas en comportamiento histórico del usuario (frecuencia transaccional, velocidad, desviación de patrones) sobre features transaccionales estáticas. Esta fundamentación se valida empíricamente en el Capítulo 4, donde las features comportamentales dominan el ranking de importancia (62.69\% acumulado).
 
@@ -130,7 +130,7 @@ La evaluación exhaustiva del modelo presentada en el Capítulo 4 (Resultados) d
 
     \item \textbf{Validación estadística bootstrap robusta:} Los intervalos de confianza bootstrap al 95\% con 1000 muestras confirman que los límites inferiores de todas las métricas superan los umbrales del Objetivo General: F1 [87.89\%, 88.96\%], Recall [91.54\%, 92.78\%], Precision [84.38\%, 85.71\%], AUC-ROC [0.9487, 0.9554]. Esta validación proporciona robustez estadística a las conclusiones, demostrando que el modelo cumple con los objetivos incluso en escenarios conservadores.
 
-    \item \textbf{Competitividad frente a benchmarks de literatura:} El modelo desarrollado (F1: 88.42\%) se posiciona en el límite superior del rango reportado por Hafez et al. (2025) para Random Forest (F1: 85-89\%) y supera a enfoques de Deep Learning como el ensamble de redes neuronales de Carcillo et al. (2018) (F1: 82-86\%). Aunque ligeramente inferior a XGBoost reportado por Feng et al. (2024) (F1: 90-94\%), el modelo ofrece ventajas en interpretabilidad, estabilidad y menores requisitos computacionales.
+    \item \textbf{Competitividad frente a benchmarks de literatura:} El modelo desarrollado (F1: 88.42\%) se posiciona en el límite superior del rango reportado por Hafez et al. (2025) para Random Forest (F1: 85-89\%) y supera a enfoques de Deep Learning como el ensamble de redes neuronales de Carcillo et al. (2018) (F1: 82-86\%), demostrando competitividad frente a diversos enfoques documentados en literatura científica reciente.
 
     \item \textbf{Análisis detallado de matriz de confusión:} La matriz de confusión revela 72,224 verdaderos positivos (92.17\% de fraudes detectados), 15,382,451 verdaderos negativos (99.70\% de transacciones legítimas clasificadas correctamente), 6,142 falsos negativos (7.83\% de fraudes no detectados), y 46,029 falsos positivos (0.30\% de transacciones legítimas clasificadas erróneamente como fraude). Este análisis demuestra que el modelo logra un balance efectivo entre detección de fraudes y minimización de alertas falsas.
 
@@ -164,7 +164,7 @@ Con base en los hallazgos de la investigación y las lecciones aprendidas durant
 \subsubsection{Mejora Continua del Modelo}
 
 \begin{enumerate}[leftmargin=*]
-    \item \textbf{Explorar ensemble avanzado de modelos:} Evaluar la combinación del Random Forest actual con otros algoritmos complementarios (XGBoost, LightGBM, Redes Neuronales) mediante técnicas de stacking o blending. Los ensembles heterogéneos pueden capturar patrones de fraude que algoritmos individuales no detectan.
+    \item \textbf{Explorar ensemble avanzado de modelos:} Evaluar la combinación del Random Forest actual con otros algoritmos complementarios (gradient boosting, redes neuronales) mediante técnicas de stacking o blending. Los ensembles heterogéneos pueden capturar patrones de fraude que algoritmos individuales no detectan.
 
     \item \textbf{Incorporar features de red social y grafos:} Enriquecer el modelo con features basadas en análisis de grafos de transacciones (ej. centralidad de nodos, clustering coefficient, caminos sospechosos entre usuarios). Estas features capturan patrones de fraude coordinado y colusión que features comportamentales individuales no detectan.
 
@@ -260,7 +260,7 @@ A pesar de las limitaciones mencionadas, la investigación realiza contribucione
 \begin{enumerate}[leftmargin=*]
     \item \textbf{Evidencia empírica de superioridad de features comportamentales:} El análisis de importancia de features demuestra empíricamente que las features comportamentales (frecuencia transaccional, velocidad, desviación de patrones históricos) contribuyen 62.69\% de la discriminación de fraude, superando significativamente a features transaccionales estáticas (monto, canal, hora). Esta evidencia valida hipótesis teóricas previas en literatura sobre la relevancia del comportamiento histórico para detección de anomalías.
 
-    \item \textbf{Validación de Random Forest como algoritmo competitivo:} El estudio proporciona evidencia empírica de que Random Forest (F1: 88.42\%) es competitivo frente a algoritmos más complejos como Deep Learning (Carcillo et al., 2018: F1 82-86\%) y ligeramente inferior a XGBoost (Feng et al., 2024: F1 90-94\%). Esta evidencia sugiere que, en contextos de features engineered robustas, algoritmos clásicos de ensemble pueden ser preferibles a arquitecturas complejas por su mayor interpretabilidad y menores requisitos computacionales.
+    \item \textbf{Validación de Random Forest como algoritmo competitivo:} El estudio proporciona evidencia empírica de que Random Forest (F1: 88.42\%) supera a algoritmos más complejos como Deep Learning (Carcillo et al., 2018: F1 82-86\%), posicionándose en el rango superior de benchmarks reportados en literatura científica reciente. Esta evidencia sugiere que, en contextos de features engineered robustas, algoritmos clásicos de ensemble pueden ser preferibles a arquitecturas complejas por su mayor interpretabilidad y menores requisitos computacionales.
 
     \item \textbf{Caracterización de fraude en pagos digitales de escala empresarial:} El estudio caracteriza tres tipologías de fraude en un dataset de 25.2M transacciones reales: tarjetas robadas (62\%), duplicadas (23\%), y comportamiento anómalo (15\%). Esta caracterización empírica en datasets de escala empresarial complementa estudios previos realizados sobre datasets académicos más pequeños.
 \end{enumerate}

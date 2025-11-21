@@ -4,7 +4,7 @@
 **Autor:** Ing. Ada Condori Callisaya
 **Programa:** Maestría en Dirección Estratégica en Ingeniería de Software
 **Universidad:** UAGRM - Facultad de Ingeniería en Ciencias de la Computación y Telecomunicaciones
-**Periodo:** 2024-2025 (2 meses de ejecución)
+**Periodo:** Gestión 2025 (2 meses de ejecución)
 **Fecha de corrección:** Noviembre 2025
 
 ---
@@ -54,10 +54,8 @@
 
 **Descripción del "Qué":**
 - **Tipo:** Registros transaccionales de pagos procesados en el ecosistema digital de TechSport
-- **Periodo:** 2024-2025
-- **Volumen total:** 25,254,872 transacciones
-  - 2024: 9,762,026 transacciones
-  - 2025: 15,492,846 transacciones
+- **Periodo:** Gestión 2025
+- **Volumen total:** 15,492,846 transacciones (censo completo de 2025)
 
 **Categorías de transacciones incluidas:**
 1. **Reservas de canchas deportivas** (tenis, pádel, pickleball, basketball)
@@ -77,13 +75,13 @@
 **Población objetivo:** Todas las transacciones procesadas por TechSport en su plataforma multicanal.
 
 **Cobertura del dataset:**
-- **Volumen total del dataset:** 25,254,872 transacciones (2024-2025)
-- **Cobertura poblacional:** El dataset representa el **74.60%** del total de transacciones históricas de TechSport
-- **Periodo:** 2024 (9,762,026 transacciones) y 2025 (15,492,846 transacciones)
+- **Volumen total del dataset:** 15,492,846 transacciones (Gestión 2025)
+- **Cobertura poblacional:** El dataset representa un censo completo de transacciones procesadas en 2025
+- **Periodo:** Gestión 2025 completa (12 meses)
 
 **Justificación metodológica:**
-- **No es una muestra aleatoria:** Es un **censo de transacciones históricas** del periodo 2024-2025
-- **Representatividad temporal:** Cubre 2 años completos de operación, incluyendo variaciones estacionales
+- **No es una muestra aleatoria:** Es un **censo de transacciones históricas** de la gestión 2025
+- **Representatividad temporal:** Cubre 12 meses de operación (gestión 2025), incluyendo variaciones estacionales del año
 - **Diversidad de casos:** Incluye transacciones legítimas y fraudulentas etiquetadas
 - **Datos reales de producción:** No sintéticos, reflejan comportamiento real del sistema
 - **Diversidad de canales:** Web, aplicación móvil y puntos de venta (POS)
@@ -311,7 +309,7 @@ Las transacciones procesadas por TechSport presentan **comportamientos fraudulen
 **El modelo incluye:**
 
 1. **Entrenamiento supervisado con datos históricos**
-   - Dataset: 25M+ transacciones (2024-2025)
+   - Dataset: 15.4M+ transacciones (Gestión 2025)
    - Etiquetadas como fraudulentas y legítimas
    - Balance de clases mediante SMOTE o class weights
 
@@ -607,7 +605,7 @@ Implementación de [APORTE/SOLUCIÓN] para mejorar [PROBLEMA] en [QUIÉNES/QUÉ]
 
 ### ✅ Título Oficial Corregido:
 
-## **"IMPLEMENTACIÓN DE UN MODELO DE MACHINE LEARNING PARA LA DETECCIÓN DE TRANSACCIONES FRAUDULENTAS Y ANÓMALAS EN PAGOS DIGITALES DE LA EMPRESA TECHSPORT, 2024-2025"**
+## **"IMPLEMENTACIÓN DE UN MODELO DE MACHINE LEARNING PARA LA DETECCIÓN DE TRANSACCIONES FRAUDULENTAS Y ANÓMALAS EN PAGOS DIGITALES DE LA EMPRESA TECHSPORT, GESTIÓN 2025"**
 
 **Desglose del título:**
 
@@ -616,11 +614,11 @@ Implementación de [APORTE/SOLUCIÓN] para mejorar [PROBLEMA] en [QUIÉNES/QUÉ]
 - **Transacciones Fraudulentas y Anómalas** = PROBLEMA (Variable Madre)
 - **en Pagos Digitales** = Contexto técnico
 - **de la Empresa TechSport** = ADÓNDE (Lugar)
-- **2024-2025** = Delimitación temporal
+- **Gestión 2025** = Delimitación temporal
 
 **Título alternativo (más técnico):**
 
-*"Modelo de Machine Learning Supervisado basado en Random Forest para la Detección de Fraude en Transacciones de Pago Multicanal: Caso TechSport, 2024-2025"*
+*"Modelo de Machine Learning Supervisado basado en Random Forest para la Detección de Fraude en Transacciones de Pago Multicanal: Caso TechSport, Gestión 2025"*
 
 ---
 

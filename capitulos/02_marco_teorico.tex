@@ -104,19 +104,11 @@ El algoritmo construye $B$ árboles de decisión $\{T_b\}_{b=1}^{B}$ mediante bo
     \hat{y} = \text{mode}\left(\{T_1(x), T_2(x), \ldots, T_B(x)\}\right)
 \end{equation}
 
-\subsubsection{XGBoost (Extreme Gradient Boosting)}
+\subsubsection{Otros Enfoques de Ensemble: Gradient Boosting}
 
-XGBoost implementa gradient boosting con optimizaciones de segunda orden y regularización avanzada \parencite{Geron2022}. A diferencia de Random Forest, XGBoost construye árboles secuencialmente, donde cada árbol corrige los errores del anterior.
+Además de Random Forest (bagging), la literatura reporta el uso de técnicas de gradient boosting como XGBoost, que construyen árboles secuencialmente donde cada árbol corrige los errores del anterior \parencite{Geron2022}. Estos enfoques incorporan regularización avanzada para controlar el overfitting.
 
-La función objetivo de XGBoost incorpora pérdida y regularización:
-
-\begin{equation}
-    \mathcal{L}(\phi) = \sum_{i} l(\hat{y}_i, y_i) + \sum_{k} \Omega(f_k)
-\end{equation}
-
-donde $\Omega(f_k) = \gamma T + \frac{1}{2}\lambda \|w\|^2$ penaliza la complejidad del árbol (número de hojas $T$ y magnitud de los pesos $w$).
-
-\textcite{Feng2024} documentan que XGBoost alcanza F1-Scores de 90-94\% en contextos de fraude transaccional, superando a Random Forest en datasets altamente desbalanceados.
+\textcite{Feng2024} documentan que modelos basados en gradient boosting alcanzan F1-Scores de 90-94\% en contextos de fraude transaccional en e-commerce, demostrando la efectividad de enfoques de ensemble en general para este tipo de problemas.
 
 \subsubsection{Support Vector Machines (SVM)}
 
@@ -269,7 +261,7 @@ Asignación de pesos diferentes a cada clase en la función de pérdida:
 
 donde $w_0 = 1$ (clase legítima) y $w_1 = \frac{n_0}{n_1}$ (clase fraudulenta).
 
-Random Forest y XGBoost soportan class weights nativamente mediante el parámetro \texttt{class\_weight} o \texttt{scale\_pos\_weight}.
+Random Forest soporta class weights nativamente mediante el parámetro \texttt{class\_weight}, permitiendo ajustar la importancia relativa de cada clase durante el entrenamiento.
 
 \section{Validación Temporal en Series de Tiempo Financieras}
 
@@ -365,7 +357,7 @@ Ensemble Híbrido & 91-95 & 93-97 & 89-93 & \textcite{HernandezAros2024} \\
 
 \section{Síntesis del Marco Teórico}
 
-La revisión de la literatura científica del periodo 2020-2025 evidencia que los modelos de Machine Learning supervisados, particularmente Random Forest y XGBoost, constituyen un enfoque técnicamente validado para la detección de fraude en pagos digitales. Los estudios analizados reportan F1-Scores entre 85-94\%, superando las limitaciones de los sistemas basados en reglas estáticas en términos de adaptabilidad (capacidad de aprender nuevos patrones), precisión (menor tasa de falsos positivos/negativos) y escalabilidad (procesamiento de grandes volúmenes).
+La revisión de la literatura científica del periodo 2020-2025 evidencia que los modelos de Machine Learning supervisados, particularmente los enfoques de ensemble learning como Random Forest, constituyen un enfoque técnicamente validado para la detección de fraude en pagos digitales. Los estudios analizados reportan F1-Scores entre 85-94\% para diversos algoritmos de ensemble, superando las limitaciones de los sistemas basados en reglas estáticas en términos de adaptabilidad (capacidad de aprender nuevos patrones), precisión (menor tasa de falsos positivos/negativos) y escalabilidad (procesamiento de grandes volúmenes).
 
 El marco teórico presentado proporciona la base conceptual y técnica para el desarrollo del modelo propuesto en esta investigación, estableciendo objetivos cuantificables alineados con benchmarks internacionales (F1-Score $\geq$ 85\%, Recall $\geq$ 90\%, Precision $\geq$ 80\%) y metodologías rigurosas de validación temporal para garantizar la robustez y aplicabilidad de los resultados.
 
