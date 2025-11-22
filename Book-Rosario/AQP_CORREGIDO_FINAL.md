@@ -28,7 +28,7 @@
 
 ### 🅰️ A = ADÓNDE (Lugar de Estudio)
 
-**Empresa:** TechSport (nombre ficticio por seguridad - empresa real: PlayByPoint)
+**Empresa:** TechSport (nombre ficticio por seguridad - empresa real: TechSport)
 
 **Descripción del lugar:**
 - **Tipo:** Empresa tecnológica SaaS especializada en gestión de instalaciones deportivas
@@ -1334,7 +1334,7 @@ Un diseño experimental requiere (según Sampieri, 2014):
 
 - [ ] **Nombre de la empresa**
   - [x] TechSport usado consistentemente
-  - [x] PlayByPoint NO aparece en documento oficial
+  - [x] TechSport NO aparece en documento oficial
   - [x] Justificado por seguridad
 
 - [ ] **Variables consistentes**

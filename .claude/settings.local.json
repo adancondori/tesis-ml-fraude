@@ -3,7 +3,9 @@
     "allow": [
       "WebSearch",
       "Bash(pdflatex:*)",
-      "Bash(pandoc:*)"
+      "Bash(pandoc:*)",
+      "Bash(biber:*)",
+      "Bash(latexmk:*)"
     ],
     "deny": [],
     "ask": []
