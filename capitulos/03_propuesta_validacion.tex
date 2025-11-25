@@ -1,103 +1,14 @@
 % ==================================================================================
 % CAPÍTULO 3: PROPUESTA Y VALIDACIÓN
-% Tarea 5 - Metodología de Investigación
-% Maestría en Dirección Estratégica en Ingeniería de Software - UAGRM
-% ENFOQUE: CUANTITATIVO (Hernández Sampieri et al., 2014)
-% Estructura: Desarrollo del Modelo de ML + Validación Metodológica y Técnica
+% ==================================================================================
+% Archivo: capitulos/03_propuesta_validacion.tex
+% Descripción: Desarrollo e implementación del modelo Random Forest para detección
+%              de fraude en pagos digitales (OE3, OE4, HE3, HE4, Hipótesis General)
+% Autor: Ing. Adan Condori Callisaya
+% Última modificación: Diciembre 2025
 % ==================================================================================
 
-\documentclass[12pt,a4paper]{article}
-
-% Paquetes necesarios
-\usepackage[utf8]{inputenc}
-\usepackage[T1]{fontenc}
-\usepackage[spanish,es-tabla]{babel}
-\usepackage{geometry}
-\usepackage{longtable}
-\usepackage{array}
-\usepackage{booktabs}
-\usepackage{multirow}
-\usepackage{xcolor}
-\usepackage{colortbl}
-\usepackage{fancyhdr}
-\usepackage{titling}
-\usepackage{lmodern}
-\usepackage{enumitem}
-\usepackage{pdflscape}
-\usepackage{tikz}
-\usepackage{amsmath}
-\usepackage{titlesec}
-\usepackage{listings}
-\usepackage{graphicx}
-\usetikzlibrary{shapes,arrows,positioning}
-
-% Configuración de página
-\geometry{
-    a4paper,
-    left=2.5cm,
-    right=2.5cm,
-    top=2.5cm,
-    bottom=2.5cm
-}
-
-% Configuración de encabezado y pie de página
-\pagestyle{fancy}
-\fancyhf{}
-\fancyhead[L]{\small Capítulo 3: Propuesta y Validación}
-\fancyhead[R]{\small UAGRM - 2025}
-\fancyfoot[C]{\thepage}
-
-% Colores personalizados
-\definecolor{headerblue}{RGB}{0,51,102}
-\definecolor{lightblue}{RGB}{173,216,230}
-\definecolor{lightgray}{RGB}{245,245,245}
-\definecolor{lightgreen}{RGB}{144,238,144}
-\definecolor{codebg}{RGB}{248,248,248}
-
-% Configuración de listings para código Python
-\lstset{
-    language=Python,
-    basicstyle=\ttfamily\small,
-    keywordstyle=\color{blue},
-    commentstyle=\color{gray},
-    stringstyle=\color{red},
-    showstringspaces=false,
-    breaklines=true,
-    frame=single,
-    backgroundcolor=\color{codebg},
-    numbers=left,
-    numberstyle=\tiny\color{gray},
-    captionpos=b
-}
-
-% Formato de secciones
-\titleformat{\section}
-  {\normalfont\Large\bfseries}{\thesection.}{1em}{}
-
-\titleformat{\subsection}
-  {\normalfont\large\bfseries}{\thesubsection.}{1em}{}
-
-\titleformat{\subsubsection}
-  {\normalfont\normalsize\bfseries}{\thesubsubsection.}{1em}{}
-
-% Configuración del título
-\title{%
-    \textbf{CAPÍTULO 3\\
-    PROPUESTA Y VALIDACIÓN}\\[0.5em]
-    \large Implementación de un Modelo de Machine Learning\\
-    para la Detección de Transacciones Fraudulentas y Anómalas\\
-    en Pagos Digitales de TechSport\\[0.3em]
-    \normalsize Gestión 2025
-}
-\author{Ing. Adan Condori Callisaya}
-\date{Diciembre 2025}
-
-\begin{document}
-
-\maketitle
-\thispagestyle{empty}
-
-\newpage
+\chapter{Propuesta y Validación}
 
 % ==================================================================================
 % RESUMEN DEL CAPÍTULO
@@ -122,12 +33,6 @@ Este capítulo desarrolla la propuesta de solución mediante la implementación 
 \vspace{0.3cm}
 
 \textbf{Resultados esperados según hipótesis:} F1-Score $\geq$ 85\% (\textbf{Hipótesis General}), Recall $\geq$ 90\% (\textbf{HE3, HE4}), Precision $\geq$ 80\% (\textbf{HE3, HE4}), AUC-ROC $\geq$ 0.92 (\textbf{HE4}), tiempo de inferencia < 200ms (\textbf{HE4}).
-
-\newpage
-
-\tableofcontents
-
-\newpage
 
 % ==================================================================================
 % 3.1. ESQUEMA GENERAL DE LA PROPUESTA
@@ -173,8 +78,6 @@ Modelo Random Forest que alcance:
     \item Sección 3.2 desarrolla \textbf{OE3} (pipeline completo de implementación)
     \item Sección 3.3 desarrolla \textbf{OE4} (evaluación y comparación con benchmarks)
 \end{itemize}
-
-\newpage
 
 % -----------------------------------------------------------------------------------
 % 3.1.1. POR QUÉ DEL CÓMO DEL OBJETIVO GENERAL
@@ -372,8 +275,6 @@ Trabajo futuro \\
 
 La selección de Random Forest responde al enfoque cuantitativo de la investigación, donde se priorizan métricas objetivas, replicabilidad y validación estadística rigurosa. La justificación se basa en evidencia bibliográfica (20+ estudios), no en preferencias subjetivas.
 
-\newpage
-
 \subsection{Arquitectura conceptual de la propuesta}
 
 \textbf{[CONTENIDO A DESARROLLAR - DIAGRAMA]}
@@ -411,7 +312,7 @@ La selección de Random Forest responde al enfoque cuantitativo de la investigac
 
 \end{tikzpicture}
 \caption{Pipeline de implementación del modelo Random Forest}
-\label{fig:pipeline}
+\label{fig:pipeline_rf}
 \end{figure}
 
 \textbf{Descripción de etapas del pipeline:}
@@ -437,8 +338,6 @@ La selección de Random Forest responde al enfoque cuantitativo de la investigac
 
     \item \textbf{Métricas finales:} Comparación con benchmarks de literatura
 \end{enumerate}
-
-\newpage
 
 % ==================================================================================
 % 3.2. DESARROLLO DE LA PROPUESTA
@@ -632,8 +531,6 @@ Random Forest NO requiere normalización estricta (es invariante a transformacio
     \item $\checkmark$ Variables numéricas normalizadas
     \item $\checkmark$ Dataset listo para feature engineering
 \end{itemize}
-
-\newpage
 
 \subsection{Fase 2: Feature Engineering}
 
@@ -847,8 +744,6 @@ print(f"Gap temporal: {(test_min_date - train_max_date).days} días")
 
 $\checkmark$ NO hay data leakage. Todas las features usan solo información disponible al momento de la transacción.
 
-\newpage
-
 \subsection{Fase 3: Balanceo de clases}
 
 \textbf{[CONTENIDO A DESARROLLAR]}
@@ -955,8 +850,6 @@ print(f"Despues SMOTE: {pd.Series(y_train_balanced).value_counts()}")
 
 \textbf{IMPORTANTE:} SMOTE se aplica SOLO en train set. Test set y validation set se mantienen sin modificar (datos reales) para evaluar desempeño real del modelo.
 
-\newpage
-
 \subsection{Fase 4: División temporal del dataset}
 
 \textbf{[CONTENIDO A DESARROLLAR]}
@@ -1049,8 +942,6 @@ X_val, y_val = val.drop('is_fraud', axis=1), val['is_fraud']
 X_test, y_test = test.drop('is_fraud', axis=1), test['is_fraud']
 \end{lstlisting}
 
-\newpage
-
 \subsection{Fase 5: Entrenamiento del modelo Random Forest}
 
 \textbf{[CONTENIDO A DESARROLLAR]}
@@ -1123,8 +1014,6 @@ print(f"AUC-ROC (Validation): {auc_val:.4f}")
 \end{itemize}
 
 \textbf{Interpretación:} El modelo inicial muestra desempeño prometedor pero requiere optimización de hiperparámetros para alcanzar los objetivos (F1 $\geq$ 0.85, Recall $\geq$ 0.90, Precision $\geq$ 0.80).
-
-\newpage
 
 \subsection{Fase 6: Optimización de hiperparámetros}
 
@@ -1201,8 +1090,6 @@ import joblib
 joblib.dump(rf_final, 'random_forest_fraud_detection_final.pkl')
 \end{lstlisting}
 
-\newpage
-
 \subsection{Fase 7: Análisis de Feature Importance}
 
 \textbf{[CONTENIDO A DESARROLLAR]}
@@ -1276,8 +1163,6 @@ plt.savefig('feature_importance.png', dpi=300)
 
     \item Top 10 features acumulan 78.7\% de la importancia total (Pareto: 20\% de features explican 80\% del desempeño)
 \end{itemize}
-
-\newpage
 
 % ==================================================================================
 % 3.3. VALIDACIÓN DE LA PROPUESTA
@@ -1372,8 +1257,6 @@ Convergencia de 3 instrumentos (Cap. 2): Análisis Documental, EDA, Validación 
 
 La propuesta implementada cumple con los 8 criterios de rigor metodológico de Sampieri (2014), garantizando la validez interna y externa de los resultados.
 
-\newpage
-
 \subsection{Validación técnica}
 
 \subsubsection{Evaluación en test set temporal}
@@ -1465,8 +1348,6 @@ AUC-ROC & 0.9384 & $\geq$ 0.92 & $\checkmark$ CUMPLE (+2.0\%) \\
     \item \textbf{TN = 4,561,234:} Transacciones legítimas correctamente aprobadas (98.3\%)
 \end{itemize}
 
-\newpage
-
 \subsubsection{Comparación con benchmarks de literatura}
 
 \textbf{[CONTENIDO A DESARROLLAR]}
@@ -1546,8 +1427,6 @@ Carcillo et al. (2018) - SCARFF (Spark + RF) &
 
 El modelo Random Forest implementado alcanza desempeño \textbf{comparable o superior} a benchmarks de literatura científica, validando la hipótesis general de la investigación.
 
-\newpage
-
 \subsubsection{Intervalo de confianza de métricas (Bootstrap)}
 
 \textbf{[CONTENIDO A DESARROLLAR]}
@@ -1612,8 +1491,6 @@ Los intervalos de confianza del 95\% indican que:
     \item Los intervalos son relativamente estrechos (< 0.02 de amplitud), confirmando estabilidad del modelo
 \end{itemize}
 
-\newpage
-
 \subsubsection{Tiempo de inferencia}
 
 \textbf{[CONTENIDO A DESARROLLAR]}
@@ -1651,8 +1528,6 @@ print(f"Transacciones por segundo: {1000/avg_time_per_tx:.0f}")
 \textbf{Conclusión:}
 
 El tiempo de inferencia (0.0342 ms) es \textbf{5,848 veces más rápido} que el objetivo (< 200 ms), demostrando viabilidad para implementación en tiempo real. El modelo puede procesar casi 30,000 transacciones por segundo en hardware estándar (sin GPU).
-
-\newpage
 
 \subsection{Análisis de viabilidad operacional}
 
@@ -1692,8 +1567,6 @@ Esta subsección valida el criterio de \textbf{HE4} sobre tiempo de inferencia <
 
 \textbf{Nota metodológica:} El análisis económico (ROI, pérdidas evitadas) NO forma parte de los objetivos ni hipótesis de esta investigación. El enfoque cuantitativo se centra exclusivamente en validación técnica del desempeño del modelo mediante métricas de clasificación.
 
-\newpage
-
 % ==================================================================================
 % CONCLUSIONES DEL CAPÍTULO 3
 % ==================================================================================
@@ -1725,37 +1598,3 @@ El Capítulo 3 desarrolló la propuesta de solución mediante la implementación
 \vspace{0.5cm}
 
 \textbf{Limitación del alcance:} La investigación se limita a validación técnica del modelo mediante métricas de clasificación. NO incluye: (i) análisis económico (ROI, pérdidas evitadas), (ii) implementación en producción, (iii) modelos de deep learning, ni (iv) arquitecturas de detección en tiempo real (streaming). Estas áreas se documentan como trabajo futuro en el Capítulo 4 (Conclusiones y Recomendaciones).
-
-\newpage
-
-% ==================================================================================
-% REFERENCIAS BIBLIOGRÁFICAS
-% ==================================================================================
-
-\section*{Referencias Bibliográficas}
-
-\textbf{[CONTENIDO A DESARROLLAR - REFERENCIAS COMPLETAS EN FORMATO APA 7]}
-
-\begin{itemize}[leftmargin=1.5cm]
-    \item Baesens, B., Van Vlasselaer, V., \& Verbeke, W. (2015). \textit{Fraud analytics using descriptive, predictive, and social network techniques: A guide to data science for fraud detection}. Wiley.
-
-    \item Breiman, L. (2001). Random Forests. \textit{Machine Learning}, 45(1), 5-32. https://doi.org/10.1023/A:1010933404324
-
-    \item Carcillo, F., Dal Pozzolo, A., Le Borgne, Y. A., Caelen, O., Mazzer, Y., \& Bontempi, G. (2018). SCARFF: A scalable framework for streaming credit card fraud detection with Spark. \textit{Information Fusion}, 41, 182-194. https://doi.org/10.1016/j.inffus.2017.09.005
-
-    \item Dal Pozzolo, A., Caelen, O., Johnson, R. A., \& Bontempi, G. (2015). Calibrating probability with undersampling for unbalanced classification. In \textit{2015 IEEE Symposium Series on Computational Intelligence} (pp. 159-166). IEEE. https://doi.org/10.1109/SSCI.2015.33
-
-    \item Géron, A. (2022). \textit{Hands-on machine learning with Scikit-Learn, Keras, and TensorFlow} (3rd ed.). O'Reilly Media.
-
-    \item Hafez, A. I., et al. (2025). Random Forest for Credit Card Fraud Detection. \textit{Journal of Financial Crime}. [F1-Score: 85-94\%]
-
-    \item Hastie, T., Tibshirani, R., \& Friedman, J. (2009). \textit{The elements of statistical learning: Data mining, inference, and prediction} (2nd ed.). Springer. https://doi.org/10.1007/978-0-387-84858-7
-
-    \item Hernández Aros, L., et al. (2024). Revisión de literatura sobre detección de fraude financiero mediante Machine Learning. \textit{IEEE Access}, 12, 45678-45692.
-
-    \item Hernández Sampieri, R., Fernández Collado, C., \& Baptista Lucio, P. (2014). \textit{Metodología de la investigación} (6ª ed.). McGraw-Hill.
-
-    \item Pedregosa, F., et al. (2011). Scikit-learn: Machine Learning in Python. \textit{Journal of Machine Learning Research}, 12, 2825-2830.
-\end{itemize}
-
-\end{document}
