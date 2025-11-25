@@ -5,7 +5,17 @@
       "Bash(pdflatex:*)",
       "Bash(pandoc:*)",
       "Bash(biber:*)",
-      "Bash(latexmk:*)"
+      "Bash(latexmk:*)",
+      "WebFetch(domain:ojs.unipamplona.edu.co)",
+      "WebFetch(domain:cienciayreflexion.org)",
+      "WebFetch(domain:dspace.palermo.edu)",
+      "WebFetch(domain:revistas.tec.ac.cr)",
+      "WebFetch(domain:revistas.unlp.edu.ar)",
+      "WebFetch(domain:repositorio.uide.edu.ec)",
+      "WebFetch(domain:repositorio.ug.edu.ec)",
+      "WebFetch(domain:repositorio.uam.es)",
+      "WebFetch(domain:bibdigital.epn.edu.ec)",
+      "WebFetch(domain:repositorio.autonoma.edu.pe)"
     ],
     "deny": [],
     "ask": []

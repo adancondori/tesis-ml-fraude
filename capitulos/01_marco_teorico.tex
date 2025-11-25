@@ -127,7 +127,7 @@ Esta sección desarrolla el núcleo teórico de OE1, fundamentando los algoritmo
 
 \subsection{Fundamentos del Aprendizaje Supervisado}
 
-El aprendizaje automático supervisado constituye un paradigma computacional en el cual un algoritmo aprende a mapear entradas (features) a salidas (etiquetas) mediante el análisis de datos históricos etiquetados \parencite{Bishop2006}. En el contexto de detección de fraude, esto se traduce en entrenar modelos con transacciones previamente clasificadas como fraudulentas o legítimas para predecir la naturaleza de transacciones futuras.
+El aprendizaje automático supervisado constituye un paradigma computacional en el cual un algoritmo aprende a mapear entradas (features) a salidas (etiquetas) mediante el análisis de datos históricos etiquetados \parencite{James2021}. En el contexto de detección de fraude, esto se traduce en entrenar modelos con transacciones previamente clasificadas como fraudulentas o legítimas para predecir la naturaleza de transacciones futuras.
 
 \textcite{Geron2022} formaliza el problema de clasificación supervisada como la búsqueda de una función $f: \mathcal{X} \rightarrow \mathcal{Y}$ que minimiza una función de pérdida $\mathcal{L}$ sobre un conjunto de entrenamiento $D = \{(x_i, y_i)\}_{i=1}^{n}$, donde:
 
@@ -212,7 +212,7 @@ Gradient Boosting construye árboles secuencialmente donde cada árbol corrige l
 
 \subsubsection{Support Vector Machines (SVM): Limitaciones para Datasets Grandes}
 
-SVM busca el hiperplano óptimo que maximiza el margen entre clases en un espacio de mayor dimensión mediante kernel tricks \parencite{Bishop2006}. La función de decisión es:
+SVM busca el hiperplano óptimo que maximiza el margen entre clases en un espacio de mayor dimensión mediante kernel tricks \parencite{James2021}. La función de decisión es:
 
 \begin{equation}
     f(x) = \text{sign}\left(\sum_{i=1}^{n} \alpha_i y_i K(x_i, x) + b\right)
@@ -591,7 +591,7 @@ GDPR regula el procesamiento de datos personales en la Unión Europea. Aunque Te
 
 \subsection{Metodología de la Revisión Sistemática}
 
-Se realizó una revisión sistemática de literatura científica siguiendo las directrices de \textcite{Hernandez2014}, con los siguientes criterios:
+Se realizó una revisión sistemática de literatura científica siguiendo las directrices de \textcite{Hernandez2018}, con los siguientes criterios:
 
 \textbf{Criterios de inclusión:}
 \begin{itemize}[leftmargin=2cm]
