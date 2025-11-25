@@ -117,3 +117,17 @@ pythontex-files-*/
 ## OS specific
 .DS_Store
 Thumbs.db
+
+## ==================== MAKEFILE OUTPUTS ====================
+# Directorios de salida (mantener estructura, ignorar contenido)
+build/
+output/**/*
+!output/.gitkeep
+!output/word/.gitkeep
+!output/csv/.gitkeep
+!output/imagenes/.gitkeep
+backup/*.tar.gz
+backup/*.zip
+
+# Mantener estructura de directorios vacíos
+!**/.gitkeep

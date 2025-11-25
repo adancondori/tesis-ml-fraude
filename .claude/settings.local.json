@@ -15,7 +15,11 @@
       "WebFetch(domain:repositorio.ug.edu.ec)",
       "WebFetch(domain:repositorio.uam.es)",
       "WebFetch(domain:bibdigital.epn.edu.ec)",
-      "WebFetch(domain:repositorio.autonoma.edu.pe)"
+      "WebFetch(domain:repositorio.autonoma.edu.pe)",
+      "Bash(make check:*)",
+      "Bash(make clean:*)",
+      "Bash(make pdf:*)",
+      "Bash(make stats:*)"
     ],
     "deny": [],
     "ask": []
