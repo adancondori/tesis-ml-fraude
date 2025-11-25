@@ -2,7 +2,7 @@
 
 ## 📋 Información General
 
-**Título:** Implementación de un Modelo de Machine Learning para la Detección de Anomalías y Fraude en Pagos Transaccionales en la Empresa TechSport 2024 - 2025
+**Título:** Implementación de un Modelo de Machine Learning para la Detección de Anomalías y Fraude en Pagos Transaccionales en la Empresa TechSport 2025
 
 **Autor:** Ing. Adan Condori Callisaya
 **Email:** adancondori@gmail.com
@@ -11,7 +11,7 @@
 **Facultad:** Facultad de Ingeniería en Ciencias de la Computación y Telecomunicaciones
 **Programa:** Maestría en Dirección Estratégica en Ingeniería de Software
 **Línea de Investigación:** Sistemas Inteligentes - Sistemas Cognitivos
-**Gestión:** 2024-2025
+**Gestión:** 2025
 **Ciudad:** Santa Cruz, Bolivia
 
 ---
