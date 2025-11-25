@@ -367,12 +367,13 @@ N° outliers legítimos       & [POR COMPLETAR]      \\
 
 \textbf{Análisis de outliers y fraude:}
 
-[POR COMPLETAR - Analizar mediante tabla cruzada (crosstab) si existe asociación estadística entre outliers y fraude:
+\textbf{[POR COMPLETAR - Analizar mediante tabla cruzada (crosstab) si existe asociación estadística entre outliers y fraude:]}
+
 \begin{itemize}
     \item ¿Qué porcentaje de los outliers son fraudes?
     \item ¿Los fraudes tienden a concentrarse en montos outliers o en montos típicos?
     \item Aplicar prueba Chi-cuadrado para determinar si la asociación es estadísticamente significativa (p-value < 0.05)
-\end{itemize}]
+\end{itemize}
 
 \textbf{Estrategia de tratamiento:} [POR COMPLETAR - Decisión metodológica: (i) mantener outliers sin modificación (Random Forest es robusto a outliers), (ii) aplicar transformación logarítmica (\texttt{log(amount + 1)}) para reducir influencia de valores extremos, o (iii) winsorización al percentil 99.]
 
@@ -447,12 +448,13 @@ Terminal Móvil          & 136,407    & [POR COMP] & [XX.XX\%] & [POR COMP]     
 
 \textbf{Análisis de vulnerabilidad por canal:}
 
-[POR COMPLETAR - Interpretación de resultados:
+\textbf{[POR COMPLETAR - Interpretación de resultados:]}
+
 \begin{itemize}
     \item \textbf{Canal más vulnerable:} Identificar canal con mayor tasa de fraude. Hipótesis: canales digitales sin autenticación multifactor (Web, App Móvil) probablemente presenten tasas superiores a canales presenciales (POS)
     \item \textbf{Canal con mayores pérdidas absolutas:} Puede diferir del canal con mayor tasa (ej: Web con tasa 0.8\% pero volumen masivo genera pérdidas > App Móvil con tasa 2\% pero volumen menor)
     \item \textbf{Recomendaciones de priorización:} Ordenar canales por pérdidas totales para asignar recursos de prevención
-\end{itemize}]
+\end{itemize}
 
 \subsection{Tasa de Fraude por Gateway de Pago}
 
@@ -474,12 +476,13 @@ ACH              & 6,867      & [POR COMP] & [XX.XX\%] & [POR COMP]      \\
 \end{tabular}
 \end{table}
 
-[POR COMPLETAR - Análisis de desempeño de seguridad por gateway:
+\textbf{[POR COMPLETAR - Análisis de desempeño de seguridad por gateway:]}
+
 \begin{itemize}
     \item Identificar gateways con tasa de fraude > 10\% (threshold crítico que requiere intervención prioritaria)
     \item Comparación estadística: aplicar prueba Chi-cuadrado para determinar si las diferencias en tasas de fraude entre gateways son estadísticamente significativas (p < 0.05)
     \item Limitación metodológica: 90.92\% del dataset categorizado como ``No especificado'' dificulta conclusiones robustas sobre gateways específicos
-\end{itemize}]
+\end{itemize}
 
 \subsection{Análisis de Valores Faltantes (Missing Values)}
 
@@ -562,16 +565,18 @@ Duplicados legítimos             & [POR COMPLETAR] & [XX.XX\%]             \\
 
 \textbf{Análisis de naturaleza de duplicados:}
 
-[POR COMPLETAR - Analizar mediante tabla cruzada:
+\textbf{[POR COMPLETAR - Analizar mediante tabla cruzada:]}
+
 \begin{itemize}
     \item ¿Qué porcentaje de transacciones duplicadas son fraudes confirmados?
     \item ¿Existen duplicados legítimos? (ej: pagos recurrentes mensuales, transacciones retry legítimas por falla temporal)
     \item Cálculo de tasa de fraude en duplicados vs tasa de fraude en transacciones únicas: ratio > 5:1 confirmaría que duplicación es indicador fuerte de fraude
-\end{itemize}]
+\end{itemize}
 
 \textbf{Estrategia de tratamiento metodológico:}
 
-[POR COMPLETAR - Decisión:
+\textbf{[POR COMPLETAR - Decisión:]}
+
 \begin{enumerate}
     \item \textbf{Opción 1 (mantener duplicados):} No eliminar duplicados del dataset, crear feature binaria \texttt{is\_duplicate} para que el modelo Random Forest aprenda esta característica
     \item \textbf{Opción 2 (eliminar duplicados fraudulentos):} Eliminar solo duplicados confirmados como fraude en training set
@@ -627,11 +632,12 @@ ip\_country\_mismatch        & Binaria       & [POR COMP]    & [POR COMP]   \\
     \item Third feature: Interpretación
     \item Fourth feature: Interpretación
     \item Fifth feature: Interpretación
-\end{enumerate}]
+\end{enumerate}
 
 \textbf{Selección de features candidatas para Random Forest:}
 
-[POR COMPLETAR - Basado en el análisis univariado, seleccionar 15-20 features con:
+\textbf{[POR COMPLETAR - Basado en el análisis univariado, seleccionar 15-20 features con:]}
+
 \begin{itemize}
     \item Correlación absoluta > 0.05 o Chi-cuadrado con p < 0.05
     \item Baja multicolinealidad entre sí (r < 0.8)
@@ -697,7 +703,7 @@ Mes con mayor incidencia         & [POR COMPLETAR]     \\
     \item Canal preferido por atacantes (hipótesis: Web > App Móvil por facilidad de automatización)
     \item Rangos de monto más frecuentes (hipótesis: ataques prueban primero montos bajos \$50-\$100 para verificar validez de tarjeta, luego escalan a montos > \$1,000)
     \item Distribución horaria de ataques (hipótesis: ataques automatizados 24/7 sin patrón horario vs fraudes manuales concentrados en horario laboral)
-\end{itemize}]
+\end{itemize}
 
 \subsection{Patrón 2: Transacciones Duplicadas Sospechosas}
 
@@ -751,12 +757,13 @@ Duplicados por fraude intencional& [POR COMPLETAR]     \\
 
 \textbf{Diferenciación entre duplicados legítimos y fraudulentos:}
 
-[POR COMPLETAR - Tabla comparativa:
+\textbf{[POR COMPLETAR - Tabla comparativa:]}
+
 \begin{itemize}
     \item \textbf{Duplicados legítimos:} Pagos recurrentes mensuales (separados por $\approx$ 30 días), transacciones retry después de falla temporal legítima (separadas > 1 hora), pagos de múltiples reservas simultáneas (diferentes \texttt{facility\_id})
     \item \textbf{Duplicados sospechosos/fraudulentos:} Separación temporal < 5 minutos, mismo \texttt{facility\_id}, ausencia de justificación de negocio, usuario con historial de chargebacks
     \item Calcular tasa de fraude en duplicados sospechosos vs tasa de fraude en transacciones únicas. Hipótesis: ratio > 10:1 confirmará que duplicación es indicador fuerte de fraude
-\end{itemize}]
+\end{itemize}
 
 \subsection{Patrón 3: Comportamientos Anómalos de Usuarios}
 
@@ -826,7 +833,8 @@ Horario anómalo                  & [POR COMPLETAR]     \\
 
 \textbf{Técnicas de detección estadística:}
 
-[POR COMPLETAR - Metodología de detección:
+\textbf{[POR COMPLETAR - Metodología de detección:]}
+
 \begin{enumerate}
     \item \textbf{Isolation Forest:} Algoritmo de detección de anomalías no supervisado que identifica puntos aislados en el espacio multidimensional de features (monto, frecuencia, geolocalización, horario)
     \item \textbf{One-Class SVM:} Modelo que aprende la distribución normal del comportamiento del usuario y detecta desviaciones significativas
@@ -871,7 +879,7 @@ Patrón 3: Comportamientos an. & [POR COMP] & [XX\%] & [POR COMP] & [POR COMP] &
     \end{itemize}
 
     \item \textbf{Solapamiento de patrones:} ¿Existen transacciones que presentan múltiples patrones simultáneamente? (ej: tarjeta robada + duplicado + comportamiento anómalo). Calcular porcentaje de fraudes con patrón único vs múltiple.
-\end{enumerate}]
+\end{enumerate}
 
 \subsection{Pérdidas Económicas por Tipo de Fraude}
 
@@ -896,13 +904,14 @@ Patrón 3: Comportamientos an. & [POR COMP] USD & [POR COMP] USD & [XX.X\%] & [P
 
 \textbf{Análisis de percentiles de pérdidas:}
 
-[POR COMPLETAR - Calcular y analizar:
+\textbf{[POR COMPLETAR - Calcular y analizar los siguientes percentiles:]}
+
 \begin{itemize}
     \item \textbf{P50 (Mediana):} Pérdida típica por fraude = [POR COMPLETAR] USD
     \item \textbf{P90:} 90\% de los fraudes generan pérdidas < [POR COMPLETAR] USD
     \item \textbf{P99:} 1\% de los fraudes (casos extremos) generan pérdidas > [POR COMPLETAR] USD
     \item \textbf{Interpretación:} Si P99 >> P50, indica distribución sesgada con algunos fraudes de altísimo impacto (``whale frauds'') que requieren detección prioritaria
-\end{itemize}]
+\end{itemize}
 
 \textbf{Top 10 fraudes por monto:}
 
