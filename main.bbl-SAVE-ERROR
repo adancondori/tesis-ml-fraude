@@ -205,37 +205,6 @@
       \endverb
       \keyw{Artificial intelligence,Fraud prevention,Machine learning,Deep learning}
     \endentry
-    \entry{Bishop2006}{book}{}{}
-      \name{author}{1}{}{%
-        {{hash=9dfd0135a5e80aa6d81cea2c10fb7f73}{%
-           family={Bishop},
-           familyi={B\bibinitperiod},
-           given={Christopher\bibnamedelima M.},
-           giveni={C\bibinitperiod\bibinitdelim M\bibinitperiod}}}%
-      }
-      \list{publisher}{1}{%
-        {Springer-Verlag New York}%
-      }
-      \strng{namehash}{9dfd0135a5e80aa6d81cea2c10fb7f73}
-      \strng{fullhash}{9dfd0135a5e80aa6d81cea2c10fb7f73}
-      \strng{fullhashraw}{9dfd0135a5e80aa6d81cea2c10fb7f73}
-      \strng{bibnamehash}{9dfd0135a5e80aa6d81cea2c10fb7f73}
-      \strng{authorbibnamehash}{9dfd0135a5e80aa6d81cea2c10fb7f73}
-      \strng{authornamehash}{9dfd0135a5e80aa6d81cea2c10fb7f73}
-      \strng{authorfullhash}{9dfd0135a5e80aa6d81cea2c10fb7f73}
-      \strng{authorfullhashraw}{9dfd0135a5e80aa6d81cea2c10fb7f73}
-      \field{sortinit}{B}
-      \field{sortinithash}{d7095fff47cda75ca2589920aae98399}
-      \field{extradatescope}{labelyear}
-      \field{labeldatesource}{}
-      \true{uniqueprimaryauthor}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{title}
-      \field{isbn}{978-0387310732}
-      \field{title}{Pattern Recognition and Machine Learning}
-      \field{year}{2006}
-      \keyw{Pattern Recognition,Machine Learning,Bayesian Methods,Graphical Models}
-    \endentry
     \entry{Breiman2001}{article}{}{}
       \name{author}{1}{}{%
         {{hash=132b7100417675d55d5d4d8b244f7a34}{%
@@ -320,9 +289,10 @@
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{journaltitle}{Information Fusion}
+      \field{note}{Publicado online en 2017, impreso en 2018}
       \field{title}{SCARFF: a scalable framework for streaming credit card fraud detection with Spark}
       \field{volume}{41}
-      \field{year}{2018}
+      \field{year}{2017}
       \field{pages}{182\bibrangedash 194}
       \range{pages}{13}
       \verb{doi}
@@ -729,35 +699,33 @@
       \endverb
       \keyw{Financial fraud,Machine learning,Fraud detection,Data analytics}
     \endentry
-    \entry{Hernandez2014}{book}{}{}
-      \name{author}{3}{}{%
-        {{hash=82531f0c5173ef965e84d101f98cbf0a}{%
-           family={Hernández\bibnamedelima Sampieri},
-           familyi={H\bibinitperiod\bibinitdelim S\bibinitperiod},
+    \entry{Hernandez2018}{book}{}{}
+      \name{author}{2}{}{%
+        {{hash=14430b76cb0a2926c90bb6f77b8e3cb3}{%
+           family={Hernández-Sampieri},
+           familyi={H\bibinithyphendelim S\bibinitperiod},
            given={Roberto},
            giveni={R\bibinitperiod}}}%
-        {{hash=cda946b44fb9851bceae7fa35c71abde}{%
-           family={Fernández\bibnamedelima Collado},
-           familyi={F\bibinitperiod\bibinitdelim C\bibinitperiod},
-           given={Carlos},
-           giveni={C\bibinitperiod}}}%
-        {{hash=e67f16b384bc1fe62a43f4d1073ebb44}{%
-           family={Baptista\bibnamedelima Lucio},
-           familyi={B\bibinitperiod\bibinitdelim L\bibinitperiod},
-           given={María\bibnamedelimb del\bibnamedelima Pilar},
-           giveni={M\bibinitperiod\bibinitdelim d\bibinitperiod\bibinitdelim P\bibinitperiod}}}%
+        {{hash=734c74b1d9b92cbfd72b68543087b885}{%
+           family={Mendoza\bibnamedelima Torres},
+           familyi={M\bibinitperiod\bibinitdelim T\bibinitperiod},
+           given={Christian\bibnamedelima Paulina},
+           giveni={C\bibinitperiod\bibinitdelim P\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {Ciudad de México, México}%
       }
       \list{publisher}{1}{%
-        {McGraw-Hill Education}%
+        {McGraw Hill Education}%
       }
-      \strng{namehash}{7c7c2f335ff7edc16815d4abaab9b7e7}
-      \strng{fullhash}{72b254a247d6eeab41104dbf1bc2d335}
-      \strng{fullhashraw}{72b254a247d6eeab41104dbf1bc2d335}
-      \strng{bibnamehash}{72b254a247d6eeab41104dbf1bc2d335}
-      \strng{authorbibnamehash}{72b254a247d6eeab41104dbf1bc2d335}
-      \strng{authornamehash}{7c7c2f335ff7edc16815d4abaab9b7e7}
-      \strng{authorfullhash}{72b254a247d6eeab41104dbf1bc2d335}
-      \strng{authorfullhashraw}{72b254a247d6eeab41104dbf1bc2d335}
+      \strng{namehash}{0bb7b39b263c5ee22275a06db66ae889}
+      \strng{fullhash}{0bb7b39b263c5ee22275a06db66ae889}
+      \strng{fullhashraw}{0bb7b39b263c5ee22275a06db66ae889}
+      \strng{bibnamehash}{0bb7b39b263c5ee22275a06db66ae889}
+      \strng{authorbibnamehash}{0bb7b39b263c5ee22275a06db66ae889}
+      \strng{authornamehash}{0bb7b39b263c5ee22275a06db66ae889}
+      \strng{authorfullhash}{0bb7b39b263c5ee22275a06db66ae889}
+      \strng{authorfullhashraw}{0bb7b39b263c5ee22275a06db66ae889}
       \field{sortinit}{H}
       \field{sortinithash}{23a3aa7c24e56cfa16945d55545109b5}
       \field{extradatescope}{labelyear}
@@ -765,11 +733,61 @@
       \true{uniqueprimaryauthor}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
-      \field{edition}{6}
-      \field{isbn}{978-1456223960}
-      \field{title}{Metodología de la Investigación}
-      \field{year}{2014}
-      \keyw{Metodología de investigación,Métodos cuantitativos,Diseño de investigación}
+      \field{edition}{1}
+      \field{isbn}{978-1-4562-6096-5}
+      \field{note}{Nueva obra que sustituye a las 6 ediciones previas publicadas durante 28 años. Incluye 17 capítulos agrupados en 6 partes}
+      \field{title}{Metodología de la Investigación: Las rutas cuantitativa, cualitativa y mixta}
+      \field{year}{2018}
+      \field{pages}{714}
+      \range{pages}{1}
+      \keyw{Metodología de investigación,Métodos cuantitativos,Métodos cualitativos,Métodos mixtos,Diseño de investigación}
+    \endentry
+    \entry{James2021}{book}{}{}
+      \name{author}{4}{}{%
+        {{hash=df184c5fa522ac8a515ec4de13aef234}{%
+           family={James},
+           familyi={J\bibinitperiod},
+           given={Gareth},
+           giveni={G\bibinitperiod}}}%
+        {{hash=1ab16961e0de50711fa6bd9425f9b4a6}{%
+           family={Witten},
+           familyi={W\bibinitperiod},
+           given={Daniela},
+           giveni={D\bibinitperiod}}}%
+        {{hash=0cb8fe4210baa81c4b0e67913b4d2768}{%
+           family={Hastie},
+           familyi={H\bibinitperiod},
+           given={Trevor},
+           giveni={T\bibinitperiod}}}%
+        {{hash=88eea600247d798f8b2ce0b2dc614492}{%
+           family={Tibshirani},
+           familyi={T\bibinitperiod},
+           given={Robert},
+           giveni={R\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Springer}%
+      }
+      \strng{namehash}{f8f737f83d9e451c1afaa13cdc120516}
+      \strng{fullhash}{da61646157a6be769f34984f5cb603b0}
+      \strng{fullhashraw}{da61646157a6be769f34984f5cb603b0}
+      \strng{bibnamehash}{da61646157a6be769f34984f5cb603b0}
+      \strng{authorbibnamehash}{da61646157a6be769f34984f5cb603b0}
+      \strng{authornamehash}{f8f737f83d9e451c1afaa13cdc120516}
+      \strng{authorfullhash}{da61646157a6be769f34984f5cb603b0}
+      \strng{authorfullhashraw}{da61646157a6be769f34984f5cb603b0}
+      \field{sortinit}{J}
+      \field{sortinithash}{b2f54a9081ace9966a7cb9413811edb4}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{edition}{2}
+      \field{isbn}{978-1071614174}
+      \field{title}{An Introduction to Statistical Learning: with Applications in R}
+      \field{year}{2021}
+      \keyw{Statistical learning,Random Forest,Cross-validation,Ensemble methods,R programming}
     \endentry
     \entry{Lucas2019}{thesis}{}{}
       \name{author}{1}{}{%
@@ -804,6 +822,43 @@
       \field{type}{phdthesis}
       \field{year}{2019}
       \keyw{Credit card fraud,Machine learning,Sequential datasets,Contextual knowledge}
+    \endentry
+    \entry{Martinez2020}{book}{}{}
+      \name{author}{1}{}{%
+        {{hash=566f7568c850ef75ea315ce9c97c4947}{%
+           family={Martínez},
+           familyi={M\bibinitperiod},
+           given={Rosario},
+           giveni={R\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {Saarbrücken, Alemania}%
+      }
+      \list{publisher}{1}{%
+        {Editorial Académica Española}%
+      }
+      \strng{namehash}{566f7568c850ef75ea315ce9c97c4947}
+      \strng{fullhash}{566f7568c850ef75ea315ce9c97c4947}
+      \strng{fullhashraw}{566f7568c850ef75ea315ce9c97c4947}
+      \strng{bibnamehash}{566f7568c850ef75ea315ce9c97c4947}
+      \strng{authorbibnamehash}{566f7568c850ef75ea315ce9c97c4947}
+      \strng{authornamehash}{566f7568c850ef75ea315ce9c97c4947}
+      \strng{authorfullhash}{566f7568c850ef75ea315ce9c97c4947}
+      \strng{authorfullhashraw}{566f7568c850ef75ea315ce9c97c4947}
+      \field{sortinit}{M}
+      \field{sortinithash}{4625c616857f13d17ce56f7d4f97d451}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{isbn}{978-6202251884}
+      \field{note}{Método AQP (Adónde-Quiénes-Problema) y CCA (Causas-Consecuencias-Aporte) para estructurar investigaciones de grado y postgrado}
+      \field{title}{Los 3 secretos detrás de una tesis: Método AQP/CCA para elaboración de tesis de grado y postgrado}
+      \field{year}{2020}
+      \field{pages}{124}
+      \range{pages}{1}
+      \keyw{Metodología de tesis,Matriz de consistencia,AQP,CCA,Estructura de investigación,Tesis de postgrado}
     \endentry
     \entry{Murphy2022}{book}{}{}
       \name{author}{1}{}{%
@@ -1322,37 +1377,6 @@
       \endverb
       \keyw{Artificial intelligence,Fraud prevention,Machine learning,Deep learning}
     \endentry
-    \entry{Bishop2006}{book}{}{}
-      \name{author}{1}{}{%
-        {{hash=9dfd0135a5e80aa6d81cea2c10fb7f73}{%
-           family={Bishop},
-           familyi={B\bibinitperiod},
-           given={Christopher\bibnamedelima M.},
-           giveni={C\bibinitperiod\bibinitdelim M\bibinitperiod}}}%
-      }
-      \list{publisher}{1}{%
-        {Springer-Verlag New York}%
-      }
-      \strng{namehash}{9dfd0135a5e80aa6d81cea2c10fb7f73}
-      \strng{fullhash}{9dfd0135a5e80aa6d81cea2c10fb7f73}
-      \strng{fullhashraw}{9dfd0135a5e80aa6d81cea2c10fb7f73}
-      \strng{bibnamehash}{9dfd0135a5e80aa6d81cea2c10fb7f73}
-      \strng{authorbibnamehash}{9dfd0135a5e80aa6d81cea2c10fb7f73}
-      \strng{authornamehash}{9dfd0135a5e80aa6d81cea2c10fb7f73}
-      \strng{authorfullhash}{9dfd0135a5e80aa6d81cea2c10fb7f73}
-      \strng{authorfullhashraw}{9dfd0135a5e80aa6d81cea2c10fb7f73}
-      \field{sortinit}{B}
-      \field{sortinithash}{d7095fff47cda75ca2589920aae98399}
-      \field{extradatescope}{labelyear}
-      \field{labeldatesource}{}
-      \true{uniqueprimaryauthor}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{title}
-      \field{isbn}{978-0387310732}
-      \field{title}{Pattern Recognition and Machine Learning}
-      \field{year}{2006}
-      \keyw{Pattern Recognition,Machine Learning,Bayesian Methods,Graphical Models}
-    \endentry
     \entry{Breiman2001}{article}{}{}
       \name{author}{1}{}{%
         {{hash=132b7100417675d55d5d4d8b244f7a34}{%
@@ -1437,9 +1461,10 @@
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{journaltitle}{Information Fusion}
+      \field{note}{Publicado online en 2017, impreso en 2018}
       \field{title}{SCARFF: a scalable framework for streaming credit card fraud detection with Spark}
       \field{volume}{41}
-      \field{year}{2018}
+      \field{year}{2017}
       \field{pages}{182\bibrangedash 194}
       \range{pages}{13}
       \verb{doi}
@@ -1846,35 +1871,33 @@
       \endverb
       \keyw{Financial fraud,Machine learning,Fraud detection,Data analytics}
     \endentry
-    \entry{Hernandez2014}{book}{}{}
-      \name{author}{3}{}{%
-        {{hash=82531f0c5173ef965e84d101f98cbf0a}{%
-           family={Hernández\bibnamedelima Sampieri},
-           familyi={H\bibinitperiod\bibinitdelim S\bibinitperiod},
+    \entry{Hernandez2018}{book}{}{}
+      \name{author}{2}{}{%
+        {{hash=14430b76cb0a2926c90bb6f77b8e3cb3}{%
+           family={Hernández-Sampieri},
+           familyi={H\bibinithyphendelim S\bibinitperiod},
            given={Roberto},
            giveni={R\bibinitperiod}}}%
-        {{hash=cda946b44fb9851bceae7fa35c71abde}{%
-           family={Fernández\bibnamedelima Collado},
-           familyi={F\bibinitperiod\bibinitdelim C\bibinitperiod},
-           given={Carlos},
-           giveni={C\bibinitperiod}}}%
-        {{hash=e67f16b384bc1fe62a43f4d1073ebb44}{%
-           family={Baptista\bibnamedelima Lucio},
-           familyi={B\bibinitperiod\bibinitdelim L\bibinitperiod},
-           given={María\bibnamedelimb del\bibnamedelima Pilar},
-           giveni={M\bibinitperiod\bibinitdelim d\bibinitperiod\bibinitdelim P\bibinitperiod}}}%
+        {{hash=734c74b1d9b92cbfd72b68543087b885}{%
+           family={Mendoza\bibnamedelima Torres},
+           familyi={M\bibinitperiod\bibinitdelim T\bibinitperiod},
+           given={Christian\bibnamedelima Paulina},
+           giveni={C\bibinitperiod\bibinitdelim P\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {Ciudad de México, México}%
       }
       \list{publisher}{1}{%
-        {McGraw-Hill Education}%
+        {McGraw Hill Education}%
       }
-      \strng{namehash}{7c7c2f335ff7edc16815d4abaab9b7e7}
-      \strng{fullhash}{72b254a247d6eeab41104dbf1bc2d335}
-      \strng{fullhashraw}{72b254a247d6eeab41104dbf1bc2d335}
-      \strng{bibnamehash}{72b254a247d6eeab41104dbf1bc2d335}
-      \strng{authorbibnamehash}{72b254a247d6eeab41104dbf1bc2d335}
-      \strng{authornamehash}{7c7c2f335ff7edc16815d4abaab9b7e7}
-      \strng{authorfullhash}{72b254a247d6eeab41104dbf1bc2d335}
-      \strng{authorfullhashraw}{72b254a247d6eeab41104dbf1bc2d335}
+      \strng{namehash}{0bb7b39b263c5ee22275a06db66ae889}
+      \strng{fullhash}{0bb7b39b263c5ee22275a06db66ae889}
+      \strng{fullhashraw}{0bb7b39b263c5ee22275a06db66ae889}
+      \strng{bibnamehash}{0bb7b39b263c5ee22275a06db66ae889}
+      \strng{authorbibnamehash}{0bb7b39b263c5ee22275a06db66ae889}
+      \strng{authornamehash}{0bb7b39b263c5ee22275a06db66ae889}
+      \strng{authorfullhash}{0bb7b39b263c5ee22275a06db66ae889}
+      \strng{authorfullhashraw}{0bb7b39b263c5ee22275a06db66ae889}
       \field{sortinit}{H}
       \field{sortinithash}{23a3aa7c24e56cfa16945d55545109b5}
       \field{extradatescope}{labelyear}
@@ -1882,11 +1905,61 @@
       \true{uniqueprimaryauthor}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
-      \field{edition}{6}
-      \field{isbn}{978-1456223960}
-      \field{title}{Metodología de la Investigación}
-      \field{year}{2014}
-      \keyw{Metodología de investigación,Métodos cuantitativos,Diseño de investigación}
+      \field{edition}{1}
+      \field{isbn}{978-1-4562-6096-5}
+      \field{note}{Nueva obra que sustituye a las 6 ediciones previas publicadas durante 28 años. Incluye 17 capítulos agrupados en 6 partes}
+      \field{title}{Metodología de la Investigación: Las rutas cuantitativa, cualitativa y mixta}
+      \field{year}{2018}
+      \field{pages}{714}
+      \range{pages}{1}
+      \keyw{Metodología de investigación,Métodos cuantitativos,Métodos cualitativos,Métodos mixtos,Diseño de investigación}
+    \endentry
+    \entry{James2021}{book}{}{}
+      \name{author}{4}{}{%
+        {{hash=df184c5fa522ac8a515ec4de13aef234}{%
+           family={James},
+           familyi={J\bibinitperiod},
+           given={Gareth},
+           giveni={G\bibinitperiod}}}%
+        {{hash=1ab16961e0de50711fa6bd9425f9b4a6}{%
+           family={Witten},
+           familyi={W\bibinitperiod},
+           given={Daniela},
+           giveni={D\bibinitperiod}}}%
+        {{hash=0cb8fe4210baa81c4b0e67913b4d2768}{%
+           family={Hastie},
+           familyi={H\bibinitperiod},
+           given={Trevor},
+           giveni={T\bibinitperiod}}}%
+        {{hash=88eea600247d798f8b2ce0b2dc614492}{%
+           family={Tibshirani},
+           familyi={T\bibinitperiod},
+           given={Robert},
+           giveni={R\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Springer}%
+      }
+      \strng{namehash}{f8f737f83d9e451c1afaa13cdc120516}
+      \strng{fullhash}{da61646157a6be769f34984f5cb603b0}
+      \strng{fullhashraw}{da61646157a6be769f34984f5cb603b0}
+      \strng{bibnamehash}{da61646157a6be769f34984f5cb603b0}
+      \strng{authorbibnamehash}{da61646157a6be769f34984f5cb603b0}
+      \strng{authornamehash}{f8f737f83d9e451c1afaa13cdc120516}
+      \strng{authorfullhash}{da61646157a6be769f34984f5cb603b0}
+      \strng{authorfullhashraw}{da61646157a6be769f34984f5cb603b0}
+      \field{sortinit}{J}
+      \field{sortinithash}{b2f54a9081ace9966a7cb9413811edb4}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{edition}{2}
+      \field{isbn}{978-1071614174}
+      \field{title}{An Introduction to Statistical Learning: with Applications in R}
+      \field{year}{2021}
+      \keyw{Statistical learning,Random Forest,Cross-validation,Ensemble methods,R programming}
     \endentry
     \entry{Lucas2019}{thesis}{}{}
       \name{author}{1}{}{%
@@ -1921,6 +1994,43 @@
       \field{type}{phdthesis}
       \field{year}{2019}
       \keyw{Credit card fraud,Machine learning,Sequential datasets,Contextual knowledge}
+    \endentry
+    \entry{Martinez2020}{book}{}{}
+      \name{author}{1}{}{%
+        {{hash=566f7568c850ef75ea315ce9c97c4947}{%
+           family={Martínez},
+           familyi={M\bibinitperiod},
+           given={Rosario},
+           giveni={R\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {Saarbrücken, Alemania}%
+      }
+      \list{publisher}{1}{%
+        {Editorial Académica Española}%
+      }
+      \strng{namehash}{566f7568c850ef75ea315ce9c97c4947}
+      \strng{fullhash}{566f7568c850ef75ea315ce9c97c4947}
+      \strng{fullhashraw}{566f7568c850ef75ea315ce9c97c4947}
+      \strng{bibnamehash}{566f7568c850ef75ea315ce9c97c4947}
+      \strng{authorbibnamehash}{566f7568c850ef75ea315ce9c97c4947}
+      \strng{authornamehash}{566f7568c850ef75ea315ce9c97c4947}
+      \strng{authorfullhash}{566f7568c850ef75ea315ce9c97c4947}
+      \strng{authorfullhashraw}{566f7568c850ef75ea315ce9c97c4947}
+      \field{sortinit}{M}
+      \field{sortinithash}{4625c616857f13d17ce56f7d4f97d451}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{isbn}{978-6202251884}
+      \field{note}{Método AQP (Adónde-Quiénes-Problema) y CCA (Causas-Consecuencias-Aporte) para estructurar investigaciones de grado y postgrado}
+      \field{title}{Los 3 secretos detrás de una tesis: Método AQP/CCA para elaboración de tesis de grado y postgrado}
+      \field{year}{2020}
+      \field{pages}{124}
+      \range{pages}{1}
+      \keyw{Metodología de tesis,Matriz de consistencia,AQP,CCA,Estructura de investigación,Tesis de postgrado}
     \endentry
     \entry{Murphy2022}{book}{}{}
       \name{author}{1}{}{%

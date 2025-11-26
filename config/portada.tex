@@ -1,49 +1,62 @@
 % ==================================================================================
-% PORTADA DE LA TESIS
+% PORTADA DE LA TESIS - ESTILO UAGRM
+% Basado en formato oficial de la universidad
 % ==================================================================================
 
 \begin{titlepage}
     \centering
 
-    % Logo de la universidad (descomentar cuando tengas el logo)
-    % \includegraphics[width=0.2\textwidth]{logos/logo_uagrm.png}\\[0.5cm]
-
+    % Encabezado institucional
     \vspace*{0.5cm}
 
-    % Nombre de la universidad
-    {\Large\textbf{\MakeUppercase{\universidad}}}\\[0.2cm]
-    {\Large\textbf{\MakeUppercase{\facultad}}}\\[0.2cm]
-    {\large\textbf{\MakeUppercase{\unidadposgrado}}}\\[0.2cm]
-    {\large\textbf{\MakeUppercase{\programa}}}\\
+    {\fontsize{14}{16}\selectfont\textbf{UNIVERSIDAD AUTÓNOMA ``GABRIEL RENE MORENO''}}\\[0.2cm]
+    {\fontsize{12}{14}\selectfont\textbf{FACULTAD DE INGENIERÍA EN CIENCIAS DE LA}}\\[0.1cm]
+    {\fontsize{12}{14}\selectfont\textbf{COMPUTACIÓN Y TELECOMUNICACIONES}}\\[0.5cm]
 
-    \vspace{2.5cm}
+    % Sección con logo y título institucional en inglés
+    {\fontsize{12}{14}\selectfont\textbf{``UAGRM SCHOOL OF ENGINEERING''}}\\[-0.2cm]
 
-    % Título de la tesis
-    {\LARGE\textbf{\MakeUppercase{\titulotesis}}}\\
+    % Logo horizontal de School of Engineering
+    \includegraphics[width=0.90\textwidth]{imagenes/logos/logo-SOE-horizontal.png}\\[-0.3cm]
 
-    \vspace{2cm}
+    % Nombre del programa
+    {\fontsize{12}{14}\selectfont\textbf{MAESTRÍA EN DIRECCIÓN ESTRATÉGICA EN INGENIERÍA DE}}\\[0.1cm]
+    {\fontsize{12}{14}\selectfont\textbf{SOFTWARE}}\\[1.2cm]
+
+    % Título de la tesis (ajustado para evitar desbordamiento)
+    \begin{minipage}{0.9\textwidth}
+        \centering
+        {\fontsize{13}{15}\selectfont\bfseries ``IMPLEMENTACIÓN DE UN MODELO DE MACHINE LEARNING PARA LA DETECCIÓN DE ANOMALÍAS Y FRAUDE EN PAGOS TRANSACCIONALES EN LA EMPRESA TECHSPORT''}
+    \end{minipage}
+
+    \vspace{1.2cm}
 
     % Tipo de trabajo
-    {\large \tipotesis\ presentada para obtener el grado académico de\\[0.5cm]
-    \textbf{\gradoacademico}}\\
+    \begin{minipage}{0.85\textwidth}
+        \centering
+        {\fontsize{11}{13}\selectfont TRABAJO FINAL DE GRADO BAJO LA MODALIDAD DE TESIS PARA OPTAR}\\[0.1cm]
+        {\fontsize{11}{13}\selectfont AL TÍTULO DE MAESTRO EN CIENCIAS}
+    \end{minipage}
 
-    \vspace{2cm}
+    \vspace{1.5cm}
 
     % Autor
-    {\large\textbf{Presentado por:}}\\[0.3cm]
-    {\large \nombreautor}\\[0.5cm]
+    \begin{flushleft}
+        \hspace{5cm}\textbf{AUTOR:}\\
+        \hspace{5cm}Ing. Adan Condori Callisaya
+    \end{flushleft}
 
-    \vspace{0.5cm}
-
-    % Tutor
-    {\large\textbf{Tutor:}}\\[0.3cm]
-    {\large \nombretutor, \titulotutor}\\
+    % Director del trabajo
+    \begin{flushleft}
+        \hspace{5cm}\textbf{DIRECTOR DE TRABAJO FINAL DE GRADO:}\\
+        \hspace{5cm}\nombretutor
+    \end{flushleft}
 
     \vfill
 
     % Ubicación y fecha
-    {\large \ciudad, \pais}\\
-    {\large \mes\ de \anio}
+    {\fontsize{11}{13}\selectfont Santa Cruz, Bolivia}\\
+    {\fontsize{11}{13}\selectfont \mes, \anio}
 
 \end{titlepage}
 

@@ -5,7 +5,8 @@
 % Codificación y fuentes
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
-\usepackage{lmodern}
+% Times New Roman (recomendado por Sampieri y APA 7)
+\usepackage{newtxtext,newtxmath}
 
 % Idioma español
 \usepackage[spanish,es-tabla,es-nodecimaldot]{babel}
@@ -22,9 +23,9 @@
     headheight=16pt
 ]{geometry}
 
-% Interlineado
+% Interlineado según normas UAGRM
 \usepackage{setspace}
-\onehalfspacing  % 1.5 de interlineado
+\setstretch{1.5}  % Interlineado 1.5 líneas (~0.64cm de espaciado)
 
 % Enlaces e hipervínculos
 \usepackage[hidelinks,colorlinks=true,linkcolor=black,citecolor=blue,urlcolor=blue]{hyperref}
@@ -67,6 +68,9 @@
 ]{biblatex}
 \DeclareLanguageMapping{spanish}{spanish-apa}
 \addbibresource{bibliografia/referencias.bib}
+
+% Sangría francesa en referencias (APA 7: 1.27cm = 0.5 pulgadas)
+\setlength{\bibhang}{1.27cm}
 
 % Código fuente
 \usepackage{listings}

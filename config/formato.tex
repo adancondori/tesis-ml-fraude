@@ -18,12 +18,12 @@
 }
 
 % ==================== FORMATO DE TÍTULOS ====================
-% Capítulos
-\titleformat{\chapter}[display]
-    {\normalfont\huge\bfseries}
-    {\chaptertitlename\ \thechapter}
-    {20pt}
-    {\Huge}
+% Capítulos - Centrado y en MAYÚSCULAS en UNA SOLA LÍNEA (requisito UAGRM)
+\titleformat{\chapter}[block]
+    {\normalfont\Large\bfseries\centering}
+    {\MakeUppercase{\chaptertitlename\ \thechapter.}}
+    {0.5em}
+    {\MakeUppercase}
 \titlespacing*{\chapter}{0pt}{-20pt}{40pt}
 
 % Secciones
@@ -93,24 +93,47 @@
 \newtheorem{example}{Ejemplo}[chapter]
 \newtheorem{remark}{Observación}[chapter]
 
-% ==================== FORMATO DE CAPTIONS ====================
+% ==================== FORMATO DE CAPTIONS (NORMAS UAGRM) ====================
+% Configuración global de captions
 \captionsetup{
-    font=small,
-    labelfont=bf,
+    font={stretch=1.5},       % Interlineado 1.5 dentro de captions
+    labelfont=bf,             % Etiqueta en negrita
     format=plain,
     justification=centering
 }
 
+% FIGURAS: Caption ARRIBA según UAGRM
 \captionsetup[figure]{
     name=Figura,
-    labelsep=period
+    labelsep=period,
+    position=top,             % Caption arriba (requisito UAGRM)
+    font=normalsize           % Tamaño 12pt
 }
 
+% TABLAS: Caption ARRIBA según UAGRM
 \captionsetup[table]{
     name=Tabla,
     labelsep=period,
-    position=top
+    position=top,             % Caption arriba (requisito UAGRM)
+    font=normalsize           % Tamaño 12pt
 }
+
+% ==================== COMANDOS REUTILIZABLES DRY ====================
+% Comando para agregar FUENTE debajo de tablas/figuras (requisito UAGRM)
+% Uso: \fuente{Elaboración propia} o \fuente{Autor, año}
+\newcommand{\fuente}[1]{%
+    \vspace{-0.3cm}%
+    \begin{flushleft}%
+        \small\textit{Fuente:} #1%
+    \end{flushleft}%
+}
+
+% Comando para interlineado específico en tablas (UAGRM: 1.5)
+\newcommand{\tablainterlineado}{\setstretch{1.5}}
+
+% Atajo para tablas pequeñas (tamaño 10pt según UAGRM)
+\newcommand{\iniciotabla}{\small\tablainterlineado}
+\newcommand{\fintabla}{\normalsize}
 
 % ==================== FORMATO DEL ÍNDICE ====================
 \renewcommand{\contentsname}{Índice General}
@@ -120,6 +143,16 @@
 \renewcommand{\appendixname}{Apéndice}
 \renewcommand{\appendixpagename}{Apéndices}
 \renewcommand{\appendixtocname}{Apéndices}
+
+% Capítulos en MAYÚSCULAS en el índice (UAGRM)
+% Inicia con "CAPÍTULO", luego main.tex cambia a "APÉNDICE" con \addtocontents
+\renewcommand{\cftchappresnum}{CAPÍTULO\ }
+\renewcommand{\cftchapaftersnum}{.}
+\renewcommand{\cftchapfont}{\bfseries\MakeUppercase}
+\renewcommand{\cftchappagefont}{\bfseries}
+\setlength{\cftchapnumwidth}{7.5em}  % Espacio para "CAPÍTULO X." o "APÉNDICE A."
+\renewcommand{\cftdot}{.}  % Puntos guía
+\renewcommand{\cftchapleader}{\cftdotfill{\cftdotsep}}  % Puntos hasta número de página
 
 % Espaciado en el índice
 \setlength{\cftbeforechapskip}{0.5em}

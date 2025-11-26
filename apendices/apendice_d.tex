@@ -1,0 +1,615 @@
+% ==================================================================================
+% APÉNDICE D: MATRICES METODOLÓGICAS
+% Matriz de Consistencia y Matriz de Operacionalización de Variables
+% ==================================================================================
+
+\chapter{Matrices Metodológicas}
+\label{apendice:matrices}
+
+Este apéndice presenta dos instrumentos metodológicos fundamentales que garantizan la coherencia interna de la investigación: (i) la Matriz de Consistencia, que verifica la alineación lógica entre problema, objetivos, hipótesis, variables y metodología; y (ii) la Matriz de Operacionalización de Variables, que traduce conceptos abstractos en indicadores medibles mediante instrumentos específicos. Ambas matrices fueron desarrolladas siguiendo el método AQP/CCA propuesto por \textcite{Martinez2020} y la metodología de investigación cuantitativa de \textcite{Hernandez2018}.
+
+% ==================================================================================
+% SECCIÓN 1: MATRIZ DE CONSISTENCIA
+% ==================================================================================
+
+\section{Matriz de Consistencia Metodológica}
+\label{sec:matriz-consistencia}
+
+La matriz de consistencia es un instrumento metodológico que permite visualizar la coherencia lógica entre los elementos fundamentales de la investigación. Según \textcite{Martinez2020}, esta matriz integra el método AQP (Adónde-Quiénes-Problema) para identificar el contexto de estudio y el método CCA (Causas-Consecuencias-Aporte) para estructurar la solución propuesta.
+
+\subsection{Método AQP: Contexto de la Investigación}
+
+El método AQP permite identificar con precisión el lugar de estudio, los sujetos u objetos de análisis, y el problema central que motiva la investigación.
+
+\begin{table}[H]
+\centering
+\caption{Método AQP aplicado a la investigación}
+\label{tab:metodo-aqp}
+\begin{tabular}{@{}p{3cm}p{12cm}@{}}
+\toprule
+\textbf{Componente} & \textbf{Descripción} \\
+\midrule
+\textbf{A - ADÓNDE} & \\
+(Lugar de estudio) & \textbf{Empresa:} TechSport, plataforma SaaS especializada en gestión de instalaciones deportivas de raqueta \\
+& \textbf{Ubicación:} Miami, Florida, Estados Unidos \\
+& \textbf{Operación:} Procesamiento de pagos digitales multicanal mediante 10+ gateways integrados (Stripe, CardConnect, Kushki, AzulPay, RazorPay, BAC) \\
+& \textbf{Alcance internacional:} Transacciones procesadas en múltiples países \\
+\midrule
+\textbf{Q - QUIÉNES} & \\
+(Objeto de estudio) & \textbf{Unidad de análisis:} Transacciones de pago digitales \\
+& \textbf{Periodo:} Gestión 2025 (12 meses completos) \\
+& \textbf{Volumen:} 15,671,512 transacciones procesadas \\
+& \textbf{Tipos:} Reservas deportivas, membresías, clínicas, cargos recurrentes, one-time payments \\
+& \textbf{Canales:} Web, aplicación móvil, puntos de venta (POS) \\
+\midrule
+\textbf{P - PROBLEMA} & \\
+(Variable madre) & \textbf{Transacciones fraudulentas y anómalas NO detectadas oportunamente} \\
+& \\
+& El sistema actual de TechSport basado en reglas estáticas presenta limitaciones estructurales que impiden la detección temprana de fraudes, generando: \\
+& \quad • Detección post-mortem (identificación mediante chargebacks tardíos) \\
+& \quad • Alta tasa de falsos positivos (rechazos incorrectos de pagos legítimos) \\
+& \quad • Imposibilidad de aprendizaje continuo ante nuevos patrones \\
+& \quad • Fragmentación de análisis entre múltiples gateways \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Método CCA: Estructura de la Solución}
+
+El método CCA analiza las causas del problema, proyecta las consecuencias de no resolverlo, y propone el aporte o solución fundamentada.
+
+\begin{table}[H]
+\centering
+\caption{Método CCA aplicado a la investigación}
+\label{tab:metodo-cca}
+\begin{tabular}{@{}p{3cm}p{12cm}@{}}
+\toprule
+\textbf{Componente} & \textbf{Descripción} \\
+\midrule
+\textbf{C - CAUSAS} & \\
+(Origen del problema) & ¿Por qué TechSport NO detecta eficazmente fraude en pagos transaccionales? \\
+& \\
+& \textbf{Causas técnicas identificadas:} \\
+& \quad 1. Sistema basado en reglas estáticas que no aprenden nuevos patrones \\
+& \quad 2. Ausencia de modelos predictivos de Machine Learning \\
+& \quad 3. Falta de correlación cruzada entre gateways y canales \\
+& \quad 4. Detección reactiva (post-mortem) en lugar de preventiva \\
+& \quad 5. Actualización manual de reglas sin capacidad adaptativa \\
+& \quad 6. Arquitectura fragmentada sin scoring unificado de riesgo \\
+\midrule
+\textbf{C - CONSECUENCIAS} & \\
+(Impacto proyectado) & ¿Qué ocurriría si el problema persiste sin solución? \\
+& \\
+& \textbf{Consecuencias operacionales y financieras:} \\
+& \quad • Incremento sostenido de pérdidas económicas por fraude \\
+& \quad • Aumento de chargebacks y sanciones de procesadores de pago \\
+& \quad • Deterioro de la confianza de usuarios institucionales (clubes) \\
+& \quad • Riesgo de blacklist por parte de gateways internacionales \\
+& \quad • Costos operativos crecientes de revisión manual \\
+& \quad • Impacto negativo en la experiencia del usuario (falsos positivos) \\
+\midrule
+\textbf{A - APORTE} & \\
+(Solución propuesta) & \textbf{Implementación de modelo de Machine Learning supervisado} \\
+& \\
+& \textbf{Algoritmo principal:} Random Forest \\
+& \textbf{Dataset:} 15,671,512 transacciones (gestión 2025) \\
+& \textbf{Features:} 15+ variables comportamentales evitando data leakage \\
+& \textbf{Estrategia de validación:} División temporal (Train 50\%, Val 17\%, Test 33\%) \\
+& \textbf{Balanceo de clases:} SMOTE o class weights según distribución \\
+& \\
+& \textbf{Metas cuantificables del modelo:} \\
+& \quad • F1-Score $\geq$ 85\% \\
+& \quad • Recall $\geq$ 90\% (prioridad: detectar fraudes) \\
+& \quad • Precision $\geq$ 80\% (minimizar falsos positivos) \\
+& \quad • AUC-ROC $\geq$ 0.92 \\
+& \quad • Tiempo de inferencia < 200 milisegundos por transacción \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\newpage
+
+\subsection{Matriz de Consistencia Completa}
+
+La Tabla~\ref{tab:matriz-consistencia-completa} presenta la matriz de consistencia que integra problema general, objetivos, hipótesis, variables y metodología, garantizando coherencia lógica entre todos los elementos de la investigación.
+
+\begin{landscape}
+
+\begin{longtable}{|p{3.5cm}|p{4cm}|p{4cm}|p{3cm}|p{3cm}|}
+\caption{Matriz de Consistencia Metodológica de la Investigación}
+\label{tab:matriz-consistencia-completa} \\
+\hline
+\rowcolor{gray!30}
+\textbf{PROBLEMAS} &
+\textbf{OBJETIVOS} &
+\textbf{HIPÓTESIS} &
+\textbf{VARIABLES} &
+\textbf{METODOLOGÍA} \\
+\hline
+\endfirsthead
+
+\multicolumn{5}{c}%
+{\tablename\ \thetable\ -- \textit{Continuación de la página anterior}} \\
+\hline
+\rowcolor{gray!30}
+\textbf{PROBLEMAS} &
+\textbf{OBJETIVOS} &
+\textbf{HIPÓTESIS} &
+\textbf{VARIABLES} &
+\textbf{METODOLOGÍA} \\
+\hline
+\endhead
+
+\hline \multicolumn{5}{r}{\textit{Continúa en la siguiente página}} \\
+\endfoot
+
+\hline
+\endlastfoot
+
+% PROBLEMA GENERAL Y OBJETIVO GENERAL
+\rowcolor{gray!10}
+\textbf{PROBLEMA GENERAL} &
+\textbf{OBJETIVO GENERAL} &
+\textbf{HIPÓTESIS GENERAL} &
+\textbf{V. INDEPENDIENTE} &
+\textbf{DISEÑO} \\
+\hline
+
+¿Cómo mejorar la detección de transacciones fraudulentas y anómalas en pagos digitales de la empresa TechSport durante la gestión 2025? &
+
+Implementar un modelo de Machine Learning supervisado basado en Random Forest para la detección de transacciones fraudulentas y anómalas en pagos digitales, mediante el análisis de datos históricos (15,671,512 transacciones de gestión 2025), feature engineering evitando data leakage, balanceo de clases adaptativo y validación temporal (Train 50\%, Validation 17\%, Test 33\%), logrando un F1-Score $\geq$ 85\%, Recall $\geq$ 90\% y Precision $\geq$ 80\%, demostrando desempeño comparable o superior a benchmarks reportados en literatura científica, en la empresa TechSport. &
+
+La implementación de un modelo de Machine Learning supervisado basado en Random Forest alcanza un F1-Score mínimo del 85\%, con Recall $\geq$ 90\% y Precision $\geq$ 80\%, en la detección de transacciones fraudulentas y anómalas del test set temporal independiente (33\% del dataset de gestión 2025 = 5,171,599 transacciones de Sep-Dic 2025) de TechSport, demostrando desempeño comparable o superior a benchmarks reportados en literatura científica (F1-Scores de 85-94\%) y manteniendo un tiempo de inferencia inferior a 200 milisegundos por transacción. &
+
+\textbf{VI:} Modelo de Machine Learning implementado
+
+\textbf{Indicadores:}
+\begin{itemize}
+\item Algoritmo: Random Forest
+\item Hiperparámetros optimizados
+\item F1-Score $\geq$ 85\%
+\item Recall $\geq$ 90\%
+\item Precision $\geq$ 80\%
+\item Tiempo inferencia < 200ms
+\end{itemize} &
+
+\textbf{Tipo:} Aplicada-tecnológica
+
+\textbf{Enfoque:} Cuantitativo
+
+\textbf{Diseño:} Cuasiexperimental retrospectivo
+
+\textbf{Alcance:} Descriptivo-correlacional-comparativo \\
+\hline
+
+% PROBLEMAS ESPECÍFICOS
+\rowcolor{gray!10}
+\textbf{PROBLEMAS ESPECÍFICOS} &
+\textbf{OBJETIVOS ESPECÍFICOS} &
+\textbf{HIPÓTESIS ESPECÍFICAS} &
+\textbf{V. DEPENDIENTE} &
+\textbf{TÉCNICAS} \\
+\hline
+
+\textbf{PE1:} ¿Cuáles son los fundamentos teóricos de los modelos de ML supervisados aplicados a detección de fraude en pagos digitales según literatura 2020-2025? &
+
+\textbf{OE1:} Fundamentar teóricamente los modelos de Machine Learning supervisados aplicados a detección de fraude en pagos digitales, con énfasis en Random Forest y enfoques de ensemble learning, revisando la literatura científica del periodo 2020-2025, así como las métricas de evaluación de desempeño (Precision, Recall, F1-Score, AUC-ROC), técnicas de feature engineering y estrategias de balanceo de clases, para sustentar la base conceptual y técnica de la investigación. &
+
+\textbf{HE1:} La revisión de literatura científica del periodo 2020-2025 valida que los modelos de Machine Learning supervisados, particularmente los enfoques de ensemble learning como Random Forest, constituyen un marco teórico-técnico respaldado por al menos 20 estudios científicos para la detección de fraude en pagos digitales, reportando F1-Scores entre 85-94\% y superando las limitaciones de sistemas basados en reglas estáticas en términos de adaptabilidad, precisión y escalabilidad. &
+
+\textbf{VD:} Transacciones fraudulentas y anómalas
+
+\textbf{Indicadores:}
+\begin{itemize}
+\item Tasa de fraude (\%)
+\item Pérdidas económicas (USD)
+\item Precision del modelo (\%)
+\item Recall del modelo (\%)
+\item F1-Score
+\item AUC-ROC
+\item Tasa de falsos positivos (FPR)
+\item Tasa de falsos negativos (FNR)
+\end{itemize} &
+
+\textbf{Técnicas:}
+\begin{itemize}
+\item Revisión sistemática de literatura
+\item Análisis de 30+ artículos científicos
+\item Bases: IEEE, ACM, Scopus, Springer
+\item Periodo: 2020-2025
+\item Benchmarking de métricas reportadas
+\end{itemize} \\
+\hline
+
+\textbf{PE2:} ¿Cuál es la situación actual del sistema de detección de fraude de TechSport al analizar el dataset histórico de gestión 2025? &
+
+\textbf{OE2:} Diagnosticar la situación actual del sistema de detección de fraude de TechSport mediante análisis exploratorio del dataset histórico de gestión 2025, documentando el proceso de etiquetado de transacciones fraudulentas realizado por el equipo de contabilidad de la empresa y caracterizando los tres principales patrones de fraude presentes: (i) tarjetas robadas o clonadas, (ii) transacciones duplicadas sospechosas, y (iii) comportamientos anómalos de usuarios. &
+
+\textbf{HE2:} Se espera que el sistema actual de TechSport basado en reglas estáticas presente limitaciones operativas al analizar el dataset histórico de gestión 2025, evidenciadas por: (i) presencia de transacciones fraudulentas no detectadas oportunamente (identificadas post-mortem mediante chargebacks con retraso de 0-5 meses), (ii) necesidad de actualización manual constante de reglas sin capacidad de aprendizaje automático, y (iii) ausencia de correlación cruzada entre comportamientos en diferentes gateways y canales. El análisis exploratorio del dataset revelará al menos 3 patrones de fraude recurrentes que el sistema actual no detecta eficazmente. &
+
+\textbf{Variables Intervinientes:}
+\begin{itemize}
+\item Canal de pago (Web, App, POS)
+\item Tipo de transacción (Reserva, Membresía, Clínica, Recurrente, One-time)
+\item Gateway de pago (Stripe, CardConnect, Kushki, etc.)
+\item Volumen transaccional
+\item Geolocalización IP
+\end{itemize} &
+
+\textbf{Técnicas:}
+\begin{itemize}
+\item Análisis Exploratorio de Datos (EDA)
+\item Estadística descriptiva
+\item Visualizaciones (matplotlib, seaborn)
+\item Análisis de correlaciones
+\item Caracterización de patrones de fraude
+\item Documentación del proceso de etiquetado
+\end{itemize} \\
+\hline
+
+\textbf{PE3:} ¿Cómo desarrollar un modelo de ML que clasifique transacciones fraudulentas con alta precisión y recall? &
+
+\textbf{OE3:} Desarrollar e implementar un modelo de Machine Learning supervisado basado en Random Forest para la detección de transacciones fraudulentas y anómalas, mediante un pipeline que incluya: (i) preprocesamiento de 15,671,512 transacciones con manejo de valores faltantes y outliers, (ii) feature engineering de al menos 15 features comportamentales evitando data leakage, (iii) estrategia de balanceo de clases adaptativo (SMOTE o class weights según distribución), (iv) división temporal del dataset (Train 50\% Ene-Jun, Validation 17\% Jul-Ago, Test 33\% Sep-Dic 2025), y (v) optimización de hiperparámetros mediante Grid Search o Random Search. &
+
+\textbf{HE3:} Un modelo de Machine Learning supervisado basado en Random Forest, entrenado con dataset balanceado mediante SMOTE o class weights (según distribución de clases) y al menos 15 features de comportamiento transaccional (monto normalizado, frecuencia de transacciones del usuario previas, geolocalización IP, canal, gateway, velocidad transaccional, tiempo desde última transacción, hora del día, día de la semana, historial de chargebacks previo, ratio monto/promedio histórico del usuario), puede clasificar transacciones fraudulentas en el test set temporal independiente con un Recall mínimo del 90\%, Precision mínima del 80\% y AUC-ROC $\geq$ 0.92, evitando data leakage mediante el uso exclusivo de información histórica disponible al momento de la transacción (división temporal estricta). &
+
+\textbf{Métodos de medición:}
+\begin{itemize}
+\item Preprocesamiento de datos
+\item Feature engineering
+\item Validación temporal estratificada
+\item Optimización de hiperparámetros
+\item Serialización del modelo
+\end{itemize} &
+
+\textbf{Técnicas:}
+\begin{itemize}
+\item Pipeline de Machine Learning (scikit-learn)
+\item División temporal del dataset (50\%/17\%/33\%)
+\item SMOTE para balanceo de clases
+\item Grid Search / Random Search
+\item Validación cruzada estratificada
+\item Feature importance analysis
+\end{itemize} \\
+\hline
+
+\textbf{PE4:} ¿Qué nivel de efectividad presenta el modelo ML comparado con benchmarks de literatura científica? &
+
+\textbf{OE4:} Evaluar el desempeño del modelo de Machine Learning seleccionado mediante métricas de clasificación (Precision, Recall, F1-Score, AUC-ROC, tasa de falsos positivos, tiempo de inferencia) aplicadas sobre el test set temporal independiente (33\% del dataset total = 5,171,599 transacciones de Sep-Dic 2025), documentando el desempeño absoluto del modelo y comparándolo con benchmarks de la literatura científica, calculando intervalos de confianza del 95\% mediante bootstrap (1000 muestras) para validar la robustez de las métricas obtenidas. &
+
+\textbf{HE4:} El modelo de Machine Learning implementado alcanza un F1-Score de 85-90\% en el test set temporal independiente (33\% del dataset de gestión 2025 = 5,171,599 transacciones de Sep-Dic 2025), con Recall $\geq$ 90\%, Precision $\geq$ 80\% y AUC-ROC $\geq$ 0.92, demostrando desempeño comparable o superior a benchmarks reportados en literatura científica (F1-Scores de 85-94\% en contextos similares de detección de fraude con tarjetas de crédito). El modelo mantiene un tiempo de inferencia promedio inferior a 200 milisegundos por transacción, demostrando viabilidad técnica para potencial implementación en producción. Los intervalos de confianza del 95\% (calculados mediante bootstrap con 1000 muestras) confirman la robustez y estabilidad estadística de las métricas obtenidas. &
+
+\textbf{Instrumentos de evaluación:}
+\begin{itemize}
+\item Matriz de confusión
+\item Curva ROC
+\item Métricas de clasificación (scikit-learn)
+\item Bootstrap para intervalos de confianza
+\item Comparación con literatura científica
+\item Feature importance
+\item Tiempo de inferencia (ms)
+\end{itemize} &
+
+\textbf{Técnicas:}
+\begin{itemize}
+\item Evaluación sobre test set independiente
+\item Matriz de confusión
+\item Curva ROC y AUC
+\item Bootstrap (1000 muestras)
+\item Comparación con benchmarks (Hafez et al., 2025; Feng et al., 2024)
+\item Análisis de errores (falsos positivos/negativos)
+\item Medición de tiempo de inferencia
+\end{itemize} \\
+\hline
+
+\end{longtable}
+
+\end{landscape}
+
+\subsection{Población y Muestra}
+
+\textbf{Población:} Todas las transacciones de pago procesadas por TechSport en su plataforma multicanal durante la gestión 2025.
+
+\textbf{Características de la población:}
+\begin{itemize}
+    \item Tamaño poblacional: Aproximadamente 15,671,512 transacciones (gestión 2025)
+    \item Periodo: Gestión 2025 (12 meses completos)
+    \item Canales: Web, aplicación móvil, puntos de venta (POS)
+    \item Gateways: 10+ pasarelas de pago integradas (Stripe, CardConnect, Kushki, AzulPay, RazorPay, BAC, entre otros)
+    \item Tipos de transacción: Reservas deportivas, membresías, clínicas, cargos recurrentes, one-time payments
+\end{itemize}
+
+\textbf{Muestra:} Censo de transacciones históricas (NO es muestra probabilística).
+
+El estudio utiliza el 100\% de las transacciones procesadas durante la gestión 2025, constituyendo un censo completo en lugar de una muestra. Esta decisión metodológica se fundamenta en tres razones:
+
+\begin{enumerate}
+    \item \textbf{Disponibilidad total de datos:} Al tratarse de registros históricos digitales almacenados en base de datos ClickHouse, es posible acceder al universo completo de transacciones sin restricciones de costo o tiempo de recolección.
+
+    \item \textbf{Homogeneidad temporal:} El uso exclusivo de gestión 2025 garantiza homogeneidad temporal y evita problemas de data drift entre diferentes períodos, cumpliendo con las recomendaciones metodológicas de \textcite{Carcillo2018} para investigaciones en detección de fraude transaccional.
+
+    \item \textbf{Representatividad de clases desbalanceadas:} En problemas de detección de fraude, las transacciones fraudulentas representan típicamente menos del 1\% del total. Utilizar el censo completo maximiza el número absoluto de casos positivos (fraudes) disponibles para entrenamiento y evaluación del modelo, mejorando la robustez estadística de las métricas de desempeño.
+\end{enumerate}
+
+\textbf{División del dataset:}
+
+El dataset se divide mediante estrategia de validación temporal para simular condiciones reales de predicción sobre transacciones futuras:
+
+\begin{table}[H]
+\centering
+\caption{División temporal del dataset para entrenamiento y evaluación}
+\label{tab:division-dataset}
+\begin{tabular}{@{}lccc@{}}
+\toprule
+\textbf{Conjunto} & \textbf{Periodo 2025} & \textbf{Transacciones} & \textbf{\% Total} \\
+\midrule
+Train set & Enero - Junio & 7,835,756 & 50.0\% \\
+Validation set & Julio - Agosto & 2,664,157 & 17.0\% \\
+Test set & Septiembre - Diciembre & 5,171,599 & 33.0\% \\
+\midrule
+\textbf{Total} & \textbf{Gestión 2025 completa} & \textbf{15,671,512} & \textbf{100.0\%} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Esta división temporal garantiza que el modelo sea entrenado con transacciones pasadas (Ene-Jun) y evaluado sobre transacciones futuras no observadas durante el entrenamiento (Sep-Dic), evitando data leakage y permitiendo una estimación realista del desempeño del modelo en producción \parencite{Carcillo2018}.
+
+\newpage
+
+% ==================================================================================
+% SECCIÓN 2: MATRIZ DE OPERACIONALIZACIÓN DE VARIABLES
+% ==================================================================================
+
+\section{Matriz de Operacionalización de Variables}
+\label{sec:matriz-operacionalizacion}
+
+La operacionalización de variables es el proceso mediante el cual se transforman conceptos abstractos en elementos medibles y observables. Según \textcite{Hernandez2018}, este proceso es fundamental en investigaciones cuantitativas para garantizar la validez de constructo y la replicabilidad de los resultados. A continuación se presenta la operacionalización completa de las variables independiente y dependiente de la investigación.
+
+\subsection{Variable Dependiente: Transacciones Fraudulentas y Anómalas}
+
+\begin{table}[H]
+\centering
+\caption{Operacionalización de la Variable Dependiente}
+\label{tab:operacionalizacion-vd}
+\begin{tabular}{@{}p{4cm}p{11cm}@{}}
+\toprule
+\textbf{Elemento} & \textbf{Descripción} \\
+\midrule
+\textbf{Variable} & Transacciones fraudulentas y anómalas en pagos digitales \\
+\midrule
+\textbf{Tipo} & Dependiente (Variable Madre del método AQP - Problema) \\
+\midrule
+\textbf{Definición conceptual} & Conjunto de transacciones de pago procesadas por TechSport que presentan comportamientos sospechosos, patrones atípicos o características asociadas a actividad fraudulenta, que pueden resultar en pérdidas económicas, chargebacks o afectación de la seguridad financiera de la plataforma. \\
+\midrule
+\textbf{Definición operacional} & Transacciones clasificadas como fraudulentas o anómalas según el proceso de etiquetado realizado por el equipo de contabilidad de TechSport, basado en: (i) chargebacks confirmados por instituciones financieras, (ii) disputas resueltas como fraude, (iii) reportes de usuarios afectados verificados, y (iv) revisión manual de transacciones sospechosas. El tiempo de etiquetado varía entre 0 días (detección inmediata) hasta 5 meses después de la transacción (chargebacks tardíos). \\
+& \\
+& \textbf{Codificación binaria en dataset:} \\
+& • Clase 0 = Transacción legítima (no fraudulenta) \\
+& • Clase 1 = Transacción fraudulenta o anómala \\
+\midrule
+\textbf{Dimensiones} & \textbf{D1. Tipo de fraude detectado} \\
+& Clasificación de la transacción fraudulenta según el patrón identificado \\
+& \\
+& \textbf{D2. Severidad del fraude} \\
+& Impacto económico y nivel de riesgo de la transacción fraudulenta \\
+& \\
+& \textbf{D3. Canal de ocurrencia} \\
+& Medio o plataforma a través del cual se realizó la transacción fraudulenta \\
+\midrule
+\textbf{Indicadores} & \textbf{I1. Tasa de fraude real (\%)} \\
+& Proporción de transacciones fraudulentas sobre el total procesado \\
+& Fórmula: $\text{Tasa de fraude} = \frac{\text{Transacciones fraudulentas}}{\text{Total de transacciones}} \times 100$ \\
+& \\
+& \textbf{I2. Pérdidas económicas por fraude (USD)} \\
+& Monto total en dólares estadounidenses de transacciones fraudulentas consumadas \\
+& \\
+& \textbf{I3. Precision del modelo (\%)} \\
+& Proporción de predicciones positivas correctas sobre total de predicciones positivas \\
+& Fórmula: $\text{Precision} = \frac{TP}{TP + FP} \times 100$ \\
+& \\
+& \textbf{I4. Recall del modelo (\%)} \\
+& Proporción de fraudes reales detectados correctamente sobre el total de fraudes reales \\
+& Fórmula: $\text{Recall} = \frac{TP}{TP + FN} \times 100$ \\
+& \\
+& \textbf{I5. F1-Score} \\
+& Media armónica entre Precision y Recall, métrica de balance para clases desbalanceadas \\
+& Fórmula: $\text{F1-Score} = 2 \times \frac{\text{Precision} \times \text{Recall}}{\text{Precision} + \text{Recall}}$ \\
+& \\
+& \textbf{I6. AUC-ROC} \\
+& Área bajo la curva ROC, mide la capacidad discriminativa del modelo \\
+& Rango: [0, 1], donde 0.5 = clasificador aleatorio, 1.0 = clasificador perfecto \\
+& \\
+& \textbf{I7. Tasa de falsos positivos - FPR (\%)} \\
+& Proporción de transacciones legítimas incorrectamente clasificadas como fraude \\
+& Fórmula: $\text{FPR} = \frac{FP}{FP + TN} \times 100$ \\
+& \\
+& \textbf{I8. Tasa de falsos negativos - FNR (\%)} \\
+& Proporción de fraudes reales no detectados por el modelo \\
+& Fórmula: $\text{FNR} = \frac{FN}{FN + TP} \times 100$ \\
+\midrule
+\textbf{Instrumento de medición} & \textbf{Dataset histórico etiquetado} \\
+& Base de datos ClickHouse con 15,671,512 transacciones de gestión 2025 \\
+& Columna target: \texttt{is\_fraud} (binaria: 0/1) \\
+& \\
+& \textbf{Matriz de confusión} \\
+& Tabla de contingencia 2x2 con clasificaciones reales vs predichas \\
+& \\
+& \textbf{Métricas de clasificación (scikit-learn)} \\
+& Funciones: \texttt{precision\_score()}, \texttt{recall\_score()}, \texttt{f1\_score()}, \texttt{roc\_auc\_score()} \\
+\midrule
+\textbf{Escala de medición} & \textbf{Escala nominal} (para clasificación binaria fraude/no fraude) \\
+& \textbf{Escala de razón} (para indicadores cuantitativos: tasa de fraude, pérdidas USD, métricas de desempeño) \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\newpage
+
+\subsection{Variable Independiente: Modelo de Machine Learning Implementado}
+
+\begin{table}[H]
+\centering
+\caption{Operacionalización de la Variable Independiente}
+\label{tab:operacionalizacion-vi}
+\begin{tabular}{@{}p{4cm}p{11cm}@{}}
+\toprule
+\textbf{Elemento} & \textbf{Descripción} \\
+\midrule
+\textbf{Variable} & Modelo de Machine Learning implementado \\
+\midrule
+\textbf{Tipo} & Independiente (Solución propuesta - Aporte del método CCA) \\
+\midrule
+\textbf{Definición conceptual} & Algoritmo computacional basado en aprendizaje automático supervisado, capaz de analizar datos históricos de transacciones etiquetadas para identificar patrones asociados a fraude y predecir la probabilidad de que nuevas transacciones sean fraudulentas o legítimas. El modelo implementa técnicas de ensemble learning mediante Random Forest, que combina múltiples árboles de decisión para mejorar la precisión y robustez de las predicciones \parencite{Breiman2001}. \\
+\midrule
+\textbf{Definición operacional} & Modelo de clasificación binaria (Fraude/No Fraude) basado en Random Forest, entrenado con dataset histórico de TechSport (15,671,512 transacciones de gestión 2025, almacenadas en base de datos ClickHouse con columna target \texttt{is\_fraud}), que genera un score de riesgo (probabilidad de fraude en rango [0, 1]) para cada transacción y una clasificación final basada en un umbral optimizado mediante validación temporal. \\
+& \\
+& \textbf{Pipeline de implementación:} \\
+& 1. Preprocesamiento de datos (limpieza, imputación de faltantes, encoding categórico) \\
+& 2. Feature engineering (creación de 15+ variables comportamentales) \\
+& 3. División temporal del dataset (Train 50\%, Validation 17\%, Test 33\%) \\
+& 4. Balanceo de clases mediante SMOTE o class weights \\
+& 5. Entrenamiento de Random Forest con optimización de hiperparámetros \\
+& 6. Evaluación sobre test set temporal independiente \\
+\midrule
+\textbf{Dimensiones} & \textbf{D1. Tipo de algoritmo implementado} \\
+& Familia de algoritmo de Machine Learning seleccionado para la tarea de clasificación \\
+& \\
+& \textbf{D2. Estrategia de entrenamiento} \\
+& Metodología utilizada para entrenar y validar el modelo supervisado \\
+& \\
+& \textbf{D3. Features utilizadas} \\
+& Variables de entrada (features) empleadas para entrenar el modelo predictivo \\
+\midrule
+\textbf{Indicadores} & \textbf{I1. Algoritmo seleccionado} \\
+& Random Forest (principal), XGBoost y SVM (alternativos para comparación) \\
+& \\
+& \textbf{I2. Hiperparámetros optimizados} \\
+& • \texttt{max\_depth}: Profundidad máxima de cada árbol (rango 10-20) \\
+& • \texttt{n\_estimators}: Número de árboles en el ensemble (rango 100-500) \\
+& • \texttt{class\_weight}: Pesos de clases para balanceo ('balanced' o None) \\
+& • \texttt{min\_samples\_split}: Mínimo de muestras para dividir nodo interno (2-10) \\
+& • \texttt{min\_samples\_leaf}: Mínimo de muestras en nodo hoja (1-5) \\
+& \\
+& \textbf{I3. Balance del dataset} \\
+& Ratio de clases en conjunto de entrenamiento tras aplicar técnica de balanceo \\
+& Fórmula: $\text{Ratio} = \frac{\text{N° fraudes}}{\text{N° transacciones legítimas}}$ \\
+& \\
+& \textbf{I4. Error de entrenamiento (\%)} \\
+& Tasa de error de clasificación sobre el conjunto de entrenamiento \\
+& Fórmula: $\text{Error train} = (1 - \text{Accuracy train}) \times 100$ \\
+& \\
+& \textbf{I5. Error de validación (\%)} \\
+& Tasa de error de clasificación sobre el conjunto de validación \\
+& Fórmula: $\text{Error val} = (1 - \text{Accuracy val}) \times 100$ \\
+& \\
+& \textbf{I6. Tiempo de entrenamiento (minutos)} \\
+& Duración del proceso completo de entrenamiento del modelo en infraestructura AWS \\
+& \\
+& \textbf{I7. Tiempo de inferencia (milisegundos)} \\
+& Tiempo promedio requerido para clasificar una sola transacción \\
+& Meta: < 200 milisegundos para viabilidad en producción \\
+& \\
+& \textbf{I8. Tamaño del modelo serializado (MB)} \\
+& Espacio en disco requerido para almacenar el modelo entrenado (.pkl/.joblib) \\
+& \\
+& \textbf{I9. Número de features utilizadas} \\
+& Cantidad de variables de entrada empleadas por el modelo \\
+& Meta: $\geq$ 15 features comportamentales evitando data leakage \\
+\midrule
+\textbf{Instrumento de medición} & \textbf{Scripts Python con scikit-learn} \\
+& Código fuente desarrollado para entrenamiento, validación y evaluación del modelo \\
+& \\
+& \textbf{Logs de entrenamiento} \\
+& Archivos de log con métricas por época/iteración durante el entrenamiento \\
+& \\
+& \textbf{Modelo serializado (.pkl/.joblib)} \\
+& Archivo binario con el modelo entrenado listo para inferencia \\
+& \\
+& \textbf{Código versionado en GitHub} \\
+& Repositorio Git con control de versiones del código, notebooks y configuraciones \\
+\midrule
+\textbf{Escala de medición} & \textbf{Escala nominal} (para tipo de algoritmo: Random Forest, XGBoost, SVM) \\
+& \textbf{Escala de razón} (para indicadores cuantitativos: tiempo de entrenamiento, tiempo de inferencia, número de features, tamaño del modelo, errores de train/validation) \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\newpage
+
+\subsection{Variables Intervinientes}
+
+Además de las variables independiente y dependiente principales, la investigación identifica tres variables intervinientes que pueden influir en la relación entre el modelo de ML implementado y la efectividad de la detección de fraude:
+
+\begin{table}[H]
+\centering
+\caption{Variables Intervinientes de la Investigación}
+\label{tab:variables-intervinientes}
+\begin{tabular}{@{}p{4cm}p{11cm}@{}}
+\toprule
+\textbf{Variable Interviniente} & \textbf{Descripción y Control} \\
+\midrule
+\textbf{VI1: Canal de pago} & Canal digital a través del cual se realiza la transacción \\
+& \\
+& \textbf{Categorías:} \\
+& • Web (plataforma web de escritorio) \\
+& • Aplicación móvil (iOS y Android) \\
+& • POS (punto de venta físico con terminal) \\
+& \\
+& \textbf{Control en la investigación:} Esta variable se incluye como feature en el modelo de ML, permitiendo que el algoritmo aprenda patrones de fraude específicos de cada canal. \\
+\midrule
+\textbf{VI2: Tipo de transacción} & Categoría de servicio o producto adquirido mediante el pago digital \\
+& \\
+& \textbf{Categorías:} \\
+& • Reserva deportiva (booking de cancha/court) \\
+& • Membresía (suscripción mensual o anual) \\
+& • Clínica deportiva (evento o programa de entrenamiento) \\
+& • Cargo recurrente (pago automático periódico) \\
+& • One-time payment (pago único sin recurrencia) \\
+& \\
+& \textbf{Control en la investigación:} Esta variable se incluye como feature categórica en el modelo, ya que diferentes tipos de transacción pueden presentar distintos patrones de fraude. \\
+\midrule
+\textbf{VI3: Gateway de pago} & Pasarela de procesamiento de pagos utilizada para ejecutar la transacción \\
+& \\
+& \textbf{Categorías:} \\
+& • Stripe \\
+& • CardConnect \\
+& • Kushki \\
+& • AzulPay \\
+& • RazorPay \\
+& • BAC \\
+& • Otros (gateways adicionales integrados) \\
+& \\
+& \textbf{Control en la investigación:} Esta variable se incluye como feature en el modelo de ML, permitiendo detectar si ciertos gateways son más propensos a fraude debido a diferencias en sus mecanismos de validación internos. \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Síntesis de la Operacionalización}
+
+La operacionalización de variables permite traducir los conceptos abstractos de la investigación (fraude transaccional y modelo de Machine Learning) en elementos concretos medibles mediante instrumentos específicos. Esta matriz garantiza:
+
+\begin{itemize}
+    \item \textbf{Validez de constructo:} Los indicadores seleccionados representan adecuadamente los conceptos teóricos que se desea medir.
+
+    \item \textbf{Confiabilidad de la medición:} Las métricas de clasificación (Precision, Recall, F1-Score, AUC-ROC) son estándares internacionales ampliamente aceptados en la literatura científica \parencite{James2021}.
+
+    \item \textbf{Reproducibilidad:} La descripción detallada de indicadores, instrumentos y escalas de medición permite que otros investigadores repliquen el estudio en contextos similares.
+
+    \item \textbf{Coherencia metodológica:} Los indicadores definidos en esta matriz se corresponden directamente con las hipótesis específicas formuladas en la investigación, garantizando alineación lógica entre todos los elementos del diseño metodológico.
+\end{itemize}
+
+\section{Coherencia entre Matrices Metodológicas y Estructura de la Tesis}
+
+Las matrices presentadas en este apéndice mantienen correspondencia directa con la estructura de capítulos de la tesis:
+
+\begin{itemize}
+    \item \textbf{Capítulo 1 (Marco Teórico):} Desarrolla los fundamentos teóricos identificados en HE1 de la matriz de consistencia, revisando literatura científica 2020-2025 sobre modelos de ML supervisados para detección de fraude.
+
+    \item \textbf{Capítulo 2 (Diagnóstico):} Presenta el análisis exploratorio del dataset histórico de TechSport (HE2), caracterizando los tres patrones de fraude principales y documentando el proceso de etiquetado realizado por el equipo de contabilidad.
+
+    \item \textbf{Capítulo 3 (Propuesta y Validación):} Describe el desarrollo del modelo Random Forest (HE3) mediante el pipeline completo de preprocesamiento, feature engineering, balanceo de clases y optimización de hiperparámetros. Posteriormente, evalúa el desempeño del modelo sobre el test set temporal independiente (HE4), comparando los resultados con benchmarks de literatura científica.
+
+    \item \textbf{Capítulo 4 (Conclusiones):} Sintetiza el cumplimiento de objetivos específicos, valida las hipótesis planteadas mediante evidencia empírica, y responde al objetivo general de la investigación.
+\end{itemize}
+
+Esta alineación garantiza la coherencia metodológica requerida por las normas UAGRM y los principios de investigación cuantitativa de \textcite{Hernandez2018}.
