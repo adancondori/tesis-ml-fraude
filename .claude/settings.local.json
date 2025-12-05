@@ -19,7 +19,10 @@
       "Bash(make check:*)",
       "Bash(make clean:*)",
       "Bash(make pdf:*)",
-      "Bash(make stats:*)"
+      "Bash(make stats:*)",
+      "Bash(rm:*)",
+      "Bash(pdftotext:*)",
+      "Bash(mdls:*)"
     ],
     "deny": [],
     "ask": []

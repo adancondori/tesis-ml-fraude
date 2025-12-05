@@ -1,25 +1,64 @@
 % ==================================================================================
 % INTRODUCCIÓN
+% Redacción impersonal según Sampieri (2018)
 % ==================================================================================
 
 \chapter*{Introducción}
 \addcontentsline{toc}{chapter}{Introducción}
 \markboth{INTRODUCCIÓN}{INTRODUCCIÓN}
 
-La detección de fraude en pagos digitales constituye uno de los desafíos más críticos en la economía digital contemporánea. El crecimiento exponencial de las transacciones electrónicas, acompañado por la evolución constante de técnicas fraudulentas cada vez más sofisticadas, demanda sistemas de protección capaces de adaptarse dinámicamente a nuevas amenazas. Esta problemática no solo implica la protección de activos financieros, sino también la preservación de la confianza y la integridad de los ecosistemas de pago digital, elementos fundamentales para la sostenibilidad de las plataformas transaccionales modernas.
+% ---------------------------------------------------------------------------
+% PÁRRAFO 1: Contexto global del problema
+% ---------------------------------------------------------------------------
 
-A nivel global, las pérdidas económicas derivadas del fraude en pagos digitales alcanzan cifras alarmantes. Según \textcite{HernandezAros2024}, el crecimiento exponencial de las transacciones digitales ha generado un aumento proporcional en las actividades fraudulentas, requiriendo sistemas de detección más sofisticados que superen las limitaciones de los enfoques tradicionales basados en reglas estáticas. La literatura científica reciente evidencia que los modelos de aprendizaje automático (Machine Learning) ofrecen ventajas significativas en este contexto. Por ejemplo, \textcite{Hafez2025} demuestran que los modelos supervisados alcanzan F1-Scores entre 85\% y 94\% en la identificación de fraudes con tarjetas de crédito, superando sustancialmente el desempeño de sistemas basados en reglas predefinidas.
+El fraude transaccional en pagos digitales constituye uno de los desafíos más críticos para la economía digital contemporánea. El crecimiento exponencial de las transacciones electrónicas, acompañado por la evolución constante de técnicas fraudulentas cada vez más sofisticadas, demanda sistemas de protección capaces de adaptarse dinámicamente a nuevas amenazas. Según \textcite{HernandezAros2024}, el incremento proporcional de actividades fraudulentas requiere sistemas de detección que superen las limitaciones de los enfoques tradicionales basados en reglas estáticas. La literatura científica reciente evidencia que los modelos de Machine Learning supervisados ofrecen ventajas significativas en este contexto; \textcite{Hafez2025} demuestran que algoritmos como Random Forest alcanzan F1-Scores entre 85\% y 94\% en la identificación de fraudes, superando sustancialmente el desempeño de sistemas basados en reglas predefinidas.
 
-En América Latina, esta problemática se intensifica debido a la rápida adopción de pagos digitales sin el correspondiente fortalecimiento de los sistemas de seguridad. Las regiones emergentes enfrentan desafíos únicos relacionados con la diversidad de métodos de pago, patrones de comportamiento del consumidor heterogéneos y marcos regulatorios en proceso de consolidación. Por su parte, Estados Unidos, a pesar de contar con marcos regulatorios avanzados y tecnologías más maduras, enfrenta limitaciones derivadas del volumen masivo de transacciones procesadas diariamente y la creciente sofisticación de los ataques cibernéticos. El Marco de Ciberseguridad del NIST versión 2.0 \parencite{NIST2024} enfatiza que la ciberseguridad constituye una fuente importante de riesgo empresarial, proporcionando orientación específica para la protección de sistemas de pago críticos.
+% ---------------------------------------------------------------------------
+% PÁRRAFO 2: Contexto regional y normativo
+% ---------------------------------------------------------------------------
 
-En este contexto se ubica la empresa TechSport, plataforma SaaS internacional especializada en la gestión integral de instalaciones deportivas de raqueta, con operaciones en Miami, Florida. La compañía, que procesa más de 15 millones de transacciones anuales a través de múltiples pasarelas de pago y canales digitales, enfrenta desafíos significativos en la detección oportuna de transacciones fraudulentas. El sistema actual, basado en reglas estáticas, presenta limitaciones estructurales que dificultan la identificación proactiva de anomalías, generando tanto falsos positivos (rechazos incorrectos de pagos legítimos) como falsos negativos (fraudes no detectados oportunamente). Esta situación expone a la organización a pérdidas económicas directas, costos operativos elevados en la gestión reactiva de incidentes y deterioro potencial de la confianza de los usuarios.
+A nivel regional, esta problemática presenta características diferenciadas. En América Latina, la rápida adopción de pagos digitales sin el correspondiente fortalecimiento de sistemas de seguridad genera vulnerabilidades específicas relacionadas con la diversidad de métodos de pago y marcos regulatorios en consolidación. En Estados Unidos, a pesar de contar con tecnologías más maduras, el volumen masivo de transacciones y la sofisticación de ataques cibernéticos representan desafíos continuos. El Marco de Ciberseguridad del NIST versión 2.0 \parencite{NIST2024} enfatiza que la ciberseguridad constituye una fuente importante de riesgo empresarial, proporcionando orientación específica para la protección de sistemas de pago críticos mediante enfoques adaptativos.
 
-Los sistemas inteligentes aplicados a la detección de fraude representan una evolución natural en la protección de transacciones financieras digitales. La capacidad de procesar grandes volúmenes de datos transaccionales, identificar correlaciones no evidentes mediante análisis de patrones complejos y generar clasificaciones automatizadas constituye el núcleo de los sistemas cognitivos modernos. Este enfoque supera las limitaciones de los métodos tradicionales basados en reglas estáticas, incorporando capacidades de aprendizaje adaptativo que permiten mejorar continuamente la precisión de detección.
+% ---------------------------------------------------------------------------
+% PÁRRAFO 3: Contexto específico - TechSport (Delimitación espacial: Adónde)
+% ---------------------------------------------------------------------------
 
-El presente trabajo de investigación se enmarca en el Área 1.2 Sistemas Inteligentes de la Unidad de Postgrado en Ciencias de la Computación y Telecomunicaciones de la Universidad Autónoma Gabriel René Moreno, específicamente en la línea de investigación de Sistemas Cognitivos. El estudio aborda el desarrollo de un modelo de aprendizaje automático supervisado capaz de reconocer patrones complejos asociados a fraude transaccional y tomar decisiones automatizadas de clasificación en entornos de alta concurrencia.
+En este contexto se ubica TechSport Inc., plataforma SaaS (Software as a Service) internacional especializada en la gestión integral de instalaciones deportivas de raqueta, con sede principal en Miami, Florida, y operaciones en múltiples países de América y Europa. La compañía procesa más de 15,6 millones de transacciones anuales a través de una arquitectura tecnológica multicanal (Web, App Móvil, POS) integrada con más de diez pasarelas de pago internacionales, incluyendo Stripe, CardConnect, Kushki, AzulPay, RazorPay y BAC, entre otras.
 
-El objetivo de esta investigación consiste en implementar un modelo de Machine Learning supervisado para la detección de transacciones fraudulentas y anómalas en pagos digitales de la empresa TechSport. El estudio adopta un enfoque cuantitativo, de tipo aplicado y alcance descriptivo-correlacional, con diseño cuasiexperimental retrospectivo. Se utilizará un conjunto de datos históricos de 15.4 millones de transacciones correspondientes a la gestión 2025, aplicando técnicas de feature engineering, balanceo de clases y validación estratificada. El desempeño del modelo se evaluará mediante métricas estandarizadas (Precision, Recall, F1-Score, AUC-ROC), comparando los resultados obtenidos con benchmarks reportados en literatura científica internacional.
+% ---------------------------------------------------------------------------
+% PÁRRAFO 4: Descripción del problema (Variable Madre: Fraude Transaccional)
+% ---------------------------------------------------------------------------
 
-El documento se estructura de la siguiente manera: el perfil de investigación presenta los antecedentes, formulación del problema, objetivos, justificación e hipótesis; el Capítulo 1 desarrolla el marco teórico conceptual; el Capítulo 2 presenta el diagnóstico y análisis de resultados; el Capítulo 3 expone la propuesta de modelo y su validación; finalmente, se presentan conclusiones, recomendaciones y referencias bibliográficas.
+TechSport enfrenta un problema de \textbf{fraude transaccional} en sus pagos digitales, caracterizado por cinco manifestaciones principales: (1) detección tardía, donde los fraudes se identifican post-mortem mediante chargebacks entre 0 y 5 meses después de la transacción; (2) sistema reactivo con dependencia de reglas estáticas sin capacidad de aprendizaje automático; (3) alta tasa de falsos positivos que genera rechazos incorrectos de pagos legítimos afectando la experiencia del usuario; (4) arquitectura fragmentada con múltiples gateways operando de forma aislada sin correlación cruzada de comportamientos; y (5) ausencia de capacidad predictiva que permita alertar sobre transacciones sospechosas antes de su aprobación.
+
+% ---------------------------------------------------------------------------
+% PÁRRAFO 5: Causas y consecuencias (Método CCA)
+% ---------------------------------------------------------------------------
+
+Las causas de esta problemática se organizan en tres niveles: técnicas (ausencia de arquitectura unificada para gestión de riesgo, dependencia de reglas estáticas, carencia de gobernanza sobre integraciones API), operativas (proceso de etiquetado post-mortem, fragmentación del ecosistema de pagos) y organizacionales (ausencia de equipo especializado en fraud analytics). Si el problema persiste, las consecuencias incluyen pérdidas financieras directas por fraudes consumados, costos de chargebacks y disputas, multas regulatorias por incumplimiento de PCI DSS, deterioro de la confianza de usuarios institucionales, y pérdida de competitividad frente a plataformas que implementan inteligencia artificial.
+
+% ---------------------------------------------------------------------------
+% PÁRRAFO 6: Aporte de la investigación
+% ---------------------------------------------------------------------------
+
+Ante esta situación, el presente estudio propone evaluar la capacidad predictiva de un modelo de Machine Learning supervisado basado en Random Forest para la detección de fraude transaccional. El aporte incluye un pipeline completo de preprocesamiento, feature engineering con al menos 15 características comportamentales, estrategias de balanceo de clases (SMOTE o class\_weight), y validación temporal estricta que divide el dataset en conjuntos de entrenamiento (enero-junio 2025), validación (julio-agosto 2025) y prueba (septiembre-diciembre 2025), evitando data leakage y asegurando la generalización del modelo.
+
+% ---------------------------------------------------------------------------
+% PÁRRAFO 7: Objetivo y metodología
+% ---------------------------------------------------------------------------
+
+El objetivo general de esta investigación es evaluar la capacidad predictiva de un modelo basado en Random Forest para la detección de fraude en transacciones de pago digital de TechSport (gestión 2025), mediante métricas de clasificación binaria y comparación con benchmarks de literatura científica. El estudio adopta un \textbf{enfoque cuantitativo}, de \textbf{tipo aplicado} y \textbf{alcance correlacional-explicativo}, con \textbf{diseño no experimental, transversal y retrospectivo}. Se analiza un censo de 15.671.512 transacciones correspondientes a la gestión 2025, aplicando técnicas de feature engineering, balanceo de clases y validación temporal. La hipótesis general plantea que el modelo alcanzará F1-Score $\geq$85\%, Recall $\geq$90\% y Precision $\geq$80\%, comparable a benchmarks reportados en literatura científica internacional.
+
+% ---------------------------------------------------------------------------
+% PÁRRAFO 8: Marco institucional
+% ---------------------------------------------------------------------------
+
+El presente trabajo se enmarca en el Área 1.2 Sistemas Inteligentes de la Unidad de Postgrado en Ciencias de la Computación y Telecomunicaciones de la Universidad Autónoma Gabriel René Moreno, específicamente en la línea de investigación de Sistemas Cognitivos. El estudio aborda el desarrollo de un modelo de aprendizaje automático supervisado capaz de reconocer patrones complejos asociados a fraude transaccional y generar clasificaciones automatizadas en entornos de alta concurrencia transaccional.
+
+% ---------------------------------------------------------------------------
+% PÁRRAFO 9: Estructura del documento
+% ---------------------------------------------------------------------------
+
+El documento se estructura de la siguiente manera: el \textbf{Perfil de Investigación} presenta los antecedentes, formulación del problema, objetivos, justificación, hipótesis y diseño metodológico; el \textbf{Capítulo 1} desarrolla el marco teórico conceptual fundamentando los modelos de Machine Learning para detección de fraude; el \textbf{Capítulo 2} presenta el diagnóstico del sistema actual y análisis exploratorio del dataset; el \textbf{Capítulo 3} expone la propuesta del modelo Random Forest, su desarrollo y validación mediante métricas de evaluación; finalmente, se presentan las \textbf{Conclusiones y Recomendaciones}, seguidas de las referencias bibliográficas y apéndices.
 
 \cleardoublepage
