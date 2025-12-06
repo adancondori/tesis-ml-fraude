@@ -550,112 +550,46 @@ Moneda & Nominal & USD, EUR, MXN, COP, otros \\
 \section*{6. Diseño Metodológico}
 \addcontentsline{toc}{section}{6. Diseño Metodológico}
 
-\subsection*{6.1. Clasificación de la Investigación según Sampieri (2018)}
-\addcontentsline{toc}{subsection}{6.1. Clasificación de la Investigación según Sampieri (2018)}
+\subsection*{6.1. Tipo, enfoque y alcance de la investigación}
+\addcontentsline{toc}{subsection}{6.1. Tipo, enfoque y alcance de la investigación}
 
-\textbf{1. Enfoque de Investigación: CUANTITATIVO}
+\subsubsection*{6.1.1. Tipo de investigación}
 
-Según \textcite[p. 4]{Hernandez2018}: \textit{``El enfoque cuantitativo utiliza la recolección de datos para probar hipótesis con base en la medición numérica y el análisis estadístico''}.
+\textbf{a) Aplicada}
+
+Según \textcite[p. 29]{Hernandez2018}: \textit{``La investigación aplicada tiene como propósito resolver problemas prácticos''}. El presente trabajo de investigación aplica el tipo de investigación aplicada, formulando una solución concreta al problema de fraude transaccional en TechSport. La propuesta genera un modelo evaluable cuyos resultados tienen utilidad práctica y pueden transferirse a organizaciones similares.
+
+\subsubsection*{6.1.2. Enfoque de la investigación}
+
+La investigación tiene un \textbf{enfoque cuantitativo}. Según \textcite[p. 4]{Hernandez2018}: \textit{``El enfoque cuantitativo utiliza la recolección de datos para probar hipótesis con base en la medición numérica y el análisis estadístico''}.
 
 En esta investigación se analizan datos numéricos (15,6M+ transacciones), se utilizan métricas cuantitativas (Precision, Recall, F1-Score, AUC-ROC), se aplican técnicas estadísticas (intervalos de confianza, bootstrap), se prueban hipótesis con umbrales específicos (F1 $\geq$ 85\%), y los resultados son replicables y verificables.
 
-\textbf{2. Tipo de Investigación: APLICADA}
+\subsubsection*{6.1.3. Alcance de la investigación}
 
-Según \textcite[p. 29]{Hernandez2018}: \textit{``La investigación aplicada tiene como propósito resolver problemas prácticos''}.
+El alcance del presente trabajo de investigación es \textbf{correlacional-explicativo}. Presenta un componente correlacional al establecer la relación entre la variable independiente (Modelo Random Forest) y la variable dependiente (Fraude transaccional). Asimismo, presenta un componente explicativo al plantear una hipótesis de relación causal: la aplicación del modelo Random Forest permite detectar fraude con F1-Score $\geq$ 85\%.
 
-Esta investigación resuelve un problema concreto de la empresa TechSport, genera una solución evaluable (modelo de ML), los resultados tienen utilidad práctica, y el modelo puede transferirse a organizaciones similares.
+\subsubsection*{6.1.4. Diseño de investigación}
 
-\textbf{3. Alcance de Investigación: CORRELACIONAL-EXPLICATIVO}
+El diseño de investigación es \textbf{no experimental, transversal y retrospectivo}. Según \textcite[p. 152]{Hernandez2018}: \textit{``En un estudio no experimental no se genera ninguna situación, sino que se observan situaciones ya existentes''}.
 
-El estudio presenta un componente correlacional al establecer la relación entre la variable independiente (Modelo Random Forest) y la variable dependiente (Fraude transaccional). Asimismo, presenta un componente explicativo al plantear una hipótesis de relación causal: la aplicación del modelo Random Forest permite detectar fraude con F1-Score $\geq$ 85\%.
-
-\textbf{4. Diseño de Investigación: NO EXPERIMENTAL, TRANSVERSAL, RETROSPECTIVO}
-
-Según \textcite[p. 152]{Hernandez2018}: \textit{``En un estudio no experimental no se genera ninguna situación, sino que se observan situaciones ya existentes''}.
-
-\begin{table}[H]
-\centering
-\caption{Análisis del diseño de investigación}
-\label{tab:diseno_investigacion}
-\begin{tabular}{|p{5cm}|p{1.5cm}|p{6cm}|}
-\hline
-\rowcolor{headerblue}
-\textcolor{white}{\textbf{Criterio}} & \textcolor{white}{\textbf{¿Cumple?}} & \textcolor{white}{\textbf{Justificación}} \\
-\hline
-Manipulación de VI en tiempo real & NO & Las transacciones ya ocurrieron (datos históricos) \\
-\hline
-Asignación aleatoria a grupos & NO & No existe grupo experimental vs. control \\
-\hline
-Control de variables extrañas & Parcial & Se controlan en el modelado, no en la generación \\
-\hline
-\end{tabular}
-\end{table}
-
-\textbf{Temporalidad: TRANSVERSAL}
-
-Los datos se extraen \textbf{una sola vez} (snapshot de gestión 2025). La división Train/Validation/Test es una estrategia de validación de ML, NO un diseño longitudinal.
-
-\textbf{Direccionalidad: RETROSPECTIVO}
-
-Los datos corresponden a transacciones \textbf{ya ocurridas} (gestión 2025). Las etiquetas de fraude fueron asignadas después de los eventos.
-
-\vspace{0.5cm}
-\textbf{DISEÑO DE INVESTIGACIÓN COMPLETO:}
-\begin{quote}
-\textbf{No experimental, transversal, retrospectivo, correlacional-predictivo}
-\end{quote}
+Es no experimental porque las transacciones ya ocurrieron y no se manipulan variables en tiempo real. Es transversal porque los datos se extraen una sola vez (snapshot de gestión 2025); la división Train/Validation/Test es una estrategia de validación de Machine Learning, no un diseño longitudinal. Es retrospectivo porque los datos corresponden a transacciones ya ocurridas y las etiquetas de fraude fueron asignadas después de los eventos mediante chargebacks confirmados.
 
 \subsection*{6.2. Delimitación de la Investigación}
 \addcontentsline{toc}{subsection}{6.2. Delimitación de la Investigación}
 
-\textbf{Alcance Temático:}
-\begin{itemize}
-    \item Detección de fraude en pagos digitales mediante Machine Learning supervisado
-    \item Algoritmo específico: Random Forest (ensemble learning)
-    \item Tipos de fraude incluidos: tarjetas robadas o clonadas, transacciones duplicadas sospechosas, comportamientos anómalos de usuarios
-\end{itemize}
+\textbf{Delimitación temática:} La investigación se limita al estudio de la detección de fraude en pagos digitales mediante Machine Learning supervisado, específicamente utilizando el algoritmo Random Forest (ensemble learning). Los tipos de fraude incluidos son: tarjetas robadas o clonadas, transacciones duplicadas sospechosas, y comportamientos anómalos de usuarios. La investigación no contempla el tratamiento de lavado de dinero, detección en tiempo real (streaming), modelos de Deep Learning, ni análisis de imágenes o documentos de identidad.
 
-\textbf{Exclusiones:}
-\begin{itemize}
-    \item Lavado de dinero
-    \item Detección en tiempo real (streaming)
-    \item Modelos de Deep Learning
-    \item Análisis de imágenes o documentos de identidad
-\end{itemize}
+\textbf{Delimitación espacial:} La investigación se efectúa en la empresa TechSport Inc., con sede principal en Miami, Florida, Estados Unidos, y operación internacional en múltiples países de América y Europa. La evaluación se realiza sobre los datos de transacciones procesadas a través de sus pasarelas de pago integradas.
 
-\textbf{Alcance Espacial:}
-\begin{itemize}
-    \item \textbf{Empresa:} TechSport Inc.
-    \item \textbf{Sede:} Miami, Florida, USA
-    \item \textbf{Operación:} Internacional (múltiples países)
-\end{itemize}
-
-\textbf{Alcance Temporal:}
-\begin{itemize}
-    \item \textbf{Período de datos:} Gestión 2025 (enero-diciembre)
-    \item \textbf{Duración del estudio:} 3 meses
-\end{itemize}
-
-\textbf{Viabilidad:}
-\begin{itemize}
-    \item[$\checkmark$] Acceso autorizado a datos
-    \item[$\checkmark$] Infraestructura computacional disponible
-    \item[$\checkmark$] Plazo de 3 meses factible
-    \item[$\checkmark$] Conocimiento técnico en ML
-\end{itemize}
+\textbf{Delimitación temporal:} La investigación se realizará durante el lapso de tres meses. El período de datos analizado corresponde a la gestión 2025 (enero a diciembre). La propuesta debe ser ajustada cuando las condiciones del mercado de pagos digitales o las técnicas de fraude sufran modificaciones significativas.
 
 \subsection*{6.3. Población y Muestra}
 \addcontentsline{toc}{subsection}{6.3. Población y Muestra}
 
-\textbf{Población:} Totalidad de transacciones de pago procesadas por TechSport durante la gestión 2025: \textbf{15.671.512 registros}.
+Para la selección de la muestra se emplea un método de censo completo, justificado bajo la necesidad de analizar la totalidad de transacciones debido al desbalance de clases inherente a los problemas de detección de fraude (donde las transacciones fraudulentas representan menos del 1\% del total).
 
-\textbf{Muestra:} Se utiliza \textbf{censo completo} (no muestreo) porque:
-\begin{enumerate}
-    \item \textbf{Disponibilidad técnica:} Los datos están almacenados y son accesibles
-    \item \textbf{Capacidad computacional:} La infraestructura permite procesar 15,6M+ registros
-    \item \textbf{Desbalance de clases:} El fraude representa $<$1\% de transacciones; se requiere máximo volumen
-    \item \textbf{Etiquetas verificadas:} La variable \texttt{is\_fraud} está validada por el equipo de contabilidad
-\end{enumerate}
+La población de estudio comprende la totalidad de transacciones de pago procesadas por TechSport durante la gestión 2025, correspondiente a \textbf{15.671.512 registros}. La muestra considera los criterios de disponibilidad técnica (datos almacenados en base de datos ClickHouse), capacidad computacional para procesar el volumen completo, y etiquetas de fraude validadas por el equipo de contabilidad mediante chargebacks confirmados.
 
 \textbf{Partición temporal del dataset:}
 
@@ -719,26 +653,26 @@ Test set & Sep-Dic 2025 & 33\% & 5.171.599 \\
 
 \textbf{Validez de constructo:} La capacidad discriminativa se evalúa mediante AUC-ROC, métrica estándar que mide la habilidad del modelo para distinguir entre clases.
 
-\textbf{Confiabilidad:}
-\begin{itemize}
-    \item \textbf{Estabilidad temporal:} El modelo se evalúa en tres períodos temporales independientes
-    \item \textbf{Intervalos de confianza:} Se calculan IC al 95\% mediante bootstrap (1000 iteraciones)
-\end{itemize}
+\textbf{Confiabilidad:} La estabilidad temporal se garantiza evaluando el modelo en tres períodos temporales independientes (Train, Validation, Test). Los intervalos de confianza al 95\% se calculan mediante bootstrap con 1000 iteraciones, asegurando la robustez estadística de las métricas reportadas.
 
 \subsection*{6.6. Análisis de los Datos}
 \addcontentsline{toc}{subsection}{6.6. Análisis de los Datos}
 
-\textbf{Análisis exploratorio de datos (EDA):} Examen de distribuciones univariadas, identificación de correlaciones entre variables, detección de outliers, y caracterización de patrones de fraude.
+La información obtenida mediante la extracción de datos históricos permite obtener un panorama de la situación actual del objeto de investigación. El análisis de los datos se realiza en las siguientes etapas:
 
-\textbf{Preprocesamiento y transformación:} Limpieza de datos, normalización de variables numéricas, codificación de variables categóricas, y creación de features derivadas evitando data leakage.
+\begin{itemize}
+    \item \textbf{Análisis exploratorio de datos (EDA):} Examen de distribuciones univariadas, identificación de correlaciones entre variables, detección de outliers, y caracterización de patrones de fraude.
 
-\textbf{Balanceo de clases:} Evaluación de estrategias SMOTE, class\_weight='balanced', o combinación híbrida.
+    \item \textbf{Preprocesamiento y transformación:} Limpieza de datos, normalización de variables numéricas, codificación de variables categóricas, y creación de features derivadas evitando data leakage.
 
-\textbf{Entrenamiento y optimización:} Random Forest con optimización de hiperparámetros mediante GridSearchCV o RandomizedSearchCV.
+    \item \textbf{Balanceo de clases:} Evaluación de estrategias SMOTE, class\_weight='balanced', o combinación híbrida para manejar el desbalance inherente en problemas de detección de fraude.
 
-\textbf{Evaluación del desempeño:} Métricas en test set temporal independiente con intervalos de confianza del 95\% mediante bootstrap (1000 muestras).
+    \item \textbf{Entrenamiento y optimización:} Random Forest con optimización de hiperparámetros mediante GridSearchCV o RandomizedSearchCV.
 
-\textbf{Interpretabilidad:} Análisis de importancia de features mediante \texttt{feature\_importances\_} de Random Forest.
+    \item \textbf{Evaluación del desempeño:} Métricas en test set temporal independiente con intervalos de confianza del 95\% mediante bootstrap (1000 muestras).
+
+    \item \textbf{Interpretabilidad:} Análisis de importancia de features mediante \texttt{feature\_importances\_} de Random Forest.
+\end{itemize}
 
 \subsection*{6.7. Matriz de Consistencia}
 \addcontentsline{toc}{subsection}{6.7. Matriz de Consistencia}

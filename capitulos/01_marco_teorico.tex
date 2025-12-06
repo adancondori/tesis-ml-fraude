@@ -1,265 +1,199 @@
 % ==================================================================================
 % CAPÍTULO 1: MARCO TEÓRICO CONCEPTUAL
 % ==================================================================================
-% Archivo: capitulos/01_marco_teorico.tex
-% Cumplimiento: OE1 (Fundamentación teórica) y validación de HE1
-% Autor: Ing. Adan Condori Callisaya
-% Última modificación: Diciembre 2025
+% Estructura según Sampieri (2018): Antecedentes, Bases Teóricas, Definición de Términos
+% Triangulación: PE1 → OE1 → HE1
 % ==================================================================================
 
 \chapter{Marco Teórico Conceptual}
 
+El presente capítulo desarrolla la fundamentación teórica que sustenta la investigación, respondiendo al Problema Específico 1 (PE1): \textit{¿Cuál es el fundamento teórico-técnico que respalda el uso de modelos de Machine Learning supervisados, particularmente Random Forest, para la detección de fraude en pagos digitales según la literatura científica 2020-2025?}
+
+Según \textcite[p. 60]{Hernandez2018}, el marco teórico cumple funciones esenciales: proporciona un conocimiento profundo de la teoría que da significado a la investigación, permite al investigador establecer hipótesis y conducir al establecimiento de afirmaciones que más tarde habrán de someterse a prueba. En este sentido, el capítulo se estructura en tres componentes: antecedentes de la investigación, bases teóricas y definición de términos básicos.
+
 % ==================================================================================
-% RESUMEN DEL CAPÍTULO
+% 1.1. ANTECEDENTES DE LA INVESTIGACIÓN
 % ==================================================================================
 
-\section*{Resumen del Capítulo}
+\section{Antecedentes de la Investigación}
 
-Este capítulo desarrolla el \textbf{Objetivo Específico 1 (OE1)}: \textit{"Fundamentar teóricamente los modelos de Machine Learning supervisados aplicados a detección de fraude en pagos digitales, con énfasis en Random Forest y enfoques de ensemble learning, revisando la literatura científica del periodo 2020-2025, así como las métricas de evaluación de desempeño (Precision, Recall, F1-Score, AUC-ROC), técnicas de feature engineering y estrategias de balanceo de clases, para sustentar la base conceptual y técnica de la investigación."} Asimismo, valida la \textbf{Hipótesis Específica 1 (HE1)} mediante una revisión sistemática de al menos 20 estudios científicos que demuestran la efectividad de modelos de Machine Learning supervisados en detección de fraude.
+Los antecedentes constituyen estudios previos relacionados con el problema de investigación. Según \textcite[p. 68]{Hernandez2018}, estos permiten conocer qué se ha hecho hasta el momento en relación con el tema de estudio, identificar enfoques metodológicos aplicados y reconocer brechas de conocimiento. A continuación se presentan investigaciones relevantes del periodo 2020-2025 sobre detección de fraude mediante Machine Learning.
 
-\vspace{0.3cm}
+\subsection{Antecedentes Internacionales}
 
-\textbf{Estructura del capítulo:}
+\textcite{Hafez2025} realizaron una revisión sistemática de 87 estudios sobre detección de fraude con tarjetas de crédito mediante inteligencia artificial. Los autores analizaron publicaciones de las bases de datos IEEE Xplore, Springer, Wiley y Journal of Big Data. Los resultados evidenciaron que Random Forest alcanza F1-Scores entre 85\% y 89\%, con Recall de 87-92\%. El estudio concluye que los métodos de ensemble learning constituyen el enfoque dominante en la literatura reciente, superando a técnicas tradicionales basadas en reglas estáticas.
 
-\begin{enumerate}[leftmargin=1.5cm]
-    \item \textbf{Sección 1.1 - Fraude en Pagos Digitales:} Conceptualización del problema, tipología del fraude financiero y limitaciones de sistemas basados en reglas estáticas.
+\textcite{HernandezAros2024} desarrollaron una revisión de técnicas de Machine Learning aplicadas a fraude financiero. Su investigación abarcó estudios publicados entre 2019 y 2024, identificando que los enfoques híbridos de ensemble (combinación de Random Forest con XGBoost) logran F1-Scores de 91-95\% y Recall de 93-97\%. Los autores enfatizan la importancia del feature engineering y la validación temporal para garantizar la generalización de los modelos.
 
-    \item \textbf{Sección 1.2 - Machine Learning en Detección de Fraude:} Fundamentos del aprendizaje supervisado, algoritmos aplicados (Random Forest, XGBoost, SVM, Redes Neuronales) y métricas de evaluación en contextos desbalanceados.
+\textcite{Feng2024} implementaron Random Forest y XGBoost en un dataset de transacciones con tarjetas de crédito. Su estudio reportó F1-Score de 90-94\% para XGBoost y 85-89\% para Random Forest, con AUC-ROC de 0,96 y 0,93 respectivamente. Los investigadores concluyeron que XGBoost ofrece una ventaja marginal a costa de tres veces mayor tiempo de entrenamiento, lo que posiciona a Random Forest como alternativa viable cuando se requiere balance entre desempeño e interpretabilidad.
 
-    \item \textbf{Sección 1.3 - Feature Engineering y Preprocesamiento:} Técnicas de construcción de features comportamentales, agregaciones temporales, prevención de data leakage y normalización.
+\textcite{AlEmad2022} compararon Random Forest, SVM y KNN en detección de fraude financiero. Los resultados mostraron que Random Forest logra F1-Score de 87\%, superando a SVM (82-85\%) y KNN (78\%). Los autores destacan la superioridad de Random Forest en interpretabilidad y robustez ante datos desbalanceados, características relevantes para aplicaciones en contextos regulados.
 
-    \item \textbf{Sección 1.4 - Estrategias de Balanceo de Clases:} SMOTE, class weights y técnicas de undersampling/oversampling para datasets desbalanceados.
+\textcite{Grinsztajn2022} realizaron un estudio comparativo entre modelos basados en árboles (Random Forest, XGBoost) y deep learning (ResNet, FT-Transformer) en 45 datasets tabulares. Los resultados demostraron que los tree-based models superan a deep learning en datos tabulares típicos, con diferencias estadísticamente significativas (p < 0,01). Este hallazgo fundamenta la selección de Random Forest para datos transaccionales estructurados.
 
-    \item \textbf{Sección 1.5 - Validación Temporal en Series Financieras:} Limitaciones de k-fold tradicional, time-series split y prevención de data leakage.
+\textcite{Carcillo2018} desarrollaron un framework escalable de detección de fraude utilizando Apache Spark. Su implementación de Random Forest distribuido procesó más de 100 millones de transacciones con latencia inferior a 200 milisegundos. El estudio valida la viabilidad de despliegue en producción para datasets masivos, aspecto relevante considerando el volumen de 15,6 millones de transacciones de TechSport.
 
-    \item \textbf{Sección 1.6 - Marco Normativo:} PCI DSS, NIST Cybersecurity Framework 2.0, GDPR y requisitos de explicabilidad.
+\subsection{Antecedentes Regionales y Latinoamericanos}
 
-    \item \textbf{Sección 1.7 - Revisión Sistemática de Literatura (2020-2025):} Análisis de 20+ estudios científicos, benchmarks de desempeño y estado del arte.
+\textcite{Lucas2019} desarrolló en su tesis doctoral (INSA Lyon, Francia) un sistema de detección de fraude con integración de conocimiento contextual. El autor construyó más de 50 features comportamentales y logró F1-Score de 92\% con Random Forest. Su trabajo proporciona fundamento metodológico para el feature engineering aplicable a esta investigación.
+
+\textcite{Chaquet2022} en su tesis doctoral (Universidad Rey Juan Carlos, España) investigó Machine Learning interpretable para fraude crediticio. Los resultados mostraron F1-Score de 89\% con Random Forest. El estudio enfatiza la importancia de la interpretabilidad para cumplimiento regulatorio bajo GDPR y PCI DSS.
+
+\textcite{Rayo2020} desarrolló en su tesis de maestría (Universidad de Lima, Perú) un prototipo de detección de fraude con Random Forest para una entidad bancaria peruana. El modelo alcanzó F1-Score de 87\% y Recall de 91\%. Este antecedente resulta relevante por su contexto latinoamericano, similar al entorno operativo de TechSport en la región.
+
+\textcite{Perez2021} en su tesis de maestría (Universidad de los Andes, Colombia) implementó detección de fraude en tarjetas de crédito mediante Machine Learning. Random Forest logró F1-Score de 85\%, validando la viabilidad del enfoque en contextos financieros latinoamericanos con características similares a las de TechSport.
+
+\subsection{Síntesis de Antecedentes}
+
+La revisión de antecedentes evidencia convergencia en los siguientes aspectos:
+
+\begin{enumerate}
+    \item Random Forest alcanza consistentemente F1-Scores entre 85\% y 92\% en detección de fraude financiero.
+
+    \item Los métodos de ensemble learning superan a técnicas tradicionales basadas en reglas estáticas.
+
+    \item La interpretabilidad de Random Forest facilita el cumplimiento de requisitos regulatorios (PCI DSS, GDPR).
+
+    \item El feature engineering comportamental incrementa significativamente el desempeño predictivo.
+
+    \item La validación temporal es imprescindible para garantizar generalización en contextos financieros.
+
+    \item Existen implementaciones exitosas en contextos latinoamericanos con características similares a TechSport.
 \end{enumerate}
 
-\vspace{0.3cm}
-
-\textbf{Resultados esperados:} Validación de HE1 mediante evidencia bibliográfica de F1-Scores entre 85-94\% reportados en literatura, superioridad de ML sobre reglas estáticas, y establecimiento de benchmarks cuantificables para OE4.
-
 % ==================================================================================
-% 1.1. FRAUDE EN PAGOS DIGITALES
+% 1.2. BASES TEÓRICAS
 % ==================================================================================
 
-\section{Fraude en Pagos Digitales: Problemática y Contexto}
+\section{Bases Teóricas}
 
-\textbf{Vinculación con OE1 - Conceptualización del Problema:}
+Las bases teóricas constituyen el conjunto de proposiciones y conceptos que fundamentan la investigación. Según \textcite[p. 72]{Hernandez2018}, estas permiten explicar, comprender y predecir el fenómeno estudiado. A continuación se desarrollan los fundamentos teóricos de la detección de fraude mediante Machine Learning.
 
-Esta sección establece la fundamentación conceptual del fraude en pagos digitales, prerequisito para comprender la aplicación de Machine Learning como solución técnica. Se alinea con OE1 al definir el dominio del problema sobre el cual se aplicarán los modelos supervisados.
+\subsection{Fraude en Pagos Digitales}
 
-\subsection{Concepto y Tipología del Fraude Financiero}
+\subsubsection{Conceptualización del Fraude Financiero}
 
-El fraude en pagos digitales constituye una problemática creciente en el ecosistema financiero global. Según \textcite{Baesens2015}, el fraude financiero se define como cualquier actividad ilegal o deshonesta que busca obtener beneficios económicos mediante el engaño, la manipulación o el abuso de sistemas de pago. En el contexto específico de los pagos digitales, esta definición se amplía para incluir el uso no autorizado de instrumentos de pago electrónicos, la suplantación de identidad en transacciones en línea y la explotación de vulnerabilidades tecnológicas.
+El fraude en pagos digitales se define como cualquier actividad ilegal o deshonesta que busca obtener beneficios económicos mediante el engaño, la manipulación o el abuso de sistemas de pago electrónicos \parencite{Baesens2015}. En el contexto de transacciones digitales, esta definición abarca el uso no autorizado de instrumentos de pago, la suplantación de identidad y la explotación de vulnerabilidades tecnológicas.
 
-\textcite{HernandezAros2024} categorizan el fraude financiero en tres grandes familias: fraude con tarjetas de crédito/débito, fraude en transacciones bancarias y fraude en sistemas de pago electrónico. En el ámbito de los pagos transaccionales digitales, se identifican los siguientes tipos principales:
+\textcite{HernandezAros2024} categorizan el fraude financiero en tres familias principales: fraude con tarjetas de crédito/débito, fraude en transacciones bancarias y fraude en sistemas de pago electrónico. Para el ámbito de pagos transaccionales digitales, se identifican las siguientes tipologías:
 
-\begin{enumerate}[leftmargin=2cm]
-    \item \textbf{Fraude por tarjeta robada o clonada:} Uso no autorizado de credenciales de pago obtenidas ilícitamente, ya sea mediante robo físico, phishing o técnicas de skimming. Este tipo de fraude representa aproximadamente el 60\% de los casos reportados en plataformas de comercio electrónico \parencite{Hafez2025}.
+\begin{enumerate}
+    \item \textbf{Fraude por tarjeta robada o clonada:} Uso no autorizado de credenciales de pago obtenidas mediante robo físico, phishing o técnicas de skimming. Representa aproximadamente el 60\% de los casos en plataformas de comercio electrónico \parencite{Hafez2025}.
 
-    \item \textbf{Transacciones duplicadas sospechosas:} Múltiples intentos de carga sobre el mismo instrumento de pago en periodos cortos de tiempo, generalmente asociados a pruebas de validez de tarjetas robadas o intentos automatizados de fraude. \textcite{Lucas2019} documentan que el 15-20\% de fraudes involucran patrones de transacciones duplicadas o de alta frecuencia.
+    \item \textbf{Transacciones duplicadas sospechosas:} Múltiples intentos de cargo sobre el mismo instrumento de pago en periodos cortos, generalmente asociados a pruebas de validez de tarjetas robadas. \textcite{Lucas2019} documenta que el 15-20\% de fraudes involucran patrones de transacciones de alta frecuencia.
 
-    \item \textbf{Comportamientos anómalos de usuarios:} Patrones transaccionales que se desvían significativamente del comportamiento histórico del usuario legítimo, como cambios abruptos en montos, frecuencia o geolocalización de las transacciones. Estos comportamientos anómalos son detectables mediante análisis de desviación estadística \parencite{Baesens2015}.
+    \item \textbf{Comportamientos anómalos de usuarios:} Patrones transaccionales que se desvían del comportamiento histórico del usuario legítimo, como cambios abruptos en montos, frecuencia o geolocalización \parencite{Baesens2015}.
 
-    \item \textbf{Fraude de identidad sintética:} Creación de identidades ficticias mediante la combinación de información real y falsa para establecer perfiles de pago fraudulentos \parencite{Feng2024}. Este tipo de fraude es particularmente difícil de detectar con reglas estáticas.
+    \item \textbf{Fraude de identidad sintética:} Creación de identidades ficticias mediante combinación de información real y falsa para establecer perfiles de pago fraudulentos \parencite{Feng2024}.
 \end{enumerate}
 
-\textbf{Vinculación con el Objetivo General:} Estos cuatro tipos de fraude constituyen los patrones que el modelo de Random Forest propuesto debe aprender a identificar, justificando la necesidad de un enfoque supervisado capaz de correlacionar múltiples variables comportamentales.
+\subsubsection{Impacto Económico del Fraude Digital}
 
-\subsection{Impacto del Fraude Digital en Ecosistemas Transaccionales}
+El impacto del fraude en pagos digitales trasciende las pérdidas económicas directas. \textcite{OEABID2020} documentan que en América Latina el fraude digital genera:
 
-El impacto del fraude en pagos digitales trasciende las pérdidas económicas directas, afectando múltiples dimensiones del ecosistema financiero. \textcite{OEABID2020} documentan que en América Latina, el fraude digital genera consecuencias que incluyen:
+\begin{itemize}
+    \item \textbf{Pérdidas económicas directas:} Valores monetarios sustraídos que representan en promedio el 1,5\% del volumen total de transacciones digitales en la región.
 
-\begin{itemize}[leftmargin=2cm]
-    \item \textbf{Pérdidas económicas directas:} Valores monetarios sustraídos fraudulentamente, que en promedio representan el 1.5\% del volumen total de transacciones digitales en la región. Para empresas con volúmenes superiores a 15 millones de transacciones anuales (como TechSport), esto puede representar pérdidas millonarias.
+    \item \textbf{Costos operativos:} Recursos destinados a investigación de disputas y chargebacks, estimados en 3 a 5 veces el valor de la transacción fraudulenta \parencite{Baesens2015}.
 
-    \item \textbf{Costos operativos de gestión:} Recursos destinados a la investigación de disputas, chargebacks y gestión de reclamaciones, estimados en 3 a 5 veces el valor de la transacción fraudulenta \parencite{Baesens2015}.
+    \item \textbf{Deterioro reputacional:} Pérdida de confianza que puede reducir la retención de clientes entre 20\% y 30\% según estudios de comportamiento del consumidor \parencite{Lucas2019}.
 
-    \item \textbf{Deterioro de la reputación:} Pérdida de confianza de los usuarios, lo cual en plataformas digitales puede resultar en una reducción del 20-30\% en la retención de clientes según estudios de comportamiento del consumidor \parencite{Lucas2019}.
-
-    \item \textbf{Sanciones regulatorias:} Incumplimiento de normativas como PCI DSS o GDPR, que pueden derivar en multas significativas y restricciones operativas.
-
-    \item \textbf{Exclusión financiera digital:} Desconfianza generalizada en medios de pago electrónicos, lo cual frena la inclusión financiera y la digitalización de la economía.
+    \item \textbf{Sanciones regulatorias:} Multas por incumplimiento de normativas como PCI DSS que pueden alcanzar montos significativos y restricciones operativas.
 \end{itemize}
 
-\textbf{Justificación de la investigación:} Estos impactos multidimensionales justifican la necesidad de sistemas inteligentes de detección capaces de reducir pérdidas directas, minimizar fricciones con usuarios legítimos (falsos positivos) y garantizar cumplimiento regulatorio.
+\subsubsection{Limitaciones de los Sistemas Basados en Reglas Estáticas}
 
-\subsection{Limitaciones de los Sistemas Basados en Reglas Estáticas}
+Los sistemas tradicionales de detección de fraude operan mediante reglas determinísticas predefinidas. Según \textcite{Baesens2015}, estos sistemas funcionan con umbrales fijos y condiciones booleanas como:
 
-Los sistemas tradicionales de detección de fraude se fundamentan en reglas determinísticas predefinidas por expertos en riesgos financieros. Según \textcite{Baesens2015}, estos sistemas operan mediante umbrales fijos y condiciones booleanas del tipo:
-
-\begin{itemize}[leftmargin=2cm]
-    \item Si monto de transacción $>$ \$500 USD \textbf{Y} país IP $\neq$ país tarjeta $\Rightarrow$ RECHAZAR
-    \item Si frecuencia transaccional $>$ 5 transacciones/hora $\Rightarrow$ ALERTA
-    \item Si categoría comerciante = ``alto riesgo'' $\Rightarrow$ REVISIÓN MANUAL
+\begin{itemize}
+    \item Si monto $>$ \$500 USD y país IP $\neq$ país tarjeta $\Rightarrow$ Rechazar
+    \item Si frecuencia transaccional $>$ 5 transacciones/hora $\Rightarrow$ Alerta
+    \item Si categoría comerciante = ``alto riesgo'' $\Rightarrow$ Revisión manual
 \end{itemize}
 
-\textcite{Rodriguez2023} y \textcite{HernandezAros2024} identifican las siguientes limitaciones estructurales de los sistemas basados en reglas, que motivan la adopción de Machine Learning:
+\textcite{Rodriguez2023} y \textcite{HernandezAros2024} identifican limitaciones estructurales que motivan la adopción de Machine Learning:
 
-\begin{enumerate}[leftmargin=2cm]
-    \item \textbf{Ausencia de capacidad de aprendizaje:} Las reglas permanecen estáticas y no se adaptan a nuevos patrones de fraude. Cuando emergen técnicas fraudulentas novedosas, el sistema no las reconoce hasta que un experto actualiza las reglas manualmente. \textcite{Hafez2025} documentan que el tiempo promedio de actualización de reglas es de 3-6 semanas, durante las cuales el sistema queda vulnerable.
+\begin{enumerate}
+    \item \textbf{Ausencia de capacidad de aprendizaje:} Las reglas permanecen estáticas y no se adaptan a nuevos patrones. \textcite{Hafez2025} documentan que el tiempo promedio de actualización de reglas es de 3-6 semanas, periodo durante el cual el sistema queda vulnerable.
 
-    \item \textbf{Alta tasa de falsos positivos:} Reglas excesivamente conservadoras rechazan transacciones legítimas, afectando la experiencia del usuario. Estudios documentan tasas de falsos positivos del 10-15\% en sistemas basados únicamente en reglas \parencite{Baesens2015}, lo cual genera fricción operativa significativa.
+    \item \textbf{Alta tasa de falsos positivos:} Reglas conservadoras rechazan transacciones legítimas, generando tasas de falsos positivos del 10-15\% \parencite{Baesens2015}.
 
-    \item \textbf{Mantenimiento manual intensivo:} La actualización de reglas requiere intervención constante de expertos, con tiempos de respuesta que pueden ser de semanas o meses ante nuevas amenazas. \textcite{Feng2024} reportan que el costo operativo de mantenimiento de reglas representa 2-3 veces el costo de desarrollo inicial del sistema.
+    \item \textbf{Mantenimiento intensivo:} La actualización requiere intervención constante de expertos, con costos operativos que representan 2-3 veces el costo de desarrollo inicial \parencite{Feng2024}.
 
-    \item \textbf{Imposibilidad de correlaciones multidimensionales:} Las reglas simples no capturan interacciones complejas entre múltiples variables. Por ejemplo, la combinación de monto + hora + geolocalización + historial del usuario + canal de pago puede ser indicativa de fraude, pero esta correlación de 5+ dimensiones excede la capacidad de reglas booleanas simples \parencite{Geron2022}.
+    \item \textbf{Imposibilidad de correlaciones multidimensionales:} Las reglas simples no capturan interacciones complejas entre múltiples variables \parencite{Geron2022}.
 
-    \item \textbf{Falta de priorización dinámica:} Todos los eventos sospechosos reciben el mismo tratamiento, sin scoring de riesgo diferencial. Esto impide priorizar alertas críticas versus alertas de bajo riesgo, generando sobrecarga en equipos de revisión manual.
-
-    \item \textbf{Degradación temporal del desempeño:} \textcite{Murphy2022} documentan que el desempeño de sistemas basados en reglas se degrada en promedio 15-20\% anualmente debido a concept drift (evolución de patrones de fraude), requiriendo recalibraciones manuales constantes.
+    \item \textbf{Degradación temporal:} El desempeño se degrada 15-20\% anualmente debido a la evolución de patrones de fraude (concept drift) \parencite{Murphy2022}.
 \end{enumerate}
 
-\textbf{Transición a Machine Learning:} Estas limitaciones fundamentan la superioridad de enfoques de Machine Learning supervisado, que pueden aprender patrones complejos automáticamente, adaptarse a nuevos comportamientos mediante reentrenamiento y generar scores de riesgo probabilísticos en lugar de decisiones binarias rígidas.
+\subsection{Machine Learning Supervisado}
 
-% ==================================================================================
-% 1.2. MACHINE LEARNING EN DETECCIÓN DE FRAUDE
-% ==================================================================================
+\subsubsection{Fundamentos del Aprendizaje Supervisado}
 
-\section{Machine Learning Supervisado en Detección de Fraude}
-
-\textbf{Vinculación con OE1 - Fundamentación de Algoritmos Supervisados:}
-
-Esta sección desarrolla el núcleo teórico de OE1, fundamentando los algoritmos de Machine Learning supervisados aplicables a detección de fraude, con énfasis en Random Forest (algoritmo seleccionado para esta investigación) y enfoques de ensemble learning.
-
-\subsection{Fundamentos del Aprendizaje Supervisado}
-
-El aprendizaje automático supervisado constituye un paradigma computacional en el cual un algoritmo aprende a mapear entradas (features) a salidas (etiquetas) mediante el análisis de datos históricos etiquetados \parencite{James2021}. En el contexto de detección de fraude, esto se traduce en entrenar modelos con transacciones previamente clasificadas como fraudulentas o legítimas para predecir la naturaleza de transacciones futuras.
+El aprendizaje automático supervisado constituye un paradigma computacional en el cual un algoritmo aprende a mapear entradas (features) a salidas (etiquetas) mediante el análisis de datos históricos etiquetados \parencite{James2021}. En detección de fraude, esto implica entrenar modelos con transacciones previamente clasificadas como fraudulentas o legítimas para predecir la naturaleza de transacciones futuras.
 
 \textcite{Geron2022} formaliza el problema de clasificación supervisada como la búsqueda de una función $f: \mathcal{X} \rightarrow \mathcal{Y}$ que minimiza una función de pérdida $\mathcal{L}$ sobre un conjunto de entrenamiento $D = \{(x_i, y_i)\}_{i=1}^{n}$, donde:
 
-\begin{itemize}[leftmargin=2cm]
-    \item $x_i \in \mathcal{X}$ representa el vector de features de la transacción $i$ (monto, hora, usuario, canal, etc.)
+\begin{itemize}
+    \item $x_i \in \mathcal{X}$ representa el vector de features de la transacción $i$
     \item $y_i \in \{0, 1\}$ indica si la transacción es legítima (0) o fraudulenta (1)
-    \item $f(x_i) \in [0,1]$ es la probabilidad estimada por el modelo de que la transacción $i$ sea fraudulenta
+    \item $f(x_i) \in [0,1]$ es la probabilidad estimada de que la transacción sea fraudulenta
 \end{itemize}
 
-El proceso de entrenamiento busca minimizar la función objetivo:
+El proceso de entrenamiento busca minimizar:
 
 \begin{equation}
     \min_{f \in \mathcal{F}} \sum_{i=1}^{n} \mathcal{L}(y_i, f(x_i)) + \lambda \Omega(f)
 \end{equation}
 
-donde $\mathcal{L}$ es la función de pérdida (típicamente binary cross-entropy para clasificación), $\Omega(f)$ es un término de regularización que penaliza la complejidad del modelo y $\lambda$ controla el trade-off entre ajuste a los datos y complejidad del modelo (prevención de overfitting).
+donde $\mathcal{L}$ es la función de pérdida (típicamente binary cross-entropy), $\Omega(f)$ es un término de regularización y $\lambda$ controla el trade-off entre ajuste y complejidad.
 
-\textbf{Aplicación a detección de fraude:} Para TechSport, $x_i$ incluirá 15+ features derivadas de las transacciones (monto, frecuencia, geolocalización, etc.) e $y_i$ estará etiquetado mediante el proceso de identificación de fraudes descrito en el Capítulo 2.
+\subsubsection{Random Forest: Algoritmo de Ensemble Learning}
 
-\subsection{Algoritmos Supervisados Aplicados a Detección de Fraude}
+Random Forest es un método de ensemble que construye múltiples árboles de decisión durante el entrenamiento y produce la clase modal de las predicciones individuales \parencite{Breiman2001}. El algoritmo presenta características específicas que lo posicionan como adecuado para detección de fraude:
 
-\subsubsection{Random Forest: Algoritmo Seleccionado para esta Investigación}
+\textbf{Interpretabilidad:} Permite calcular la importancia de cada feature mediante el decremento promedio de impureza (Gini) o mediante permutación, facilitando auditorías y cumplimiento regulatorio \parencite{Hafez2025}.
 
-Random Forest es un método de ensemble que construye múltiples árboles de decisión durante el entrenamiento y produce la clase modal (para clasificación) o la media de las predicciones (para regresión) de los árboles individuales \parencite{Breiman2001}. Este algoritmo presenta ventajas específicas para detección de fraude que justifican su selección en esta investigación:
+\textbf{Robustez ante overfitting:} La agregación de múltiples árboles mediante bagging reduce la varianza del modelo. \textcite{Breiman2001} demuestran que Random Forest converge a un error generalizable conforme aumenta el número de árboles.
 
-\textbf{Fundamentación técnica de Random Forest:}
+\textbf{Manejo de variables mixtas:} Procesa features categóricas y numéricas directamente, simplificando el preprocesamiento a diferencia de SVM o redes neuronales \parencite{Geron2022}.
 
-\begin{enumerate}[leftmargin=2cm]
-    \item \textbf{Interpretabilidad (requisito PCI DSS y GDPR):} Permite calcular la importancia de cada feature mediante el decremento promedio de impureza (Gini o entropía) o mediante permutación, facilitando auditorías y cumplimiento regulatorio. \textcite{Hafez2025} enfatizan que la interpretabilidad es crítica en contextos financieros sujetos a regulación.
+\textbf{Resistencia a outliers:} La naturaleza basada en splits reduce el impacto de valores extremos, relevante para transacciones con montos atípicos \parencite{Hastie2009}.
 
-    \item \textbf{Robustez ante overfitting:} La agregación de múltiples árboles mediante bagging reduce la varianza del modelo, especialmente cuando se combinan con técnicas de regularización como max\_depth, min\_samples\_split y min\_samples\_leaf. \textcite{Breiman2001} demuestran que Random Forest converge a un error generalizable a medida que aumenta el número de árboles.
+\textbf{Escalabilidad:} El entrenamiento es paralelizable (cada árbol se entrena independientemente), viable para datasets de millones de transacciones \parencite{Pedregosa2011}.
 
-    \item \textbf{Manejo nativo de features categóricas y numéricas:} A diferencia de SVM o redes neuronales que requieren one-hot encoding extensivo, Random Forest procesa ambos tipos de variables directamente, simplificando el preprocesamiento \parencite{Geron2022}.
+\textbf{Manejo de desbalanceo:} Soporta class weights nativamente mediante el parámetro \texttt{class\_weight='balanced'} \parencite{Pedregosa2011}.
 
-    \item \textbf{Resistencia a outliers y datos ruidosos:} La naturaleza basada en splits de los árboles de decisión reduce el impacto de outliers extremos, lo cual es relevante dado que transacciones con montos atípicos son comunes en el dataset de TechSport \parencite{Hastie2009}.
-
-    \item \textbf{Escalabilidad computacional:} El entrenamiento es paralelizable (cada árbol se entrena independientemente), lo cual es viable para datasets de 15M+ transacciones. \textcite{Pedregosa2011} documentan que scikit-learn implementa paralelización nativa mediante el parámetro \texttt{n\_jobs=-1}.
-
-    \item \textbf{Desempeño competitivo en datos tabulares:} \textcite{Hafez2025} reportan que Random Forest alcanza F1-Scores del 85-94\% en detección de fraude con tarjetas de crédito, comparable con algoritmos más complejos como XGBoost o Redes Neuronales, pero con menor tiempo de entrenamiento y mayor interpretabilidad.
-
-    \item \textbf{Manejo de desbalanceo de clases:} Random Forest soporta class weights nativamente mediante el parámetro \texttt{class\_weight='balanced'}, permitiendo ajustar la importancia relativa de la clase minoritaria (fraude) durante el entrenamiento sin necesidad de técnicas externas de balanceo.
-
-    \item \textbf{Tiempo de inferencia bajo:} \textcite{Carcillo2018} documentan que Random Forest puede predecir en < 200ms (requisito de HE4), especialmente con $\leq$ 200 árboles y max\_depth $\leq$ 20.
-\end{enumerate}
-
-\textbf{Formalización matemática:}
-
-El algoritmo construye $B$ árboles de decisión $\{T_b\}_{b=1}^{B}$ mediante bootstrap sampling del conjunto de entrenamiento. La predicción final se obtiene mediante votación mayoritaria:
+La formalización matemática del algoritmo construye $B$ árboles de decisión $\{T_b\}_{b=1}^{B}$ mediante bootstrap sampling. La predicción se obtiene por votación mayoritaria:
 
 \begin{equation}
     \hat{y} = \text{mode}\left(\{T_1(x), T_2(x), \ldots, T_B(x)\}\right)
 \end{equation}
 
-Para clasificación probabilística (scoring de riesgo):
+Para clasificación probabilística:
 
 \begin{equation}
     P(\text{fraude} | x) = \frac{1}{B} \sum_{b=1}^{B} \mathbb{1}(T_b(x) = \text{fraude})
 \end{equation}
 
-\textbf{Justificación de selección:} Random Forest se seleccionó para esta investigación por su balance óptimo entre desempeño (F1 85-94\% según literatura), interpretabilidad (requisito regulatorio), tiempo de entrenamiento (viable en plazo de 2 meses) y madurez tecnológica (implementación estable en scikit-learn).
+\subsubsection{Algoritmos Comparativos}
 
-\subsubsection{Gradient Boosting (XGBoost, LightGBM): Comparativa con Random Forest}
+\textbf{Gradient Boosting (XGBoost, LightGBM):} Construye árboles secuencialmente donde cada árbol corrige errores del anterior \parencite{Geron2022}. \textcite{Feng2024} reportan F1-Scores de 90-95\%, superiores a Random Forest, pero con 3-4 veces mayor tiempo de entrenamiento y menor interpretabilidad.
 
-Gradient Boosting construye árboles secuencialmente donde cada árbol corrige los errores del anterior mediante descenso de gradiente \parencite{Geron2022}. A diferencia de Random Forest (bagging), Gradient Boosting es un enfoque de boosting que minimiza iterativamente una función de pérdida.
+\textbf{Support Vector Machines:} Busca el hiperplano óptimo que maximiza el margen entre clases \parencite{James2021}. Su complejidad $O(n^2)$ o $O(n^3)$ lo hace inviable para datasets de millones de transacciones. \textcite{AlEmad2022} reportan F1-Score de 82-85\%, inferior a Random Forest.
 
-\textbf{Ventajas de Gradient Boosting:}
-\begin{itemize}[leftmargin=2cm]
-    \item Mayor precisión potencial (F1-Scores de 90-95\% reportados por \textcite{Feng2024})
-    \item Mejor manejo de features con importancia desigual
-    \item Hiperparámetros avanzados para control de overfitting (learning rate, subsample)
-\end{itemize}
-
-\textbf{Desventajas comparadas con Random Forest:}
-\begin{itemize}[leftmargin=2cm]
-    \item Mayor tiempo de entrenamiento (4-8 horas vs. 2-4 horas para Random Forest en dataset de 15M transacciones)
-    \item Mayor riesgo de overfitting si hiperparámetros no se ajustan cuidadosamente
-    \item Menor paralelización (árboles secuenciales vs. independientes en Random Forest)
-    \item Menor interpretabilidad (feature importance más compleja de interpretar)
-\end{itemize}
-
-\textbf{Decisión metodológica:} XGBoost se considera para trabajo futuro (Capítulo 4: Conclusiones y Recomendaciones), pero se prioriza Random Forest para la implementación actual por su balance entre desempeño, interpretabilidad y viabilidad temporal.
-
-\subsubsection{Support Vector Machines (SVM): Limitaciones para Datasets Grandes}
-
-SVM busca el hiperplano óptimo que maximiza el margen entre clases en un espacio de mayor dimensión mediante kernel tricks \parencite{James2021}. La función de decisión es:
-
-\begin{equation}
-    f(x) = \text{sign}\left(\sum_{i=1}^{n} \alpha_i y_i K(x_i, x) + b\right)
-\end{equation}
-
-donde $K(x_i, x)$ es la función kernel (lineal, RBF, polinomial) y $\alpha_i$ son los multiplicadores de Lagrange.
-
-\textbf{Limitaciones para esta investigación:}
-\begin{itemize}[leftmargin=2cm]
-    \item Escalabilidad: SVM con kernel RBF tiene complejidad $O(n^2)$ o $O(n^3)$ en entrenamiento, no viable para 15M transacciones
-    \item Tiempo de entrenamiento: \textcite{AlEmad2022} reportan 12-24 horas para datasets de 1M transacciones con kernel RBF
-    \item Desempeño: F1-Scores de 82-85\%, inferior a Random Forest (85-94\%) según \textcite{Hafez2025}
-    \item Interpretabilidad: Modelo de "caja negra" especialmente con kernels no lineales
-\end{itemize}
-
-\textbf{Conclusión:} SVM se descarta para esta investigación debido a limitaciones de escalabilidad y tiempo de entrenamiento.
-
-\subsubsection{Redes Neuronales Profundas: Overkill para Datos Tabulares}
-
-Las redes neuronales profundas (Deep Learning) han demostrado desempeño superior en datos no estructurados (imágenes, texto, audio). Sin embargo, para datos tabulares como transacciones financieras, \textcite{Grinsztajn2022} demostraron que los modelos basados en árboles (Random Forest, XGBoost) superan consistentemente a redes neuronales en benchmarks estándar.
-
-\textbf{Limitaciones de Deep Learning para esta investigación:}
-\begin{itemize}[leftmargin=2cm]
-    \item Requerimiento de grandes volúmenes de datos (típicamente > 100M instancias para superar a Random Forest)
-    \item Tiempo de entrenamiento: días o semanas con GPU vs. horas para Random Forest
-    \item Interpretabilidad: "caja negra" total, no cumple requisitos de auditoría PCI DSS
-    \item Complejidad de implementación: requiere expertise en arquitectura de redes, regularización dropout, batch normalization
-    \item Sensibilidad a hiperparámetros: mayor riesgo de configuración subóptima
-\end{itemize}
-
-\textbf{Conclusión:} Las redes neuronales se consideran trabajo futuro, pero se priorizan modelos basados en árboles para la investigación actual.
+\textbf{Redes Neuronales Profundas:} \textcite{Grinsztajn2022} demuestran que para datos tabulares, los modelos basados en árboles superan consistentemente a deep learning, con diferencias estadísticamente significativas. Las redes neuronales además presentan limitaciones de interpretabilidad incompatibles con requisitos regulatorios.
 
 \subsection{Métricas de Evaluación en Contextos Desbalanceados}
 
-\textbf{Vinculación con OE1 - Métricas de Evaluación:}
+La evaluación de modelos de detección de fraude requiere métricas especializadas debido al desbalanceo inherente de las clases (típicamente $<$5\% de transacciones fraudulentas). \textcite{Geron2022} enfatizan que accuracy es inadecuada, ya que un clasificador que predice siempre ``legítimo'' alcanzaría 95-99\% de accuracy siendo completamente inútil.
 
-OE1 especifica la necesidad de fundamentar métricas de evaluación (Precision, Recall, F1-Score, AUC-ROC). Esta subsección desarrolla la base teórica de estas métricas y su adecuación para datasets desbalanceados.
+\subsubsection{Matriz de Confusión}
 
-La evaluación de modelos de detección de fraude requiere métricas especializadas debido al desbalanceo inherente de las clases (típicamente < 5\% de transacciones son fraudulentas, según \textcite{Baesens2015}). \textcite{Geron2022} enfatizan que accuracy es una métrica inadecuada en estos contextos, ya que un clasificador que predice siempre ``legítimo'' alcanzaría 95-99\% de accuracy pero sería completamente inútil para detectar fraude.
-
-\subsubsection{Matriz de Confusión: Fundamento de Métricas Especializadas}
-
-La matriz de confusión descompone las predicciones en cuatro categorías fundamentales:
+La matriz de confusión descompone las predicciones en cuatro categorías:
 
 \begin{table}[H]
 \centering
-\caption{Matriz de Confusión para Clasificación Binaria en Detección de Fraude}
+\caption{Matriz de Confusión para Clasificación Binaria}
 \label{tab:confusion_matrix}
 \begin{tabular}{@{}lcc@{}}
 \toprule
@@ -271,498 +205,224 @@ La matriz de confusión descompone las predicciones en cuatro categorías fundam
 \end{tabular}
 \end{table}
 
-\textbf{Interpretación en contexto de detección de fraude:}
-\begin{itemize}[leftmargin=2cm]
-    \item \textbf{VP (Verdaderos Positivos):} Fraudes correctamente detectados → Pérdidas evitadas
-    \item \textbf{FN (Falsos Negativos):} Fraudes NO detectados → Pérdidas no evitadas (riesgo crítico)
-    \item \textbf{FP (Falsos Positivos):} Transacciones legítimas bloqueadas → Fricción con usuarios
-    \item \textbf{VN (Verdaderos Negativos):} Transacciones legítimas aprobadas correctamente → Experiencia fluida
-\end{itemize}
+En detección de fraude: VP representa fraudes detectados (pérdidas evitadas), FN representa fraudes no detectados (pérdidas consumadas), FP representa transacciones legítimas bloqueadas (fricción con usuarios), y VN representa transacciones legítimas aprobadas correctamente.
 
-\subsubsection{Precision: Minimización de Falsos Positivos}
+\subsubsection{Precision, Recall y F1-Score}
 
-\textbf{Precision} mide la proporción de predicciones positivas que fueron correctas:
+\textbf{Precision} mide la proporción de predicciones positivas correctas:
 
 \begin{equation}
-    \text{Precision} = \frac{VP}{VP + FP} = \frac{\text{Fraudes detectados correctamente}}{\text{Total de transacciones bloqueadas}}
+    \text{Precision} = \frac{VP}{VP + FP}
 \end{equation}
 
-\textbf{Interpretación práctica:} Precision alta significa pocos falsos positivos (transacciones legítimas erróneamente bloqueadas). En TechSport, FP generan fricción con usuarios (rechazos de pagos legítimos), afectando la experiencia del cliente. Según \textcite{Lucas2019}, cada FP puede costar 5-10 veces más que el costo de procesamiento de una transacción legítima, debido a atención al cliente, gestión de disputas y pérdida de ingresos por abandono del usuario.
-
-\textbf{Objetivo de esta investigación (HE3, HE4):} Precision $\geq$ 80\%
-
-\subsubsection{Recall (Sensibilidad): Minimización de Falsos Negativos}
+Una Precision alta indica pocos falsos positivos. Según \textcite{Lucas2019}, cada FP puede costar 5-10 veces más que el procesamiento de una transacción legítima debido a gestión de disputas y pérdida de clientes.
 
 \textbf{Recall (Sensibilidad)} mide la proporción de fraudes reales detectados:
 
 \begin{equation}
-    \text{Recall} = \frac{VP}{VP + FN} = \frac{\text{Fraudes detectados}}{\text{Total de fraudes reales}}
+    \text{Recall} = \frac{VP}{VP + FN}
 \end{equation}
 
-\textbf{Interpretación práctica:} Recall alto minimiza falsos negativos (fraudes no detectados), lo cual es prioritario en seguridad financiera. En detección de fraude, los FN representan pérdidas económicas directas no evitadas. Según \textcite{Baesens2015}, en sistemas críticos de seguridad financiera, Recall es más importante que Precision, ya que el costo de un fraude no detectado (pérdida total) supera el costo de un falso positivo (fricción temporal).
-
-\textbf{Objetivo de esta investigación (HE3, HE4):} Recall $\geq$ 90\%
-
-\textbf{Trade-off Precision-Recall:} Existe una tensión inherente entre Precision y Recall: aumentar uno típicamente reduce el otro. Por ejemplo, un modelo muy conservador que bloquea muchas transacciones tendrá alto Recall (detecta casi todos los fraudes) pero baja Precision (muchos FP). Un modelo muy permisivo tendrá alta Precision (pocos FP) pero bajo Recall (deja pasar fraudes).
-
-\subsubsection{F1-Score: Balance Armónico Precision-Recall}
+En detección de fraude, Recall es prioritario porque los FN representan pérdidas económicas directas \parencite{Baesens2015}.
 
 \textbf{F1-Score} es la media armónica de Precision y Recall:
 
 \begin{equation}
-    F1 = 2 \cdot \frac{\text{Precision} \cdot \text{Recall}}{\text{Precision} + \text{Recall}} = \frac{2 \cdot VP}{2 \cdot VP + FP + FN}
+    F1 = 2 \cdot \frac{\text{Precision} \cdot \text{Recall}}{\text{Precision} + \text{Recall}}
 \end{equation}
 
-\textbf{Ventaja de la media armónica:} Penaliza fuertemente modelos con desbalance entre Precision y Recall. Por ejemplo:
-\begin{itemize}[leftmargin=2cm]
-    \item Precision=1.0, Recall=0.1 $\Rightarrow$ F1=0.18 (modelo inútil pese a Precision perfecta)
-    \item Precision=0.8, Recall=0.9 $\Rightarrow$ F1=0.85 (modelo balanceado)
-\end{itemize}
+La media armónica penaliza modelos con desbalance extremo entre métricas. Según \textcite{Hafez2025}: F1 $<$70\% indica desempeño insuficiente, F1 70-80\% es aceptable, F1 80-90\% es bueno, y F1 $\geq$90\% es excelente.
 
-Según \textcite{Hafez2025}, en detección de fraude se consideran:
-\begin{itemize}[leftmargin=2cm]
-    \item F1 $<$ 70\%: Desempeño insuficiente
-    \item F1 = 70-80\%: Desempeño aceptable
-    \item F1 = 80-90\%: Desempeño bueno
-    \item F1 $\geq$ 90\%: Desempeño excelente
-\end{itemize}
+\subsubsection{AUC-ROC}
 
-\textbf{Objetivo de esta investigación (Hipótesis General, HE4):} F1-Score $\geq$ 85\%
+La curva ROC grafica la Tasa de Verdaderos Positivos (Recall) versus Tasa de Falsos Positivos para diferentes umbrales de clasificación. El área bajo la curva (AUC) proporciona una medida agregada independiente del umbral \parencite{Hastie2009}.
 
-\subsubsection{AUC-ROC: Medida Independiente del Umbral de Clasificación}
+Interpretación: AUC = 1,0 indica clasificador perfecto, AUC 0,9-1,0 excelente, AUC 0,8-0,9 bueno, AUC 0,7-0,8 aceptable, AUC = 0,5 equivale a clasificador aleatorio.
 
-La curva ROC (Receiver Operating Characteristic) grafica la Tasa de Verdaderos Positivos (Recall) vs. Tasa de Falsos Positivos $\frac{FP}{FP + VN}$ para diferentes umbrales de clasificación $\tau \in [0,1]$. El área bajo esta curva (AUC) proporciona una medida agregada de desempeño independiente del umbral seleccionado.
+\textcite{Murphy2022} recomiendan AUC-ROC $\geq$0,92 para aplicaciones de detección de fraude en producción.
 
-\textbf{Interpretación de AUC-ROC:}
-\begin{itemize}[leftmargin=2cm]
-    \item AUC = 1.0: Clasificador perfecto (separa completamente clases)
-    \item AUC = 0.9-1.0: Excelente poder discriminatorio
-    \item AUC = 0.8-0.9: Bueno
-    \item AUC = 0.7-0.8: Aceptable
-    \item AUC = 0.5: Clasificador aleatorio (línea diagonal)
-    \item AUC < 0.5: Peor que aleatorio (modelo invertido)
-\end{itemize}
+\subsection{Feature Engineering en Detección de Fraude}
 
-\textbf{Ventaja de AUC-ROC:} Permite evaluar el desempeño del modelo independientemente de la selección del umbral de decisión. En producción, el umbral puede ajustarse según el trade-off deseado entre Precision y Recall (por ejemplo, umbral bajo para maximizar Recall en aplicaciones críticas de seguridad).
+Feature engineering es el proceso de transformar datos brutos en representaciones que facilitan el aprendizaje de patrones relevantes \parencite{Geron2022}. En detección de fraude, las features originales (monto, timestamp, usuario) capturan información limitada sobre comportamientos anómalos.
 
-\textcite{Murphy2022} recomiendan AUC-ROC $\geq$ 0.92 para aplicaciones de detección de fraude en producción.
+\textcite{Baesens2015} categorizan las features en tres familias:
 
-\textbf{Objetivo de esta investigación (HE3, HE4):} AUC-ROC $\geq$ 0.92
+\begin{enumerate}
+    \item \textbf{Features estáticas:} Atributos de baja frecuencia de cambio (país de tarjeta, tipo de cuenta, canal habitual).
 
-\subsubsection{Métricas Complementarias}
+    \item \textbf{Features transaccionales:} Características de la transacción actual (monto, hora, canal, comercio).
 
-\textbf{Tasa de Falsos Positivos (FPR):}
-\begin{equation}
-    FPR = \frac{FP}{FP + VN} = \frac{\text{Legítimos bloqueados}}{\text{Total de legítimos}}
-\end{equation}
-
-Objetivo: FPR $\leq$ 5\% (máximo 5\% de transacciones legítimas bloqueadas).
-
-\textbf{Especificidad:}
-\begin{equation}
-    \text{Especificidad} = \frac{VN}{VN + FP} = 1 - FPR
-\end{equation}
-
-Objetivo: Especificidad $\geq$ 95\%
-
-\textbf{Matthews Correlation Coefficient (MCC):} Métrica robusta para datasets desbalanceados que considera los 4 componentes de la matriz de confusión:
-
-\begin{equation}
-    MCC = \frac{VP \cdot VN - FP \cdot FN}{\sqrt{(VP+FP)(VP+FN)(VN+FP)(VN+FN)}}
-\end{equation}
-
-MCC $\in [-1, 1]$, donde 1 = correlación perfecta, 0 = aleatorio, -1 = correlación inversa.
-
-% ==================================================================================
-% SECCIÓN 1.3: FEATURE ENGINEERING Y PREPROCESAMIENTO
-% ==================================================================================
-
-\section{Feature Engineering en Detección de Fraude}
-
-\textbf{Vinculación con OE1:} Esta sección desarrolla la fundamentación teórica de las técnicas de feature engineering y preprocesamiento aplicadas a detección de fraude, cumpliendo con el componente de "técnicas de feature engineering" especificado en el Objetivo Específico 1.
-
-\subsection{Conceptos Fundamentales}
-
-Feature engineering es el proceso de transformar datos brutos en representaciones que facilitan el aprendizaje de patrones relevantes por algoritmos de Machine Learning \parencite{Geron2022}. En detección de fraude, este proceso es crítico porque las features originales (monto, timestamp, ID del usuario) capturan información limitada sobre comportamientos anómalos.
-
-\textcite{Baesens2015} categorizan las features para detección de fraude en tres familias:
-
-\begin{enumerate}[leftmargin=2cm]
-    \item \textbf{Features estáticas:} Atributos inmutables o de baja frecuencia de cambio (país de la tarjeta, tipo de cuenta, canal de pago habitual).
-    \item \textbf{Features transaccionales:} Características de la transacción actual (monto, hora del día, canal de pago, comercio).
-    \item \textbf{Features comportamentales:} Derivadas del historial del usuario (frecuencia de transacciones, desviación del monto respecto al promedio histórico, tiempo desde última transacción, patrones geográficos).
+    \item \textbf{Features comportamentales:} Derivadas del historial del usuario (frecuencia transaccional, desviación del monto respecto al promedio histórico, tiempo desde última transacción, patrones geográficos).
 \end{enumerate}
-
-\textbf{Principio fundamental - Prevención de data leakage:} Es crítico que todas las features agregadas usen exclusivamente información disponible antes de la transacción actual, evitando usar información futura que no estaría disponible en producción \parencite{Geron2022}. Este principio se cumplirá estrictamente en el Capítulo 3 (Desarrollo de la Propuesta).
-
-\subsection{Técnicas de Feature Engineering Aplicadas a Fraude}
 
 \subsubsection{Agregaciones Temporales}
 
-Las agregaciones temporales capturan patrones de comportamiento del usuario en ventanas de tiempo. \textcite{Lucas2019} documentan que estas features son altamente predictivas para detección de fraude. Ejemplos implementables en TechSport:
+Las agregaciones temporales capturan patrones de comportamiento en ventanas de tiempo. \textcite{Lucas2019} documenta que estas features son altamente predictivas:
 
-\begin{itemize}[leftmargin=2cm]
-    \item Número de transacciones del usuario en las últimas 24 horas / 7 días / 30 días
-    \item Monto total gastado en ventanas temporales (últimas 24h, 7d, 30d)
+\begin{itemize}
+    \item Número de transacciones del usuario en las últimas 24 horas, 7 días, 30 días
+    \item Monto total gastado en ventanas temporales
     \item Desviación estándar del monto transaccional del usuario
-    \item Tiempo transcurrido desde la última transacción del usuario (en minutos)
-    \item Número de comercios distintos visitados en las últimas 24h/7d
+    \item Tiempo transcurrido desde la última transacción
+    \item Número de comercios distintos visitados
 \end{itemize}
 
-\textbf{Implementación sin data leakage:} Para cada transacción en el timestamp $t$, las agregaciones deben calcularse usando exclusivamente transacciones con timestamps $< t$. Esto se garantiza mediante joins temporales en SQL con cláusulas \texttt{WHERE transaction\_time < current\_time}.
+\subsubsection{Features de Velocidad}
 
-\subsubsection{Features de Velocidad (Velocity Features)}
+Las features de velocidad miden la tasa de cambio en el comportamiento, detectando actividad de alta frecuencia característica del fraude \parencite{Carcillo2018}:
 
-Las features de velocidad miden la tasa de cambio en el comportamiento del usuario, detectando actividad sospechosa de alta frecuencia característica del fraude \parencite{Carcillo2018}:
-
-\begin{itemize}[leftmargin=2cm]
-    \item \textbf{Velocidad transaccional:} $\text{vel} = \frac{\text{número de transacciones en última hora}}{\Delta t \text{ (horas)}}$
-    \item \textbf{Cambio en geolocalización:} Distancia entre IP actual e IP de transacciones previas (detector de "viaje imposible")
-    \item \textbf{Ratio monto actual vs. promedio histórico:} $\frac{\text{monto}_{\text{actual}}}{\text{promedio}_{\text{histórico del usuario}}}$ - detecta desviaciones extremas
-    \item \textbf{Cambio de comercio:} Indicador binario si el comercio actual es uno nunca visitado por el usuario
+\begin{itemize}
+    \item Velocidad transaccional: transacciones por unidad de tiempo
+    \item Cambio en geolocalización: distancia entre IP actual e IP previas
+    \item Ratio monto actual versus promedio histórico
+    \item Indicador de comercio nuevo (nunca visitado por el usuario)
 \end{itemize}
 
-\subsubsection{Features de Contexto}
+\subsubsection{Prevención de Data Leakage}
 
-Características derivadas del contexto de la transacción que capturan patrones temporales y geográficos \parencite{Baesens2015}:
+Es crítico que las features agregadas usen exclusivamente información disponible antes de la transacción actual, evitando información futura que no estaría disponible en producción \parencite{Geron2022}. Este principio se implementa mediante joins temporales con cláusulas que filtran por timestamp anterior a la transacción actual.
 
-\begin{itemize}[leftmargin=2cm]
-    \item Hora del día categorizada (madrugada: 0-6h, mañana: 6-12h, tarde: 12-18h, noche: 18-24h)
-    \item Día de la semana (weekday vs. weekend) - patrones de fraude difieren
-    \item Distancia geográfica entre IP detectada y país de registro del usuario
-    \item Canal de pago (web, app móvil, API, punto de venta físico)
-    \item Tipo de dispositivo (desktop, móvil iOS, móvil Android)
-\end{itemize}
+\subsection{Estrategias de Balanceo de Clases}
 
-\textbf{Relevancia para TechSport:} El dataset de 15.6M transacciones contiene timestamps, IPs, montos y usuarios, permitiendo calcular todas estas familias de features sin requerir datos externos.
+El desbalanceo de clases es un desafío fundamental en detección de fraude. \textcite{Hafez2025} reportan ratios de clase minoritaria entre 0,1\% y 5\%, lo que genera modelos sesgados hacia la clase mayoritaria.
 
-% ==================================================================================
-% SECCIÓN 1.4: ESTRATEGIAS DE BALANCEO DE CLASES
-% ==================================================================================
+\subsubsection{SMOTE (Synthetic Minority Over-sampling Technique)}
 
-\section{Estrategias de Balanceo de Clases en Datasets Desbalanceados}
+SMOTE genera instancias sintéticas de la clase minoritaria mediante interpolación lineal entre instancias cercanas \parencite{Geron2022}:
 
-\textbf{Vinculación con OE1:} Esta sección fundamenta teóricamente las estrategias de balanceo de clases especificadas en el Objetivo Específico 1, críticas para entrenar modelos en contextos de alta desbalanceo (típicamente $<1\%$ de transacciones fraudulentas).
+\begin{equation}
+    x_{\text{new}} = x_i + \lambda (x_j - x_i) \quad \text{donde } \lambda \sim U(0,1)
+\end{equation}
 
-El desbalanceo de clases es un desafío fundamental en detección de fraude. \textcite{Hafez2025} reportan que datasets reales de fraude tienen ratios de clase minoritaria entre 0.1\% y 5\%, lo cual genera modelos sesgados que tienden a clasificar todo como clase mayoritaria. Se analizan dos estrategias complementarias:
+Ventajas: aumenta representación sin duplicar instancias exactas, introduce variabilidad controlada. Limitaciones: puede generar ruido con outliers, no debe aplicarse al test set.
 
-\subsection{SMOTE (Synthetic Minority Over-sampling Technique)}
+\subsubsection{Class Weights}
 
-SMOTE genera instancias sintéticas de la clase minoritaria mediante interpolación lineal entre instancias reales cercanas \parencite{Geron2022}. Algoritmo:
-
-\begin{enumerate}[leftmargin=2cm]
-    \item Para cada instancia minoritaria $x_i$, se seleccionan $k$ vecinos más cercanos (típicamente $k=5$)
-    \item Se elige aleatoriamente uno de esos vecinos $x_j$
-    \item Se crea una instancia sintética mediante interpolación:
-    \begin{equation}
-        x_{\text{new}} = x_i + \lambda (x_j - x_i) \quad \text{donde } \lambda \sim U(0,1)
-    \end{equation}
-\end{enumerate}
-
-\textbf{Ventajas:}
-\begin{itemize}[leftmargin=2cm]
-    \item Aumenta la representación de la clase minoritaria sin duplicar instancias exactas
-    \item Introduce variabilidad controlada que mejora la generalización
-    \item Implementación eficiente disponible en \texttt{imblearn.over\_sampling.SMOTE}
-\end{itemize}
-
-\textbf{Limitaciones:}
-\begin{itemize}[leftmargin=2cm]
-    \item Puede generar ruido si existen outliers en la clase minoritaria (frauds atípicos)
-    \item No debe aplicarse al test set (solo train set) para evitar optimismo en métricas
-    \item Aumenta el tiempo de entrenamiento proporcionalmente al factor de balanceo
-\end{itemize}
-
-\subsection{Class Weights (Pesos de Clase)}
-
-Asignación de pesos diferentes a cada clase en la función de pérdida durante el entrenamiento:
+Asignación de pesos diferentes a cada clase en la función de pérdida:
 
 \begin{equation}
     \mathcal{L}_{\text{weighted}} = \sum_{i=1}^{n} w_{y_i} \cdot \mathcal{L}(\hat{y}_i, y_i)
 \end{equation}
 
-donde $w_0 = 1$ (clase legítima) y $w_1 = \frac{n_0}{n_1}$ (clase fraudulenta). Para un dataset con 1\% de fraude, $w_1 = 99$, penalizando 99 veces más los errores en la clase minoritaria.
+Para un dataset con 1\% de fraude, $w_1 = 99$ penaliza 99 veces más los errores en la clase minoritaria. Scikit-learn implementa esto mediante \texttt{class\_weight='balanced'} \parencite{Pedregosa2011}.
 
-\textbf{Implementación en Random Forest:} Scikit-learn soporta class weights nativamente mediante el parámetro \texttt{class\_weight='balanced'}, que calcula automáticamente los pesos inversamente proporcionales a las frecuencias de clase \parencite{Pedregosa2011}.
+Ventajas sobre SMOTE: no aumenta el tamaño del dataset, no genera datos sintéticos, integración nativa en Random Forest.
 
-\textbf{Ventajas sobre SMOTE:}
-\begin{itemize}[leftmargin=2cm]
-    \item No aumenta el tamaño del dataset (menor costo computacional)
-    \item No genera datos sintéticos (evita riesgo de ruido)
-    \item Integración nativa en Random Forest sin preprocesamiento adicional
-\end{itemize}
+\subsection{Validación Temporal en Series Financieras}
 
-\textbf{Estrategia recomendada para esta investigación:} Utilizar \texttt{class\_weight='balanced'} en Random Forest como estrategia principal, con experimentación opcional de SMOTE en fase de validación (Capítulo 3).
+\textcite{Geron2022} advierten que la validación cruzada k-fold tradicional es inadecuada para datos con dependencia temporal:
 
-% ==================================================================================
-% SECCIÓN 1.5: VALIDACIÓN TEMPORAL EN SERIES DE TIEMPO FINANCIERAS
-% ==================================================================================
+\begin{enumerate}
+    \item \textbf{Viola el orden temporal:} K-fold aleatorio puede usar transacciones futuras para predecir pasadas, generando data leakage temporal que infla artificialmente las métricas.
 
-\section{Validación Temporal en Series de Tiempo Financieras}
+    \item \textbf{Ignora concept drift:} Los patrones de fraude evolucionan; un modelo entrenado con datos de enero puede degradarse en diciembre.
 
-\textbf{Vinculación con OE1 y HE3:} Esta sección fundamenta la metodología de validación temporal que garantiza la robustez del modelo propuesto y evita optimismo en las métricas reportadas, crítico para validar HE3.
-
-\subsection{Limitaciones de la Validación Cruzada K-Fold en Series Temporales}
-
-\textcite{Geron2022} advierten que la validación cruzada k-fold tradicional es inadecuada para datos con dependencia temporal, ya que:
-
-\begin{enumerate}[leftmargin=2cm]
-    \item \textbf{Viola el orden temporal:} K-fold aleatorio puede usar transacciones futuras para predecir transacciones pasadas, generando \textbf{data leakage temporal}. Esto infla artificialmente las métricas de desempeño.
-
-    \item \textbf{Ignora concept drift:} Patrones de fraude evolucionan en el tiempo (nuevas técnicas de ataque, cambios en comportamiento de usuarios). Un modelo entrenado con datos de enero puede tener desempeño degradado en diciembre si no se valida temporalmente.
-
-    \item \textbf{No simula producción:} En producción, el modelo predice transacciones futuras usando conocimiento del pasado. K-fold no replica esta dinámica.
+    \item \textbf{No simula producción:} En operación real, el modelo predice transacciones futuras con conocimiento del pasado.
 \end{enumerate}
 
-\subsection{Validación Temporal (Time-Series Split)}
+La validación temporal respeta el orden cronológico \parencite{Hastie2009}:
 
-La validación temporal respeta el orden cronológico de los datos \parencite{Hastie2009}:
-
-\begin{itemize}[leftmargin=2cm]
-    \item \textbf{Train set:} Transacciones del periodo T1 (ejemplo: Enero-Junio 2025)
-    \item \textbf{Validation set:} Transacciones del periodo T2 > T1 (ejemplo: Julio-Agosto 2025)
-    \item \textbf{Test set:} Transacciones del periodo T3 > T2 (ejemplo: Septiembre-Diciembre 2025)
+\begin{itemize}
+    \item \textbf{Train set:} Transacciones del periodo T1
+    \item \textbf{Validation set:} Transacciones del periodo T2 $>$ T1
+    \item \textbf{Test set:} Transacciones del periodo T3 $>$ T2
 \end{itemize}
 
-Esta estrategia simula el despliegue real del modelo: entrenamiento con datos históricos, ajuste de hiperparámetros con datos de validación futuros, evaluación final con datos aún más recientes.
+Esta estrategia simula el despliegue real: entrenamiento con datos históricos, ajuste de hiperparámetros con datos de validación futuros, evaluación final con datos aún más recientes.
 
-\textbf{Aplicación a TechSport (Capítulo 3):} El dataset de 15.6M transacciones de gestión 2025 se dividirá temporalmente en:
-\begin{itemize}[leftmargin=2cm]
-    \item Train: 50\% (Ene-Jun) - 7.8M transacciones
-    \item Validation: 17\% (Jul-Ago) - 2.7M transacciones
-    \item Test: 33\% (Sep-Dic) - 5.2M transacciones
-\end{itemize}
+\subsection{Marco Normativo}
 
-\textbf{Implicación metodológica:} Las métricas reportadas en HE3 (Recall $\geq$ 90\%, Precision $\geq$ 80\%, F1-Score $\geq$ 85\%) corresponderán exclusivamente al test set temporal, garantizando evaluación realista del desempeño en producción.
+Los sistemas de detección de fraude operan bajo marcos normativos que impactan decisiones técnicas.
 
-% ==================================================================================
-% SECCIÓN 1.6: MARCO NORMATIVO Y REGULATORIO
-% ==================================================================================
+\subsubsection{PCI DSS (Payment Card Industry Data Security Standard)}
 
-\section{Marco Normativo y Regulatorio en Sistemas de Pago}
+PCI DSS versión 4.0 establece requisitos para procesamiento seguro de información de tarjetas \parencite{NIST2024}:
 
-\textbf{Vinculación con OE1:} Aunque no es foco central de la investigación, es importante contextualizar que los sistemas de detección de fraude operan bajo marcos normativos estrictos que impactan decisiones técnicas (interpretabilidad de modelos, privacidad de datos).
-
-\subsection{PCI DSS (Payment Card Industry Data Security Standard)}
-
-PCI DSS establece requisitos mínimos para procesamiento seguro de información de tarjetas de pago. La versión 4.0 (2024) exige:
-
-\begin{itemize}[leftmargin=2cm]
-    \item \textbf{Requisito 10:} Monitoreo y logging de todas las transacciones y accesos a datos de tarjetahabientes
+\begin{itemize}
+    \item \textbf{Requisito 10:} Monitoreo y logging de transacciones
     \item \textbf{Requisito 11:} Implementación de controles anti-fraude y detección de anomalías
-    \item \textbf{Requisito 3:} Encriptación de datos sensibles (PANs, CVVs) en reposo y tránsito
-    \item \textbf{Requisito 12:} Auditorías regulares de seguridad y gestión de riesgos
+    \item \textbf{Requisito 3:} Encriptación de datos sensibles
 \end{itemize}
 
-\textbf{Implicación para el modelo:} El modelo Random Forest propuesto debe integrarse en una arquitectura que cumpla logging auditable (Requisito 10) y procesamiento seguro de features derivadas (sin exponer PANs directamente).
+\subsubsection{NIST Cybersecurity Framework 2.0}
 
-\subsection{NIST Cybersecurity Framework 2.0}
+\textcite{NIST2024} incorporan la función ``Govern'' que enfatiza la gestión del riesgo cibernético como riesgo empresarial. Para sistemas de pago, recomienda:
 
-\textcite{NIST2024} publicaron la versión 2.0 del Marco de Ciberseguridad, incorporando la función ``Govern'' que enfatiza la gestión del riesgo cibernético como riesgo empresarial. Para sistemas de pago, recomienda:
-
-\begin{itemize}[leftmargin=2cm]
-    \item \textbf{Identificar:} Activos críticos (datos de tarjetas, logs transaccionales, modelos de ML)
-    \item \textbf{Proteger:} Controles técnicos (detección de anomalías, segmentación de red, cifrado)
-    \item \textbf{Detectar:} Eventos de seguridad en tiempo real (latencia de inferencia $<$ 200ms)
-    \item \textbf{Responder:} Protocolos documentados ante incidentes de fraude (bloqueo, notificación)
-    \item \textbf{Recuperar:} Planes de continuidad del negocio (fallback a reglas si modelo falla)
+\begin{itemize}
+    \item \textbf{Detectar:} Eventos de seguridad en tiempo real (latencia de inferencia $<$200ms)
+    \item \textbf{Responder:} Protocolos documentados ante incidentes
+    \item \textbf{Recuperar:} Planes de continuidad (fallback a reglas si modelo falla)
 \end{itemize}
 
-\subsection{GDPR (General Data Protection Regulation)}
+\subsubsection{Implicaciones para el Modelo}
 
-GDPR regula el procesamiento de datos personales en la Unión Europea. Aunque TechSport opera en Bolivia, principios GDPR son buenas prácticas internacionales:
-
-\begin{itemize}[leftmargin=2cm]
-    \item \textbf{Minimización de datos:} Solo procesar features estrictamente necesarias para detección de fraude
-    \item \textbf{Exactitud:} Mantener datos actualizados y corregir errores en etiquetas de fraude
-    \item \textbf{Limitación de almacenamiento:} Retener logs transaccionales solo el tiempo legalmente requerido
-    \item \textbf{Transparencia:} Informar a usuarios sobre uso de sistemas automatizados de detección (artículo 22 GDPR)
-\end{itemize}
-
-\textbf{Relevancia de interpretabilidad:} Random Forest permite calcular feature importance, facilitando auditorías y explicación de decisiones del modelo (cumplimiento del derecho a explicación de GDPR).
+Random Forest facilita el cumplimiento regulatorio mediante su capacidad de calcular feature importance, lo que permite explicar las decisiones del modelo ante auditorías. Esta interpretabilidad es relevante para el derecho a explicación contemplado en regulaciones de protección de datos.
 
 % ==================================================================================
-% SECCIÓN 1.7: REVISIÓN SISTEMÁTICA DE LITERATURA (VALIDACIÓN DE HE1)
+% 1.3. DEFINICIÓN DE TÉRMINOS BÁSICOS
 % ==================================================================================
 
-\section{Revisión Sistemática de Literatura Científica (2020-2025)}
+\section{Definición de Términos Básicos}
 
-\textbf{Vinculación directa con HE1:} Esta sección cumple el requisito de la Hipótesis Específica 1 de revisar \textbf{"al menos 20 estudios científicos del periodo 2020-2025 que demuestren la efectividad de modelos de Machine Learning supervisados en detección de fraude en pagos digitales, con reportes de F1-Scores entre 85-94\%, validando la viabilidad técnica del enfoque propuesto"}.
+Según \textcite[p. 77]{Hernandez2018}, la definición de términos básicos permite establecer un lenguaje común y evitar ambigüedades en la interpretación de conceptos clave.
 
-\subsection{Metodología de la Revisión Sistemática}
+\begin{description}
+    \item[Machine Learning:] Rama de la inteligencia artificial que permite a los sistemas aprender patrones a partir de datos sin ser programados explícitamente para cada tarea específica \parencite{Geron2022}.
 
-Se realizó una revisión sistemática de literatura científica siguiendo las directrices de \textcite{Hernandez2018}, con los siguientes criterios:
+    \item[Aprendizaje Supervisado:] Paradigma de Machine Learning donde el algoritmo aprende a partir de ejemplos etiquetados, estableciendo una función que mapea entradas a salidas conocidas \parencite{James2021}.
 
-\textbf{Criterios de inclusión:}
-\begin{itemize}[leftmargin=2cm]
-    \item Estudios publicados entre 2020-2025 (últimos 5 años)
-    \item Aplicación de Machine Learning supervisado a detección de fraude en pagos digitales
-    \item Reporte de métricas cuantitativas (Precision, Recall, F1-Score, AUC-ROC)
-    \item Publicados en journals indexados, conferencias revisadas por pares, o tesis doctorales
-\end{itemize}
+    \item[Random Forest:] Algoritmo de ensemble learning que combina múltiples árboles de decisión entrenados con subconjuntos aleatorios de datos, generando predicciones por votación mayoritaria \parencite{Breiman2001}.
 
-\textbf{Fuentes consultadas:} IEEE Xplore, Springer, Wiley, Journal of Big Data, repositorios institucionales (UAGRM, INSA Lyon, Universidad de Lima).
+    \item[Ensemble Learning:] Técnica que combina múltiples modelos de Machine Learning para obtener predicciones más robustas que cualquier modelo individual \parencite{Hastie2009}.
 
-\subsection{Síntesis de Estudios Analizados (20+ Estudios)}
+    \item[Feature Engineering:] Proceso de transformar datos brutos en representaciones que facilitan el aprendizaje de patrones por algoritmos de Machine Learning \parencite{Geron2022}.
 
-A continuación se presenta la síntesis de 21 estudios científicos que validan la efectividad de modelos de ML en detección de fraude:
+    \item[Fraude Transaccional:] Actividad ilícita donde una transacción de pago digital es realizada sin autorización legítima del titular, con propósito de obtener beneficio económico indebido \parencite{Baesens2015}.
 
-\subsubsection{Revisiones Sistemáticas y Surveys (2024-2025)}
+    \item[Chargeback:] Proceso mediante el cual un banco emisor revierte una transacción a solicitud del tarjetahabiente, generalmente por fraude o disputa comercial.
 
-\begin{enumerate}[leftmargin=2cm]
-    \item \textbf{\textcite{Hafez2025}:} Revisión sistemática de 87 estudios sobre detección de fraude con tarjetas de crédito mediante AI. Reportan que Random Forest alcanza F1-Scores de 85-89\% y Recall de 87-92\%, validando su efectividad. Identifican ensemble learning como el enfoque dominante en la literatura reciente.
+    \item[F1-Score:] Media armónica de Precision y Recall que proporciona una medida balanceada del desempeño de clasificación \parencite{Geron2022}.
 
-    \item \textbf{\textcite{HernandezAros2024}:} Revisión de técnicas de ML aplicadas a fraude financiero. Reportan que enfoques híbridos de ensemble (combinación de Random Forest + XGBoost) logran F1-Scores de 91-95\% y Recall de 93-97\%. Enfatizan la importancia de feature engineering y validación temporal.
+    \item[Recall (Sensibilidad):] Proporción de casos positivos reales que fueron correctamente identificados por el modelo \parencite{James2021}.
 
-    \item \textbf{\textcite{Bello2024}:} Survey sobre AI en prevención de fraude, analizando 50+ aplicaciones en contextos financieros. Documentan que modelos de ensemble superan a redes neuronales profundas en datos tabulares, con F1-Scores comparables (85-94\%) pero con 10x menor tiempo de entrenamiento.
-\end{enumerate}
+    \item[Precision:] Proporción de predicciones positivas que fueron correctas \parencite{James2021}.
 
-\subsubsection{Estudios de Machine Learning Clásico (2022-2024)}
+    \item[AUC-ROC:] Área bajo la curva ROC (Receiver Operating Characteristic), medida de capacidad discriminativa independiente del umbral de clasificación \parencite{Hastie2009}.
 
-\begin{enumerate}[leftmargin=2cm, resume]
-    \item \textbf{\textcite{Feng2024}:} Implementación de Random Forest y XGBoost en dataset de tarjetas de crédito. Reportan F1-Score de 90-94\% para XGBoost y 85-89\% para Random Forest, con AUC-ROC de 0.96 y 0.93 respectivamente. Concluyen que XGBoost ofrece ventaja marginal a costo de 3x mayor tiempo de entrenamiento.
+    \item[Data Leakage:] Uso inadvertido de información que no estaría disponible en producción durante el entrenamiento del modelo, generando estimaciones optimistas del desempeño \parencite{Geron2022}.
 
-    \item \textbf{\textcite{AlEmad2022}:} Comparación de Random Forest, SVM y KNN en detección de fraude. Random Forest logra F1-Score de 87\%, SVM 82-85\%, KNN 78\%. Destacan la superioridad de Random Forest en interpretabilidad y robustez ante datos desbalanceados.
+    \item[Concept Drift:] Cambio en la distribución de datos o en la relación entre variables a lo largo del tiempo, que puede degradar el desempeño de modelos entrenados con datos históricos \parencite{Murphy2022}.
 
-    \item \textbf{\textcite{Grinsztajn2022}:} Estudio comparativo entre modelos basados en árboles (Random Forest, XGBoost) y deep learning (ResNet, FT-Transformer) en 45 datasets tabulares. Concluyen que tree-based models superan a deep learning en datos tabulares típicos, con diferencias estadísticamente significativas (p < 0.01). Fundamentación teórica clave para la selección de Random Forest en esta investigación.
-\end{enumerate}
+    \item[SMOTE:] Synthetic Minority Over-sampling Technique, técnica de balanceo que genera instancias sintéticas de la clase minoritaria mediante interpolación \parencite{Geron2022}.
 
-\subsubsection{Estudios con Deep Learning (2023-2025)}
+    \item[Class Weights:] Ponderación diferencial de clases en la función de pérdida para compensar desbalanceo en el dataset de entrenamiento \parencite{Pedregosa2011}.
 
-\begin{enumerate}[leftmargin=2cm, resume]
-    \item \textbf{\textcite{AlKhasawneh2025}:} Redes neuronales híbridas para detección de fraude. Reportan F1-Scores de 88-93\% y Recall de 89-94\%, comparable con Random Forest pero con requerimientos computacionales 10x superiores.
+    \item[Validación Temporal:] Estrategia de evaluación que respeta el orden cronológico de los datos, simulando el despliegue real del modelo \parencite{Hastie2009}.
 
-    \item \textbf{\textcite{Dileep2023}:} Deep learning (LSTM, CNN) aplicado a fraude financiero. F1-Score de 86-90\%. Concluyen que deep learning ofrece ventajas en datos secuenciales complejos, pero no justifica la complejidad adicional en datasets tabulares estándar.
+    \item[PCI DSS:] Payment Card Industry Data Security Standard, conjunto de requisitos de seguridad para organizaciones que procesan información de tarjetas de pago.
 
-    \item \textbf{\textcite{Cheng2025}:} Graph Neural Networks para detección de fraude en redes de pagos. F1-Score de 91\%. Relevante para detección de fraude organizado, pero requiere datos de red social no disponibles en TechSport.
-\end{enumerate}
+    \item[SaaS:] Software as a Service, modelo de distribución de software donde las aplicaciones se alojan en la nube y se acceden vía internet.
 
-\subsubsection{Estudios con Técnicas Especializadas (2023)}
-
-\begin{enumerate}[leftmargin=2cm, resume]
-    \item \textbf{\textcite{Rodriguez2023}:} Detección de fraude con NLP en descripciones de transacciones. F1-Score de 84\%. Enfoque complementario que podría integrarse en futuras extensiones del modelo propuesto.
-
-    \item \textbf{\textcite{Carcillo2018}:} Framework escalable de detección de fraude con Apache Spark. Implementan Random Forest distribuido procesando 100M+ transacciones con latencia < 200ms. Validan la viabilidad de despliegue en producción para datasets masivos como TechSport (15.6M transacciones).
-\end{enumerate}
-
-\subsubsection{Tesis Doctorales y de Maestría (2019-2022)}
-
-\begin{enumerate}[leftmargin=2cm, resume]
-    \item \textbf{\textcite{Lucas2019}:} Tesis doctoral (INSA Lyon) sobre detección de fraude con integración de conocimiento contextual. Desarrolla 50+ features comportamentales y logra F1-Score de 92\% con Random Forest. Proporciona fundamento metodológico para feature engineering en esta investigación.
-
-    \item \textbf{\textcite{Chaquet2022}:} Tesis doctoral (U. Rey Juan Carlos) sobre ML interpretable para fraude crediticio. F1-Score de 89\% con Random Forest. Enfatiza la importancia de interpretabilidad en cumplimiento regulatorio (GDPR, PCI DSS).
-
-    \item \textbf{\textcite{Rayo2020}:} Tesis de maestría (U. Lima) sobre prototipo de detección de fraude con Random Forest en banco peruano. F1-Score de 87\%, Recall de 91\%. Contexto latinoamericano relevante para TechSport (Bolivia).
-
-    \item \textbf{\textcite{Perez2021}:} Tesis de maestría (U. Andes, Colombia) sobre detección de fraude en tarjetas de crédito con ML. Random Forest logra F1-Score de 85\%, validando viabilidad en contexto latinoamericano.
-
-    \item \textbf{\textcite{AlMarri2020}:} Tesis de maestría (RIT, Dubai) sobre fraude financiero con ML supervisado. Comparación de 5 algoritmos; Random Forest obtiene mejor balance precisión-interpretabilidad (F1=86\%).
-\end{enumerate}
-
-\subsubsection{Libros de Referencia y Fundamentos Teóricos}
-
-\begin{enumerate}[leftmargin=2cm, resume]
-    \item \textbf{\textcite{Baesens2015}:} Libro especializado "Fraud Analytics" - referencia fundamental en técnicas predictivas para detección de fraude. Documenta que ensemble methods (Random Forest, Boosting) constituyen el estado del arte en aplicaciones financieras.
-
-    \item \textbf{\textcite{Geron2022}:} "Hands-On Machine Learning" (3ra edición, 2022) - referencia estándar para implementación de Random Forest con scikit-learn, feature engineering y validación temporal. Proporciona guías prácticas aplicables directamente a TechSport.
-
-    \item \textbf{\textcite{Hastie2009}:} "The Elements of Statistical Learning" - fundamentación teórica rigurosa de Random Forest, bagging y métodos de ensemble. Referencia clásica citada en 90\%+ de estudios analizados.
-
-    \item \textbf{\textcite{Breiman2001}:} Artículo seminal "Random Forests" (Leo Breiman, 2001) - publicación original del algoritmo con 40,000+ citas. Fundamento teórico imprescindible del modelo propuesto.
-\end{enumerate}
-
-\subsection{Tabla Comparativa de Benchmarks}
-
-La Tabla \ref{tab:literatura_benchmarks} sintetiza los benchmarks cuantitativos de los 21 estudios analizados:
-
-\begin{table}[H]
-\centering
-\caption{Benchmarks de Desempeño en Detección de Fraude según Literatura Científica (2020-2025)}
-\label{tab:literatura_benchmarks}
-\small
-\begin{tabular}{@{}llcccc@{}}
-\toprule
-\textbf{Estudio} & \textbf{Algoritmo} & \textbf{F1 (\%)} & \textbf{Recall (\%)} & \textbf{Precision (\%)} & \textbf{AUC-ROC} \\
-\midrule
-\textcite{Hafez2025} & Random Forest & 85-89 & 87-92 & 83-87 & 0.91-0.93 \\
-\textcite{HernandezAros2024} & Ensemble Híbrido & 91-95 & 93-97 & 89-93 & 0.96+ \\
-\textcite{Feng2024} & XGBoost & 90-94 & 92-96 & 88-92 & 0.96 \\
-\textcite{Feng2024} & Random Forest & 85-89 & 87-92 & 83-88 & 0.93 \\
-\textcite{AlEmad2022} & Random Forest & 87 & 89 & 85 & 0.92 \\
-\textcite{AlKhasawneh2025} & Hybrid NN & 88-93 & 89-94 & 87-92 & 0.94 \\
-\textcite{Dileep2023} & Deep Learning & 86-90 & 88-92 & 84-88 & 0.93 \\
-\textcite{Lucas2019} & Random Forest & 92 & 94 & 90 & 0.96 \\
-\textcite{Chaquet2022} & Random Forest & 89 & 91 & 87 & 0.94 \\
-\textcite{Rayo2020} & Random Forest & 87 & 91 & 83 & 0.93 \\
-\textcite{Perez2021} & Random Forest & 85 & 88 & 82 & 0.91 \\
-\textcite{AlMarri2020} & Random Forest & 86 & 89 & 83 & 0.92 \\
-\midrule
-\multicolumn{2}{l}{\textbf{Promedio Literatura}} & \textbf{88.2} & \textbf{90.4} & \textbf{86.0} & \textbf{0.934} \\
-\rowcolor{lightblue}
-\multicolumn{2}{l}{\textbf{Objetivos TechSport (HE3)}} & \textbf{$\geq$85} & \textbf{$\geq$90} & \textbf{$\geq$80} & \textbf{$\geq$0.92} \\
-\bottomrule
-\end{tabular}
-\end{table}
-
-\subsection{Análisis Crítico y Validación de HE1}
-
-El análisis de 21 estudios científicos del periodo 2020-2025 proporciona evidencia robusta que \textbf{valida la Hipótesis Específica 1 (HE1)}:
-
-\begin{enumerate}[leftmargin=2cm]
-    \item \textbf{Efectividad comprobada:} 17 de 21 estudios (81\%) reportan F1-Scores en el rango 85-94\% especificado en HE1, con promedio de 88.2\%.
-
-    \item \textbf{Superioridad de ensemble learning:} Random Forest y métodos de ensemble constituyen el 70\%+ de los estudios con mejores resultados, validando la selección del algoritmo para esta investigación.
-
-    \item \textbf{Recall prioritario:} Los estudios coinciden en que en detección de fraude, Recall (minimizar fraudes no detectados) es más crítico que Precision. El promedio de Recall en la literatura es 90.4\%, alineado con el objetivo de HE3 (Recall $\geq$ 90\%).
-
-    \item \textbf{Viabilidad en contexto latinoamericano:} Estudios de \textcite{Rayo2020} (Perú), \textcite{Perez2021} (Colombia) y \textcite{Chaquet2022} (España) documentan implementaciones exitosas en contextos similares a TechSport (Bolivia).
-
-    \item \textbf{Escalabilidad validada:} \textcite{Carcillo2018} demuestran que Random Forest escala a 100M+ transacciones con latencia < 200ms, validando viabilidad para dataset de TechSport (15.6M transacciones).
-
-    \item \textbf{Convergencia de benchmarks:} Los estudios convergen en objetivos cuantitativos similares a HE3: F1-Score $\geq$ 85\%, Recall $\geq$ 90\%, AUC-ROC $\geq$ 0.92, validando que los objetivos de esta investigación son realistas y alineados con el estado del arte internacional.
-\end{enumerate}
-
-\textbf{Conclusión sobre HE1:} La revisión sistemática de 21 estudios científicos valida plenamente la Hipótesis Específica 1, confirmando que los modelos de Machine Learning supervisados, particularmente Random Forest y ensemble methods, constituyen un enfoque técnicamente validado, escalable y efectivo para detección de fraude en pagos digitales, con benchmarks internacionales que sustentan la viabilidad del modelo propuesto para TechSport.
+    \item[Gateway de Pago:] Servicio tecnológico que procesa transacciones de pago entre comerciantes y redes de tarjetas o bancos.
+\end{description}
 
 % ==================================================================================
-% CONCLUSIONES DEL CAPÍTULO 1
+% SÍNTESIS DEL CAPÍTULO
 % ==================================================================================
 
-\section*{Conclusiones del Capítulo}
+\section*{Síntesis del Capítulo}
+\addcontentsline{toc}{section}{Síntesis del Capítulo}
 
-El presente capítulo ha cumplido con el \textbf{Objetivo Específico 1 (OE1)}, proporcionando la fundamentación teórica rigurosa de los modelos de Machine Learning supervisados aplicados a detección de fraude en pagos digitales, con énfasis en Random Forest y enfoques de ensemble learning. Asimismo, ha validado plenamente la \textbf{Hipótesis Específica 1 (HE1)} mediante la revisión sistemática de 21 estudios científicos del periodo 2020-2025.
+El presente capítulo ha desarrollado la fundamentación teórica de la investigación, cumpliendo con el Objetivo Específico 1 (OE1) de fundamentar teóricamente los modelos de Machine Learning supervisados aplicados a detección de fraude en pagos digitales.
 
-\subsection*{Síntesis de la Fundamentación Teórica}
+La revisión de antecedentes del periodo 2020-2025 evidencia que Random Forest alcanza consistentemente F1-Scores entre 85\% y 92\% en detección de fraude financiero, con implementaciones exitosas en contextos latinoamericanos similares a TechSport. Los métodos de ensemble learning superan a técnicas tradicionales basadas en reglas estáticas, y la interpretabilidad de Random Forest facilita el cumplimiento de requisitos regulatorios.
 
-\begin{enumerate}[leftmargin=2cm]
-    \item \textbf{Fraude en pagos digitales:} Se identificaron 4 tipologías principales (robo de identidad, fraude de cuenta nueva, fraude amigable, fraude organizado) con impacto económico del 0.5-2\% de volumen transaccional. Los sistemas basados en reglas estáticas presentan 6 limitaciones críticas que justifican la adopción de ML supervisado.
+Las bases teóricas establecen que el fraude en pagos digitales presenta tipologías identificables (tarjetas robadas, transacciones duplicadas, comportamientos anómalos, identidad sintética) que generan impacto económico significativo. Los sistemas basados en reglas estáticas presentan limitaciones estructurales (ausencia de aprendizaje, alta tasa de falsos positivos, degradación temporal) que justifican la adopción de Machine Learning supervisado.
 
-    \item \textbf{Random Forest como algoritmo seleccionado:} Se fundamentaron 8 ventajas específicas de Random Forest para detección de fraude: interpretabilidad (cumplimiento PCI DSS/GDPR), robustez ante overfitting, manejo nativo de features categóricas/numéricas, resistencia a outliers, escalabilidad computacional, desempeño competitivo en datos tabulares (F1=85-94\%), manejo de desbalanceo con class weights, y tiempo de inferencia bajo (< 200ms).
+Random Forest se posiciona como algoritmo adecuado por su interpretabilidad, robustez ante overfitting, manejo de variables mixtas, escalabilidad y capacidad nativa de manejar desbalanceo de clases. Las métricas de evaluación (Precision, Recall, F1-Score, AUC-ROC) permiten cuantificar el desempeño en contextos desbalanceados, donde Recall es prioritario para minimizar fraudes no detectados.
 
-    \item \textbf{Métricas de evaluación:} Se estableció que para el contexto de detección de fraude, el Recall (minimizar fraudes no detectados) es prioritario sobre Precision, y que el F1-Score proporciona un balance adecuado. Se documentaron los objetivos cuantitativos alineados con benchmarks internacionales: F1-Score $\geq$ 85\%, Recall $\geq$ 90\%, Precision $\geq$ 80\%, AUC-ROC $\geq$ 0.92.
+El feature engineering comportamental, las estrategias de balanceo de clases y la validación temporal constituyen componentes metodológicos esenciales para garantizar la generalización del modelo. El marco normativo (PCI DSS, NIST) contextualiza los requisitos regulatorios que el modelo debe satisfacer.
 
-    \item \textbf{Feature engineering:} Se categorizaron las técnicas en 3 familias (features estáticas, transaccionales, comportamentales) con énfasis en agregaciones temporales, features de velocidad y contexto. Se enfatizó el principio crítico de prevención de data leakage temporal.
-
-    \item \textbf{Balanceo de clases:} Se analizaron SMOTE y class weights como estrategias complementarias, recomendando \texttt{class\_weight='balanced'} en Random Forest como enfoque principal por su integración nativa y menor costo computacional.
-
-    \item \textbf{Validación temporal:} Se fundamentó la inadecuación de k-fold para datos temporales y la necesidad de validación temporal estricta (train: Ene-Jun, validation: Jul-Ago, test: Sep-Dic) para evitar data leakage y simular despliegue en producción.
-
-    \item \textbf{Marco normativo:} Se contextualizaron los requerimientos de PCI DSS 4.0, NIST CSF 2.0 y principios GDPR, destacando la relevancia de la interpretabilidad de Random Forest para auditorías y cumplimiento regulatorio.
-\end{enumerate}
-
-\subsection*{Validación de la Hipótesis Específica 1 (HE1)}
-
-La revisión sistemática de \textbf{21 estudios científicos} del periodo 2020-2025 proporciona evidencia empírica robusta que valida HE1:
-
-\begin{itemize}[leftmargin=2cm]
-    \item \textbf{Efectividad comprobada:} 81\% de estudios (17/21) reportan F1-Scores en el rango 85-94\% especificado en HE1
-    \item \textbf{Promedio de benchmarks:} F1-Score = 88.2\%, Recall = 90.4\%, Precision = 86.0\%, AUC-ROC = 0.934
-    \item \textbf{Convergencia internacional:} Estudios de Europa (España, Francia), América Latina (Perú, Colombia), Asia (Dubai) y EE.UU. reportan resultados consistentes, validando la generalización del enfoque
-    \item \textbf{Viabilidad técnica:} Escalabilidad demostrada para datasets de 100M+ transacciones con latencia < 200ms
-\end{itemize}
-
-\textbf{Conclusión final:} La fundamentación teórica desarrollada en este capítulo establece la base conceptual y técnica sólida para el desarrollo del modelo Random Forest propuesto en el Capítulo 3, con objetivos cuantitativos alineados con benchmarks internacionales y metodología de validación rigurosa que garantiza la robustez y aplicabilidad de los resultados para TechSport.
-
-\textbf{Transición al Capítulo 2:} Habiendo fundamentado teóricamente los modelos de ML en detección de fraude (OE1, HE1), el siguiente capítulo desarrollará el \textbf{diagnóstico del sistema actual de TechSport} (OE2, HE2), identificando las limitaciones específicas que motivan la propuesta de solución mediante Random Forest.
+Esta fundamentación teórica proporciona la base conceptual y técnica para el desarrollo del modelo propuesto, con benchmarks cuantitativos alineados con los objetivos de la investigación: F1-Score $\geq$85\%, Recall $\geq$90\%, Precision $\geq$80\%, AUC-ROC $\geq$0,92.
 
 \cleardoublepage
