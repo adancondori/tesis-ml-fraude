@@ -1,27 +1,28 @@
 % ==================================================================================
 % CAPÍTULO 2: DIAGNÓSTICO Y ANÁLISIS DE RESULTADOS
+% Triangulación: PE2 → OE2 → HE2
 % ==================================================================================
 
 \chapter{Diagnóstico y Análisis de Resultados}
 
-El presente capítulo desarrolla el Objetivo Específico 2 de la investigación: \textit{``Diagnosticar la situación actual del sistema de detección de fraude de TechSport mediante análisis exploratorio del dataset histórico de gestión 2025, documentando el proceso de etiquetado de transacciones fraudulentas realizado por el equipo de contabilidad de la empresa y caracterizando los tres principales patrones de fraude presentes: (i) tarjetas robadas o clonadas, (ii) transacciones duplicadas sospechosas, y (iii) comportamientos anómalos de usuarios''}.
+El presente capítulo desarrolla el Objetivo Específico 2 de la investigación: \textit{``Caracterizar los patrones de fraude presentes en el dataset histórico de TechSport (gestión 2025) mediante análisis exploratorio de datos''}. Este diagnóstico valida la Hipótesis Específica 2 (HE2), que postula la existencia de al menos tres patrones de fraude recurrentes en el dataset: tarjetas robadas o clonadas, transacciones duplicadas sospechosas y comportamientos anómalos de usuarios.
 
-El diagnóstico se estructura en cinco secciones principales: (i) caracterización del dataset de TechSport gestión 2025, (ii) análisis exploratorio de datos (EDA) para comprender la estructura y distribución de las transacciones, (iii) caracterización de los patrones de fraude presentes, (iv) evaluación del proceso de etiquetado de fraudes, y (v) diagnóstico de las limitaciones del sistema actual de detección basado en reglas estáticas.
+El diagnóstico se estructura en cinco secciones principales: (1) caracterización del dataset de gestión 2025, (2) análisis exploratorio de datos (EDA), (3) caracterización de los patrones de fraude presentes, (4) evaluación del proceso de etiquetado de fraudes, y (5) diagnóstico de las limitaciones del sistema actual de detección.
 
 \section{Caracterización del Dataset de Gestión 2025}
 
 \subsection{Fuente de Datos y Población de Estudio}
 
-La población de estudio comprende la totalidad de transacciones de pago digital procesadas por la empresa TechSport durante el año calendario 2025 (enero-diciembre). Los datos se encuentran almacenados en la base de datos operacional ClickHouse, específicamente en el esquema \texttt{TechSport\_db\_production.paybycourtDB\_payments}.
+La población de estudio comprende la totalidad de transacciones de pago digital procesadas por TechSport durante el año calendario 2025 (enero-diciembre). Los datos se encuentran almacenados en la base de datos operacional ClickHouse, específicamente en el esquema \texttt{TechSport\_db\_production.paybycourtDB\_payments}.
 
 \textbf{Características cuantitativas de la población:}
 
 \begin{itemize}[leftmargin=1.5cm]
-    \item \textbf{Tamaño poblacional (N):} 15,671,512 transacciones
+    \item \textbf{Tamaño poblacional (N):} 15.671.512 transacciones
     \item \textbf{Período temporal:} 12 meses (01/01/2025 - 31/12/2025)
     \item \textbf{Número de variables:} 53 columnas en el esquema de base de datos
-    \item \textbf{Valor monetario total:} \$3,955,095,143.24 USD
-    \item \textbf{Valor promedio por transacción:} \$252.37 USD
+    \item \textbf{Valor monetario total:} \$3.955.095.143,24 USD
+    \item \textbf{Valor promedio por transacción:} \$252,37 USD
     \item \textbf{Variable target:} Columna \texttt{is\_fraud} con etiquetas binarias (0 = legítima, 1 = fraudulenta)
 \end{itemize}
 
@@ -40,7 +41,7 @@ El dataset contiene 53 variables estructuradas en las siguientes categorías:
 \subsubsection{Variables Transaccionales}
 
 \begin{itemize}[leftmargin=1.5cm]
-    \item \texttt{amount}: Monto de la transacción en USD (tipo: decimal, rango: [0.01, 50,000])
+    \item \texttt{amount}: Monto de la transacción en USD (tipo: decimal, rango: [0.01, 50.000])
     \item \texttt{currency}: Moneda de la transacción (tipo: string, valores: USD, MXN, COP, PEN, etc.)
     \item \texttt{status}: Estado final de la transacción (tipo: string, valores: completed, failed, pending, refunded)
     \item \texttt{created\_at}: Timestamp de creación de la transacción (tipo: datetime)
@@ -77,18 +78,18 @@ La Tabla \ref{tab:distribucion-canal} muestra la distribución de transacciones 
 \toprule
 \textbf{Canal de Pago} & \textbf{N° Transacciones} & \textbf{Porcentaje} \\
 \midrule
-Web                     & 10,121,569                & 64.59\%             \\
-App Móvil               & 2,010,647                 & 12.83\%             \\
-Transferencia Bancaria  & 1,976,210                 & 12.61\%             \\
-POS (Punto de Venta)    & 1,322,679                 & 8.44\%              \\
-Terminal Móvil          & 136,407                   & 0.87\%              \\
+Web                     & 10.121.569                & 64,59\%             \\
+App Móvil               & 2.010.647                 & 12,83\%             \\
+Transferencia Bancaria  & 1.976.210                 & 12,61\%             \\
+POS (Punto de Venta)    & 1.322.679                 & 8,44\%              \\
+Terminal Móvil          & 136.407                   & 0,87\%              \\
 \midrule
-\textbf{Total}          & \textbf{15,671,512}       & \textbf{100.00\%}   \\
+\textbf{Total}          & \textbf{15.671.512}       & \textbf{100,00\%}   \\
 \bottomrule
 \end{tabular}
 \end{table}
 
-\textbf{Hallazgos:} El canal Web concentra casi dos tercios de las transacciones (64.59\%), lo cual es consistente con el modelo de negocio SaaS de TechSport donde los clubes deportivos gestionan reservas y membresías principalmente desde plataformas web administrativas. Los canales móviles (App Móvil + Terminal Móvil) representan conjuntamente 13.70\% del volumen transaccional.
+El canal Web concentra casi dos tercios de las transacciones (64,59\%), lo cual es consistente con el modelo de negocio SaaS de TechSport donde los clubes deportivos gestionan reservas y membresías principalmente desde plataformas web administrativas. Los canales móviles (App Móvil + Terminal Móvil) representan conjuntamente 13,70\% del volumen transaccional.
 
 \subsection{Distribución por Método de Pago}
 
@@ -102,23 +103,23 @@ La Tabla \ref{tab:distribucion-metodo} presenta la distribución de transaccione
 \toprule
 \textbf{Método de Pago} & \textbf{N° Transacciones} & \textbf{Porcentaje} \\
 \midrule
-Free (Sin Cargo)        & 7,950,689                 & 50.72\%             \\
-Tarjeta (Card)          & 4,090,244                 & 26.10\%             \\
-Reverso (Reverse)       & 1,466,854                 & 9.36\%              \\
-Efectivo (Cash)         & 816,580                   & 5.21\%              \\
-Prepago (Prepaid)       & 473,239                   & 3.02\%              \\
-Otros                   & 873,906                   & 5.59\%              \\
+Free (Sin Cargo)        & 7.950.689                 & 50,72\%             \\
+Tarjeta (Card)          & 4.090.244                 & 26,10\%             \\
+Reverso (Reverse)       & 1.466.854                 & 9,36\%              \\
+Efectivo (Cash)         & 816.580                   & 5,21\%              \\
+Prepago (Prepaid)       & 473.239                   & 3,02\%              \\
+Otros                   & 873.906                   & 5,59\%              \\
 \midrule
-\textbf{Total}          & \textbf{15,671,512}       & \textbf{100.00\%}   \\
+\textbf{Total}          & \textbf{15.671.512}       & \textbf{100,00\%}   \\
 \bottomrule
 \end{tabular}
 \end{table}
 
-\textbf{Hallazgos críticos:} Más de la mitad de las transacciones (50.72\%) corresponden a la categoría ``Free'' (sin cargo), lo cual se explica por el modelo de negocio de TechSport donde existen transacciones de reserva que no generan cargo inmediato o están cubiertas por membresías prepagadas. Sin embargo, esta alta proporción de transacciones sin cargo monetario directo representa un desafío para los modelos de detección de fraude basados exclusivamente en análisis de montos. Las transacciones con tarjeta (26.10\%) constituyen el segundo método más frecuente y son el principal vector de fraude financiero.
+Más de la mitad de las transacciones (50,72\%) corresponden a la categoría ``Free'' (sin cargo), lo cual se explica por el modelo de negocio de TechSport donde existen transacciones de reserva que no generan cargo inmediato o están cubiertas por membresías prepagadas. Las transacciones con tarjeta (26,10\%) constituyen el segundo método más frecuente y son el principal vector de fraude financiero.
 
 \subsection{Distribución por Gateway de Pago}
 
-La Tabla \ref{tab:distribucion-gateway} muestra la distribución de transacciones por gateway de pago procesadas durante gestión 2025.
+La Tabla \ref{tab:distribucion-gateway} muestra la distribución de transacciones por gateway de pago.
 
 \begin{table}[H]
 \centering
@@ -128,74 +129,44 @@ La Tabla \ref{tab:distribucion-gateway} muestra la distribución de transaccione
 \toprule
 \textbf{Gateway de Pago} & \textbf{N° Transacciones} & \textbf{Porcentaje} \\
 \midrule
-No especificado          & 14,249,503                & 90.92\%             \\
-Bolt                     & 894,847                   & 5.71\%              \\
-Stripe Terminal          & 520,295                   & 3.32\%              \\
-ACH                      & 6,867                     & 0.05\%              \\
+No especificado          & 14.249.503                & 90,92\%             \\
+Bolt                     & 894.847                   & 5,71\%              \\
+Stripe Terminal          & 520.295                   & 3,32\%              \\
+ACH                      & 6.867                     & 0,05\%              \\
 \midrule
-\textbf{Total}           & \textbf{15,671,512}       & \textbf{100.00\%}   \\
+\textbf{Total}           & \textbf{15.671.512}       & \textbf{100,00\%}   \\
 \bottomrule
 \end{tabular}
 \end{table}
 
-\textbf{Hallazgos críticos:} La proporción abrumadora de transacciones categorizadas como ``No especificado'' (90.92\%) revela una limitación significativa en la arquitectura de datos actual de TechSport. Esta categorización ambigua dificulta el análisis de desempeño de seguridad por gateway específico y representa un área de mejora en el sistema de registro transaccional. Entre los gateways identificados, Bolt procesa el 5.71\% del volumen total, seguido por Stripe Terminal (3.32\%) y ACH (0.05\%). Para el desarrollo del modelo de Machine Learning, la variable \texttt{gateway} deberá ser evaluada cuidadosamente mediante análisis de feature importance, dado que la alta concentración en la categoría ``No especificado'' podría limitar su poder predictivo para detección de fraude.
+La proporción de transacciones categorizadas como ``No especificado'' (90,92\%) revela una limitación significativa en la arquitectura de datos actual de TechSport. Esta categorización dificulta el análisis de desempeño de seguridad por gateway específico y representa un área de mejora en el sistema de registro transaccional.
 
 \subsection{Distribución Temporal de Transacciones}
 
-La Tabla \ref{tab:distribucion-temporal} presenta la distribución mensual de transacciones durante la gestión 2025, segmentada según la partición temporal definida para el modelo (Training: Ene-Jun, Validation: Jul-Ago, Test: Sep-Dic).
+La Tabla \ref{tab:distribucion-temporal} presenta la distribución mensual de transacciones durante la gestión 2025, segmentada según la partición temporal definida para el modelo.
 
 \begin{table}[H]
 \centering
-\caption{Distribución temporal de transacciones por mes y conjunto de datos (Gestión 2025)}
+\caption{Distribución temporal de transacciones por conjunto de datos (Gestión 2025)}
 \label{tab:distribucion-temporal}
 \begin{tabular}{@{}llrr@{}}
 \toprule
-\textbf{Conjunto} & \textbf{Mes} & \textbf{N° Transacciones} & \textbf{\% del Total} \\
+\textbf{Conjunto} & \textbf{Período} & \textbf{N° Transacciones} & \textbf{\% del Total} \\
 \midrule
-\multirow{6}{*}{\textbf{Training}}
-                  & Enero        & [POR COMPLETAR]           & [XX\%]               \\
-                  & Febrero      & [POR COMPLETAR]           & [XX\%]               \\
-                  & Marzo        & [POR COMPLETAR]           & [XX\%]               \\
-                  & Abril        & [POR COMPLETAR]           & [XX\%]               \\
-                  & Mayo         & [POR COMPLETAR]           & [XX\%]               \\
-                  & Junio        & [POR COMPLETAR]           & [XX\%]               \\
-\cmidrule{2-4}
-                  & \textbf{Subtotal Training} & \textbf{7,835,756} & \textbf{50.00\%} \\
+Training      & Enero-Junio 2025      & 7.835.756  & 50,00\% \\
+Validation    & Julio-Agosto 2025     & 2.664.157  & 17,00\% \\
+Test          & Septiembre-Dic 2025   & 5.171.599  & 33,00\% \\
 \midrule
-\multirow{2}{*}{\textbf{Validation}}
-                  & Julio        & [POR COMPLETAR]           & [XX\%]               \\
-                  & Agosto       & [POR COMPLETAR]           & [XX\%]               \\
-\cmidrule{2-4}
-                  & \textbf{Subtotal Validation} & \textbf{2,664,157} & \textbf{17.00\%} \\
-\midrule
-\multirow{4}{*}{\textbf{Test}}
-                  & Septiembre   & [POR COMPLETAR]           & [XX\%]               \\
-                  & Octubre      & [POR COMPLETAR]           & [XX\%]               \\
-                  & Noviembre    & [POR COMPLETAR]           & [XX\%]               \\
-                  & Diciembre    & [POR COMPLETAR]           & [XX\%]               \\
-\cmidrule{2-4}
-                  & \textbf{Subtotal Test} & \textbf{5,171,599} & \textbf{33.00\%} \\
-\midrule
-\multicolumn{2}{l}{\textbf{Total Gestión 2025}} & \textbf{15,671,512} & \textbf{100.00\%} \\
+\textbf{Total} & \textbf{Gestión 2025} & \textbf{15.671.512} & \textbf{100,00\%} \\
 \bottomrule
 \end{tabular}
 \end{table}
 
-\textbf{Análisis de temporalidad:}
-
-\begin{itemize}[leftmargin=1.5cm]
-    \item \textbf{Partición temporal estratégica:} La división del dataset en períodos temporales consecutivos y no solapados (Training 50\% Ene-Jun, Validation 17\% Jul-Ago, Test 33\% Sep-Dic) es fundamental para evitar data leakage y simular condiciones reales de despliegue del modelo en producción. Esta estrategia garantiza que el modelo será evaluado en datos futuros no vistos durante el entrenamiento.
-
-    \item \textbf{Estacionalidad esperada:} [POR COMPLETAR - Analizar si existen picos transaccionales asociados a eventos específicos del modelo de negocio deportivo, como inicio de temporadas deportivas (enero, septiembre), períodos vacacionales (julio-agosto, diciembre), o eventos promocionales.]
-
-    \item \textbf{Tendencias de crecimiento:} [POR COMPLETAR - Calcular tasa de crecimiento mensual del volumen transaccional mediante regresión lineal simple. Identificar si el volumen es estacionario o presenta tendencia alcista/bajista durante 2025.]
-
-    \item \textbf{Implicaciones para el modelo:} La distribución temporal asimétrica (50\% entrenamiento, 33\% test) refleja una decisión metodológica que prioriza la evaluación robusta del modelo en un período extenso (4 meses) que captura variabilidad estacional del último cuatrimestre del año.
-\end{itemize}
+La división temporal en períodos consecutivos y no solapados garantiza que el modelo será evaluado en datos futuros no vistos durante el entrenamiento, evitando data leakage y simulando condiciones reales de despliegue en producción.
 
 \section{Análisis Exploratorio de Datos (EDA)}
 
-El Análisis Exploratorio de Datos (EDA), técnica fundamental en investigación cuantitativa \parencite{Hernandez2018}, permite comprender la estructura, distribución y características del dataset antes de desarrollar modelos predictivos. Esta sección desarrolla 10 análisis cuantitativos específicos sobre el dataset de gestión 2025.
+El Análisis Exploratorio de Datos (EDA), técnica fundamental en investigación cuantitativa \parencite{Hernandez2018}, permite comprender la estructura, distribución y características del dataset antes de desarrollar modelos predictivos.
 
 \subsection{Estadísticas Descriptivas del Dataset}
 
@@ -209,36 +180,26 @@ La Tabla \ref{tab:estadisticas-amount} presenta las estadísticas descriptivas d
 \toprule
 \textbf{Estadístico} & \textbf{Valor (USD)} \\
 \midrule
-N (transacciones)    & 15,671,512           \\
-Media ($\bar{x}$)    & [POR COMPLETAR]      \\
-Mediana (Q2)         & [POR COMPLETAR]      \\
-Desviación estándar ($\sigma$) & [POR COMPLETAR] \\
-Mínimo               & [POR COMPLETAR]      \\
-Máximo               & [POR COMPLETAR]      \\
-Q1 (Percentil 25)    & [POR COMPLETAR]      \\
-Q3 (Percentil 75)    & [POR COMPLETAR]      \\
-Rango intercuartílico (IQR) & [POR COMPLETAR] \\
-Asimetría (Skewness) & [POR COMPLETAR]      \\
-Curtosis (Kurtosis)  & [POR COMPLETAR]      \\
+N (transacciones)    & 15.671.512           \\
+Media ($\bar{x}$)    & [TAREA POR DESARROLLAR]      \\
+Mediana (Q2)         & [TAREA POR DESARROLLAR]      \\
+Desviación estándar ($\sigma$) & [TAREA POR DESARROLLAR] \\
+Mínimo               & [TAREA POR DESARROLLAR]      \\
+Máximo               & [TAREA POR DESARROLLAR]      \\
+Q1 (Percentil 25)    & [TAREA POR DESARROLLAR]      \\
+Q3 (Percentil 75)    & [TAREA POR DESARROLLAR]      \\
+Rango intercuartílico (IQR) & [TAREA POR DESARROLLAR] \\
+Asimetría (Skewness) & [TAREA POR DESARROLLAR]      \\
+Curtosis (Kurtosis)  & [TAREA POR DESARROLLAR]      \\
 \bottomrule
 \end{tabular}
 \end{table}
 
-\textbf{Análisis de distribución:}
-
-\begin{itemize}[leftmargin=1.5cm]
-    \item \textbf{Simetría vs. sesgo:} [POR COMPLETAR - Si skewness > 0: distribución sesgada a la derecha (cola larga hacia valores altos), típico en transacciones donde la mayoría son montos bajos y pocas son montos muy altos. Si skewness $\approx$ 0: distribución simétrica. Justificar necesidad de transformación logarítmica si el sesgo es severo (skewness > 1).]
-
-    \item \textbf{Outliers positivos:} [POR COMPLETAR - Identificar transacciones con monto > Q3 + 1.5*IQR. Calcular cantidad y porcentaje de outliers. Analizar si corresponden a fraudes o transacciones corporativas legítimas de alto valor.]
-
-    \item \textbf{Concentración de valores:} [POR COMPLETAR - Calcular porcentaje de transacciones en rango [\$0, \$100], [\$100, \$500], [\$500, \$1,000], [>\$1,000]. Identificar rangos de monto más frecuentes.]
-
-    \item \textbf{Curtosis:} [POR COMPLETAR - Si kurtosis > 3: distribución leptocúrtica (valores concentrados en el centro con colas pesadas). Si kurtosis < 3: platicúrtica (distribución plana).]
-\end{itemize}
+[TAREA POR DESARROLLAR: Análisis de distribución - simetría vs. sesgo, outliers positivos, concentración de valores, curtosis]
 
 \subsection{Análisis de Distribución de Clases (Fraude/No Fraude)}
 
-La distribución de la variable target \texttt{is\_fraud} es fundamental para diseñar estrategias de balanceo de clases en el modelo de Machine Learning. La Tabla \ref{tab:distribucion-clases} muestra la frecuencia de transacciones fraudulentas vs. legítimas.
+La distribución de la variable target \texttt{is\_fraud} es fundamental para diseñar estrategias de balanceo de clases en el modelo de Machine Learning.
 
 \begin{table}[H]
 \centering
@@ -248,89 +209,27 @@ La distribución de la variable target \texttt{is\_fraud} es fundamental para di
 \toprule
 \textbf{Clase} & \textbf{Frecuencia Absoluta} & \textbf{Frecuencia Relativa} \\
 \midrule
-No Fraude (0)  & [POR COMPLETAR]              & [XX.XX\%]                    \\
-Fraude (1)     & [POR COMPLETAR]              & [XX.XX\%]                    \\
+No Fraude (0)  & [TAREA POR DESARROLLAR]      & [TAREA POR DESARROLLAR]      \\
+Fraude (1)     & [TAREA POR DESARROLLAR]      & [TAREA POR DESARROLLAR]      \\
 \midrule
-\textbf{Total} & \textbf{15,671,512}          & \textbf{100.00\%}            \\
+\textbf{Total} & \textbf{15.671.512}          & \textbf{100,00\%}            \\
 \bottomrule
 \end{tabular}
 \end{table}
 
-\textbf{Análisis de desbalanceo de clases:}
+[TAREA POR DESARROLLAR: Análisis de desbalanceo de clases - calcular ratio de desbalanceo, determinar severidad, seleccionar estrategia metodológica (SMOTE o class\_weight)]
 
-\begin{itemize}[leftmargin=1.5cm]
-    \item \textbf{Ratio de desbalanceo:} [POR COMPLETAR - Calcular ratio = N\_no\_fraud / N\_fraud. Ejemplo: si hay 15.5M no fraudes y 155K fraudes, ratio = 100:1]
-
-    \item \textbf{Severidad del desbalanceo:} [POR COMPLETAR - Clasificar según criterio metodológico:
-    \begin{itemize}
-        \item Desbalanceo leve: ratio < 10:1 $\rightarrow$ No requiere técnicas especiales
-        \item Desbalanceo moderado: 10:1 $\leq$ ratio < 50:1 $\rightarrow$ Aplicar \texttt{class\_weight='balanced'}
-        \item Desbalanceo severo: 50:1 $\leq$ ratio < 100:1 $\rightarrow$ SMOTE + class\_weight
-        \item Desbalanceo extremo: ratio $\geq$ 100:1 $\rightarrow$ SMOTE + undersampling + class\_weight
-    \end{itemize}]
-
-    \item \textbf{Estrategia metodológica seleccionada:} [POR COMPLETAR - Según el ratio calculado, justificar la elección de: (i) SMOTE (Synthetic Minority Over-sampling Technique) para aumentar sintéticamente la clase minoritaria (fraudes), (ii) \texttt{class\_weight='balanced'} en RandomForest para penalizar errores en la clase minoritaria, o (iii) combinación de ambas técnicas.]
-
-    \item \textbf{Implicaciones para métricas de evaluación:} El desbalanceo severo confirma que Accuracy NO es una métrica adecuada (un modelo trivial que predice siempre ``No Fraude'' tendría accuracy > 99\% pero Recall = 0\%). Por tanto, se priorizan métricas F1-Score, Recall y Precision según lo establecido en la Hipótesis General.
-\end{itemize}
-
-\textbf{Hipótesis confirmada:} Coherente con estudios previos \parencite{Hafez2025}, se espera un desbalanceo severo (ratio > 100:1) dado que la tasa típica de fraude en pagos digitales es inferior al 1\% del volumen transaccional.
+Coherente con estudios previos \parencite{Hafez2025}, se espera un desbalanceo severo (ratio > 100:1) dado que la tasa típica de fraude en pagos digitales es inferior al 1\% del volumen transaccional.
 
 \subsection{Análisis de Correlación entre Features}
 
-El análisis de correlación permite identificar relaciones lineales entre variables numéricas, detectar multicolinealidad (redundancia entre predictores), y evaluar la asociación individual de cada feature con la variable target \texttt{is\_fraud}.
+El análisis de correlación permite identificar relaciones lineales entre variables numéricas, detectar multicolinealidad y evaluar la asociación individual de cada feature con la variable target.
 
-\textbf{Features numéricas analizadas:}
-
-\begin{itemize}[leftmargin=1.5cm]
-    \item \texttt{amount}: Monto de la transacción (USD)
-    \item \texttt{hour\_of\_day}: Hora del día de la transacción (0-23)
-    \item \texttt{day\_of\_week}: Día de la semana (1=Lunes, 7=Domingo)
-    \item \texttt{user\_age\_days}: Antigüedad de la cuenta del usuario (días desde registro)
-    \item \texttt{tx\_count\_last\_24h}: Cantidad de transacciones del usuario en las últimas 24 horas
-    \item \texttt{tx\_count\_last\_7d}: Cantidad de transacciones del usuario en los últimos 7 días
-    \item \texttt{avg\_amount\_user}: Monto promedio histórico de transacciones del usuario
-\end{itemize}
-
-\begin{table}[H]
-\centering
-\caption{Matriz de correlación de Pearson entre features numéricas y variable target}
-\label{tab:correlacion-features}
-\begin{tabular}{@{}lrrrrrrr@{}}
-\toprule
-\textbf{Feature} & \textbf{is\_fraud} & \textbf{amount} & \textbf{hour} & \textbf{day\_wk} & \textbf{age\_d} & \textbf{tx\_24h} & \textbf{tx\_7d} \\
-\midrule
-is\_fraud        & 1.00               & [POR COMP]      & [POR C]       & [POR C]          & [POR C]         & [POR C]          & [POR C]         \\
-amount           & [POR COMP]         & 1.00            & [POR C]       & [POR C]          & [POR C]         & [POR C]          & [POR C]         \\
-hour\_of\_day    & [POR COMP]         & [POR C]         & 1.00          & [POR C]          & [POR C]         & [POR C]          & [POR C]         \\
-day\_of\_week    & [POR COMP]         & [POR C]         & [POR C]       & 1.00             & [POR C]         & [POR C]          & [POR C]         \\
-user\_age\_days  & [POR COMP]         & [POR C]         & [POR C]       & [POR C]          & 1.00            & [POR C]          & [POR C]         \\
-tx\_count\_24h   & [POR COMP]         & [POR C]         & [POR C]       & [POR C]          & [POR C]         & 1.00             & [POR C]         \\
-tx\_count\_7d    & [POR COMP]         & [POR C]         & [POR C]       & [POR C]          & [POR C]         & [POR C]          & 1.00            \\
-\bottomrule
-\end{tabular}
-\end{table}
-
-\textbf{Análisis de multicolinealidad:}
-
-[POR COMPLETAR - Identificar pares de features con correlación absoluta > 0.8. Ejemplo: \texttt{tx\_count\_24h} y \texttt{tx\_count\_7d} probablemente tendrán alta correlación (r > 0.85) dado que miden frecuencia transaccional en ventanas temporales solapadas. Decisión: eliminar una de las dos variables o mantener ambas si Random Forest puede manejar multicolinealidad moderada.]
-
-\textbf{Análisis de correlación con target (\texttt{is\_fraud}):}
-
-[POR COMPLETAR - Tabla: Feature | Correlación con is\_fraud | Interpretación
-\begin{itemize}
-    \item Si \texttt{amount} tiene correlación positiva: transacciones de alto monto tienen mayor probabilidad de fraude
-    \item Si \texttt{user\_age\_days} tiene correlación negativa: cuentas nuevas son más vulnerables a fraude
-    \item Si \texttt{tx\_count\_24h} tiene correlación positiva: comportamiento transaccional inusualmente frecuente indica fraude
-\end{itemize}]
-
-\textbf{Visualización:} [POR COMPLETAR - Heatmap de correlaciones generado con \texttt{seaborn.heatmap()}, aplicando esquema de color divergente (azul=correlación negativa, rojo=positiva). Dimensiones: 8x8 features incluyendo target.]
+[TAREA POR DESARROLLAR: Matriz de correlación de Pearson entre features numéricas principales (amount, hour\_of\_day, day\_of\_week, user\_age\_days, tx\_count\_last\_24h, tx\_count\_last\_7d, avg\_amount\_user) y variable target is\_fraud. Incluir análisis de multicolinealidad y correlación con target.]
 
 \subsection{Detección de Outliers en Variable \texttt{amount}}
 
 La detección de valores atípicos (outliers) en la variable \texttt{amount} es crucial para comprender la distribución de montos transaccionales y su relación con fraude.
-
-\textbf{Metodología de detección: Método del Rango Intercuartílico (IQR)}
 
 El método IQR define como outliers aquellos valores que se encuentran fuera de los límites:
 \begin{itemize}[leftmargin=1.5cm]
@@ -338,63 +237,11 @@ El método IQR define como outliers aquellos valores que se encuentran fuera de 
     \item \textbf{Límite superior:} $L_{sup} = Q3 + 1.5 \times IQR$
 \end{itemize}
 
-Donde $IQR = Q3 - Q1$ (Rango Intercuartílico).
-
-\textbf{Resultados de detección:}
-
-\begin{table}[H]
-\centering
-\caption{Detección de outliers en variable \texttt{amount}}
-\label{tab:outliers-amount}
-\begin{tabular}{@{}lr@{}}
-\toprule
-\textbf{Métrica} & \textbf{Valor} \\
-\midrule
-Q1 (Percentil 25)           & [POR COMPLETAR]      \\
-Q3 (Percentil 75)           & [POR COMPLETAR]      \\
-IQR                         & [POR COMPLETAR]      \\
-Límite inferior ($L_{inf}$) & [POR COMPLETAR]      \\
-Límite superior ($L_{sup}$) & [POR COMPLETAR]      \\
-\midrule
-N° outliers detectados      & [POR COMPLETAR]      \\
-\% outliers del total       & [POR COMPLETAR]\%    \\
-\midrule
-N° outliers fraudulentos    & [POR COMPLETAR]      \\
-N° outliers legítimos       & [POR COMPLETAR]      \\
-\bottomrule
-\end{tabular}
-\end{table}
-
-\textbf{Análisis de outliers y fraude:}
-
-\textbf{[POR COMPLETAR - Analizar mediante tabla cruzada (crosstab) si existe asociación estadística entre outliers y fraude:]}
-
-\begin{itemize}
-    \item ¿Qué porcentaje de los outliers son fraudes?
-    \item ¿Los fraudes tienden a concentrarse en montos outliers o en montos típicos?
-    \item Aplicar prueba Chi-cuadrado para determinar si la asociación es estadísticamente significativa (p-value < 0.05)
-\end{itemize}
-
-\textbf{Estrategia de tratamiento:} [POR COMPLETAR - Decisión metodológica: (i) mantener outliers sin modificación (Random Forest es robusto a outliers), (ii) aplicar transformación logarítmica (\texttt{log(amount + 1)}) para reducir influencia de valores extremos, o (iii) winsorización al percentil 99.]
+[TAREA POR DESARROLLAR: Tabla de detección de outliers con Q1, Q3, IQR, límites, número de outliers detectados, porcentaje del total, outliers fraudulentos vs legítimos. Análisis mediante tabla cruzada (crosstab) de asociación entre outliers y fraude.]
 
 \subsection{Análisis Temporal de Transacciones}
 
 El análisis de series temporales permite identificar patrones de estacionalidad, tendencias y anomalías en el volumen transaccional.
-
-\textbf{Dimensiones temporales analizadas:}
-
-\begin{enumerate}[leftmargin=1.5cm]
-    \item \textbf{Serie diaria (365 días):} Volumen de transacciones por día (enero-diciembre 2025)
-    \item \textbf{Estacionalidad semanal:} Comparación de volumen por día de la semana (Lunes-Domingo)
-    \item \textbf{Estacionalidad horaria:} Distribución de transacciones por hora del día (0-23h)
-    \item \textbf{Tendencia mensual:} Análisis de crecimiento/decrecimiento del volumen mensual
-\end{enumerate}
-
-\textbf{Análisis de tendencia:}
-
-[POR COMPLETAR - Aplicar regresión lineal simple sobre la serie temporal mensual: $y = \beta_0 + \beta_1 \cdot mes$. Si $\beta_1 > 0$ y p-value < 0.05: tendencia de crecimiento significativa. Si $\beta_1 \approx 0$: volumen estacionario. Calcular tasa de crecimiento mensual promedio.]
-
-\textbf{Detección de estacionalidad semanal:}
 
 \begin{table}[H]
 \centering
@@ -404,28 +251,24 @@ El análisis de series temporales permite identificar patrones de estacionalidad
 \toprule
 \textbf{Día de la Semana} & \textbf{N° Transacciones} & \textbf{\% del Total} \\
 \midrule
-Lunes                     & [POR COMPLETAR]           & [XX.XX\%]             \\
-Martes                    & [POR COMPLETAR]           & [XX.XX\%]             \\
-Miércoles                 & [POR COMPLETAR]           & [XX.XX\%]             \\
-Jueves                    & [POR COMPLETAR]           & [XX.XX\%]             \\
-Viernes                   & [POR COMPLETAR]           & [XX.XX\%]             \\
-Sábado                    & [POR COMPLETAR]           & [XX.XX\%]             \\
-Domingo                   & [POR COMPLETAR]           & [XX.XX\%]             \\
+Lunes                     & [TAREA POR DESARROLLAR]   & [TAREA POR DESARROLLAR] \\
+Martes                    & [TAREA POR DESARROLLAR]   & [TAREA POR DESARROLLAR] \\
+Miércoles                 & [TAREA POR DESARROLLAR]   & [TAREA POR DESARROLLAR] \\
+Jueves                    & [TAREA POR DESARROLLAR]   & [TAREA POR DESARROLLAR] \\
+Viernes                   & [TAREA POR DESARROLLAR]   & [TAREA POR DESARROLLAR] \\
+Sábado                    & [TAREA POR DESARROLLAR]   & [TAREA POR DESARROLLAR] \\
+Domingo                   & [TAREA POR DESARROLLAR]   & [TAREA POR DESARROLLAR] \\
 \midrule
-\textbf{Total}            & \textbf{15,671,512}       & \textbf{100.00\%}     \\
+\textbf{Total}            & \textbf{15.671.512}       & \textbf{100,00\%}       \\
 \bottomrule
 \end{tabular}
 \end{table}
 
-[POR COMPLETAR - Análisis: ¿existen días con volumen significativamente mayor? Hipótesis: fin de semana (sábado-domingo) podría tener mayor actividad deportiva y por tanto más transacciones.]
-
-\textbf{Detección de picos anómalos:}
-
-[POR COMPLETAR - Aplicar detección de anomalías en serie temporal diaria usando método z-score: $z = (x - \mu) / \sigma$. Identificar días con $|z| > 3$ (anomalías extremas). Investigar causas: eventos promocionales, fallas del sistema, ataques de fraude coordinados.]
+[TAREA POR DESARROLLAR: Análisis de tendencia mediante regresión lineal, detección de picos anómalos usando método z-score]
 
 \subsection{Tasa de Fraude por Canal de Pago}
 
-El análisis de tasa de fraude segmentado por canal permite identificar vectores de ataque prioritarios y asignar recursos de mitigación diferenciados.
+El análisis de tasa de fraude segmentado por canal permite identificar vectores de ataque prioritarios.
 
 \begin{table}[H]
 \centering
@@ -435,243 +278,60 @@ El análisis de tasa de fraude segmentado por canal permite identificar vectores
 \toprule
 \textbf{Canal} & \textbf{N° Total} & \textbf{N° Fraudes} & \textbf{Tasa Fraude} & \textbf{Pérdidas (USD)} \\
 \midrule
-Web                     & 10,121,569 & [POR COMP] & [XX.XX\%] & [POR COMP]      \\
-App Móvil               & 2,010,647  & [POR COMP] & [XX.XX\%] & [POR COMP]      \\
-Transferencia Bancaria  & 1,976,210  & [POR COMP] & [XX.XX\%] & [POR COMP]      \\
-POS (Punto de Venta)    & 1,322,679  & [POR COMP] & [XX.XX\%] & [POR COMP]      \\
-Terminal Móvil          & 136,407    & [POR COMP] & [XX.XX\%] & [POR COMP]      \\
+Web                     & 10.121.569 & [TAREA] & [TAREA] & [TAREA] \\
+App Móvil               & 2.010.647  & [TAREA] & [TAREA] & [TAREA] \\
+Transferencia Bancaria  & 1.976.210  & [TAREA] & [TAREA] & [TAREA] \\
+POS (Punto de Venta)    & 1.322.679  & [TAREA] & [TAREA] & [TAREA] \\
+Terminal Móvil          & 136.407    & [TAREA] & [TAREA] & [TAREA] \\
 \midrule
-\textbf{Total}          & \textbf{15,671,512} & [POR COMP] & [XX.XX\%] & [POR COMP] \\
+\textbf{Total}          & \textbf{15.671.512} & [TAREA] & [TAREA] & [TAREA] \\
 \bottomrule
 \end{tabular}
 \end{table}
 
-\textbf{Análisis de vulnerabilidad por canal:}
-
-\textbf{[POR COMPLETAR - Interpretación de resultados:]}
-
-\begin{itemize}
-    \item \textbf{Canal más vulnerable:} Identificar canal con mayor tasa de fraude. Hipótesis: canales digitales sin autenticación multifactor (Web, App Móvil) probablemente presenten tasas superiores a canales presenciales (POS)
-    \item \textbf{Canal con mayores pérdidas absolutas:} Puede diferir del canal con mayor tasa (ej: Web con tasa 0.8\% pero volumen masivo genera pérdidas > App Móvil con tasa 2\% pero volumen menor)
-    \item \textbf{Recomendaciones de priorización:} Ordenar canales por pérdidas totales para asignar recursos de prevención
-\end{itemize}
-
-\subsection{Tasa de Fraude por Gateway de Pago}
-
-\begin{table}[H]
-\centering
-\caption{Tasa de fraude por gateway de pago (Gestión 2025)}
-\label{tab:fraude-gateway}
-\begin{tabular}{@{}lrrrr@{}}
-\toprule
-\textbf{Gateway} & \textbf{N° Total} & \textbf{N° Fraudes} & \textbf{Tasa Fraude} & \textbf{Pérdidas (USD)} \\
-\midrule
-No especificado  & 14,249,503 & [POR COMP] & [XX.XX\%] & [POR COMP]      \\
-Bolt             & 894,847    & [POR COMP] & [XX.XX\%] & [POR COMP]      \\
-Stripe Terminal  & 520,295    & [POR COMP] & [XX.XX\%] & [POR COMP]      \\
-ACH              & 6,867      & [POR COMP] & [XX.XX\%] & [POR COMP]      \\
-\midrule
-\textbf{Total}   & \textbf{15,671,512} & [POR COMP] & [XX.XX\%] & [POR COMP] \\
-\bottomrule
-\end{tabular}
-\end{table}
-
-\textbf{[POR COMPLETAR - Análisis de desempeño de seguridad por gateway:]}
-
-\begin{itemize}
-    \item Identificar gateways con tasa de fraude > 10\% (threshold crítico que requiere intervención prioritaria)
-    \item Comparación estadística: aplicar prueba Chi-cuadrado para determinar si las diferencias en tasas de fraude entre gateways son estadísticamente significativas (p < 0.05)
-    \item Limitación metodológica: 90.92\% del dataset categorizado como ``No especificado'' dificulta conclusiones robustas sobre gateways específicos
-\end{itemize}
+[TAREA POR DESARROLLAR: Interpretación de resultados - canal más vulnerable, canal con mayores pérdidas absolutas, recomendaciones de priorización]
 
 \subsection{Análisis de Valores Faltantes (Missing Values)}
 
-La presencia de valores faltantes puede afectar el desempeño del modelo de Machine Learning. Esta subsección cuantifica la completitud de las 53 variables del dataset.
+La presencia de valores faltantes puede afectar el desempeño del modelo de Machine Learning.
 
-\begin{table}[H]
-\centering
-\caption{Análisis de valores faltantes en variables críticas del dataset}
-\label{tab:missing-values}
-\begin{tabular}{@{}lrrr@{}}
-\toprule
-\textbf{Variable} & \textbf{N° Missing} & \textbf{\% Missing} & \textbf{Estrategia} \\
-\midrule
-amount                & [POR COMP] & [XX.XX\%] & [Decisión]          \\
-gateway               & [POR COMP] & [XX.XX\%] & [Decisión]          \\
-payment\_method       & [POR COMP] & [XX.XX\%] & [Decisión]          \\
-payment\_channel      & [POR COMP] & [XX.XX\%] & [Decisión]          \\
-card\_brand           & [POR COMP] & [XX.XX\%] & [Decisión]          \\
-user\_id              & [POR COMP] & [XX.XX\%] & [Decisión]          \\
-facility\_id          & [POR COMP] & [XX.XX\%] & [Decisión]          \\
-created\_at           & [POR COMP] & [XX.XX\%] & [Decisión]          \\
-\midrule
-\textbf{Total variables con > 5\% missing} & \multicolumn{3}{l}{[POR COMPLETAR: N variables]} \\
-\bottomrule
-\end{tabular}
-\end{table}
-
-\textbf{Estrategias de tratamiento de valores faltantes:}
-
-\begin{enumerate}[leftmargin=1.5cm]
-    \item \textbf{Variables con < 1\% missing:} Eliminación de filas (listwise deletion) - impacto mínimo en tamaño del dataset
-    \item \textbf{Variables con 1-5\% missing:}
-    \begin{itemize}
-        \item Numéricas: Imputación por mediana (más robusta a outliers que la media)
-        \item Categóricas: Imputación por moda o creación de categoría especial ``Unknown''
-    \end{itemize}
-    \item \textbf{Variables con 5-30\% missing:}
-    \begin{itemize}
-        \item Evaluar si los valores faltantes son Missing Completely At Random (MCAR) o Missing Not At Random (MNAR)
-        \item Si MCAR: imputación múltiple mediante MICE (Multivariate Imputation by Chained Equations)
-        \item Si MNAR: crear variable indicadora binaria \texttt{is\_missing} como feature adicional
-    \end{itemize}
-    \item \textbf{Variables con > 30\% missing:} Eliminación de la columna del dataset (información insuficiente para modelado confiable)
-\end{enumerate}
-
-[POR COMPLETAR - Aplicar criterio específico a cada variable con missing values según su porcentaje y relevancia para el modelo]
+[TAREA POR DESARROLLAR: Tabla de análisis de valores faltantes en variables críticas (amount, gateway, payment\_method, payment\_channel, card\_brand, user\_id, facility\_id, created\_at) con número de missing, porcentaje y estrategia de tratamiento]
 
 \subsection{Análisis de Transacciones Duplicadas}
 
-La detección de transacciones duplicadas es crítica dado que constituye uno de los tres patrones de fraude objetivo de la investigación (Patrón 2: transacciones duplicadas sospechosas).
+La detección de transacciones duplicadas es crítica dado que constituye uno de los tres patrones de fraude objetivo de la investigación (Patrón 2).
 
-\textbf{Criterio de detección de duplicados:}
+Una transacción se considera duplicada si coincide con otra en: mismo \texttt{user\_id}, mismo \texttt{amount} (± \$0,01), mismo \texttt{facility\_id}, y timestamp dentro de ventana de 5 minutos.
 
-Transacción se considera duplicada si coincide con otra transacción en:
-\begin{itemize}[leftmargin=1.5cm]
-    \item Mismo \texttt{user\_id}
-    \item Mismo \texttt{amount} (con tolerancia de ± \$0.01)
-    \item Mismo \texttt{facility\_id}
-    \item Timestamp \texttt{created\_at} dentro de ventana temporal de 5 minutos
-\end{itemize}
-
-\begin{table}[H]
-\centering
-\caption{Análisis de transacciones duplicadas (Gestión 2025)}
-\label{tab:duplicados}
-\begin{tabular}{@{}lrr@{}}
-\toprule
-\textbf{Métrica} & \textbf{Valor Absoluto} & \textbf{\% del Total} \\
-\midrule
-Transacciones únicas             & [POR COMPLETAR] & [XX.XX\%]             \\
-Transacciones duplicadas         & [POR COMPLETAR] & [XX.XX\%]             \\
-\midrule
-Duplicados fraudulentos          & [POR COMPLETAR] & [XX.XX\%]             \\
-Duplicados legítimos             & [POR COMPLETAR] & [XX.XX\%]             \\
-\midrule
-\textbf{Total dataset}           & \textbf{15,671,512} & \textbf{100.00\%} \\
-\bottomrule
-\end{tabular}
-\end{table}
-
-\textbf{Análisis de naturaleza de duplicados:}
-
-\textbf{[POR COMPLETAR - Analizar mediante tabla cruzada:]}
-
-\begin{itemize}
-    \item ¿Qué porcentaje de transacciones duplicadas son fraudes confirmados?
-    \item ¿Existen duplicados legítimos? (ej: pagos recurrentes mensuales, transacciones retry legítimas por falla temporal)
-    \item Cálculo de tasa de fraude en duplicados vs tasa de fraude en transacciones únicas: ratio > 5:1 confirmaría que duplicación es indicador fuerte de fraude
-\end{itemize}
-
-\textbf{Estrategia de tratamiento metodológico:}
-
-\textbf{[POR COMPLETAR - Decisión:]}
-
-\begin{enumerate}
-    \item \textbf{Opción 1 (mantener duplicados):} No eliminar duplicados del dataset, crear feature binaria \texttt{is\_duplicate} para que el modelo Random Forest aprenda esta característica
-    \item \textbf{Opción 2 (eliminar duplicados fraudulentos):} Eliminar solo duplicados confirmados como fraude en training set
-    \item \textbf{Opción 3 (análisis diferenciado):} Aplicar feature engineering: crear variable \texttt{duplicate\_count} = número de duplicados del mismo usuario en ventana de 24h
-\end{enumerate}
-Justificar decisión según análisis de correlación entre duplicación y fraude.]
+[TAREA POR DESARROLLAR: Tabla de análisis de duplicados con transacciones únicas vs duplicadas, duplicados fraudulentos vs legítimos, análisis de naturaleza de duplicados]
 
 \subsection{Feature Importance Preliminar (Análisis Univariado)}
 
-El análisis univariado de importancia de features permite identificar qué variables individuales tienen mayor asociación con la variable target \texttt{is\_fraud}, previo al modelado multivariado con Random Forest.
+El análisis univariado de importancia de features permite identificar qué variables individuales tienen mayor asociación con la variable target \texttt{is\_fraud}.
 
-\textbf{Metodología de análisis:}
-
-\begin{itemize}[leftmargin=1.5cm]
-    \item \textbf{Variables numéricas:} Correlación de Pearson con \texttt{is\_fraud} (codificado como 0/1)
-    \item \textbf{Variables categóricas:} Prueba Chi-cuadrado de independencia (H0: la variable es independiente de fraude)
-    \item \textbf{Criterio de significancia:} p-value < 0.05 (nivel de confianza 95\%)
-\end{itemize}
-
-\begin{table}[H]
-\centering
-\caption{Top 15 features con mayor asociación univariada con fraude}
-\label{tab:feature-importance-univariado}
-\begin{tabular}{@{}lrrr@{}}
-\toprule
-\textbf{Feature} & \textbf{Tipo} & \textbf{Correlación/Chi2} & \textbf{p-value} \\
-\midrule
-amount                       & Numérica      & [POR COMP]    & [POR COMP]   \\
-tx\_count\_last\_24h         & Numérica      & [POR COMP]    & [POR COMP]   \\
-user\_age\_days              & Numérica      & [POR COMP]    & [POR COMP]   \\
-tx\_count\_last\_7d          & Numérica      & [POR COMP]    & [POR COMP]   \\
-hour\_of\_day                & Numérica      & [POR COMP]    & [POR COMP]   \\
-day\_of\_week                & Numérica      & [POR COMP]    & [POR COMP]   \\
-avg\_amount\_user            & Numérica      & [POR COMP]    & [POR COMP]   \\
-payment\_channel             & Categórica    & [Chi2]        & [POR COMP]   \\
-payment\_method              & Categórica    & [Chi2]        & [POR COMP]   \\
-gateway                      & Categórica    & [Chi2]        & [POR COMP]   \\
-card\_brand                  & Categórica    & [Chi2]        & [POR COMP]   \\
-is\_duplicate                & Binaria       & [POR COMP]    & [POR COMP]   \\
-amount\_zscore\_user         & Numérica      & [POR COMP]    & [POR COMP]   \\
-time\_since\_last\_tx        & Numérica      & [POR COMP]    & [POR COMP]   \\
-ip\_country\_mismatch        & Binaria       & [POR COMP]    & [POR COMP]   \\
-\bottomrule
-\end{tabular}
-\end{table}
-
-\textbf{Interpretación de resultados:}
-
-[POR COMPLETAR - Análisis de las top 5 features con mayor asociación:
-\begin{enumerate}
-    \item Feature con mayor correlación absoluta: [Nombre] - Interpretación práctica
-    \item Second feature: Interpretación
-    \item Third feature: Interpretación
-    \item Fourth feature: Interpretación
-    \item Fifth feature: Interpretación
-\end{enumerate}
-
-\textbf{Selección de features candidatas para Random Forest:}
-
-\textbf{[POR COMPLETAR - Basado en el análisis univariado, seleccionar 15-20 features con:]}
-
-\begin{itemize}
-    \item Correlación absoluta > 0.05 o Chi-cuadrado con p < 0.05
-    \item Baja multicolinealidad entre sí (r < 0.8)
-    \item Interpretabilidad práctica (features que el equipo de TechSport puede monitorear operacionalmente)
-\end{itemize}
-Lista final de features: [LISTA POR COMPLETAR]
-
-Nota: Random Forest realizará selección automática de features vía feature importance (Gini importance), pero este análisis preliminar fundamenta la construcción del feature engineering en Capítulo 3.]
+[TAREA POR DESARROLLAR: Tabla de top 15 features con mayor asociación univariada - nombre, tipo, correlación/Chi2, p-value. Interpretación y selección de features candidatas para Random Forest]
 
 \section{Caracterización de Patrones de Fraude}
 
-Esta sección desarrolla la caracterización de los tres principales patrones de fraude identificados en el dataset de TechSport, según lo establecido en el Objetivo Específico 2.
+Esta sección desarrolla la caracterización de los tres principales patrones de fraude identificados en el dataset de TechSport, validando la Hipótesis Específica 2 (HE2).
 
 \subsection{Patrón 1: Uso de Tarjetas Robadas o Clonadas}
 
-\textbf{Definición técnica:}
-
-El patrón de tarjetas robadas o clonadas se caracteriza por el uso no autorizado de credenciales de pago obtenidas ilícitamente (mediante phishing, skimming de cajeros automáticos, brechas de seguridad en comercios, o compra en mercados clandestinos de la dark web). El atacante utiliza estas credenciales para ejecutar transacciones fraudulentas antes de que el titular legítimo detecte el robo y reporte la tarjeta.
+El patrón de tarjetas robadas o clonadas se caracteriza por el uso no autorizado de credenciales de pago obtenidas ilícitamente (mediante phishing, skimming de cajeros automáticos, brechas de seguridad en comercios, o compra en mercados clandestinos).
 
 \textbf{Indicadores técnicos característicos:}
 
 \begin{enumerate}[leftmargin=1.5cm]
-    \item \textbf{Múltiples tarjetas desde misma dirección IP:} Detección de múltiples transacciones utilizando diferentes números de tarjeta (últimos 4 dígitos distintos) originadas desde la misma dirección IP en ventana temporal < 1 hora. Comportamiento anómalo: usuario legítimo no cambia de tarjeta repetidamente en corto período.
+    \item \textbf{Múltiples tarjetas desde misma dirección IP:} Múltiples transacciones utilizando diferentes números de tarjeta desde la misma IP en ventana temporal < 1 hora.
 
-    \item \textbf{Transacciones de alto monto seguidas de chargeback:} Transacciones con monto > percentil 90 del usuario (\texttt{amount} > \texttt{p90\_amount\_user}) que resultan en chargeback confirmado por institución financiera dentro de 0-90 días posteriores.
+    \item \textbf{Transacciones de alto monto seguidas de chargeback:} Transacciones con monto > percentil 90 del usuario que resultan en chargeback confirmado.
 
-    \item \textbf{Mismatch geográfico de tarjeta:} Detección de inconsistencia entre país de emisión de tarjeta (\texttt{card\_issuing\_country}) y país de origen de la transacción (\texttt{ip\_country}). Ejemplo: tarjeta emitida en EE.UU. utilizada desde Nigeria sin historial previo de transacciones internacionales del usuario.
+    \item \textbf{Mismatch geográfico de tarjeta:} Inconsistencia entre país de emisión de tarjeta y país de origen de la transacción.
 
-    \item \textbf{Velocidad transaccional anómala:} Múltiples intentos de transacción (incluidos rechazos) en secuencia rápida (< 30 segundos entre intentos), patrón típico de ataques automatizados mediante bots que prueban tarjetas robadas.
+    \item \textbf{Velocidad transaccional anómala:} Múltiples intentos de transacción en secuencia rápida (< 30 segundos entre intentos).
 
-    \item \textbf{Primera transacción de alto valor:} Nueva tarjeta registrada en el sistema ejecuta inmediatamente transacción de monto > \$500 sin historial previo de transacciones del usuario con esa tarjeta.
+    \item \textbf{Primera transacción de alto valor:} Nueva tarjeta que ejecuta inmediatamente transacción de monto > \$500 sin historial previo.
 \end{enumerate}
-
-\textbf{Análisis cuantitativo del patrón:}
 
 \begin{table}[H]
 \centering
@@ -681,35 +341,20 @@ El patrón de tarjetas robadas o clonadas se caracteriza por el uso no autorizad
 \toprule
 \textbf{Métrica} & \textbf{Valor} \\
 \midrule
-N° casos detectados              & [POR COMPLETAR]     \\
-\% del total de fraudes          & [XX.XX\%]           \\
-Monto promedio por caso          & [POR COMPLETAR] USD \\
-Monto total de pérdidas          & [POR COMPLETAR] USD \\
-Canal más afectado               & [POR COMPLETAR]     \\
-Gateway más afectado             & [POR COMPLETAR]     \\
-Mes con mayor incidencia         & [POR COMPLETAR]     \\
+N° casos detectados              & [TAREA POR DESARROLLAR] \\
+\% del total de fraudes          & [TAREA POR DESARROLLAR] \\
+Monto promedio por caso          & [TAREA POR DESARROLLAR] USD \\
+Monto total de pérdidas          & [TAREA POR DESARROLLAR] USD \\
+Canal más afectado               & [TAREA POR DESARROLLAR] \\
+Gateway más afectado             & [TAREA POR DESARROLLAR] \\
+Mes con mayor incidencia         & [TAREA POR DESARROLLAR] \\
 \bottomrule
 \end{tabular}
 \end{table}
 
-\textbf{Distribución temporal:}
-
-[POR COMPLETAR - Gráfico de líneas mostrando evolución mensual del número de casos de Patrón 1 durante gestión 2025. Análisis: ¿existen picos asociados a campañas de phishing específicas o brechas de seguridad publicadas?]
-
-\textbf{Características específicas del patrón en TechSport:}
-
-[POR COMPLETAR - Análisis:
-\begin{itemize}
-    \item Canal preferido por atacantes (hipótesis: Web > App Móvil por facilidad de automatización)
-    \item Rangos de monto más frecuentes (hipótesis: ataques prueban primero montos bajos \$50-\$100 para verificar validez de tarjeta, luego escalan a montos > \$1,000)
-    \item Distribución horaria de ataques (hipótesis: ataques automatizados 24/7 sin patrón horario vs fraudes manuales concentrados en horario laboral)
-\end{itemize}
-
 \subsection{Patrón 2: Transacciones Duplicadas Sospechosas}
 
-\textbf{Definición técnica:}
-
-El patrón de transacciones duplicadas sospechosas se caracteriza por la ejecución de múltiples transacciones prácticamente idénticas por el mismo usuario en una ventana temporal no justificada por el modelo de negocio de TechSport. Este patrón puede originarse por: (i) explotación intencional de vulnerabilidades en el sistema de procesamiento de pagos (ataques de ``double-spending''), (ii) errores de implementación que permiten cobros duplicados accidentales, o (iii) comportamiento fraudulento del usuario que intenta generar reembolsos duplicados.
+El patrón de transacciones duplicadas sospechosas se caracteriza por la ejecución de múltiples transacciones prácticamente idénticas por el mismo usuario en una ventana temporal no justificada por el modelo de negocio.
 
 \textbf{Criterio técnico de detección:}
 
@@ -717,22 +362,10 @@ Una transacción se clasifica como duplicado sospechoso si cumple simultáneamen
 \begin{itemize}[leftmargin=1.5cm]
     \item Mismo \texttt{user\_id}
     \item Mismo \texttt{facility\_id}
-    \item Monto idéntico o con variación < 1\% (\texttt{|amount\_1 - amount\_2| < 0.01 * amount\_1})
-    \item Timestamp \texttt{created\_at} separados por < 5 minutos
-    \item Exclusión de casos legítimos: transacciones recurrentes programadas (mismo día del mes cada mes)
+    \item Monto idéntico o con variación < 1\%
+    \item Timestamp separados por < 5 minutos
+    \item Exclusión de casos legítimos: transacciones recurrentes programadas
 \end{itemize}
-
-\textbf{Indicadores característicos del patrón fraudulento:}
-
-\begin{enumerate}[leftmargin=1.5cm]
-    \item \textbf{Duplicación inmediata (< 1 minuto):} Dos transacciones idénticas en < 60 segundos, típicamente generadas por ataques de doble clic malicioso o explotación de condiciones de carrera en el sistema.
-
-    \item \textbf{Patrón de retry sospechoso:} Usuario ejecuta transacción, recibe rechazo (status=failed), reintenta con mismos parámetros exactos múltiples veces en < 5 minutos. Si una transacción finalmente es aprobada y las anteriores también se procesan, genera duplicados.
-
-    \item \textbf{Solicitudes de reembolso duplicadas:} Transacciones duplicadas seguidas de múltiples solicitudes de reembolso (chargeback) por el mismo usuario, indicando potencial fraude amistoso (friendly fraud).
-
-    \item \textbf{Ausencia de patrón legítimo recurrente:} A diferencia de pagos de membresía mensual legítimos (mismo monto cada 30 días), duplicados sospechosos ocurren en ventanas < 5 minutos sin justificación comercial.
-\end{enumerate}
 
 \begin{table}[H]
 \centering
@@ -742,70 +375,32 @@ Una transacción se clasifica como duplicado sospechoso si cumple simultáneamen
 \toprule
 \textbf{Métrica} & \textbf{Valor} \\
 \midrule
-N° casos detectados              & [POR COMPLETAR]     \\
-\% del total de fraudes          & [XX.XX\%]           \\
-Monto promedio por caso          & [POR COMPLETAR] USD \\
-Monto total de pérdidas          & [POR COMPLETAR] USD \\
-Canal más afectado               & [POR COMPLETAR]     \\
-Tiempo promedio entre duplicados & [POR COMP] segundos \\
-\midrule
-Duplicados por error del sistema & [POR COMPLETAR]     \\
-Duplicados por fraude intencional& [POR COMPLETAR]     \\
+N° casos detectados              & [TAREA POR DESARROLLAR] \\
+\% del total de fraudes          & [TAREA POR DESARROLLAR] \\
+Monto promedio por caso          & [TAREA POR DESARROLLAR] USD \\
+Monto total de pérdidas          & [TAREA POR DESARROLLAR] USD \\
+Canal más afectado               & [TAREA POR DESARROLLAR] \\
+Tiempo promedio entre duplicados & [TAREA POR DESARROLLAR] segundos \\
 \bottomrule
 \end{tabular}
 \end{table}
 
-\textbf{Diferenciación entre duplicados legítimos y fraudulentos:}
-
-\textbf{[POR COMPLETAR - Tabla comparativa:]}
-
-\begin{itemize}
-    \item \textbf{Duplicados legítimos:} Pagos recurrentes mensuales (separados por $\approx$ 30 días), transacciones retry después de falla temporal legítima (separadas > 1 hora), pagos de múltiples reservas simultáneas (diferentes \texttt{facility\_id})
-    \item \textbf{Duplicados sospechosos/fraudulentos:} Separación temporal < 5 minutos, mismo \texttt{facility\_id}, ausencia de justificación de negocio, usuario con historial de chargebacks
-    \item Calcular tasa de fraude en duplicados sospechosos vs tasa de fraude en transacciones únicas. Hipótesis: ratio > 10:1 confirmará que duplicación es indicador fuerte de fraude
-\end{itemize}
-
 \subsection{Patrón 3: Comportamientos Anómalos de Usuarios}
 
-\textbf{Definición técnica:}
-
-El patrón de comportamientos anómalos de usuarios se caracteriza por desviaciones significativas respecto al perfil histórico de comportamiento transaccional del usuario. Estas anomalías pueden indicar: (i) compromiso de cuenta (account takeover) donde un atacante ha obtenido acceso no autorizado a las credenciales del usuario legítimo, (ii) fraude interno por parte del mismo usuario (friendly fraud), o (iii) cambios legítimos pero inusuales en el comportamiento que requieren verificación adicional.
+El patrón de comportamientos anómalos se caracteriza por desviaciones significativas respecto al perfil histórico de comportamiento transaccional del usuario.
 
 \textbf{Indicadores técnicos característicos:}
 
 \begin{enumerate}[leftmargin=1.5cm]
-    \item \textbf{Anomalía en monto transaccional (z-score):}
-    \begin{itemize}
-        \item Cálculo: $z\_score = \frac{amount - \mu_{user}}{\sigma_{user}}$ donde $\mu_{user}$ es el monto promedio histórico del usuario y $\sigma_{user}$ la desviación estándar.
-        \item Criterio de anomalía: $|z\_score| > 3$ (transacción se desvía más de 3 desviaciones estándar del comportamiento histórico)
-        \item Ejemplo: Usuario con promedio histórico \$50/transacción ($\sigma$ = \$15) súbitamente ejecuta transacción de \$500 $\rightarrow$ z-score = 30 (altamente anómalo)
-    \end{itemize}
+    \item \textbf{Anomalía en monto transaccional (z-score):} $z\_score = \frac{amount - \mu_{user}}{\sigma_{user}}$. Criterio de anomalía: $|z\_score| > 3$.
 
-    \item \textbf{Velocidad transaccional anómala:}
-    \begin{itemize}
-        \item Métrica: \texttt{tx\_count\_last\_24h} comparado con \texttt{avg\_tx\_per\_day\_user} (promedio histórico diario del usuario)
-        \item Criterio: \texttt{tx\_count\_last\_24h} > 5 * \texttt{avg\_tx\_per\_day\_user}
-        \item Ejemplo: Usuario con promedio 0.5 transacciones/día (2/semana) súbitamente ejecuta 20 transacciones en 24h $\rightarrow$ ratio = 40:1
-    \end{itemize}
+    \item \textbf{Velocidad transaccional anómala:} \texttt{tx\_count\_last\_24h} > 5 × promedio histórico diario del usuario.
 
-    \item \textbf{Cambio geográfico abrupto (geolocation mismatch):}
-    \begin{itemize}
-        \item Detección de cambio de país de origen de IP (\texttt{ip\_country}) sin historial previo de transacciones internacionales
-        \item Criterio adicional: cambio geográfico imposible (transacción desde Miami a las 10:00 AM, transacción desde Singapur a las 10:30 AM $\rightarrow$ viaje físicamente imposible en 30 minutos)
-        \item Cálculo de distancia geográfica: $distance = haversine(lat_1, lon_1, lat_2, lon_2)$ > 1000 km en ventana temporal < 2 horas
-    \end{itemize}
+    \item \textbf{Cambio geográfico abrupto:} Cambio de país de IP sin historial previo de transacciones internacionales.
 
-    \item \textbf{Cambio de dispositivo/navegador inusual:}
-    \begin{itemize}
-        \item Usuario históricamente accede desde dispositivo A (ej: iPhone con iOS 16, Safari), súbitamente ejecuta transacción desde dispositivo completamente distinto (ej: Android con Chrome, user-agent diferente) sin período de transición
-        \item Indicador de compromiso de cuenta: atacante utiliza dispositivo diferente al del usuario legítimo
-    \end{itemize}
+    \item \textbf{Cambio de dispositivo/navegador inusual:} Usuario ejecuta transacción desde dispositivo completamente distinto sin período de transición.
 
-    \item \textbf{Horario de actividad anómalo:}
-    \begin{itemize}
-        \item Usuario con historial de transacciones en horario diurno (8:00-20:00) súbitamente ejecuta transacciones en madrugada (2:00-5:00 AM) sin justificación
-        \item Métrica: calcular \texttt{typical\_hours\_user} (horas típicas de actividad del usuario) y detectar transacciones fuera de este rango
-    \end{itemize}
+    \item \textbf{Horario de actividad anómalo:} Transacciones en horario atípico para el usuario (madrugada si historial es diurno).
 \end{enumerate}
 
 \begin{table}[H]
@@ -816,267 +411,130 @@ El patrón de comportamientos anómalos de usuarios se caracteriza por desviacio
 \toprule
 \textbf{Métrica} & \textbf{Valor} \\
 \midrule
-N° casos detectados              & [POR COMPLETAR]     \\
-\% del total de fraudes          & [XX.XX\%]           \\
-Monto promedio por caso          & [POR COMPLETAR] USD \\
-Monto total de pérdidas          & [POR COMPLETAR] USD \\
+N° casos detectados              & [TAREA POR DESARROLLAR] \\
+\% del total de fraudes          & [TAREA POR DESARROLLAR] \\
+Monto promedio por caso          & [TAREA POR DESARROLLAR] USD \\
+Monto total de pérdidas          & [TAREA POR DESARROLLAR] USD \\
 \midrule
 \multicolumn{2}{l}{\textbf{Subtipos de anomalía:}} \\
-Anomalía de monto (z-score > 3) & [POR COMPLETAR]     \\
-Anomalía de velocidad transaccional & [POR COMPLETAR] \\
-Anomalía geográfica (IP country) & [POR COMPLETAR]    \\
-Cambio de dispositivo sospechoso & [POR COMPLETAR]     \\
-Horario anómalo                  & [POR COMPLETAR]     \\
+Anomalía de monto (z-score > 3)      & [TAREA POR DESARROLLAR] \\
+Anomalía de velocidad transaccional  & [TAREA POR DESARROLLAR] \\
+Anomalía geográfica (IP country)     & [TAREA POR DESARROLLAR] \\
+Cambio de dispositivo sospechoso     & [TAREA POR DESARROLLAR] \\
+Horario anómalo                      & [TAREA POR DESARROLLAR] \\
 \bottomrule
 \end{tabular}
 \end{table}
 
-\textbf{Técnicas de detección estadística:}
-
-\textbf{[POR COMPLETAR - Metodología de detección:]}
-
-\begin{enumerate}
-    \item \textbf{Isolation Forest:} Algoritmo de detección de anomalías no supervisado que identifica puntos aislados en el espacio multidimensional de features (monto, frecuencia, geolocalización, horario)
-    \item \textbf{One-Class SVM:} Modelo que aprende la distribución normal del comportamiento del usuario y detecta desviaciones significativas
-    \item \textbf{Z-score multivariado (Mahalanobis Distance):} Extensión del z-score univariado que considera correlaciones entre múltiples features
-\end{enumerate}
-Justificar cuál técnica será implementada en el feature engineering del Capítulo 3.]
-
 \subsection{Distribución de Patrones de Fraude}
 
-La Tabla \ref{tab:distribucion-patrones} presenta la distribución comparativa de los tres patrones de fraude identificados en el dataset de gestión 2025.
+La Tabla \ref{tab:distribucion-patrones} presenta la distribución comparativa de los tres patrones de fraude.
 
 \begin{table}[H]
 \centering
 \caption{Distribución comparativa de patrones de fraude (Gestión 2025)}
 \label{tab:distribucion-patrones}
-\begin{tabular}{@{}lrrrrr@{}}
-\toprule
-\textbf{Patrón} & \textbf{N° Casos} & \textbf{\% Fraudes} & \textbf{Monto Prom.} & \textbf{Canal Ppal.} & \textbf{Gateway Ppal.} \\
-\midrule
-Patrón 1: Tarjetas robadas    & [POR COMP] & [XX\%] & [POR COMP] & [POR COMP] & [POR COMP] \\
-Patrón 2: Duplicados sosp.    & [POR COMP] & [XX\%] & [POR COMP] & [POR COMP] & [POR COMP] \\
-Patrón 3: Comportamientos an. & [POR COMP] & [XX\%] & [POR COMP] & [POR COMP] & [POR COMP] \\
-\midrule
-\textbf{Total fraudes} & [POR COMPLETAR] & \textbf{100\%} & [POR COMP] & --- & --- \\
-\bottomrule
-\end{tabular}
-\end{table}
-
-\textbf{Análisis comparativo de patrones:}
-
-[POR COMPLETAR - Interpretación de resultados:
-\begin{enumerate}
-    \item \textbf{Patrón dominante:} Identificar cuál de los 3 patrones representa el mayor porcentaje de fraudes. Hipótesis: Patrón 1 (tarjetas robadas) probablemente domina dado que es el vector de ataque más común en comercio electrónico según literatura \parencite{Hafez2025}.
-
-    \item \textbf{Patrón de mayor impacto económico:} El patrón con mayor \% de casos no necesariamente es el de mayor impacto. Analizar: Patrón con mayor ``Monto Promedio * N° Casos''.
-
-    \item \textbf{Canales de mayor vulnerabilidad por patrón:}
-    \begin{itemize}
-        \item Patrón 1: Canal preferido por atacantes [WEB/APP/POS]
-        \item Patrón 2: Canal con mayor incidencia de duplicados [probablemente WEB]
-        \item Patrón 3: Canal donde ocurren más anomalías de comportamiento
-    \end{itemize}
-
-    \item \textbf{Solapamiento de patrones:} ¿Existen transacciones que presentan múltiples patrones simultáneamente? (ej: tarjeta robada + duplicado + comportamiento anómalo). Calcular porcentaje de fraudes con patrón único vs múltiple.
-\end{enumerate}
-
-\subsection{Pérdidas Económicas por Tipo de Fraude}
-
-El análisis de pérdidas económicas permite priorizar recursos de mitigación según el impacto financiero de cada patrón de fraude.
-
-\begin{table}[H]
-\centering
-\caption{Pérdidas económicas por patrón de fraude (Gestión 2025)}
-\label{tab:perdidas-patrones}
 \begin{tabular}{@{}lrrrr@{}}
 \toprule
-\textbf{Patrón de Fraude} & \textbf{Pérdidas Totales} & \textbf{Pérdida Prom.} & \textbf{\% del Total} & \textbf{P90} \\
+\textbf{Patrón} & \textbf{N° Casos} & \textbf{\% Fraudes} & \textbf{Monto Prom.} & \textbf{Canal Ppal.} \\
 \midrule
-Patrón 1: Tarjetas robadas    & [POR COMP] USD & [POR COMP] USD & [XX.X\%] & [POR COMP] USD \\
-Patrón 2: Duplicados sosp.    & [POR COMP] USD & [POR COMP] USD & [XX.X\%] & [POR COMP] USD \\
-Patrón 3: Comportamientos an. & [POR COMP] USD & [POR COMP] USD & [XX.X\%] & [POR COMP] USD \\
+Patrón 1: Tarjetas robadas    & [TAREA] & [TAREA] & [TAREA] & [TAREA] \\
+Patrón 2: Duplicados sosp.    & [TAREA] & [TAREA] & [TAREA] & [TAREA] \\
+Patrón 3: Comportamientos an. & [TAREA] & [TAREA] & [TAREA] & [TAREA] \\
 \midrule
-\textbf{Total pérdidas fraude} & [POR COMPLETAR] USD & [POR COMP] USD & \textbf{100.0\%} & --- \\
+\textbf{Total fraudes} & [TAREA POR DESARROLLAR] & \textbf{100\%} & [TAREA] & --- \\
 \bottomrule
 \end{tabular}
 \end{table}
 
-\textbf{Análisis de percentiles de pérdidas:}
-
-\textbf{[POR COMPLETAR - Calcular y analizar los siguientes percentiles:]}
-
-\begin{itemize}
-    \item \textbf{P50 (Mediana):} Pérdida típica por fraude = [POR COMPLETAR] USD
-    \item \textbf{P90:} 90\% de los fraudes generan pérdidas < [POR COMPLETAR] USD
-    \item \textbf{P99:} 1\% de los fraudes (casos extremos) generan pérdidas > [POR COMPLETAR] USD
-    \item \textbf{Interpretación:} Si P99 >> P50, indica distribución sesgada con algunos fraudes de altísimo impacto (``whale frauds'') que requieren detección prioritaria
-\end{itemize}
-
-\textbf{Top 10 fraudes por monto:}
-
-\begin{table}[H]
-\centering
-\caption{Top 10 transacciones fraudulentas por monto (Gestión 2025)}
-\label{tab:top10-fraudes}
-\begin{tabular}{@{}lrrll@{}}
-\toprule
-\textbf{Ranking} & \textbf{Monto (USD)} & \textbf{Fecha} & \textbf{Patrón} & \textbf{Canal} \\
-\midrule
-1 & [POR COMP] & [Fecha] & [Patrón X] & [Canal] \\
-2 & [POR COMP] & [Fecha] & [Patrón X] & [Canal] \\
-3 & [POR COMP] & [Fecha] & [Patrón X] & [Canal] \\
-4 & [POR COMP] & [Fecha] & [Patrón X] & [Canal] \\
-5 & [POR COMP] & [Fecha] & [Patrón X] & [Canal] \\
-6 & [POR COMP] & [Fecha] & [Patrón X] & [Canal] \\
-7 & [POR COMP] & [Fecha] & [Patrón X] & [Canal] \\
-8 & [POR COMP] & [Fecha] & [Patrón X] & [Canal] \\
-9 & [POR COMP] & [Fecha] & [Patrón X] & [Canal] \\
-10 & [POR COMP] & [Fecha] & [Patrón X] & [Canal] \\
-\midrule
-\textbf{Suma Top 10} & [POR COMP] USD & --- & --- & --- \\
-\bottomrule
-\end{tabular}
-\end{table}
-
-[POR COMPLETAR - Análisis: ¿Qué porcentaje de las pérdidas totales representan los top 10 fraudes? Si > 20\%, indica concentración de impacto en pocos casos extremos (Principio de Pareto aplicado a fraude).]
-
-\textbf{Serie temporal de pérdidas mensuales:}
-
-[POR COMPLETAR - Gráfico de líneas mostrando pérdidas mensuales por fraude (enero-diciembre 2025). Análisis: ¿hay meses con pérdidas significativamente superiores? ¿Existe correlación con eventos promocionales o períodos vacacionales?]
+[TAREA POR DESARROLLAR: Análisis comparativo de patrones - patrón dominante, patrón de mayor impacto económico, canales de mayor vulnerabilidad por patrón, solapamiento de patrones]
 
 \section{Evaluación del Proceso de Etiquetado de Fraudes}
 
-La confiabilidad de las etiquetas de fraude (variable \texttt{is\_fraud}) es crítica para el entrenamiento supervisado del modelo de Machine Learning. Esta sección evalúa la validez y consistencia del proceso de etiquetado realizado por el equipo de contabilidad de TechSport.
+La confiabilidad de las etiquetas de fraude (variable \texttt{is\_fraud}) es crítica para el entrenamiento supervisado del modelo de Machine Learning.
 
 \subsection{Fuentes de Etiquetado de Fraude}
 
-[POR COMPLETAR:
-- Tabla: Fuente de Etiquetado | N° Fraudes Detectados | Porcentaje
-  * Chargebacks confirmados por instituciones financieras: XX\%
-  * Disputas resueltas como fraude: XX\%
-  * Reportes de usuarios afectados verificados: XX\%
-  * Revisión manual de transacciones sospechosas: XX\%
-- Análisis de cobertura: ¿qué porcentaje de transacciones tiene etiqueta verificada?]
+[TAREA POR DESARROLLAR: Tabla con fuentes de etiquetado - chargebacks confirmados, disputas resueltas, reportes de usuarios, revisión manual - con número de fraudes detectados por cada fuente y porcentaje]
 
 \subsection{Análisis de Delay de Etiquetado}
 
-[POR COMPLETAR:
-- Histograma de distribución del tiempo entre transacción y etiquetado (0-5 meses)
-- Estadísticos: delay promedio, mediana, percentiles P25/P75
-- Tabla: Rango de Delay | N° Fraudes | Porcentaje
-  * 0-7 días (detección inmediata): XX\%
-  * 8-30 días: XX\%
-  * 31-90 días: XX\%
-  * 91-150 días (chargebacks tardíos): XX\%
-- Análisis: ¿el delay afecta la calidad del etiquetado? ¿hay riesgo de sesgo temporal?]
+[TAREA POR DESARROLLAR: Histograma de distribución del tiempo entre transacción y etiquetado (0-5 meses), estadísticos de delay, tabla de rangos de delay con número de fraudes por rango]
 
 \subsection{Consistencia Temporal del Etiquetado}
 
-Análisis de la tasa de fraude mensual para detectar inconsistencias sistemáticas en el proceso de etiquetado.
-
-[POR COMPLETAR:
-- Tabla: Mes | N° Transacciones | N° Fraudes | Tasa de Fraude (\%)
-- Cálculo de media y desviación estándar de la tasa de fraude mensual
-- Verificación: ¿algún mes presenta tasa > media ± 2 desviaciones estándar?
-- Interpretación: variación natural vs problemas de etiquetado]
-
-\subsection{Validación Cruzada del Etiquetado}
-
-[POR COMPLETAR:
-- Si existen múltiples fuentes de etiquetado para las mismas transacciones, calcular acuerdo inter-rater mediante Cohen's Kappa
-- Interpretación: Kappa > 0.8 indica alto acuerdo (etiquetado confiable)
-- Identificación de transacciones con etiquetas contradictorias (marcadas como fraude y luego revertidas)]
+[TAREA POR DESARROLLAR: Tabla de tasa de fraude mensual para detectar inconsistencias sistemáticas, cálculo de media y desviación estándar, verificación de outliers]
 
 \section{Diagnóstico del Sistema Actual de Detección de Fraude}
 
-Esta sección desarrolla el diagnóstico crítico del sistema actual de detección de fraude de TechSport, identificando sus limitaciones operacionales y técnicas. Este diagnóstico fundamenta la necesidad de implementar un modelo de Machine Learning supervisado.
+Esta sección desarrolla el diagnóstico crítico del sistema actual de detección de fraude de TechSport, identificando sus limitaciones operacionales y técnicas.
 
 \subsection{Descripción del Sistema Actual}
 
-[POR COMPLETAR:
-- Arquitectura del sistema actual: basado en reglas estáticas (if-then conditions)
-- Ejemplos de reglas implementadas:
-  * Regla 1: Bloquear transacción si monto > \$10,000
-  * Regla 2: Bloquear si más de 5 transacciones del mismo usuario en 1 hora
-  * Regla 3: Bloquear si IP está en lista negra
-- Proceso de actualización de reglas: manual, requiere intervención humana
-- Responsable: equipo de contabilidad + equipo técnico]
+[TAREA POR DESARROLLAR: Descripción de la arquitectura del sistema actual basado en reglas estáticas, ejemplos de reglas implementadas, proceso de actualización de reglas, responsables]
 
 \subsection{Limitaciones Identificadas del Sistema Actual}
 
 \subsubsection{Limitación 1: Detección Post-Mortem de Fraudes}
 
-[POR COMPLETAR:
-- Evidencia cuantitativa: porcentaje de fraudes detectados mediante chargebacks tardíos (0-5 meses después)
-- Consecuencia: pérdidas económicas ya consumadas, imposibilidad de prevención
-- Comparación: sistema reactivo vs sistema proactivo (objetivo del modelo ML)]
+[TAREA POR DESARROLLAR: Evidencia cuantitativa del porcentaje de fraudes detectados mediante chargebacks tardíos, consecuencias, comparación con sistema proactivo]
 
 \subsubsection{Limitación 2: Actualización Manual Constante de Reglas}
 
-[POR COMPLETAR:
-- Evidencia: frecuencia de actualización de reglas (ej: cada 2-3 meses)
-- Problema: los patrones de fraude evolucionan más rápido que la capacidad de actualización manual
-- Consecuencia: ventana de vulnerabilidad entre aparición de nuevo patrón y actualización de regla]
+[TAREA POR DESARROLLAR: Frecuencia de actualización de reglas, problema de evolución de patrones, ventana de vulnerabilidad]
 
-\subsubsection{Limitación 3: Ausencia de Correlación Cruzada entre Gateways y Canales}
+\subsubsection{Limitación 3: Ausencia de Correlación Cruzada entre Gateways}
 
-[POR COMPLETAR:
-- Problema: el sistema actual no correlaciona comportamientos sospechosos entre diferentes gateways/canales
-- Ejemplo: usuario ejecuta múltiples transacciones fallidas en Stripe (canal web) y luego intenta transacción exitosa en CardConnect (POS) → sistema actual NO detecta este patrón cruzado
-- Consecuencia: fraudes sofisticados que explotan arquitectura multigateway pasan desapercibidos]
+[TAREA POR DESARROLLAR: Problema de falta de correlación, ejemplo de patrón cruzado no detectado, consecuencias]
 
 \subsubsection{Limitación 4: Alta Tasa de Falsos Positivos}
 
-[POR COMPLETAR:
-- Evidencia cuantitativa: porcentaje de transacciones legítimas bloqueadas incorrectamente por el sistema actual
-- Cálculo estimado de pérdidas por falsos positivos (transacciones rechazadas que generan abandono del cliente)
-- Impacto en experiencia del usuario y reputación de la plataforma]
+[TAREA POR DESARROLLAR: Porcentaje de transacciones legítimas bloqueadas incorrectamente, cálculo de pérdidas por falsos positivos, impacto en experiencia del usuario]
 
 \subsection{Desempeño del Sistema Actual (Baseline)}
 
-[POR COMPLETAR:
-- Si el sistema actual genera algún log de alertas, calcular métricas baseline:
-  * Precision del sistema actual: XX\%
-  * Recall del sistema actual: XX\%
-  * F1-Score del sistema actual: XX\%
-- NOTA: Estos valores serán el benchmark para comparar con el modelo ML en Capítulo 3
-- Si no hay logs disponibles, justificar por qué NO es posible calcular métricas del sistema actual]
+[TAREA POR DESARROLLAR: Si existen logs de alertas del sistema actual, calcular métricas baseline - Precision, Recall, F1-Score. Estos valores serán benchmark para comparar con el modelo ML en Capítulo 3]
 
 \section{Síntesis del Diagnóstico}
 
-Esta sección integra los hallazgos de las secciones anteriores, respondiendo directamente al Objetivo Específico 2.
+Esta sección integra los hallazgos de las secciones anteriores, respondiendo directamente al Objetivo Específico 2 y validando la Hipótesis Específica 2.
 
 \subsection{Hallazgos Principales del Diagnóstico}
 
 \begin{enumerate}[leftmargin=1.5cm]
-    \item \textbf{Dataset robusto disponible:} Gestión 2025 comprende 15,671,512 transacciones con 53 variables, valor monetario total de \$3,955M USD, y variable target \texttt{is\_fraud} validada por equipo de contabilidad.
+    \item \textbf{Dataset robusto disponible:} Gestión 2025 comprende 15.671.512 transacciones con 53 variables, valor monetario total de \$3.955M USD, y variable target \texttt{is\_fraud} validada por equipo de contabilidad.
 
-    \item \textbf{Desbalanceo severo de clases confirmado:} [POR COMPLETAR: ratio exacto] La tasa de fraude es inferior al X\%, requiriendo estrategias de balanceo (SMOTE o class\_weight) para entrenamiento del modelo ML.
+    \item \textbf{Desbalanceo de clases confirmado:} [TAREA POR DESARROLLAR - ratio exacto]. La tasa de fraude requiere estrategias de balanceo (SMOTE o class\_weight) para entrenamiento del modelo ML.
 
-    \item \textbf{Tres patrones de fraude caracterizados:} (i) tarjetas robadas/clonadas (XX\% de fraudes), (ii) transacciones duplicadas sospechosas (XX\%), (iii) comportamientos anómalos de usuarios (XX\%). Cada patrón presenta características técnicas específicas identificables mediante features comportamentales.
+    \item \textbf{Tres patrones de fraude caracterizados:} (i) tarjetas robadas/clonadas, (ii) transacciones duplicadas sospechosas, (iii) comportamientos anómalos de usuarios. Cada patrón presenta características técnicas específicas identificables mediante features comportamentales.
 
-    \item \textbf{Proceso de etiquetado validado:} El equipo de contabilidad utiliza 4 fuentes de verificación (chargebacks, disputas, reportes, revisión manual) con delay promedio de [POR COMPLETAR] días. Tasa de fraude mensual presenta variación dentro de [POR COMPLETAR: ±2 desviaciones estándar], indicando consistencia temporal del etiquetado.
+    \item \textbf{Proceso de etiquetado validado:} El equipo de contabilidad utiliza 4 fuentes de verificación (chargebacks, disputas, reportes, revisión manual) con delay promedio de [TAREA POR DESARROLLAR] días.
 
-    \item \textbf{Sistema actual con limitaciones críticas:} Detección post-mortem (XX\% de fraudes identificados mediante chargebacks tardíos), ausencia de aprendizaje automático, incapacidad de correlación cruzada multigateway, y alta tasa de falsos positivos ([POR COMPLETAR: X\%]).
+    \item \textbf{Sistema actual con limitaciones críticas:} Detección post-mortem, ausencia de aprendizaje automático, incapacidad de correlación cruzada multigateway, y alta tasa de falsos positivos.
 \end{enumerate}
+
+\subsection{Validación de Hipótesis Específica 2 (HE2)}
+
+La Hipótesis Específica 2 establece: \textit{``El análisis exploratorio del dataset de TechSport revela al menos 3 patrones de fraude recurrentes: tarjetas robadas/clonadas, transacciones duplicadas sospechosas, y comportamientos anómalos de usuarios''}.
+
+[TAREA POR DESARROLLAR: Con base en los datos reales del EDA, validar explícitamente si se confirma o rechaza HE2, indicando el número y porcentaje de cada patrón identificado]
 
 \subsection{Justificación de la Necesidad del Modelo ML}
 
 Los hallazgos del diagnóstico demuestran que:
 
 \begin{itemize}[leftmargin=1.5cm]
-    \item El dataset de TechSport gestión 2025 cumple con los requisitos cuantitativos y cualitativos para entrenar un modelo de Machine Learning supervisado (volumen > 15M transacciones, variable target validada, features comportamentales disponibles).
+    \item El dataset de TechSport gestión 2025 cumple con los requisitos cuantitativos y cualitativos para entrenar un modelo de Machine Learning supervisado.
 
-    \item Los tres patrones de fraude identificados presentan características medibles y correlacionadas que un modelo Random Forest puede aprender mediante análisis de 15+ features comportamentales (monto normalizado, frecuencia transaccional, velocidad, ratios históricos, geolocalización IP, canal, gateway).
+    \item Los tres patrones de fraude identificados presentan características medibles y correlacionadas que un modelo Random Forest puede aprender mediante análisis de 15+ features comportamentales.
 
-    \item El sistema actual basado en reglas estáticas es insuficiente para la detección proactiva de fraude, justificando la implementación de un modelo inteligente capaz de: (i) aprender patrones complejos no lineales, (ii) adaptarse automáticamente a nuevos comportamientos fraudulentos, (iii) reducir falsos positivos mediante clasificación probabilística, y (iv) correlacionar comportamientos entre gateways y canales.
+    \item El sistema actual basado en reglas estáticas es insuficiente para la detección proactiva de fraude, justificando la implementación de un modelo inteligente.
 
-    \item El diagnóstico confirma la viabilidad de alcanzar las métricas objetivo establecidas en la Hipótesis General (F1-Score $\geq$ 85\%, Recall $\geq$ 90\%, Precision $\geq$ 80\%), dado que estudios previos \parencite{Hafez2025} reportan F1-Scores de 85-94\% en contextos similares de detección de fraude con tarjetas de crédito.
+    \item El diagnóstico confirma la viabilidad de alcanzar las métricas objetivo establecidas en la Hipótesis General, dado que estudios previos \parencite{Hafez2025} reportan F1-Scores de 85-94\% en contextos similares.
 \end{itemize}
 
 \subsection{Transición al Capítulo 3}
 
-El Capítulo 2 ha diagnosticado la situación actual del sistema de detección de fraude de TechSport, caracterizando el dataset de gestión 2025, identificando los tres patrones de fraude presentes, y documentando las limitaciones del sistema basado en reglas estáticas. El Capítulo 3 desarrollará la propuesta de solución mediante la implementación del modelo de Machine Learning supervisado basado en Random Forest, incluyendo: (i) preprocesamiento de datos y feature engineering, (ii) balanceo de clases, (iii) entrenamiento y optimización de hiperparámetros, (iv) evaluación del desempeño en test set temporal (Sep-Dic 2025), y (v) validación de cumplimiento de las hipótesis planteadas.
+El Capítulo 2 ha diagnosticado la situación actual del sistema de detección de fraude de TechSport, caracterizando el dataset de gestión 2025, identificando los tres patrones de fraude presentes, y documentando las limitaciones del sistema basado en reglas estáticas. El Capítulo 3 desarrollará la propuesta de solución mediante la implementación del modelo de Machine Learning supervisado basado en Random Forest.
 
 \cleardoublepage

@@ -1,1600 +1,934 @@
 % ==================================================================================
 % CAPÍTULO 3: PROPUESTA Y VALIDACIÓN
-% ==================================================================================
-% Archivo: capitulos/03_propuesta_validacion.tex
-% Descripción: Desarrollo e implementación del modelo Random Forest para detección
-%              de fraude en pagos digitales (OE3, OE4, HE3, HE4, Hipótesis General)
-% Autor: Ing. Adan Condori Callisaya
-% Última modificación: Diciembre 2025
+% Triangulación: PE3 → OE3 → HE3 (Desarrollo) y PE4 → OE4 → HE4 (Evaluación)
 % ==================================================================================
 
 \chapter{Propuesta y Validación}
 
-% ==================================================================================
-% RESUMEN DEL CAPÍTULO
-% ==================================================================================
+El presente capítulo desarrolla los Objetivos Específicos 3 y 4 de la investigación. El OE3 establece: \textit{``Desarrollar un modelo de Machine Learning basado en Random Forest mediante pipeline de preprocesamiento, feature engineering, balanceo de clases y optimización de hiperparámetros''}. El OE4 establece: \textit{``Evaluar el desempeño del modelo mediante métricas de clasificación (F1-Score, Recall, Precision, AUC-ROC) en el test set temporal independiente, comparando con benchmarks de literatura científica''}.
 
-\section*{Resumen del Capítulo}
+El capítulo se estructura en tres secciones principales: (1) esquema general de la propuesta, (2) desarrollo del modelo Random Forest en siete fases, y (3) validación del modelo mediante métricas de clasificación y comparación con benchmarks.
 
-Este capítulo desarrolla la propuesta de solución mediante la implementación de un modelo de Machine Learning supervisado basado en Random Forest para la detección de transacciones fraudulentas y anómalas en TechSport, dando cumplimiento al \textbf{Objetivo General} y a los \textbf{Objetivos Específicos 3 y 4 (OE3, OE4)}, así como validando las \textbf{Hipótesis Específicas 3 y 4 (HE3, HE4)}.
+\section{Esquema General de la Propuesta}
 
-\vspace{0.3cm}
+La propuesta consiste en el desarrollo de un modelo de Machine Learning supervisado basado en el algoritmo Random Forest para la detección de fraude en transacciones de pago digital de TechSport. El modelo se implementa siguiendo un pipeline de siete fases secuenciales que garantizan reproducibilidad, trazabilidad y validación temporal estricta.
 
-\textbf{Estructura del capítulo:}
+\subsection{Justificación de la Selección de Random Forest}
+
+La selección de Random Forest como algoritmo base se fundamenta en los hallazgos del marco teórico (Capítulo 1) y los siguientes criterios:
 
 \begin{enumerate}[leftmargin=1.5cm]
-    \item \textbf{Sección 3.1 - Esquema General:} Justifica técnica y bibliográficamente la selección de Random Forest como algoritmo óptimo para el problema (vinculado a \textbf{HE1}), mediante comparación con alternativas (XGBoost, SVM, Deep Learning) basada en criterios de interpretabilidad, viabilidad temporal (8 semanas), cumplimiento regulatorio y desempeño reportado en literatura 2020-2025.
+    \item \textbf{Desempeño reportado en literatura:} \textcite{Hafez2025} documentan F1-Scores entre 85-94\% para Random Forest en detección de fraude financiero.
 
-    \item \textbf{Sección 3.2 - Desarrollo de la Propuesta (\textbf{OE3 - HE3}):} Documenta el pipeline completo de implementación aplicado al dataset de 15,671,512 transacciones de gestión 2025: (i) preprocesamiento con manejo de valores faltantes y outliers, (ii) feature engineering de 15+ features comportamentales evitando data leakage, (iii) balanceo de clases adaptativo (SMOTE o class weights), (iv) división temporal estricta (Train 50\% Ene-Jun / Validation 17\% Jul-Ago / Test 33\% Sep-Dic), y (v) optimización de hiperparámetros vía GridSearch.
+    \item \textbf{Interpretabilidad:} A diferencia de modelos de Deep Learning, Random Forest permite análisis de importancia de features mediante criterio Gini, facilitando la explicabilidad de predicciones para equipos no técnicos.
 
-    \item \textbf{Sección 3.3 - Validación de la Propuesta (\textbf{OE4 - HE4}):} Evalúa el desempeño del modelo en test set temporal independiente (5,171,599 transacciones Sep-Dic 2025) mediante métricas de clasificación (F1-Score, Recall, Precision, AUC-ROC, tiempo de inferencia), compara resultados con benchmarks de literatura científica (Hafez et al. 2025: F1=85-94\%), y calcula intervalos de confianza 95\% mediante bootstrap (1000 muestras).
+    \item \textbf{Robustez ante desbalanceo:} El algoritmo soporta nativamente técnicas de balanceo (class\_weight='balanced') y se integra eficientemente con SMOTE.
+
+    \item \textbf{Escalabilidad:} Entrenamiento paralelizable mediante n\_jobs, viable para datasets de 15+ millones de transacciones.
+
+    \item \textbf{Menor riesgo de overfitting:} El ensemble de múltiples árboles reduce la varianza y mejora la generalización respecto a un árbol de decisión individual.
 \end{enumerate}
 
-\vspace{0.3cm}
+\subsection{Arquitectura General del Pipeline}
 
-\textbf{Resultados esperados según hipótesis:} F1-Score $\geq$ 85\% (\textbf{Hipótesis General}), Recall $\geq$ 90\% (\textbf{HE3, HE4}), Precision $\geq$ 80\% (\textbf{HE3, HE4}), AUC-ROC $\geq$ 0.92 (\textbf{HE4}), tiempo de inferencia < 200ms (\textbf{HE4}).
+El pipeline de desarrollo del modelo consta de las siguientes fases:
 
-% ==================================================================================
-% 3.1. ESQUEMA GENERAL DE LA PROPUESTA
-% ==================================================================================
+\begin{enumerate}[leftmargin=1.5cm]
+    \item \textbf{Fase 1: Extracción de Datos} --- Extracción del dataset desde ClickHouse mediante consultas SQL optimizadas.
 
-\section{Esquema general de la propuesta}
+    \item \textbf{Fase 2: Preprocesamiento} --- Limpieza de datos, tratamiento de valores faltantes, normalización y encoding de variables categóricas.
 
-\subsection{Descripción general de la propuesta}
+    \item \textbf{Fase 3: Feature Engineering} --- Creación de al menos 15 features comportamentales con técnicas de prevención de data leakage temporal.
 
-\textbf{Vinculación con Objetivo General:}
+    \item \textbf{Fase 4: Partición Temporal} --- División del dataset en conjuntos Train (Ene-Jun 2025), Validation (Jul-Ago 2025) y Test (Sep-Dic 2025).
 
-Este capítulo implementa el \textbf{Objetivo General} de la investigación: \textit{"Implementar un modelo de Machine Learning supervisado basado en Random Forest para la detección de transacciones fraudulentas y anómalas en pagos digitales, mediante el análisis de datos históricos (15,671,512 transacciones de gestión 2025), feature engineering evitando data leakage, balanceo de clases adaptativo y validación temporal (Train 50\% Ene-Jun, Validation 17\% Jul-Ago, Test 33\% Sep-Dic), logrando un F1-Score $\geq$ 85\%, Recall $\geq$ 90\% y Precision $\geq$ 80\%, en la empresa TechSport."}
+    \item \textbf{Fase 5: Balanceo de Clases} --- Aplicación de SMOTE o class\_weight para manejar el desbalanceo inherente en detección de fraude.
 
-\vspace{0.5em}
+    \item \textbf{Fase 6: Entrenamiento y Optimización} --- Entrenamiento del modelo Random Forest con optimización de hiperparámetros mediante Grid Search.
 
-\textbf{Problema identificado (vinculación con OE2 - Capítulo 2):}
-
-El diagnóstico del Capítulo 2 identificó que el sistema actual de TechSport presenta:
-\begin{itemize}[leftmargin=2cm]
-    \item Detección reactiva post-mortem (delay 0-5 meses vía chargebacks/disputas)
-    \item Ausencia de correlación cruzada entre gateways y canales
-    \item Dependencia de reglas estáticas que requieren actualización manual
-    \item Tres patrones de fraude recurrentes no detectados eficazmente (\textbf{validando HE2})
-\end{itemize}
-
-\vspace{0.5em}
-
-\textbf{Solución propuesta - Criterios de cumplimiento (Hipótesis General):}
-
-Modelo Random Forest que alcance:
-\begin{itemize}[leftmargin=2cm]
-    \item \textbf{F1-Score $\geq$ 85\%:} Balance óptimo precision-recall (Hipótesis General)
-    \item \textbf{Recall $\geq$ 90\%:} Detectar $\geq$ 90\% de fraudes reales (HE3, HE4)
-    \item \textbf{Precision $\geq$ 80\%:} Minimizar falsos positivos (HE3, HE4)
-    \item \textbf{AUC-ROC $\geq$ 0.92:} Capacidad discriminativa robusta (HE4)
-    \item \textbf{Tiempo inferencia < 200ms:} Viabilidad operacional (HE4)
-\end{itemize}
-
-\vspace{0.5em}
-
-\textbf{Cumplimiento de objetivos específicos:}
-\begin{itemize}[leftmargin=2cm]
-    \item Sección 3.2 desarrolla \textbf{OE3} (pipeline completo de implementación)
-    \item Sección 3.3 desarrolla \textbf{OE4} (evaluación y comparación con benchmarks)
-\end{itemize}
-
-% -----------------------------------------------------------------------------------
-% 3.1.1. POR QUÉ DEL CÓMO DEL OBJETIVO GENERAL
-% -----------------------------------------------------------------------------------
-
-\subsection{Justificación del cómo del objetivo general: ¿Por qué Random Forest?}
-
-\textbf{Vinculación con HE1 (Fundamentación Teórica):} Esta subsección valida la \textbf{Hipótesis Específica 1}: \textit{"La revisión de literatura científica del periodo 2020-2025 valida que los modelos de Machine Learning supervisados, particularmente los enfoques de ensemble learning como Random Forest, constituyen un marco teórico-técnico respaldado por al menos 20 estudios científicos para la detección de fraude en pagos digitales, reportando F1-Scores entre 85-94\% y superando las limitaciones de sistemas basados en reglas estáticas."}
-
-\subsubsection{Fundamentación bibliográfica de Random Forest}
-
-\textbf{Concepto de Random Forest (Breiman, 2001):}
-
-Random Forest es un algoritmo de aprendizaje supervisado que construye un conjunto (ensemble) de árboles de decisión entrenados con muestras bootstrap del dataset (bagging), introduciendo aleatoriedad adicional en la selección de features en cada split. La predicción final se obtiene mediante votación mayoritaria (clasificación) o promedio (regresión) de las predicciones individuales de los árboles.
-
-\vspace{0.5em}
-
-\textbf{Ventajas de Random Forest para detección de fraude (según literatura 2020-2025):}
-
-\begin{longtable}{|p{1cm}|p{4cm}|p{4.5cm}|p{3.5cm}|}
-\hline
-\rowcolor{headerblue}
-\textcolor{white}{\textbf{N°}} &
-\textcolor{white}{\textbf{Ventaja}} &
-\textcolor{white}{\textbf{Justificación}} &
-\textcolor{white}{\textbf{Referencia}} \\
-\hline
-\endfirsthead
-
-\hline
-\rowcolor{headerblue}
-\textcolor{white}{\textbf{N°}} &
-\textcolor{white}{\textbf{Ventaja}} &
-\textcolor{white}{\textbf{Justificación}} &
-\textcolor{white}{\textbf{Referencia}} \\
-\hline
-\endhead
-
-1 &
-\textbf{Interpretabilidad} &
-RF permite análisis de feature importance, crucial para auditorías y cumplimiento regulatorio (PCI DSS, GDPR) &
-Hafez et al. (2025); Baesens et al. (2015) \\
-\hline
-
-2 &
-\textbf{Robustez a overfitting} &
-El mecanismo de bagging y votación reduce varianza, evitando sobreajuste incluso con datasets grandes (15M+ transacciones) &
-Breiman (2001); Hernández Aros et al. (2024) \\
-\hline
-
-3 &
-\textbf{Manejo de desbalanceo de clases} &
-Parámetro \texttt{class\_weight='balanced'} ajusta automáticamente pesos de clases minoritarias (fraude 7.2\% vs. no fraude 92.8\%) &
-Dal Pozzolo et al. (2015) \\
-\hline
-
-4 &
-\textbf{Manejo de features categóricas y numéricas} &
-RF procesa ambos tipos de variables sin necesidad de one-hot encoding exhaustivo, simplificando preprocesamiento &
-Géron (2022) \\
-\hline
-
-5 &
-\textbf{Resistencia a outliers} &
-La naturaleza basada en splits reduce impacto de outliers extremos (transacciones con monto > \$9,850 detectadas en EDA) &
-Hastie et al. (2009) \\
-\hline
-
-6 &
-\textbf{Escalabilidad computacional} &
-Entrenamiento paralelizable (cada árbol se entrena independientemente), viable para datasets de 15M+ transacciones &
-Pedregosa et al. (2011) - scikit-learn \\
-\hline
-
-7 &
-\textbf{Desempeño validado en literatura} &
-Estudios recientes reportan F1-Scores de 85-94\% en detección de fraude con Random Forest &
-Hafez et al. (2025); Hernández Aros et al. (2024) \\
-\hline
-
-8 &
-\textbf{Tiempo de inferencia bajo} &
-RF puede predecir en < 200ms (requisito para tiempo real), especialmente con $\leq$ 200 árboles y max\_depth $\leq$ 20 &
-Carcillo et al. (2018) \\
-\hline
-
-\end{longtable}
-
-\subsubsection{Comparación con alternativas: ¿Por qué NO XGBoost, SVM o Deep Learning?}
-
-\textbf{[CONTENIDO A DESARROLLAR - TABLA COMPARATIVA]}
-
-\begin{longtable}{|p{2.5cm}|p{3cm}|p{3cm}|p{3cm}|p{3cm}|}
-\hline
-\rowcolor{headerblue}
-\textcolor{white}{\textbf{Criterio}} &
-\textcolor{white}{\textbf{Random Forest}} &
-\textcolor{white}{\textbf{XGBoost}} &
-\textcolor{white}{\textbf{SVM}} &
-\textcolor{white}{\textbf{Deep Learning}} \\
-\hline
-\endfirsthead
-
-\hline
-\rowcolor{headerblue}
-\textcolor{white}{\textbf{Criterio}} &
-\textcolor{white}{\textbf{RF}} &
-\textcolor{white}{\textbf{XGBoost}} &
-\textcolor{white}{\textbf{SVM}} &
-\textcolor{white}{\textbf{DL}} \\
-\hline
-\endhead
-
-\textbf{Interpretabilidad} &
-$\checkmark$ Alta (feature importance) &
-$\triangle$ Media (compleja) &
-$\times$ Baja (caja negra) &
-$\times$ Muy baja (caja negra) \\
-\hline
-
-\textbf{Tiempo de entrenamiento} &
-$\checkmark$ Rápido (2-4h, 15M tx) &
-$\triangle$ Moderado (4-8h) &
-$\times$ Lento (12-24h, kernel RBF) &
-$\times$ Muy lento (días, requiere GPU) \\
-\hline
-
-\textbf{Tiempo de inferencia} &
-$\checkmark$ < 200ms &
-$\checkmark$ < 200ms &
-$\triangle$ < 500ms &
-$\times$ > 1s (sin GPU) \\
-\hline
-
-\textbf{Facilidad de implementación} &
-$\checkmark$ Simple (scikit-learn) &
-$\triangle$ Media (XGBoost lib) &
-$\triangle$ Media (kernel tuning) &
-$\times$ Compleja (TensorFlow/PyTorch) \\
-\hline
-
-\textbf{Desempeño (F1)} &
-$\checkmark$ 85-94\% (literatura) &
-$\checkmark$ 87-95\% (literatura) &
-$\triangle$ 78-85\% (literatura) &
-$\checkmark$ 90-96\% (literatura) \\
-\hline
-
-\textbf{Manejo de desbalanceo} &
-$\checkmark$ class\_weight &
-$\checkmark$ scale\_pos\_weight &
-$\triangle$ class\_weight (limitado) &
-$\triangle$ focal loss (complejo) \\
-\hline
-
-\textbf{Viabilidad (2 meses)} &
-$\checkmark$ Sí &
-$\triangle$ Posible (riesgo) &
-$\times$ No (escalabilidad) &
-$\times$ No (tiempo) \\
-\hline
-
-\textbf{Cumplimiento regulatorio} &
-$\checkmark$ Explicable (GDPR) &
-$\triangle$ Parcial &
-$\times$ No explicable &
-$\times$ No explicable \\
-\hline
-
-\rowcolor{lightgreen}
-\textbf{DECISIÓN} &
-\textbf{$\checkmark$ SELECCIONADO} &
-Trabajo futuro &
-Baseline (comparación) &
-Trabajo futuro \\
-\hline
-
-\end{longtable}
-
-\textbf{Justificación de selección de Random Forest:}
-
-\begin{enumerate}[leftmargin=2cm]
-    \item \textbf{Balance óptimo entre desempeño e interpretabilidad:} RF alcanza F1-Scores de 85-94\% (Hafez 2025) manteniendo explicabilidad mediante feature importance
-
-    \item \textbf{Viabilidad temporal (2 meses):} Entrenamiento rápido, implementación simple, sin requerir GPUs
-
-    \item \textbf{Cumplimiento regulatorio:} GDPR (Art. 22) y PCI DSS requieren explicabilidad de decisiones automatizadas. RF permite auditoría de criterios de decisión
-
-    \item \textbf{Trabajo futuro definido:} XGBoost y Deep Learning se documentarán como alternativas para mejoras futuras (objetivo: F1 > 95\%)
+    \item \textbf{Fase 7: Evaluación} --- Evaluación del modelo en test set temporal independiente con métricas de clasificación e intervalos de confianza bootstrap.
 \end{enumerate}
 
-\vspace{1em}
+\subsection{Especificaciones Técnicas del Entorno}
 
-\textbf{Nota metodológica (Sampieri, 2014):}
+El desarrollo del modelo se realiza en el siguiente entorno técnico:
 
-La selección de Random Forest responde al enfoque cuantitativo de la investigación, donde se priorizan métricas objetivas, replicabilidad y validación estadística rigurosa. La justificación se basa en evidencia bibliográfica (20+ estudios), no en preferencias subjetivas.
+\begin{itemize}[leftmargin=1.5cm]
+    \item \textbf{Lenguaje de programación:} Python 3.10+
+    \item \textbf{Framework de Machine Learning:} scikit-learn 1.3+
+    \item \textbf{Manipulación de datos:} pandas 2.0+, numpy 1.24+
+    \item \textbf{Balanceo de clases:} imbalanced-learn (SMOTE)
+    \item \textbf{Visualización:} matplotlib 3.7+, seaborn 0.12+
+    \item \textbf{Base de datos:} ClickHouse (conexión via clickhouse-driver)
+    \item \textbf{Hardware:} [TAREA POR DESARROLLAR: especificaciones del servidor de entrenamiento]
+\end{itemize}
 
-\subsection{Arquitectura conceptual de la propuesta}
+\section{Desarrollo del Modelo Random Forest}
 
-\textbf{[CONTENIDO A DESARROLLAR - DIAGRAMA]}
+Esta sección documenta el desarrollo del modelo en las siete fases definidas en la arquitectura del pipeline. Cada fase incluye la fundamentación teórica, implementación técnica y resultados obtenidos.
 
-\subsubsection{Diagrama del pipeline completo}
+\subsection{Fase 1: Extracción de Datos}
 
-\begin{figure}[h]
+La extracción de datos se realiza mediante consultas SQL optimizadas contra la base de datos ClickHouse de TechSport.
+
+\subsubsection{Consulta SQL de Extracción}
+
+\begin{lstlisting}[style=python, caption=Consulta SQL para extracción del dataset]
+SELECT
+    id,
+    user_id,
+    facility_id,
+    amount,
+    currency,
+    status,
+    gateway,
+    payment_method,
+    payment_channel,
+    card_brand,
+    created_at,
+    updated_at,
+    is_fraud
+FROM TechSport_db_production.paybycourtDB_payments
+WHERE created_at BETWEEN '2025-01-01' AND '2025-12-31'
+  AND status IN ('completed', 'failed', 'refunded')
+  AND amount > 0
+ORDER BY created_at ASC
+\end{lstlisting}
+
+\subsubsection{Resultados de la Extracción}
+
+\begin{table}[H]
 \centering
-\begin{tikzpicture}[node distance=2cm, auto,
-    block/.style={rectangle, draw, fill=lightblue, text width=5em, text centered, rounded corners, minimum height=3em},
-    data/.style={rectangle, draw, fill=lightgreen, text width=5em, text centered, rounded corners, minimum height=3em},
-    decision/.style={diamond, draw, fill=orange!30, text width=4.5em, text badly centered, inner sep=0pt},
-    line/.style={draw, -latex}]
+\caption{Resultado de la extracción de datos (Gestión 2025)}
+\label{tab:extraccion-resultado}
+\begin{tabular}{@{}lr@{}}
+\toprule
+\textbf{Métrica} & \textbf{Valor} \\
+\midrule
+Registros extraídos          & 15.671.512 \\
+Variables disponibles        & 53 \\
+Período cubierto             & 01/01/2025 - 31/12/2025 \\
+Tamaño del dataset           & [TAREA POR DESARROLLAR] GB \\
+Tiempo de extracción         & [TAREA POR DESARROLLAR] minutos \\
+\bottomrule
+\end{tabular}
+\end{table}
 
-\node [data] (dataset) {Dataset Gestión 2025\\15.7M tx};
-\node [block, below of=dataset] (prepro) {Preprocesamiento};
-\node [block, below of=prepro] (features) {Feature Engineering\\(15+ features)};
-\node [block, below of=features] (balanceo) {Balanceo SMOTE};
-\node [data, below of=balanceo] (split) {Train/Val/Test\\50/17/33 temporal};
-\node [block, below of=split] (train) {Entrenamiento RF};
-\node [block, below of=train] (optimiza) {GridSearch};
-\node [data, below of=optimiza] (modelo) {Modelo Final};
-\node [block, below of=modelo] (evalua) {Evaluación Test};
-\node [data, below of=evalua] (metricas) {Métricas:\\F1, Recall, Precision};
+\subsection{Fase 2: Preprocesamiento de Datos}
 
-\path [line] (dataset) -- (prepro);
-\path [line] (prepro) -- (features);
-\path [line] (features) -- (balanceo);
-\path [line] (balanceo) -- (split);
-\path [line] (split) -- (train);
-\path [line] (train) -- (optimiza);
-\path [line] (optimiza) -- (modelo);
-\path [line] (modelo) -- (evalua);
-\path [line] (evalua) -- (metricas);
+El preprocesamiento garantiza calidad de datos para el entrenamiento del modelo mediante tratamiento de valores faltantes, outliers y normalización de variables.
 
-\end{tikzpicture}
-\caption{Pipeline de implementación del modelo Random Forest}
-\label{fig:pipeline_rf}
-\end{figure}
+\subsubsection{Tratamiento de Valores Faltantes}
 
-\textbf{Descripción de etapas del pipeline:}
-
-\begin{enumerate}[leftmargin=2cm]
-    \item \textbf{Dataset Gestión 2025:} 15,671,512 transacciones extraídas de ClickHouse (esquema \texttt{TechSport\_db\_production.paybycourtDB\_payments}) validadas en Capítulo 2
-
-    \item \textbf{Preprocesamiento:} Manejo de valores faltantes, detección de outliers, encoding de categóricas, normalización de numéricas
-
-    \item \textbf{Feature Engineering:} Creación de 15+ features derivadas (amount\_z\_score\_user, tx\_frequency\_24h, is\_duplicate, hour\_of\_day, etc.)
-
-    \item \textbf{Balanceo de clases:} SMOTE (Synthetic Minority Oversampling Technique) aplicado SOLO en training set
-
-    \item \textbf{División temporal Train/Val/Test:} 50\% Ene-Jun / 17\% Jul-Ago / 33\% Sep-Dic 2025, respetando orden temporal estricto (sin data leakage)
-
-    \item \textbf{Entrenamiento Random Forest:} Configuración inicial (n\_estimators=200, max\_depth=15, class\_weight='balanced')
-
-    \item \textbf{Optimización de hiperparámetros:} GridSearchCV con k-fold=5 en validation set
-
-    \item \textbf{Modelo final:} RF optimizado serializado (.pkl)
-
-    \item \textbf{Evaluación en Test set:} Cálculo de métricas F1, Recall, Precision, AUC-ROC
-
-    \item \textbf{Métricas finales:} Comparación con benchmarks de literatura
-\end{enumerate}
-
-% ==================================================================================
-% 3.2. DESARROLLO DE LA PROPUESTA
-% ==================================================================================
-
-\section{Desarrollo de la propuesta}
-
-\textbf{Cumplimiento de OE3 y validación de HE3:}
-
-Esta sección desarrolla el \textbf{Objetivo Específico 3}: \textit{"Desarrollar e implementar un modelo de Machine Learning supervisado basado en Random Forest mediante un pipeline que incluya: (i) preprocesamiento de 15,671,512 transacciones de gestión 2025, (ii) feature engineering de al menos 15 features comportamentales evitando data leakage, (iii) estrategia de balanceo de clases, (iv) división temporal estricta (Train 50\% Ene-Jun, Validation 17\% Jul-Ago, Test 33\% Sep-Dic 2025), y (v) optimización de hiperparámetros."}
-
-Asimismo, implementa las condiciones técnicas especificadas en \textbf{HE3} para lograr Recall $\geq$ 90\%, Precision $\geq$ 80\% y AUC-ROC $\geq$ 0.92 en el test set temporal, evitando data leakage mediante uso exclusivo de información histórica disponible al momento de cada transacción.
-
-\subsection{Fase 1: Preprocesamiento de datos}
-
-\subsubsection{Objetivo del preprocesamiento}
-
-\textbf{[CONTENIDO A DESARROLLAR]}
-
-Transformar el dataset crudo de 15,671,512 transacciones de gestión 2025 en un dataset limpio y estructurado, apto para entrenamiento del modelo Random Forest, mediante:
-
-\begin{itemize}[leftmargin=2cm]
-    \item Manejo de valores faltantes (missing values)
-    \item Detección y tratamiento de outliers
-    \item Encoding de variables categóricas
-    \item Normalización/estandarización de variables numéricas
-    \item Validación de tipos de datos
-    \item Eliminación de duplicados
-\end{itemize}
-
-\subsubsection{Procedimiento de preprocesamiento}
-
-\textbf{[CONTENIDO A DESARROLLAR - PASO A PASO CON CÓDIGO PYTHON]}
-
-\textbf{1. Manejo de valores faltantes:}
-
-\begin{lstlisting}[caption={Análisis de valores faltantes en dataset}]
+\begin{lstlisting}[style=python, caption=Estrategia de tratamiento de valores faltantes]
 import pandas as pd
 import numpy as np
 
-# Cargar dataset desde ClickHouse (TechSport_db_production.paybycourtDB_payments)
-df = pd.read_parquet('TechSport_transactions_2025.parquet')
+def handle_missing_values(df):
+    """
+    Tratamiento de valores faltantes segun tipo de variable.
+    - Numericas: imputacion por mediana (robusta a outliers)
+    - Categoricas: imputacion por moda o categoria 'Unknown'
+    """
+    # Variables numericas: imputar con mediana
+    numeric_cols = ['amount']
+    for col in numeric_cols:
+        if df[col].isnull().sum() > 0:
+            df[col].fillna(df[col].median(), inplace=True)
 
-# Analizar valores faltantes
-missingness = df.isnull().sum()
-missingness_pct = (missingness / len(df)) * 100
+    # Variables categoricas: imputar con 'Unknown'
+    categorical_cols = ['gateway', 'payment_method',
+                        'payment_channel', 'card_brand']
+    for col in categorical_cols:
+        if df[col].isnull().sum() > 0:
+            df[col].fillna('Unknown', inplace=True)
 
-# Estrategia por columna:
-# - gateway (90.9% faltantes): Imputar con "No especificado"
-# - card_brand (73.9% faltantes): Imputar con "Unknown"
-# - is_fraud (1.3% faltantes): ELIMINAR filas (son tx recientes sin etiqueta)
-
-df['gateway'].fillna('No especificado', inplace=True)
-df['card_brand'].fillna('Unknown', inplace=True)
-df = df.dropna(subset=['is_fraud'])  # Eliminar 1.3% sin etiqueta
+    return df
 \end{lstlisting}
 
-\textbf{Resultado esperado:}
+\begin{table}[H]
+\centering
+\caption{Resultado del tratamiento de valores faltantes}
+\label{tab:missing-values-resultado}
+\begin{tabular}{@{}lrrr@{}}
+\toprule
+\textbf{Variable} & \textbf{Missing Antes} & \textbf{Missing Después} & \textbf{Estrategia} \\
+\midrule
+amount          & [TAREA]   & 0 & Mediana \\
+gateway         & [TAREA]   & 0 & 'Unknown' \\
+payment\_method & [TAREA]   & 0 & 'Unknown' \\
+payment\_channel& [TAREA]   & 0 & 'Unknown' \\
+card\_brand     & [TAREA]   & 0 & 'Unknown' \\
+\bottomrule
+\end{tabular}
+\end{table}
 
-\begin{itemize}[leftmargin=2cm]
-    \item Dataset inicial: 15,671,512 transacciones
-    \item Después de eliminación de \texttt{is\_fraud} faltantes: 15,468,320 transacciones (98.7\%)
-    \item Pérdida de datos: 1.3\% (203,192 tx) - ACEPTABLE según Sampieri (2014, p. 165: "pérdida < 5\% no afecta validez")
-\end{itemize}
+\subsubsection{Detección y Tratamiento de Outliers}
 
-\vspace{1em}
+Se aplica la técnica de Winsorization para limitar valores extremos sin eliminar registros.
 
-\textbf{2. Detección y tratamiento de outliers:}
+\begin{lstlisting}[style=python, caption=Tratamiento de outliers mediante Winsorization]
+from scipy.stats import mstats
 
-\begin{lstlisting}[caption={Detección de outliers en variable \texttt{amount}}]
-from scipy import stats
-
-# Calcular z-score de amount
-df['amount_zscore'] = stats.zscore(df['amount'])
-
-# Identificar outliers extremos (|z| > 3)
-outliers = df[np.abs(df['amount_zscore']) > 3]
-
-# Análisis: ¿son errores o fraudes legítimos?
-print(f"Outliers detectados: {len(outliers)} ({len(outliers)/len(df)*100:.2f}%)")
-print(f"Tasa de fraude en outliers: {outliers['is_fraud'].mean()*100:.2f}%")
-
-# Decisión: NO ELIMINAR outliers, sino crear feature predictiva
-# (23.4% de outliers son fraudes vs. 7.2% promedio, según EDA Cap. 2)
-df['is_outlier'] = (np.abs(df['amount_zscore']) > 3).astype(int)
+def winsorize_amount(df, limits=(0.01, 0.01)):
+    """
+    Winsorization de variable amount.
+    Limita valores extremos a percentiles 1 y 99.
+    """
+    df['amount_winsorized'] = mstats.winsorize(
+        df['amount'],
+        limits=limits
+    )
+    return df
 \end{lstlisting}
 
-\textbf{Justificación metodológica:}
+\begin{table}[H]
+\centering
+\caption{Resultado del tratamiento de outliers}
+\label{tab:outliers-resultado}
+\begin{tabular}{@{}lr@{}}
+\toprule
+\textbf{Métrica} & \textbf{Valor} \\
+\midrule
+Outliers detectados (IQR)        & [TAREA POR DESARROLLAR] \\
+\% del dataset                    & [TAREA POR DESARROLLAR] \\
+Límite inferior (P1)             & [TAREA POR DESARROLLAR] USD \\
+Límite superior (P99)            & [TAREA POR DESARROLLAR] USD \\
+Registros modificados            & [TAREA POR DESARROLLAR] \\
+\bottomrule
+\end{tabular}
+\end{table}
 
-Los outliers en \texttt{amount} NO son errores de registro, sino transacciones reales con monto atípico. Según el análisis del Capítulo 2, el 23.4\% de outliers son fraudes (vs. 7.2\% promedio), confirmando que \texttt{is\_outlier} es una feature predictiva. Por tanto, NO se eliminan outliers, sino que se crea una variable binaria indicadora.
+\subsubsection{Normalización de Variables Numéricas}
 
-\vspace{1em}
-
-\textbf{3. Encoding de variables categóricas:}
-
-\textbf{[CONTENIDO A DESARROLLAR - TÉCNICAS DE ENCODING]}
-
-\begin{longtable}{|p{3cm}|p{3cm}|p{4cm}|p{4cm}|}
-\hline
-\rowcolor{headerblue}
-\textcolor{white}{\textbf{Variable}} &
-\textcolor{white}{\textbf{Tipo}} &
-\textcolor{white}{\textbf{Técnica de encoding}} &
-\textcolor{white}{\textbf{Justificación}} \\
-\hline
-\endfirsthead
-
-\hline
-\rowcolor{headerblue}
-\textcolor{white}{\textbf{Variable}} &
-\textcolor{white}{\textbf{Tipo}} &
-\textcolor{white}{\textbf{Técnica}} &
-\textcolor{white}{\textbf{Justificación}} \\
-\hline
-\endhead
-
-payment\_channel &
-Categórica nominal &
-One-Hot Encoding &
-Pocas categorías (5: web, app, POS, ACH, terminal). Sin orden intrínseco \\
-\hline
-
-gateway &
-Categórica nominal &
-Target Encoding &
-Muchas categorías (10+). Target encoding usa tasa de fraude por gateway \\
-\hline
-
-card\_brand &
-Categórica nominal &
-Frequency Encoding &
-Muchas categorías. Codificar por frecuencia de aparición \\
-\hline
-
-hour\_of\_day &
-Numérica ordinal &
-Sin encoding (0-23) &
-Ya es numérica, mantener como está \\
-\hline
-
-day\_of\_week &
-Categórica ordinal &
-Ordinal Encoding &
-Orden temporal: Lunes=0, Domingo=6 \\
-\hline
-
-\end{longtable}
-
-\begin{lstlisting}[caption={Ejemplo de encoding con scikit-learn}]
-from sklearn.preprocessing import OneHotEncoder, OrdinalEncoder
-
-# One-Hot Encoding para payment_channel
-ohe = OneHotEncoder(drop='first', sparse=False)
-channel_encoded = ohe.fit_transform(df[['payment_channel']])
-
-# Target Encoding para gateway (usar tasa de fraude)
-gateway_fraud_rate = df.groupby('gateway')['is_fraud'].mean()
-df['gateway_fraud_rate'] = df['gateway'].map(gateway_fraud_rate)
-\end{lstlisting}
-
-\vspace{1em}
-
-\textbf{4. Normalización de variables numéricas:}
-
-\textbf{[CONTENIDO A DESARROLLAR]}
-
-\begin{lstlisting}[caption={Normalización con StandardScaler}]
+\begin{lstlisting}[style=python, caption=Normalización mediante StandardScaler]
 from sklearn.preprocessing import StandardScaler
 
-# Variables numéricas a normalizar
-numerical_features = ['amount', 'user_age_days', 'tx_count_24h', 'time_since_last_tx']
+def normalize_features(X_train, X_val, X_test, numeric_cols):
+    """
+    Normaliza features numericas usando StandardScaler.
+    IMPORTANTE: fit() solo en train, transform() en val/test.
+    """
+    scaler = StandardScaler()
 
-# Normalizar con media=0, std=1
-scaler = StandardScaler()
-df[numerical_features] = scaler.fit_transform(df[numerical_features])
+    # Fit solo en training set (previene data leakage)
+    X_train[numeric_cols] = scaler.fit_transform(X_train[numeric_cols])
+    X_val[numeric_cols] = scaler.transform(X_val[numeric_cols])
+    X_test[numeric_cols] = scaler.transform(X_test[numeric_cols])
+
+    return X_train, X_val, X_test, scaler
 \end{lstlisting}
 
-\textbf{Justificación:}
+\subsubsection{Encoding de Variables Categóricas}
 
-Random Forest NO requiere normalización estricta (es invariante a transformaciones monótonas), pero normalizar mejora la interpretabilidad de feature importance y acelera convergencia si se compara con SVM o redes neuronales en trabajo futuro.
+\begin{lstlisting}[style=python, caption=One-Hot Encoding de variables categóricas]
+from sklearn.preprocessing import OneHotEncoder
 
-\vspace{1em}
+def encode_categorical(df, categorical_cols):
+    """
+    One-Hot Encoding para variables categoricas.
+    """
+    encoder = OneHotEncoder(sparse=False, handle_unknown='ignore')
+    encoded = encoder.fit_transform(df[categorical_cols])
 
-\textbf{Resultado final del preprocesamiento:}
+    # Crear nombres de columnas
+    feature_names = encoder.get_feature_names_out(categorical_cols)
+    encoded_df = pd.DataFrame(encoded, columns=feature_names,
+                               index=df.index)
 
-\begin{itemize}[leftmargin=2cm]
-    \item $\checkmark$ Dataset limpio: 15,468,320 transacciones (98.7\% del original)
-    \item $\checkmark$ Valores faltantes imputados o eliminados
-    \item $\checkmark$ Outliers identificados como feature (\texttt{is\_outlier})
-    \item $\checkmark$ Variables categóricas codificadas
-    \item $\checkmark$ Variables numéricas normalizadas
-    \item $\checkmark$ Dataset listo para feature engineering
-\end{itemize}
+    # Concatenar con dataset original (sin columnas originales)
+    df = pd.concat([df.drop(columns=categorical_cols), encoded_df],
+                   axis=1)
 
-\subsection{Fase 2: Feature Engineering}
-
-\subsubsection{Objetivo del feature engineering}
-
-\textbf{[CONTENIDO A DESARROLLAR]}
-
-Crear al menos 15 features (variables predictivas) derivadas de los datos crudos, evitando data leakage (fuga de información), que maximicen la capacidad del modelo Random Forest de distinguir entre transacciones fraudulentas y legítimas.
-
-\textbf{Principio anti-data leakage (Géron, 2022):}
-
-Todas las features SOLO pueden usar información disponible al momento de la transacción. NO se puede usar información futura (ej: si la transacción fue revertida 2 meses después).
-
-\subsubsection{Catálogo de features implementadas}
-
-\textbf{[CONTENIDO A DESARROLLAR - 15+ FEATURES]}
-
-\begin{landscape}
-
-\small
-
-\begin{longtable}{|p{1cm}|p{4cm}|p{5cm}|p{3.5cm}|p{5cm}|}
-\hline
-\rowcolor{headerblue}
-\textcolor{white}{\textbf{ID}} &
-\textcolor{white}{\textbf{Nombre}} &
-\textcolor{white}{\textbf{Descripción}} &
-\textcolor{white}{\textbf{Tipo}} &
-\textcolor{white}{\textbf{Prevención data leakage}} \\
-\hline
-\endfirsthead
-
-\hline
-\rowcolor{headerblue}
-\textcolor{white}{\textbf{ID}} &
-\textcolor{white}{\textbf{Nombre}} &
-\textcolor{white}{\textbf{Descripción}} &
-\textcolor{white}{\textbf{Tipo}} &
-\textcolor{white}{\textbf{Leakage?}} \\
-\hline
-\endhead
-
-F1 &
-\texttt{amount\_normalized} &
-Monto de la transacción normalizado (z-score) &
-Numérica continua &
-$\checkmark$ Disponible al momento de la tx \\
-\hline
-
-F2 &
-\texttt{amount\_z\_score\_user} &
-Desviación del monto respecto al promedio histórico del usuario &
-Numérica continua &
-$\checkmark$ Calculada con histórico PREVIO (sin incluir tx actual) \\
-\hline
-
-F3 &
-\texttt{tx\_frequency\_24h} &
-Número de transacciones del usuario en últimas 24 horas &
-Numérica discreta &
-$\checkmark$ Solo cuenta tx anteriores (ventana temporal estricta) \\
-\hline
-
-F4 &
-\texttt{tx\_frequency\_7d} &
-Número de transacciones del usuario en últimos 7 días &
-Numérica discreta &
-$\checkmark$ Ventana temporal hacia atrás \\
-\hline
-
-F5 &
-\texttt{time\_since\_last\_tx} &
-Segundos desde la última transacción del usuario &
-Numérica continua &
-$\checkmark$ Calculada con timestamp de tx previa \\
-\hline
-
-F6 &
-\texttt{tx\_velocity} &
-Transacciones por hora del usuario (promedio móvil 24h) &
-Numérica continua &
-$\checkmark$ Basada en histórico previo \\
-\hline
-
-F7 &
-\texttt{is\_new\_user} &
-Usuario registrado hace menos de 30 días (0/1) &
-Binaria &
-$\checkmark$ Basada en fecha de registro (anterior a tx) \\
-\hline
-
-F8 &
-\texttt{user\_chargeback\_history} &
-Número de chargebacks previos del usuario &
-Numérica discreta &
-$\checkmark$ Solo cuenta chargebacks anteriores \\
-\hline
-
-F9 &
-\texttt{is\_duplicate} &
-Transacción duplicada en últimas 48h (mismo user, monto, método) &
-Binaria &
-$\checkmark$ Solo busca duplicados anteriores \\
-\hline
-
-F10 &
-\texttt{hour\_of\_day} &
-Hora del día (0-23) &
-Numérica ordinal &
-$\checkmark$ Timestamp de la tx \\
-\hline
-
-F11 &
-\texttt{day\_of\_week} &
-Día de la semana (0=Lun, 6=Dom) &
-Numérica ordinal &
-$\checkmark$ Timestamp de la tx \\
-\hline
-
-F12 &
-\texttt{is\_weekend} &
-Transacción en fin de semana (0/1) &
-Binaria &
-$\checkmark$ Derivada de \texttt{day\_of\_week} \\
-\hline
-
-F13 &
-\texttt{is\_night\_hours} &
-Transacción en horario nocturno 23:00-06:00 (0/1) &
-Binaria &
-$\checkmark$ Derivada de \texttt{hour\_of\_day} \\
-\hline
-
-F14 &
-\texttt{payment\_channel\_encoded} &
-Canal de pago codificado (web=0, app=1, POS=2, etc.) &
-Categórica nominal &
-$\checkmark$ Dato de la tx actual \\
-\hline
-
-F15 &
-\texttt{gateway\_fraud\_rate} &
-Tasa histórica de fraude del gateway &
-Numérica continua &
-$\checkmark$ Calculada con histórico PREVIO del gateway \\
-\hline
-
-F16 &
-\texttt{is\_outlier\_amount} &
-Monto es outlier ($|z| > 3$) &
-Binaria &
-$\checkmark$ Basada en distribución histórica \\
-\hline
-
-F17 &
-\texttt{ratio\_amount\_vs\_avg\_user} &
-Ratio: monto actual / promedio histórico del usuario &
-Numérica continua &
-$\checkmark$ Promedio calculado con histórico previo \\
-\hline
-
-F18 &
-\texttt{facility\_tx\_count\_today} &
-Número de transacciones en la misma instalación deportiva hoy &
-Numérica discreta &
-$\checkmark$ Solo cuenta tx previas del día \\
-\hline
-
-\end{longtable}
-
-\end{landscape}
-
-\textbf{Resultado:} 18 features creadas, superando el objetivo de 15+.
-
-\subsubsection{Validación de no data leakage}
-
-\textbf{[CONTENIDO A DESARROLLAR - PROCEDIMIENTO DE VALIDACIÓN]}
-
-\textbf{Protocolo de validación temporal:}
-
-\begin{enumerate}[leftmargin=2cm]
-    \item \textbf{Ordenamiento temporal estricto:} Ordenar dataset por \texttt{created\_at} (timestamp) antes de cualquier cálculo de features
-
-    \item \textbf{Ventanas temporales hacia atrás:} Todas las features agregadas (frecuencia, promedios) solo usan transacciones ANTERIORES
-
-    \item \textbf{Validación con división train/test:}
-    \begin{itemize}
-        \item Train set: Ene-Jun 2025
-        \item Test set: Sep-Dic 2025
-        \item Verificar: \texttt{max(train['created\_at']) < min(test['created\_at'])}
-    \end{itemize}
-
-    \item \textbf{Auditoría de código:} Revisar cada feature para confirmar que NO usa información futura
-\end{enumerate}
-
-\begin{lstlisting}[caption={Validación de no data leakage}]
-# Verificar orden temporal estricto
-assert df['created_at'].is_monotonic_increasing, "Dataset NO está ordenado temporalmente"
-
-# Verificar que train/test no se solapan temporalmente
-train_max_date = train['created_at'].max()
-test_min_date = test['created_at'].min()
-assert train_max_date < test_min_date, "DATA LEAKAGE DETECTADO: train y test se solapan"
-
-print(f"Train set: {train['created_at'].min()} a {train_max_date}")
-print(f"Test set: {test_min_date} a {test['created_at'].max()}")
-print(f"Gap temporal: {(test_min_date - train_max_date).days} días")
+    return df, encoder
 \end{lstlisting}
 
-\textbf{Resultado esperado:}
+\subsection{Fase 3: Feature Engineering}
 
-$\checkmark$ NO hay data leakage. Todas las features usan solo información disponible al momento de la transacción.
+Esta fase constituye el núcleo técnico del desarrollo del modelo. Se generan al menos 15 features comportamentales con técnicas rigurosas de prevención de data leakage temporal.
 
-\subsection{Fase 3: Balanceo de clases}
+\subsubsection{Principios de Prevención de Data Leakage}
 
-\textbf{[CONTENIDO A DESARROLLAR]}
+El data leakage temporal ocurre cuando información del futuro se utiliza para predecir eventos pasados. Para prevenirlo, se implementan las siguientes técnicas:
 
-\subsubsection{Problema: Desbalanceo de clases}
-
-Según el análisis del Capítulo 2, el dataset presenta:
-
-\begin{itemize}[leftmargin=2cm]
-    \item \textbf{Clase mayoritaria (no fraude):} [POR COMPLETAR] transacciones ([XX.X\%])
-    \item \textbf{Clase minoritaria (fraude):} [POR COMPLETAR] transacciones ([XX.X\%])
-    \item \textbf{Ratio de desbalanceo:} [POR COMPLETAR]:1 (según análisis del Capítulo 2)
+\begin{itemize}[leftmargin=1.5cm]
+    \item \textbf{closed='left' en rolling windows:} Excluye la transacción actual del cálculo de estadísticas agregadas.
+    \item \textbf{shift(1) para valores históricos:} Desplaza valores para asegurar que solo se utiliza información pasada.
+    \item \textbf{Ordenamiento estricto por timestamp:} Garantiza secuencialidad temporal antes de cualquier operación.
+    \item \textbf{Estadísticas calculadas solo en train:} Los parámetros de normalización se ajustan únicamente en el conjunto de entrenamiento.
 \end{itemize}
 
-\textbf{Impacto del desbalanceo en Random Forest:}
+\subsubsection{Catálogo de Features Comportamentales}
 
-Sin tratamiento del desbalanceo, el modelo puede:
-\begin{itemize}[leftmargin=2cm]
-    \item Sesgar predicciones hacia la clase mayoritaria (predecir "no fraude" para maximizar accuracy)
-    \item Obtener alta accuracy (92\%) pero bajo recall (< 50\%), fallando en detectar fraudes
-    \item Ignorar patrones de la clase minoritaria (fraude)
-\end{itemize}
+La Tabla \ref{tab:catalogo-features} presenta las 17 features comportamentales desarrolladas para el modelo.
 
-\subsubsection{Estrategia de balanceo: SMOTE vs. class\_weight}
+\begin{table}[H]
+\centering
+\caption{Catálogo de features comportamentales (17 features)}
+\label{tab:catalogo-features}
+\footnotesize
+\begin{tabular}{@{}clp{6cm}@{}}
+\toprule
+\textbf{\#} & \textbf{Feature} & \textbf{Descripción} \\
+\midrule
+\multicolumn{3}{l}{\textbf{Features Temporales (4)}} \\
+1 & hora\_del\_dia & Hora del día de la transacción (0-23) \\
+2 & dia\_semana & Día de la semana (0=Lunes, 6=Domingo) \\
+3 & es\_fin\_de\_semana & Indicador binario si es sábado o domingo \\
+4 & es\_horario\_nocturno & Indicador binario si hora entre 00:00-06:00 \\
+\midrule
+\multicolumn{3}{l}{\textbf{Features Frecuenciales (2)}} \\
+5 & tx\_count\_24h & N° transacciones del usuario en últimas 24h \\
+6 & tx\_count\_7d & N° transacciones del usuario en últimos 7 días \\
+\midrule
+\multicolumn{3}{l}{\textbf{Features de Comportamiento de Monto (4)}} \\
+7 & monto\_promedio\_historico & Promedio histórico de monto del usuario \\
+8 & ratio\_monto\_vs\_promedio & Ratio monto actual / promedio histórico \\
+9 & monto\_desviacion\_std & Desviación estándar de montos del usuario \\
+10 & monto\_zscore & Z-score del monto respecto al historial \\
+\midrule
+\multicolumn{3}{l}{\textbf{Features de Velocidad (2)}} \\
+11 & tiempo\_desde\_ultima\_tx & Segundos desde última transacción \\
+12 & velocidad\_transaccional & Transacciones por hora (últimas 24h) \\
+\midrule
+\multicolumn{3}{l}{\textbf{Features de Perfil de Usuario (2)}} \\
+13 & es\_usuario\_nuevo & Indicador si usuario tiene < 5 transacciones \\
+14 & antiguedad\_usuario\_dias & Días desde primera transacción del usuario \\
+\midrule
+\multicolumn{3}{l}{\textbf{Features Geográficas (1)}} \\
+15 & cambio\_pais\_ip & Indicador de cambio de país respecto a última tx \\
+\midrule
+\multicolumn{3}{l}{\textbf{Features de Canal (2)}} \\
+16 & canal\_web & Indicador binario si canal es Web \\
+17 & canal\_movil & Indicador binario si canal es App Móvil \\
+\bottomrule
+\end{tabular}
+\end{table}
 
-\textbf{[CONTENIDO A DESARROLLAR - COMPARACIÓN]}
+\subsubsection{Implementación de Features con Prevención de Data Leakage}
 
-\begin{longtable}{|p{3.5cm}|p{5cm}|p{5cm}|}
-\hline
-\rowcolor{headerblue}
-\textcolor{white}{\textbf{Criterio}} &
-\textcolor{white}{\textbf{SMOTE (Oversampling)}} &
-\textcolor{white}{\textbf{class\_weight='balanced'}} \\
-\hline
-\endfirsthead
+\begin{lstlisting}[style=python, caption=Feature Engineering con prevención de data leakage]
+import pandas as pd
+import numpy as np
 
-\hline
-\rowcolor{headerblue}
-\textcolor{white}{\textbf{Criterio}} &
-\textcolor{white}{\textbf{SMOTE}} &
-\textcolor{white}{\textbf{class\_weight}} \\
-\hline
-\endhead
+def create_behavioral_features(df):
+    """
+    Crea features comportamentales con prevencion de data leakage.
+    IMPORTANTE: df debe estar ordenado por created_at ASC.
+    """
+    # Asegurar ordenamiento temporal
+    df = df.sort_values('created_at').reset_index(drop=True)
 
-\textbf{Concepto} &
-Genera sintéticamente transacciones fraudulentas interpolando entre ejemplos reales &
-Ajusta pesos de las clases en la función de pérdida de Random Forest \\
-\hline
+    # === Features Temporales ===
+    df['hora_del_dia'] = df['created_at'].dt.hour
+    df['dia_semana'] = df['created_at'].dt.dayofweek
+    df['es_fin_de_semana'] = df['dia_semana'].isin([5, 6]).astype(int)
+    df['es_horario_nocturno'] = df['hora_del_dia'].between(0, 6).astype(int)
 
-\textbf{Ventajas} &
-- Aumenta variabilidad de clase minoritaria\newline
-- Puede mejorar recall significativamente &
-- No aumenta tamaño del dataset\newline
-- Más rápido (no genera datos) \\
-\hline
+    # === Features Frecuenciales (por usuario) ===
+    # CRITICO: closed='left' excluye transaccion actual
+    df['tx_count_24h'] = df.groupby('user_id')['created_at'].transform(
+        lambda x: x.rolling('24H', closed='left').count()
+    ).fillna(0)
 
-\textbf{Desventajas} &
-- Puede generar overfitting si k-neighbors muy pequeño\newline
-- Aumenta tiempo de entrenamiento &
-- Menos control sobre ratio final\newline
-- Puede ser insuficiente si desbalanceo es extremo \\
-\hline
+    df['tx_count_7d'] = df.groupby('user_id')['created_at'].transform(
+        lambda x: x.rolling('7D', closed='left').count()
+    ).fillna(0)
 
-\textbf{Aplicabilidad} &
-Recomendado si ratio < 10:1 &
-Recomendado si ratio 10:1 a 20:1 \\
-\hline
+    # === Features de Comportamiento de Monto ===
+    # CRITICO: shift(1) para usar solo valores pasados
+    df['monto_promedio_historico'] = df.groupby('user_id')['amount'].transform(
+        lambda x: x.expanding().mean().shift(1)
+    ).fillna(df['amount'].median())
 
-\rowcolor{lightgreen}
-\textbf{Decisión} &
-\textbf{$\checkmark$ SELECCIONADO (ratio 12.9:1)} &
-Alternativa si SMOTE falla \\
-\hline
+    df['ratio_monto_vs_promedio'] = (
+        df['amount'] / df['monto_promedio_historico']
+    ).clip(upper=10)  # Limitar ratios extremos
 
-\end{longtable}
+    df['monto_desviacion_std'] = df.groupby('user_id')['amount'].transform(
+        lambda x: x.expanding().std().shift(1)
+    ).fillna(df['amount'].std())
 
-\textbf{Justificación de selección de SMOTE:}
+    # Z-score del monto
+    df['monto_zscore'] = np.where(
+        df['monto_desviacion_std'] > 0,
+        (df['amount'] - df['monto_promedio_historico']) / df['monto_desviacion_std'],
+        0
+    )
 
-El ratio de 12.9:1 está en el límite donde SMOTE es efectivo. Según Dal Pozzolo et al. (2015), SMOTE mejora recall en 15-25\% en datasets de fraude con ratio 10:1 a 20:1.
+    # === Features de Velocidad ===
+    df['tiempo_desde_ultima_tx'] = df.groupby('user_id')['created_at'].transform(
+        lambda x: x.diff().dt.total_seconds()
+    ).fillna(86400 * 30)  # Default: 30 dias para primera tx
 
-\subsubsection{Implementación de SMOTE}
+    df['velocidad_transaccional'] = df['tx_count_24h'] / 24.0
 
-\begin{lstlisting}[caption={Balanceo con SMOTE}]
+    # === Features de Perfil de Usuario ===
+    df['tx_count_historico'] = df.groupby('user_id').cumcount()
+    df['es_usuario_nuevo'] = (df['tx_count_historico'] < 5).astype(int)
+
+    primera_tx = df.groupby('user_id')['created_at'].transform('min')
+    df['antiguedad_usuario_dias'] = (
+        df['created_at'] - primera_tx
+    ).dt.total_seconds() / 86400
+
+    return df
+\end{lstlisting}
+
+\subsubsection{Validación de Features Generadas}
+
+\begin{table}[H]
+\centering
+\caption{Estadísticas descriptivas de features generadas}
+\label{tab:features-estadisticas}
+\begin{tabular}{@{}lrrrr@{}}
+\toprule
+\textbf{Feature} & \textbf{Media} & \textbf{Std} & \textbf{Min} & \textbf{Max} \\
+\midrule
+hora\_del\_dia              & [TAREA] & [TAREA] & 0    & 23 \\
+tx\_count\_24h              & [TAREA] & [TAREA] & 0    & [TAREA] \\
+tx\_count\_7d               & [TAREA] & [TAREA] & 0    & [TAREA] \\
+ratio\_monto\_vs\_promedio  & [TAREA] & [TAREA] & 0    & 10 \\
+monto\_zscore               & [TAREA] & [TAREA] & [TAREA] & [TAREA] \\
+tiempo\_desde\_ultima\_tx   & [TAREA] & [TAREA] & 0    & [TAREA] \\
+velocidad\_transaccional    & [TAREA] & [TAREA] & 0    & [TAREA] \\
+antiguedad\_usuario\_dias   & [TAREA] & [TAREA] & 0    & [TAREA] \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Fase 4: Partición Temporal del Dataset}
+
+La partición temporal garantiza que el modelo será evaluado en datos futuros no vistos durante el entrenamiento.
+
+\begin{lstlisting}[style=python, caption=Partición temporal del dataset]
+def temporal_split(df):
+    """
+    Particion temporal estricta del dataset.
+    Train: Ene-Jun 2025 (50%)
+    Validation: Jul-Ago 2025 (17%)
+    Test: Sep-Dic 2025 (33%)
+    """
+    # Definir fechas de corte
+    train_end = '2025-06-30 23:59:59'
+    val_end = '2025-08-31 23:59:59'
+
+    # Particionar
+    train = df[df['created_at'] <= train_end].copy()
+    val = df[(df['created_at'] > train_end) &
+             (df['created_at'] <= val_end)].copy()
+    test = df[df['created_at'] > val_end].copy()
+
+    return train, val, test
+\end{lstlisting}
+
+\begin{table}[H]
+\centering
+\caption{Resultado de la partición temporal}
+\label{tab:particion-resultado}
+\begin{tabular}{@{}lrrrrr@{}}
+\toprule
+\textbf{Conjunto} & \textbf{N° Trans.} & \textbf{\%} & \textbf{N° Fraudes} & \textbf{Tasa Fraude} \\
+\midrule
+Training (Ene-Jun)   & 7.835.756  & 50,00\% & [TAREA] & [TAREA] \\
+Validation (Jul-Ago) & 2.664.157  & 17,00\% & [TAREA] & [TAREA] \\
+Test (Sep-Dic)       & 5.171.599  & 33,00\% & [TAREA] & [TAREA] \\
+\midrule
+\textbf{Total}       & \textbf{15.671.512} & \textbf{100\%} & [TAREA] & [TAREA] \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Fase 5: Balanceo de Clases}
+
+El desbalanceo de clases es un problema inherente en detección de fraude. Se implementa SMOTE (Synthetic Minority Over-sampling Technique) para generar muestras sintéticas de la clase minoritaria.
+
+\begin{lstlisting}[style=python, caption=Balanceo de clases mediante SMOTE]
 from imblearn.over_sampling import SMOTE
 
-# Aplicar SMOTE SOLO en train set (NO en test)
-smote = SMOTE(sampling_strategy=0.5, k_neighbors=5, random_state=42)
-# sampling_strategy=0.5 significa 50% de la clase mayoritaria (ratio final 2:1)
+def balance_classes(X_train, y_train, sampling_strategy=0.5):
+    """
+    Aplica SMOTE para balancear clases.
+    sampling_strategy=0.5 genera ratio 1:2 (fraude:no_fraude)
+    """
+    smote = SMOTE(
+        sampling_strategy=sampling_strategy,
+        k_neighbors=5,
+        random_state=42
+    )
 
-X_train_balanced, y_train_balanced = smote.fit_resample(X_train, y_train)
+    X_train_balanced, y_train_balanced = smote.fit_resample(
+        X_train, y_train
+    )
 
-# Verificar balanceo
-print(f"Antes SMOTE: {y_train.value_counts()}")
-print(f"Despues SMOTE: {pd.Series(y_train_balanced).value_counts()}")
+    return X_train_balanced, y_train_balanced
 \end{lstlisting}
 
-\textbf{Resultado esperado:}
+\begin{table}[H]
+\centering
+\caption{Resultado del balanceo de clases}
+\label{tab:balanceo-resultado}
+\begin{tabular}{@{}lrr@{}}
+\toprule
+\textbf{Métrica} & \textbf{Antes SMOTE} & \textbf{Después SMOTE} \\
+\midrule
+N° transacciones clase 0 (No Fraude) & [TAREA] & [TAREA] \\
+N° transacciones clase 1 (Fraude)    & [TAREA] & [TAREA] \\
+Ratio de desbalanceo                 & [TAREA]:1 & [TAREA]:1 \\
+\bottomrule
+\end{tabular}
+\end{table}
 
-\begin{itemize}[leftmargin=2cm]
-    \item Train set ANTES de SMOTE: 7,835,756 tx (7.1\% fraude, ratio 13.1:1)
-    \item Train set DESPUÉS de SMOTE: ~11M tx (33\% fraude, ratio 2:1)
-    \item Incremento sintético: +3.2M transacciones fraudulentas
-\end{itemize}
+\subsection{Fase 6: Entrenamiento y Optimización de Hiperparámetros}
 
-\textbf{IMPORTANTE:} SMOTE se aplica SOLO en train set. Test set y validation set se mantienen sin modificar (datos reales) para evaluar desempeño real del modelo.
+\subsubsection{Configuración del Modelo Random Forest}
 
-\subsection{Fase 4: División temporal del dataset}
-
-\textbf{[CONTENIDO A DESARROLLAR]}
-
-\subsubsection{Estrategia de división temporal}
-
-\textbf{Justificación metodológica (Sampieri, 2014):}
-
-En estudios cuantitativos con datos temporales, la validación debe respetar el orden cronológico para evitar data leakage y garantizar que el modelo NO use información futura para predecir el pasado.
-
-\textbf{División propuesta:}
-
-\begin{longtable}{|p{3cm}|p{3cm}|p{3cm}|p{3cm}|p{3cm}|}
-\hline
-\rowcolor{headerblue}
-\textcolor{white}{\textbf{Conjunto}} &
-\textcolor{white}{\textbf{Periodo}} &
-\textcolor{white}{\textbf{N transacciones}} &
-\textcolor{white}{\textbf{Tasa fraude}} &
-\textcolor{white}{\textbf{Uso}} \\
-\hline
-\endfirsthead
-
-\hline
-\rowcolor{headerblue}
-\textcolor{white}{\textbf{Conjunto}} &
-\textcolor{white}{\textbf{Periodo}} &
-\textcolor{white}{\textbf{N tx}} &
-\textcolor{white}{\textbf{Fraude \%}} &
-\textcolor{white}{\textbf{Uso}} \\
-\hline
-\endhead
-
-Train &
-Ene-Jun 2025 &
-7,835,756 (50\%) &
-[POR COMPLETAR]\% &
-Entrenamiento del modelo \\
-\hline
-
-Validation &
-Jul-Ago 2025 &
-2,664,157 (17\%) &
-[POR COMPLETAR]\% &
-Ajuste de hiperparámetros (GridSearch) \\
-\hline
-
-Test &
-Sep-Dic 2025 &
-5,171,599 (33\%) &
-[POR COMPLETAR]\% &
-Evaluación final (métricas reportadas) \\
-\hline
-
-\rowcolor{lightgray}
-\textbf{TOTAL} &
-Gestión 2025 &
-\textbf{15,671,512} &
-[POR COMPLETAR]\% &
-- \\
-\hline
-
-\end{longtable}
-
-\textbf{Ventajas de división temporal estricta:}
-
-\begin{enumerate}[leftmargin=2cm]
-    \item $\checkmark$ Simula escenario real: entrenar con histórico, predecir futuro
-    \item $\checkmark$ Evita data leakage: información futura NO contamina entrenamiento
-    \item $\checkmark$ Valida capacidad de generalización temporal: ¿el modelo sigue siendo efectivo 3 meses después?
-    \item $\checkmark$ Detecta concept drift: si tasa de fraude cambia con el tiempo, el modelo debe adaptarse
-\end{enumerate}
-
-\begin{lstlisting}[caption={División temporal del dataset}]
-# Ordenar por timestamp
-df = df.sort_values('created_at').reset_index(drop=True)
-
-# División temporal
-train = df[df['created_at'] < '2025-07-01']
-val = df[(df['created_at'] >= '2025-07-01') & (df['created_at'] < '2025-09-01')]
-test = df[df['created_at'] >= '2025-09-01']
-
-# Verificar no solapamiento
-assert train['created_at'].max() < val['created_at'].min()
-assert val['created_at'].max() < test['created_at'].min()
-
-# Separar features (X) y target (y)
-X_train, y_train = train.drop('is_fraud', axis=1), train['is_fraud']
-X_val, y_val = val.drop('is_fraud', axis=1), val['is_fraud']
-X_test, y_test = test.drop('is_fraud', axis=1), test['is_fraud']
-\end{lstlisting}
-
-\subsection{Fase 5: Entrenamiento del modelo Random Forest}
-
-\textbf{[CONTENIDO A DESARROLLAR]}
-
-\subsubsection{Configuración inicial del modelo}
-
-\begin{lstlisting}[caption={Entrenamiento inicial de Random Forest}]
+\begin{lstlisting}[style=python, caption=Configuración base del modelo Random Forest]
 from sklearn.ensemble import RandomForestClassifier
-from sklearn.metrics import classification_report, confusion_matrix
-import time
 
-# Configuración inicial (antes de optimización)
-rf_model = RandomForestClassifier(
-    n_estimators=200,          # 200 árboles
-    max_depth=15,              # Profundidad máxima 15
-    min_samples_split=10,      # Mínimo 10 muestras para split
-    min_samples_leaf=5,        # Mínimo 5 muestras en hoja
-    max_features='sqrt',       # sqrt(n_features) en cada split
-    class_weight='balanced',   # Ajuste automático de pesos
-    random_state=42,           # Reproducibilidad
-    n_jobs=-1,                 # Paralelización (todos los cores)
-    verbose=1                  # Mostrar progreso
-)
-
-# Entrenar modelo
-start_time = time.time()
-rf_model.fit(X_train_balanced, y_train_balanced)  # Usar train set con SMOTE
-training_time = time.time() - start_time
-
-print(f"Tiempo de entrenamiento: {training_time/60:.2f} minutos")
+def create_base_model():
+    """
+    Modelo Random Forest base antes de optimizacion.
+    """
+    model = RandomForestClassifier(
+        n_estimators=100,
+        max_depth=15,
+        min_samples_split=5,
+        min_samples_leaf=2,
+        class_weight='balanced',
+        n_jobs=-1,
+        random_state=42
+    )
+    return model
 \end{lstlisting}
 
-\textbf{Justificación de hiperparámetros iniciales:}
+\subsubsection{Grid Search para Optimización de Hiperparámetros}
 
-\begin{itemize}[leftmargin=2cm]
-    \item \texttt{n\_estimators=200}: Según literatura, 100-500 árboles es óptimo (Breiman 2001). 200 balancea precisión y tiempo
-    \item \texttt{max\_depth=15}: Evita overfitting. Árboles muy profundos (>20) memorizan ruido
-    \item \texttt{class\_weight='balanced'}: Complementa SMOTE, asegura que clase minoritaria tenga peso
-    \item \texttt{max\_features='sqrt'}: Reduce correlación entre árboles (mejora bagging)
-\end{itemize}
-
-\subsubsection{Evaluación en validation set}
-
-\begin{lstlisting}[caption={Evaluación preliminar del modelo}]
-# Predecir en validation set
-y_val_pred = rf_model.predict(X_val)
-y_val_proba = rf_model.predict_proba(X_val)[:, 1]  # Probabilidades clase 1 (fraude)
-
-# Métricas de desempeño
-from sklearn.metrics import f1_score, recall_score, precision_score, roc_auc_score
-
-f1_val = f1_score(y_val, y_val_pred)
-recall_val = recall_score(y_val, y_val_pred)
-precision_val = precision_score(y_val, y_val_pred)
-auc_val = roc_auc_score(y_val, y_val_proba)
-
-print(f"F1-Score (Validation): {f1_val:.4f}")
-print(f"Recall (Validation): {recall_val:.4f}")
-print(f"Precision (Validation): {precision_val:.4f}")
-print(f"AUC-ROC (Validation): {auc_val:.4f}")
-\end{lstlisting}
-
-\textbf{Resultados esperados (modelo inicial, sin optimización):}
-
-\begin{itemize}[leftmargin=2cm]
-    \item F1-Score: 0.78-0.82 (por debajo del objetivo 0.85)
-    \item Recall: 0.85-0.88 (cerca del objetivo 0.90)
-    \item Precision: 0.72-0.78 (por debajo del objetivo 0.80)
-    \item AUC-ROC: 0.88-0.91 (cerca del objetivo 0.92)
-\end{itemize}
-
-\textbf{Interpretación:} El modelo inicial muestra desempeño prometedor pero requiere optimización de hiperparámetros para alcanzar los objetivos (F1 $\geq$ 0.85, Recall $\geq$ 0.90, Precision $\geq$ 0.80).
-
-\subsection{Fase 6: Optimización de hiperparámetros}
-
-\textbf{[CONTENIDO A DESARROLLAR]}
-
-\subsubsection{GridSearchCV: Búsqueda exhaustiva de hiperparámetros óptimos}
-
-\begin{lstlisting}[caption={Optimización con GridSearchCV}]
+\begin{lstlisting}[style=python, caption=Optimización mediante Grid Search]
 from sklearn.model_selection import GridSearchCV
 
-# Definir grilla de hiperparámetros
-param_grid = {
-    'n_estimators': [150, 200, 300],
-    'max_depth': [10, 15, 20],
-    'min_samples_split': [5, 10, 15],
-    'min_samples_leaf': [2, 5, 10],
-    'max_features': ['sqrt', 'log2', 0.5]
-}
+def optimize_hyperparameters(X_train, y_train):
+    """
+    Grid Search con validacion cruzada temporal.
+    """
+    param_grid = {
+        'n_estimators': [100, 200, 300],
+        'max_depth': [10, 15, 20, None],
+        'min_samples_split': [2, 5, 10],
+        'min_samples_leaf': [1, 2, 4]
+    }
 
-# GridSearchCV con k-fold=5 (validación cruzada)
-grid_search = GridSearchCV(
-    estimator=RandomForestClassifier(class_weight='balanced', random_state=42, n_jobs=-1),
-    param_grid=param_grid,
-    scoring='f1',  # Optimizar F1-Score
-    cv=5,          # 5-fold cross-validation
-    verbose=2,
-    n_jobs=-1
-)
+    rf = RandomForestClassifier(
+        class_weight='balanced',
+        n_jobs=-1,
+        random_state=42
+    )
 
-# Ejecutar búsqueda (ADVERTENCIA: puede tomar 4-8 horas)
-grid_search.fit(X_train_balanced, y_train_balanced)
+    grid_search = GridSearchCV(
+        estimator=rf,
+        param_grid=param_grid,
+        cv=3,  # 3-fold temporal
+        scoring='f1',
+        n_jobs=-1,
+        verbose=2
+    )
 
-# Mejores hiperparámetros
-best_params = grid_search.best_params_
-best_score = grid_search.best_score_
+    grid_search.fit(X_train, y_train)
 
-print(f"Mejores hiperparámetros: {best_params}")
-print(f"Mejor F1-Score (CV): {best_score:.4f}")
+    return grid_search.best_estimator_, grid_search.best_params_
 \end{lstlisting}
 
-\textbf{Resultados esperados de GridSearch:}
+\begin{table}[H]
+\centering
+\caption{Resultados de optimización de hiperparámetros}
+\label{tab:grid-search-resultado}
+\begin{tabular}{@{}lr@{}}
+\toprule
+\textbf{Hiperparámetro} & \textbf{Valor Óptimo} \\
+\midrule
+n\_estimators       & [TAREA POR DESARROLLAR] \\
+max\_depth          & [TAREA POR DESARROLLAR] \\
+min\_samples\_split & [TAREA POR DESARROLLAR] \\
+min\_samples\_leaf  & [TAREA POR DESARROLLAR] \\
+\midrule
+Combinaciones evaluadas & 108 \\
+Mejor F1-Score (CV)     & [TAREA POR DESARROLLAR] \\
+Tiempo de entrenamiento & [TAREA POR DESARROLLAR] minutos \\
+\bottomrule
+\end{tabular}
+\end{table}
 
-\begin{lstlisting}
-Mejores hiperparámetros: {
-    'n_estimators': 300,
-    'max_depth': 15,
-    'min_samples_split': 10,
-    'min_samples_leaf': 5,
-    'max_features': 'sqrt'
-}
-Mejor F1-Score (CV): 0.8642
+\subsubsection{Entrenamiento del Modelo Final}
+
+\begin{lstlisting}[style=python, caption=Entrenamiento del modelo optimizado]
+def train_final_model(X_train, y_train, best_params):
+    """
+    Entrena modelo final con hiperparametros optimos.
+    """
+    model = RandomForestClassifier(
+        **best_params,
+        class_weight='balanced',
+        n_jobs=-1,
+        random_state=42
+    )
+
+    model.fit(X_train, y_train)
+
+    return model
 \end{lstlisting}
 
-\subsubsection{Modelo final optimizado}
+\subsubsection{Análisis de Importancia de Features}
 
-\begin{lstlisting}[caption={Entrenar modelo final con hiperparámetros óptimos}]
-# Modelo final con hiperparámetros optimizados
-rf_final = RandomForestClassifier(
-    n_estimators=300,
-    max_depth=15,
-    min_samples_split=10,
-    min_samples_leaf=5,
-    max_features='sqrt',
-    class_weight='balanced',
-    random_state=42,
-    n_jobs=-1
-)
+\begin{lstlisting}[style=python, caption=Extracción de importancia de features]
+def get_feature_importance(model, feature_names):
+    """
+    Extrae ranking de importancia de features (criterio Gini).
+    """
+    importance = pd.DataFrame({
+        'feature': feature_names,
+        'importance': model.feature_importances_
+    }).sort_values('importance', ascending=False)
 
-# Entrenar con train set completo
-rf_final.fit(X_train_balanced, y_train_balanced)
-
-# Serializar modelo (guardar en disco)
-import joblib
-joblib.dump(rf_final, 'random_forest_fraud_detection_final.pkl')
+    return importance
 \end{lstlisting}
 
-\subsection{Fase 7: Análisis de Feature Importance}
+\begin{table}[H]
+\centering
+\caption{Top 10 features por importancia (criterio Gini)}
+\label{tab:feature-importance}
+\begin{tabular}{@{}clrr@{}}
+\toprule
+\textbf{Rank} & \textbf{Feature} & \textbf{Importancia} & \textbf{\% Acumulado} \\
+\midrule
+1  & ratio\_monto\_vs\_promedio  & [TAREA] & [TAREA] \\
+2  & monto\_zscore               & [TAREA] & [TAREA] \\
+3  & velocidad\_transaccional    & [TAREA] & [TAREA] \\
+4  & tx\_count\_24h              & [TAREA] & [TAREA] \\
+5  & tiempo\_desde\_ultima\_tx   & [TAREA] & [TAREA] \\
+6  & tx\_count\_7d               & [TAREA] & [TAREA] \\
+7  & antiguedad\_usuario\_dias   & [TAREA] & [TAREA] \\
+8  & hora\_del\_dia              & [TAREA] & [TAREA] \\
+9  & es\_usuario\_nuevo          & [TAREA] & [TAREA] \\
+10 & es\_horario\_nocturno       & [TAREA] & [TAREA] \\
+\bottomrule
+\end{tabular}
+\end{table}
 
-\textbf{[CONTENIDO A DESARROLLAR]}
+\subsection{Fase 7: Evaluación Preliminar en Validation Set}
 
-\subsubsection{Importancia de features según Random Forest}
+Antes de la evaluación final en test set, se realiza una evaluación preliminar en el validation set (Jul-Ago 2025) para verificar la configuración del modelo.
 
-\begin{lstlisting}[caption={Análisis de feature importance}]
-import pandas as pd
+\begin{lstlisting}[style=python, caption=Evaluación en validation set]
+from sklearn.metrics import (classification_report, confusion_matrix,
+                              f1_score, recall_score, precision_score,
+                              roc_auc_score)
+
+def evaluate_on_validation(model, X_val, y_val):
+    """
+    Evaluacion preliminar en validation set.
+    """
+    y_pred = model.predict(X_val)
+    y_proba = model.predict_proba(X_val)[:, 1]
+
+    metrics = {
+        'f1_score': f1_score(y_val, y_pred),
+        'recall': recall_score(y_val, y_pred),
+        'precision': precision_score(y_val, y_pred),
+        'auc_roc': roc_auc_score(y_val, y_proba)
+    }
+
+    return metrics, y_pred, y_proba
+\end{lstlisting}
+
+\begin{table}[H]
+\centering
+\caption{Métricas en Validation Set (Jul-Ago 2025)}
+\label{tab:metrics-validation}
+\begin{tabular}{@{}lrr@{}}
+\toprule
+\textbf{Métrica} & \textbf{Valor Obtenido} & \textbf{Meta (HE3)} \\
+\midrule
+F1-Score   & [TAREA POR DESARROLLAR] & $\geq$ 85\% \\
+Recall     & [TAREA POR DESARROLLAR] & $\geq$ 90\% \\
+Precision  & [TAREA POR DESARROLLAR] & $\geq$ 80\% \\
+AUC-ROC    & [TAREA POR DESARROLLAR] & $\geq$ 0,90 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section{Validación del Modelo}
+
+Esta sección desarrolla la evaluación exhaustiva del modelo en el test set temporal independiente (Sep-Dic 2025), respondiendo al Objetivo Específico 4 y validando la Hipótesis Específica 4 (HE4).
+
+\subsection{Evaluación en Test Set Temporal Independiente}
+
+\begin{lstlisting}[style=python, caption=Evaluación final en test set]
+def evaluate_on_test(model, X_test, y_test):
+    """
+    Evaluacion final en test set temporal independiente.
+    """
+    y_pred = model.predict(X_test)
+    y_proba = model.predict_proba(X_test)[:, 1]
+
+    metrics = {
+        'f1_score': f1_score(y_test, y_pred),
+        'recall': recall_score(y_test, y_pred),
+        'precision': precision_score(y_test, y_pred),
+        'auc_roc': roc_auc_score(y_test, y_proba)
+    }
+
+    return metrics, y_pred, y_proba
+\end{lstlisting}
+
+\begin{table}[H]
+\centering
+\caption{Métricas en Test Set Temporal (Sep-Dic 2025)}
+\label{tab:metrics-test}
+\begin{tabular}{@{}lrrr@{}}
+\toprule
+\textbf{Métrica} & \textbf{Valor Obtenido} & \textbf{Meta (HE4)} & \textbf{Cumple} \\
+\midrule
+F1-Score   & [TAREA POR DESARROLLAR] & 85-90\%     & [TAREA] \\
+Recall     & [TAREA POR DESARROLLAR] & $\geq$ 90\% & [TAREA] \\
+Precision  & [TAREA POR DESARROLLAR] & $\geq$ 80\% & [TAREA] \\
+AUC-ROC    & [TAREA POR DESARROLLAR] & $\geq$ 0,92 & [TAREA] \\
+Tiempo inf.& [TAREA POR DESARROLLAR] & $<$ 200ms   & [TAREA] \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Matriz de Confusión}
+
+\begin{lstlisting}[style=python, caption=Generación de matriz de confusión]
+from sklearn.metrics import confusion_matrix
+import seaborn as sns
 import matplotlib.pyplot as plt
 
-# Extraer importancia de features
-feature_importance = pd.DataFrame({
-    'feature': X_train.columns,
-    'importance': rf_final.feature_importances_
-}).sort_values('importance', ascending=False)
+def plot_confusion_matrix(y_test, y_pred):
+    """
+    Genera matriz de confusion normalizada y absoluta.
+    """
+    cm = confusion_matrix(y_test, y_pred)
 
-# Top 10 features
-print(feature_importance.head(10))
+    # Extraer valores
+    tn, fp, fn, tp = cm.ravel()
 
-# Visualización
-plt.figure(figsize=(10, 6))
-plt.barh(feature_importance['feature'][:10], feature_importance['importance'][:10])
-plt.xlabel('Importancia')
-plt.title('Top 10 Features más Importantes')
-plt.gca().invert_yaxis()
-plt.tight_layout()
-plt.savefig('feature_importance.png', dpi=300)
+    return {
+        'true_negatives': tn,
+        'false_positives': fp,
+        'false_negatives': fn,
+        'true_positives': tp
+    }
 \end{lstlisting}
 
-\textbf{Resultados esperados (Top 10 features):}
-
-\begin{center}
-\begin{tabular}{|l|l|r|}
-\hline
-\rowcolor{headerblue}
-\textcolor{white}{\textbf{Rank}} &
-\textcolor{white}{\textbf{Feature}} &
-\textcolor{white}{\textbf{Importancia}} \\
-\hline
-1 & amount\_z\_score\_user & 0.1842 \\
-\hline
-2 & tx\_frequency\_24h & 0.1521 \\
-\hline
-3 & gateway\_fraud\_rate & 0.1287 \\
-\hline
-4 & time\_since\_last\_tx & 0.0964 \\
-\hline
-5 & is\_outlier\_amount & 0.0821 \\
-\hline
-6 & payment\_channel\_encoded & 0.0745 \\
-\hline
-7 & user\_chargeback\_history & 0.0689 \\
-\hline
-8 & hour\_of\_day & 0.0623 \\
-\hline
-9 & is\_night\_hours & 0.0567 \\
-\hline
-10 & tx\_velocity & 0.0512 \\
-\hline
+\begin{table}[H]
+\centering
+\caption{Matriz de confusión en Test Set}
+\label{tab:confusion-matrix}
+\begin{tabular}{@{}lcc@{}}
+\toprule
+& \textbf{Predicho: No Fraude} & \textbf{Predicho: Fraude} \\
+\midrule
+\textbf{Real: No Fraude} & TN = [TAREA] & FP = [TAREA] \\
+\textbf{Real: Fraude}    & FN = [TAREA] & TP = [TAREA] \\
+\bottomrule
 \end{tabular}
-\end{center}
+\end{table}
 
 \textbf{Interpretación:}
-
-\begin{itemize}[leftmargin=2cm]
-    \item \texttt{amount\_z\_score\_user} (18.4\%): La desviación del monto respecto al comportamiento histórico del usuario es el predictor más importante
-
-    \item \texttt{tx\_frequency\_24h} (15.2\%): Usuarios que realizan muchas transacciones en 24h tienen mayor probabilidad de fraude
-
-    \item \texttt{gateway\_fraud\_rate} (12.9\%): Algunos gateways tienen mayor tasa de fraude (confirmando hallazgos del Cap. 2)
-
-    \item Top 10 features acumulan 78.7\% de la importancia total (Pareto: 20\% de features explican 80\% del desempeño)
+\begin{itemize}[leftmargin=1.5cm]
+    \item \textbf{Verdaderos Positivos (TP):} [TAREA POR DESARROLLAR] fraudes correctamente detectados
+    \item \textbf{Verdaderos Negativos (TN):} [TAREA POR DESARROLLAR] transacciones legítimas correctamente clasificadas
+    \item \textbf{Falsos Positivos (FP):} [TAREA POR DESARROLLAR] transacciones legítimas clasificadas como fraude
+    \item \textbf{Falsos Negativos (FN):} [TAREA POR DESARROLLAR] fraudes no detectados
 \end{itemize}
 
-% ==================================================================================
-% 3.3. VALIDACIÓN DE LA PROPUESTA
-% ==================================================================================
+\subsection{Validación Estadística mediante Bootstrap}
 
-\section{Validación de la propuesta}
+Para proporcionar robustez estadística a las métricas reportadas, se calculan intervalos de confianza al 95\% mediante bootstrap con 1000 muestras.
 
-\textbf{Cumplimiento de OE4 y validación de HE4:}
-
-Esta sección desarrolla el \textbf{Objetivo Específico 4}: \textit{"Evaluar el desempeño del modelo de Machine Learning mediante métricas de clasificación (Precision, Recall, F1-Score, AUC-ROC, tasa de falsos positivos, tiempo de inferencia) aplicadas sobre el test set temporal independiente (33\% del dataset total = 5,171,599 transacciones de Sep-Dic 2025), documentando el desempeño absoluto del modelo y comparándolo con benchmarks de la literatura científica, calculando intervalos de confianza del 95\% mediante bootstrap (1000 muestras)."}
-
-Asimismo, valida la \textbf{Hipótesis Específica 4 (HE4)} y la \textbf{Hipótesis General}: el modelo alcanza F1-Score de 85-90\% en el test set temporal, con Recall $\geq$ 90\%, Precision $\geq$ 80\%, AUC-ROC $\geq$ 0.92 y tiempo de inferencia < 200ms, demostrando desempeño comparable o superior a benchmarks de literatura (Hafez et al. 2025: F1=85-94\%).
-
-\subsection{Validación metodológica}
-
-\textbf{[CONTENIDO A DESARROLLAR]}
-
-\subsubsection{Coherencia con enfoque cuantitativo (Sampieri, 2014)}
-
-\textbf{Checklist de validación metodológica según Hernández Sampieri et al. (2014):}
-
-\begin{longtable}{|p{1cm}|p{5cm}|p{3.5cm}|p{4.5cm}|}
-\hline
-\rowcolor{headerblue}
-\textcolor{white}{\textbf{N°}} &
-\textcolor{white}{\textbf{Criterio}} &
-\textcolor{white}{\textbf{Cumplimiento}} &
-\textcolor{white}{\textbf{Evidencia}} \\
-\hline
-\endfirsthead
-
-\hline
-\rowcolor{headerblue}
-\textcolor{white}{\textbf{N°}} &
-\textcolor{white}{\textbf{Criterio}} &
-\textcolor{white}{\textbf{Cumple}} &
-\textcolor{white}{\textbf{Evidencia}} \\
-\hline
-\endhead
-
-1 &
-\textbf{Variables operacionalizadas} con indicadores medibles &
-$\checkmark$ Sí &
-Sección 2.2.2 (Cap. 2): 12 indicadores cuantificables definidos \\
-\hline
-
-2 &
-\textbf{Hipótesis cuantificables} con valores numéricos específicos &
-$\checkmark$ Sí &
-Hipótesis General: F1 $\geq$ 85\%, Recall $\geq$ 90\%, Precision $\geq$ 80\% \\
-\hline
-
-3 &
-\textbf{Diseño metodológico} apropiado (cuasiexperimental retrospectivo) &
-$\checkmark$ Sí &
-División temporal train/test respeta orden cronológico, sin data leakage \\
-\hline
-
-4 &
-\textbf{Instrumentos de medición} válidos y confiables &
-$\checkmark$ Sí &
-Métricas estándar de ML (F1, Recall, Precision, AUC-ROC) validadas en literatura \\
-\hline
-
-5 &
-\textbf{Muestra representativa} de la población &
-$\checkmark$ Sí &
-Census de gestión 2025 (15.7M transacciones, 98.7\% del total) \\
-\hline
-
-6 &
-\textbf{Análisis estadístico} riguroso &
-$\checkmark$ Sí &
-Métricas con intervalos de confianza 95\% (bootstrap), matriz de confusión, curva ROC \\
-\hline
-
-7 &
-\textbf{Replicabilidad} del estudio &
-$\checkmark$ Sí &
-Código Python documentado en GitHub, dataset sintético disponible, pipeline reproducible \\
-\hline
-
-8 &
-\textbf{Triangulación} metodológica &
-$\checkmark$ Sí &
-Convergencia de 3 instrumentos (Cap. 2): Análisis Documental, EDA, Validación Dataset \\
-\hline
-
-\end{longtable}
-
-\textbf{Conclusión de validación metodológica:}
-
-La propuesta implementada cumple con los 8 criterios de rigor metodológico de Sampieri (2014), garantizando la validez interna y externa de los resultados.
-
-\subsection{Validación técnica}
-
-\subsubsection{Evaluación en test set temporal}
-
-\textbf{[CONTENIDO A DESARROLLAR - RESULTADOS REALES]}
-
-\begin{lstlisting}[caption={Evaluación del modelo final en test set}]
-# Predecir en test set (Sep-Dic 2025)
-y_test_pred = rf_final.predict(X_test)
-y_test_proba = rf_final.predict_proba(X_test)[:, 1]
-
-# Calcular métricas
-from sklearn.metrics import (
-    f1_score, recall_score, precision_score, roc_auc_score,
-    confusion_matrix, classification_report, roc_curve
-)
-
-f1_test = f1_score(y_test, y_test_pred)
-recall_test = recall_score(y_test, y_test_pred)
-precision_test = precision_score(y_test, y_test_pred)
-auc_test = roc_auc_score(y_test, y_test_proba)
-
-# Matriz de confusión
-cm = confusion_matrix(y_test, y_test_pred)
-tn, fp, fn, tp = cm.ravel()
-
-print("="*60)
-print("RESULTADOS FINALES - TEST SET TEMPORAL (Sep-Dic 2025)")
-print("="*60)
-print(f"F1-Score:   {f1_test:.4f} (Objetivo: >= 0.85)")
-print(f"Recall:     {recall_test:.4f} (Objetivo: >= 0.90)")
-print(f"Precision:  {precision_test:.4f} (Objetivo: >= 0.80)")
-print(f"AUC-ROC:    {auc_test:.4f} (Objetivo: >= 0.92)")
-print(f"\nMatriz de Confusión:")
-print(f"  VP (Fraudes detectados): {tp}")
-print(f"  VN (No fraudes correctos): {tn}")
-print(f"  FP (Falsos positivos): {fp}")
-print(f"  FN (Fraudes NO detectados): {fn}")
-\end{lstlisting}
-
-\textbf{Resultados esperados (SIMULADOS - a reemplazar con resultados reales):}
-
-\begin{center}
-\begin{tabular}{|l|r|r|r|}
-\hline
-\rowcolor{headerblue}
-\textcolor{white}{\textbf{Métrica}} &
-\textcolor{white}{\textbf{Valor Obtenido}} &
-\textcolor{white}{\textbf{Objetivo}} &
-\textcolor{white}{\textbf{Cumplimiento}} \\
-\hline
-F1-Score & 0.8721 & $\geq$ 0.85 & $\checkmark$ CUMPLE (+2.5\%) \\
-\hline
-Recall & 0.9147 & $\geq$ 0.90 & $\checkmark$ CUMPLE (+1.6\%) \\
-\hline
-Precision & 0.8329 & $\geq$ 0.80 & $\checkmark$ CUMPLE (+4.1\%) \\
-\hline
-AUC-ROC & 0.9384 & $\geq$ 0.92 & $\checkmark$ CUMPLE (+2.0\%) \\
-\hline
-\rowcolor{lightgreen}
-\multicolumn{3}{|l|}{\textbf{TODAS LAS MÉTRICAS CUMPLEN OBJETIVOS}} & $\checkmark$ \\
-\hline
-\end{tabular}
-\end{center}
-
-\vspace{1em}
-
-\textbf{Matriz de confusión (valores simulados):}
-
-\begin{center}
-\begin{tabular}{cc|c|c|}
-\multicolumn{2}{c}{} & \multicolumn{2}{c}{\textbf{Predicción}} \\
-\cline{3-4}
-\multicolumn{2}{c|}{} & No Fraude & Fraude \\
-\cline{2-4}
-\multirow{2}{*}{\textbf{Real}} & No Fraude & 4,561,234 (TN) & 78,945 (FP) \\
-\cline{2-4}
- & Fraude & 31,428 (FN) & 336,800 (TP) \\
-\cline{2-4}
-\end{tabular}
-\end{center}
-
-\textbf{Interpretación:}
-
-\begin{itemize}[leftmargin=2cm]
-    \item \textbf{TP = 336,800:} Fraudes correctamente detectados (91.5\% del total de fraudes)
-    \item \textbf{FN = 31,428:} Fraudes NO detectados (8.5\%) - \textit{Riesgo residual}
-    \item \textbf{FP = 78,945:} Transacciones legítimas bloqueadas (1.7\% de no fraudes) - \textit{Fricción con usuarios}
-    \item \textbf{TN = 4,561,234:} Transacciones legítimas correctamente aprobadas (98.3\%)
-\end{itemize}
-
-\subsubsection{Comparación con benchmarks de literatura}
-
-\textbf{[CONTENIDO A DESARROLLAR]}
-
-\begin{longtable}{|p{4cm}|p{2.5cm}|p{2.5cm}|p{2.5cm}|p{2.5cm}|}
-\hline
-\rowcolor{headerblue}
-\textcolor{white}{\textbf{Estudio}} &
-\textcolor{white}{\textbf{F1-Score}} &
-\textcolor{white}{\textbf{Recall}} &
-\textcolor{white}{\textbf{Precision}} &
-\textcolor{white}{\textbf{AUC-ROC}} \\
-\hline
-\endfirsthead
-
-\hline
-\rowcolor{headerblue}
-\textcolor{white}{\textbf{Estudio}} &
-\textcolor{white}{\textbf{F1}} &
-\textcolor{white}{\textbf{Recall}} &
-\textcolor{white}{\textbf{Precision}} &
-\textcolor{white}{\textbf{AUC}} \\
-\hline
-\endhead
-
-Hafez et al. (2025) - Random Forest &
-0.85-0.94 &
-0.87-0.93 &
-0.83-0.91 &
-0.92-0.96 \\
-\hline
-
-Hernández Aros et al. (2024) - ML Ensemble &
-0.88-0.92 &
-0.89-0.94 &
-0.85-0.90 &
-0.93-0.97 \\
-\hline
-
-Baesens et al. (2015) - Random Forest &
-0.82-0.89 &
-0.85-0.91 &
-0.79-0.87 &
-0.89-0.94 \\
-\hline
-
-Carcillo et al. (2018) - SCARFF (Spark + RF) &
-0.87-0.91 &
-0.90-0.95 &
-0.84-0.89 &
-0.91-0.95 \\
-\hline
-
-\rowcolor{lightgreen}
-\textbf{ESTE ESTUDIO (TechSport 2025)} &
-\textbf{0.8721} &
-\textbf{0.9147} &
-\textbf{0.8329} &
-\textbf{0.9384} \\
-\hline
-
-\end{longtable}
-
-\textbf{Interpretación de comparación:}
-
-\begin{enumerate}[leftmargin=2cm]
-    \item \textbf{F1-Score (0.8721):} Dentro del rango reportado en literatura (0.82-0.94). Comparable con Carcillo et al. (2018)
-
-    \item \textbf{Recall (0.9147):} Superior al límite inferior de todos los estudios (0.85-0.87), comparable con Hernández Aros et al. (2024)
-
-    \item \textbf{Precision (0.8329):} Ligeramente por debajo del promedio de literatura (0.84-0.87), pero cumple objetivo ($\geq$ 0.80)
-
-    \item \textbf{AUC-ROC (0.9384):} Dentro del rango de literatura (0.89-0.97), comparable con Baesens et al. (2015)
-\end{enumerate}
-
-\textbf{Conclusión:}
-
-El modelo Random Forest implementado alcanza desempeño \textbf{comparable o superior} a benchmarks de literatura científica, validando la hipótesis general de la investigación.
-
-\subsubsection{Intervalo de confianza de métricas (Bootstrap)}
-
-\textbf{[CONTENIDO A DESARROLLAR]}
-
-\begin{lstlisting}[caption={Cálculo de intervalos de confianza mediante bootstrap}]
+\begin{lstlisting}[style=python, caption=Cálculo de intervalos de confianza bootstrap]
 from sklearn.utils import resample
 import numpy as np
 
-def bootstrap_metric(y_true, y_pred, metric_func, n_iterations=1000, confidence=0.95):
-    """Calcula intervalo de confianza de una métrica mediante bootstrap"""
-    scores = []
-    for i in range(n_iterations):
-        # Resample con reemplazo
-        indices = resample(range(len(y_true)), n_samples=len(y_true), replace=True)
+def bootstrap_confidence_interval(y_true, y_pred, y_proba,
+                                   n_iterations=1000, ci=0.95):
+    """
+    Calcula intervalos de confianza bootstrap para metricas.
+    """
+    metrics_bootstrap = {
+        'f1_score': [],
+        'recall': [],
+        'precision': [],
+        'auc_roc': []
+    }
+
+    n_samples = len(y_true)
+
+    for _ in range(n_iterations):
+        # Resamplear con reemplazo
+        indices = resample(range(n_samples), replace=True)
         y_true_boot = y_true.iloc[indices]
         y_pred_boot = y_pred[indices]
+        y_proba_boot = y_proba[indices]
 
-        # Calcular métrica en muestra bootstrap
-        score = metric_func(y_true_boot, y_pred_boot)
-        scores.append(score)
+        # Calcular metricas
+        metrics_bootstrap['f1_score'].append(
+            f1_score(y_true_boot, y_pred_boot))
+        metrics_bootstrap['recall'].append(
+            recall_score(y_true_boot, y_pred_boot))
+        metrics_bootstrap['precision'].append(
+            precision_score(y_true_boot, y_pred_boot))
+        metrics_bootstrap['auc_roc'].append(
+            roc_auc_score(y_true_boot, y_proba_boot))
 
-    # Calcular percentiles
-    alpha = (1 - confidence) / 2
-    lower = np.percentile(scores, alpha * 100)
-    upper = np.percentile(scores, (1 - alpha) * 100)
+    # Calcular intervalos de confianza
+    alpha = (1 - ci) / 2
+    confidence_intervals = {}
 
-    return np.mean(scores), lower, upper
+    for metric, values in metrics_bootstrap.items():
+        lower = np.percentile(values, alpha * 100)
+        upper = np.percentile(values, (1 - alpha) * 100)
+        confidence_intervals[metric] = (lower, upper)
 
-# Calcular IC para F1-Score
-f1_mean, f1_lower, f1_upper = bootstrap_metric(y_test, y_test_pred, f1_score)
-print(f"F1-Score: {f1_mean:.4f} [IC 95%: {f1_lower:.4f} - {f1_upper:.4f}]")
+    return confidence_intervals
 \end{lstlisting}
 
-\textbf{Resultados (simulados):}
-
-\begin{center}
-\begin{tabular}{|l|r|r|r|}
-\hline
-\rowcolor{headerblue}
-\textcolor{white}{\textbf{Métrica}} &
-\textcolor{white}{\textbf{Media}} &
-\textcolor{white}{\textbf{IC 95\% Inferior}} &
-\textcolor{white}{\textbf{IC 95\% Superior}} \\
-\hline
-F1-Score & 0.8721 & 0.8645 & 0.8798 \\
-\hline
-Recall & 0.9147 & 0.9074 & 0.9221 \\
-\hline
-Precision & 0.8329 & 0.8241 & 0.8417 \\
-\hline
-AUC-ROC & 0.9384 & 0.9312 & 0.9456 \\
-\hline
+\begin{table}[H]
+\centering
+\caption{Intervalos de confianza bootstrap (95\%, 1000 muestras)}
+\label{tab:bootstrap-ci}
+\begin{tabular}{@{}lrrr@{}}
+\toprule
+\textbf{Métrica} & \textbf{IC 95\% Inferior} & \textbf{Valor Puntual} & \textbf{IC 95\% Superior} \\
+\midrule
+F1-Score   & [TAREA] & [TAREA] & [TAREA] \\
+Recall     & [TAREA] & [TAREA] & [TAREA] \\
+Precision  & [TAREA] & [TAREA] & [TAREA] \\
+AUC-ROC    & [TAREA] & [TAREA] & [TAREA] \\
+\bottomrule
 \end{tabular}
-\end{center}
+\end{table}
 
-\textbf{Interpretación:}
+\subsection{Curva ROC y AUC}
 
-Los intervalos de confianza del 95\% indican que:
-\begin{itemize}[leftmargin=2cm]
-    \item Con 95\% de probabilidad, el F1-Score del modelo está entre 0.8645 y 0.8798 (ambos > 0.85 = objetivo)
-    \item Todos los límites inferiores de IC cumplen con los objetivos de la investigación
-    \item Los intervalos son relativamente estrechos (< 0.02 de amplitud), confirmando estabilidad del modelo
-\end{itemize}
+[TAREA POR DESARROLLAR: Figura de curva ROC con AUC calculado, comparación con línea de clasificador aleatorio (diagonal)]
 
-\subsubsection{Tiempo de inferencia}
+\subsection{Análisis de Tiempos de Inferencia}
 
-\textbf{[CONTENIDO A DESARROLLAR]}
-
-\begin{lstlisting}[caption={Medición de tiempo de inferencia}]
+\begin{lstlisting}[style=python, caption=Medición de tiempos de inferencia]
 import time
-import numpy as np
 
-# Muestra aleatoria de 10,000 transacciones
-sample_indices = np.random.choice(len(X_test), size=10000, replace=False)
-X_sample = X_test.iloc[sample_indices]
+def measure_inference_time(model, X_test, n_iterations=100):
+    """
+    Mide tiempo de inferencia promedio y percentil 95.
+    """
+    times = []
 
-# Medir tiempo de predicción
-start_time = time.time()
-predictions = rf_final.predict(X_sample)
-end_time = time.time()
+    for _ in range(n_iterations):
+        start = time.perf_counter()
+        _ = model.predict(X_test.sample(n=1))
+        end = time.perf_counter()
+        times.append((end - start) * 1000)  # Convertir a ms
 
-# Calcular tiempo promedio por transacción
-total_time = (end_time - start_time) * 1000  # Convertir a milisegundos
-avg_time_per_tx = total_time / len(X_sample)
-
-print(f"Tiempo total: {total_time:.2f} ms")
-print(f"Tiempo promedio por transacción: {avg_time_per_tx:.4f} ms")
-print(f"Transacciones por segundo: {1000/avg_time_per_tx:.0f}")
+    return {
+        'mean_ms': np.mean(times),
+        'std_ms': np.std(times),
+        'p95_ms': np.percentile(times, 95),
+        'max_ms': np.max(times)
+    }
 \end{lstlisting}
 
-\textbf{Resultado esperado:}
+\begin{table}[H]
+\centering
+\caption{Análisis de tiempos de inferencia}
+\label{tab:inference-time}
+\begin{tabular}{@{}lrr@{}}
+\toprule
+\textbf{Métrica} & \textbf{Valor} & \textbf{Meta} \\
+\midrule
+Tiempo promedio   & [TAREA POR DESARROLLAR] ms & $<$ 200 ms \\
+Desviación estándar & [TAREA POR DESARROLLAR] ms & --- \\
+Percentil 95      & [TAREA POR DESARROLLAR] ms & $<$ 200 ms \\
+Tiempo máximo     & [TAREA POR DESARROLLAR] ms & --- \\
+\bottomrule
+\end{tabular}
+\end{table}
 
-\begin{itemize}[leftmargin=2cm]
-    \item Tiempo total: 342.18 ms
-    \item Tiempo promedio por transacción: \textbf{0.0342 ms} (34.2 microsegundos)
-    \item Transacciones por segundo: \textbf{29,240 tx/s}
-\end{itemize}
+\subsection{Comparación con Benchmarks de Literatura Científica}
 
-\textbf{Conclusión:}
+La Tabla \ref{tab:benchmark-comparison} compara el desempeño del modelo desarrollado con benchmarks reportados en literatura científica reciente.
 
-El tiempo de inferencia (0.0342 ms) es \textbf{5,848 veces más rápido} que el objetivo (< 200 ms), demostrando viabilidad para implementación en tiempo real. El modelo puede procesar casi 30,000 transacciones por segundo en hardware estándar (sin GPU).
+\begin{table}[H]
+\centering
+\caption{Comparación con benchmarks de literatura científica}
+\label{tab:benchmark-comparison}
+\footnotesize
+\begin{tabular}{@{}p{3.5cm}lrrr@{}}
+\toprule
+\textbf{Estudio} & \textbf{Algoritmo} & \textbf{F1-Score} & \textbf{Recall} & \textbf{AUC} \\
+\midrule
+\textcite{Hafez2025} & Random Forest & 85-89\% & 82-90\% & 0,88-0,93 \\
+\textcite{HernandezAros2024} & Ensemble & 82-88\% & 80-88\% & 0,85-0,91 \\
+Modelo TechSport (actual) & Random Forest & [TAREA] & [TAREA] & [TAREA] \\
+\bottomrule
+\end{tabular}
+\end{table}
 
-\subsection{Análisis de viabilidad operacional}
+[TAREA POR DESARROLLAR: Análisis de posicionamiento del modelo respecto a benchmarks - si cumple, supera o está por debajo de la literatura]
 
-\textbf{[CONTENIDO A DESARROLLAR - VINCULADO A HE4]}
+\subsection{Análisis de Costos de Errores}
 
-Esta subsección valida el criterio de \textbf{HE4} sobre tiempo de inferencia < 200ms y viabilidad para potencial implementación en producción.
+El análisis de costos traduce las métricas técnicas en impacto económico para TechSport.
 
-\subsubsection{Medición de tiempo de inferencia}
+\begin{table}[H]
+\centering
+\caption{Análisis de costos de errores de clasificación}
+\label{tab:cost-analysis}
+\begin{tabular}{@{}p{4cm}rrrr@{}}
+\toprule
+\textbf{Tipo de Error} & \textbf{N° Casos} & \textbf{Costo Unit.} & \textbf{Costo Total} \\
+\midrule
+Falsos Negativos (fraudes no detectados) & [TAREA] & [TAREA] USD & [TAREA] USD \\
+Falsos Positivos (alertas falsas)        & [TAREA] & [TAREA] USD & [TAREA] USD \\
+\midrule
+\textbf{Costo Total de Errores} & --- & --- & \textbf{[TAREA] USD} \\
+\bottomrule
+\end{tabular}
+\end{table}
 
-\textbf{Objetivo:} Validar que el modelo Random Forest cumple el requisito operacional de HE4: tiempo de inferencia < 200ms por transacción, garantizando viabilidad para potencial implementación en producción.
+\section{Síntesis del Capítulo}
 
-\textbf{Metodología de medición:}
+Este capítulo ha desarrollado los Objetivos Específicos 3 y 4 de la investigación mediante la implementación de un modelo de Machine Learning supervisado basado en Random Forest para la detección de fraude en transacciones de pago digital de TechSport.
 
-[POR COMPLETAR - Procedimiento:
-\begin{enumerate}[leftmargin=2cm]
-    \item Seleccionar muestra aleatoria de 10,000 transacciones del test set
-    \item Medir tiempo de inferencia mediante Python time.time()
-    \item Calcular: (i) tiempo promedio, (ii) percentil 95, (iii) percentil 99
-    \item Verificar: promedio < 200ms (requisito HE4)
-\end{enumerate}]
+\subsection{Logros Técnicos del Desarrollo (OE3)}
 
-\textbf{Resultados esperados:}
+\begin{enumerate}[leftmargin=1.5cm]
+    \item \textbf{Pipeline completo implementado:} Siete fases secuenciales desde extracción hasta evaluación, garantizando reproducibilidad y trazabilidad.
 
-\begin{itemize}[leftmargin=2cm]
-    \item Tiempo promedio de inferencia: [RESULTADO] ms/transacción
-    \item Percentil 95: [RESULTADO] ms (95\% de predicciones más rápidas que este valor)
-    \item Percentil 99: [RESULTADO] ms
-    \item Throughput estimado: [RESULTADO] transacciones/segundo
-\end{itemize}
+    \item \textbf{17 features comportamentales:} Supera el mínimo de 15 features especificado, con técnicas rigurosas de prevención de data leakage temporal.
 
-\textbf{Criterio de aceptación (HE4):}
+    \item \textbf{Balanceo de clases efectivo:} SMOTE aplicado para manejar el desbalanceo inherente en detección de fraude.
 
-\begin{itemize}[leftmargin=2cm]
-    \item $\checkmark$ Tiempo promedio < 200ms: [VALIDAR CUMPLIMIENTO]
-    \item $\checkmark$ Tiempo p95 < 250ms: [VALIDAR CUMPLIMIENTO]
-\end{itemize}
-
-\textbf{Nota metodológica:} El análisis económico (ROI, pérdidas evitadas) NO forma parte de los objetivos ni hipótesis de esta investigación. El enfoque cuantitativo se centra exclusivamente en validación técnica del desempeño del modelo mediante métricas de clasificación.
-
-% ==================================================================================
-% CONCLUSIONES DEL CAPÍTULO 3
-% ==================================================================================
-
-\section*{Conclusiones del Capítulo}
-
-El Capítulo 3 desarrolló la propuesta de solución mediante la implementación de un modelo de Machine Learning supervisado basado en Random Forest, dando cumplimiento al \textbf{Objetivo General} y a los \textbf{Objetivos Específicos 3 y 4}, y validando las \textbf{Hipótesis Específicas 3 y 4} así como la \textbf{Hipótesis General}. Los principales hallazgos vinculados a los objetivos e hipótesis son:
-
-\begin{enumerate}[leftmargin=2cm]
-    \item \textbf{Cumplimiento de OE3 (Desarrollo):} Se implementó pipeline completo incluyendo: (i) preprocesamiento de 15,671,512 transacciones con manejo de valores faltantes y outliers, (ii) feature engineering de 18+ features comportamentales evitando data leakage mediante ventanas temporales hacia atrás, (iii) balanceo de clases mediante SMOTE, (iv) división temporal estricta (Train 50\% Ene-Jun, Validation 17\% Jul-Ago, Test 33\% Sep-Dic), y (v) optimización de hiperparámetros vía GridSearch. Entrenamiento en 7,835,756 transacciones, evaluación en 5,171,599 transacciones (test set temporal).
-
-    \item \textbf{Cumplimiento de OE4 (Evaluación):} [POR COMPLETAR AL FINALIZAR IMPLEMENTACIÓN - Validar que se cumplieron las métricas especificadas en HE4 y Hipótesis General:]
-    \begin{itemize}
-        \item F1-Score: [RESULTADO] vs. objetivo $\geq$ 85\% (Hipótesis General)
-        \item Recall: [RESULTADO] vs. objetivo $\geq$ 90\% (HE3, HE4)
-        \item Precision: [RESULTADO] vs. objetivo $\geq$ 80\% (HE3, HE4)
-        \item AUC-ROC: [RESULTADO] vs. objetivo $\geq$ 0.92 (HE4)
-        \item Tiempo inferencia: [RESULTADO] vs. objetivo < 200ms (HE4)
-        \item Intervalos de confianza 95\% calculados mediante bootstrap (1000 muestras)
-    \end{itemize}
-
-    \item \textbf{Validación de HE4 (Comparación con literatura):} [POR COMPLETAR - El desempeño del modelo debe ser comparable o superior a benchmarks de Hafez et al. (2025): F1=85-94\%, demostrando que Random Forest constituye un marco teórico-técnico sólido para detección de fraude en pagos digitales, validando HE1.]
-
-    \item \textbf{Validación de HE3 (Data leakage):} Todas las features (18+) utilizan exclusivamente información histórica disponible al momento de cada transacción (ventanas temporales hacia atrás), evitando data leakage. División temporal estricta garantiza que test set contiene transacciones futuras no vistas durante entrenamiento.
-
-    \item \textbf{Validación metodológica (Sampieri, 2014):} La propuesta cumple criterios de rigor cuantitativo: variables operacionalizadas (12 indicadores VI, 9 indicadores VD), hipótesis cuantificables (valores numéricos específicos), diseño cuasiexperimental retrospectivo apropiado, instrumentos de medición válidos (métricas estándar ML), muestra representativa (15.7M transacciones = 98.7\% del censo 2025), análisis estadístico riguroso (bootstrap para IC 95\%), replicabilidad (código documentado), y triangulación metodológica (3 instrumentos en Capítulo 2).
+    \item \textbf{Optimización de hiperparámetros:} Grid Search con 108 combinaciones evaluadas para identificar configuración óptima.
 \end{enumerate}
 
-\vspace{0.5cm}
+\subsection{Resultados de Validación (OE4)}
 
-\textbf{Limitación del alcance:} La investigación se limita a validación técnica del modelo mediante métricas de clasificación. NO incluye: (i) análisis económico (ROI, pérdidas evitadas), (ii) implementación en producción, (iii) modelos de deep learning, ni (iv) arquitecturas de detección en tiempo real (streaming). Estas áreas se documentan como trabajo futuro en el Capítulo 4 (Conclusiones y Recomendaciones).
+[TAREA POR DESARROLLAR: Resumen de métricas alcanzadas vs metas de HE4, conclusión sobre cumplimiento de hipótesis]
+
+\subsection{Validación de Hipótesis HE3 y HE4}
+
+\textbf{Hipótesis Específica 3 (HE3):} \textit{``Un modelo de Random Forest, entrenado con dataset balanceado y al menos 15 features comportamentales, clasifica transacciones fraudulentas en el validation set temporal (Jul-Ago 2025) con Recall $\geq$90\%, Precision $\geq$80\% y AUC-ROC $\geq$0,90''.}
+
+[TAREA POR DESARROLLAR: Validación explícita de HE3 con valores obtenidos]
+
+\textbf{Hipótesis Específica 4 (HE4):} \textit{``El modelo alcanza en el test set temporal independiente (Sep-Dic 2025, n=5.171.599 transacciones): F1-Score 85-90\%, Recall $\geq$90\%, Precision $\geq$80\%, AUC-ROC $\geq$0,92, tiempo de inferencia $<$200ms. Los intervalos de confianza del 95\% calculados mediante bootstrap confirman la robustez estadística de las métricas''.}
+
+[TAREA POR DESARROLLAR: Validación explícita de HE4 con valores obtenidos e intervalos de confianza]
+
+\subsection{Transición al Capítulo de Conclusiones}
+
+Los resultados presentados en este capítulo proporcionan la base empírica para las conclusiones y recomendaciones del estudio. El Capítulo 4 sintetizará los hallazgos principales, contrastándolos con los objetivos planteados, formulará recomendaciones técnicas y organizacionales, y discutirá las limitaciones y contribuciones de la investigación.
+
+\cleardoublepage
